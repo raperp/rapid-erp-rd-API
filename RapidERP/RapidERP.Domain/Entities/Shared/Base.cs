@@ -5,7 +5,7 @@ using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Entities.ModuleModels;
 using RapidERP.Domain.Entities.StatusTypeModels;
 
-namespace RapidERP.Domain.Entities;
+namespace RapidERP.Domain.Entities.Shared;
 public class Base : Master
 {
     public Client Client { get; set; }
