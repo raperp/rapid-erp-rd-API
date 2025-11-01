@@ -11,4 +11,6 @@ public static class ResponseMessage
     public const string NoRecordFound = "No Record Found";
     public const string RecordExists = "Record exists already. Try with a different one please";
     public const string WrongDataInput = "Wrong Data Entered";
+    public const string FetchSuccess = "Fetched All Data Successfully";
+    public const string FetchSuccessWithPagination = "Fetched All Paginated Data Successfully";
 }
