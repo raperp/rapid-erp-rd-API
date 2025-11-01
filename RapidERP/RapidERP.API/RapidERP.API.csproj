@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
@@ -17,10 +17,6 @@
   <ItemGroup>
     <ProjectReference Include="..\RapidERP.Application\RapidERP.Application.csproj" />
     <ProjectReference Include="..\RapidERP.Infrastructure\RapidERP.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

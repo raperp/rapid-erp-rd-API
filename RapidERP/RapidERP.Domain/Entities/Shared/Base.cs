@@ -1,6 +1,5 @@
 ﻿using RapidERP.Domain.Entities.ActionTypeModels;
 using RapidERP.Domain.Entities.ClientModels;
-using RapidERP.Domain.Entities.DocumentTypeModels;
 using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Entities.ModuleModels;
 using RapidERP.Domain.Entities.StatusTypeModels;
@@ -12,7 +11,7 @@ public class Base : Master
     public int ClientId { get; set; }
     public Module Module { get; set; }
     public int ModuleId { get; set; }
-    public DocumentType DocumentType { get; set; }
+    //public DocumentType DocumentType { get; set; }
     public int DocumentTypeId { get; set; }
     public ActionType ActionType { get; set; }
     public int ActionTypeId { get; set; }

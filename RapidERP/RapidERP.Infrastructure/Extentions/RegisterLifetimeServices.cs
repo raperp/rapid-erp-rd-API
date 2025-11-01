@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using RapidERP.Application.Interfaces;
+using RapidERP.Infrastructure.Services;
 
 namespace RapidERP.Infrastructure.Extentions;
 public static class RegisterLifetimeServices
@@ -9,7 +11,7 @@ public static class RegisterLifetimeServices
         //services.AddScoped<IActionType, ActionTypeService>();
         //services.AddScoped<IExportMediaService, ExportMediaService>();
         //services.AddScoped<IDocumentTypeService, DocumentTypeService>();
-        //services.AddScoped<ILanguage, LanguageService>();
+        services.AddScoped<ILanguage, LanguageService>();
         //services.AddScoped<ILanguageLocalization, LanguageLocalizationService>();
         //services.AddScoped<IOrganization, OrganizationService>();
         //services.AddScoped<ICurrency, CurrencyService>();
