@@ -1,4 +1,4 @@
-﻿using RapidERP.Application.DTOs.LanguageDTO;
+﻿using RapidERP.Application.DTOs.LanguageDTOs;
 using RapidERP.Domain.Utilities;
 
 namespace RapidERP.Application.Interfaces;

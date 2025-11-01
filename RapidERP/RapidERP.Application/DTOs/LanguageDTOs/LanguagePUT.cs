@@ -1,6 +1,6 @@
 ﻿using RapidERP.Application.DTOs.Shared;
 
-namespace RapidERP.Application.DTOs.LanguageDTO;
+namespace RapidERP.Application.DTOs.LanguageDTOs;
 public class LanguagePUT : TrackerDTO
 {
     public int Id { get; set; }

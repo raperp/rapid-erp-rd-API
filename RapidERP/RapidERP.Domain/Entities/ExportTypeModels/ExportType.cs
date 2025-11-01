@@ -1,7 +1,7 @@
 ﻿using RapidERP.Domain.Entities.Shared;
 
-namespace RapidERP.Domain.Entities.ActionTypeModels;
-public class ActionType : MasterBase
+namespace RapidERP.Domain.Entities.ExportTypeModels;
+public class ExportType : MasterBase
 {
     public string Description { get; set; }
 }

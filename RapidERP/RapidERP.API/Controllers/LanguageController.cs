@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RapidERP.Application.DTOs.LanguageDTO;
+using RapidERP.Application.DTOs.LanguageDTOs;
 using RapidERP.Application.Interfaces;
 
 namespace RapidERP.API.Controllers;
@@ -30,9 +30,9 @@ public class LanguageController(ILanguage language) : ControllerBase
     }
 
     [HttpPost("CreateSingle")]
-    public async Task<IActionResult> CreateSingle(LanguagePOST languagePOST)
+    public async Task<IActionResult> CreateSingle(LanguagePOST masterPOST)
     {
-        var result = await language.CreateSingle(languagePOST);
+        var result = await language.CreateSingle(masterPOST);
         return Ok(result);
     }
 

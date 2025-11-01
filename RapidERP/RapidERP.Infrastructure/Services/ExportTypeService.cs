@@ -1,19 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RapidERP.Application.DTOs.LanguageDTOs;
+using RapidERP.Application.DTOs.ExportTypeDTOs;
 using RapidERP.Application.Interfaces;
-using RapidERP.Domain.Entities.LanguageModels;
+using RapidERP.Domain.Entities.ExportTypeModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
-using System.Xml.Linq;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RapidERP.Infrastructure.Services;
-#nullable enable
-public class LanguageService(RapidERPDbContext context) : ILanguage
+public class ExportTypeService(RapidERPDbContext context) : IExportType
 {
     RequestResponse? requestResponse { get; set; }
 
-    public async Task<RequestResponse> CreateBulk(List<LanguagePOST> masterPOSTs)
+    public async Task<RequestResponse> CreateBulk(List<ExportTypePOST> masterPOSTs)
     {
         try
         {
@@ -46,39 +43,36 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
         }
     }
 
-    public async Task<RequestResponse> CreateSingle(LanguagePOST masterPOST)
+    public async Task<RequestResponse> CreateSingle(ExportTypePOST masterPOST)
     {
         try
         {
-            var isExists = await context.Languages.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name || x.ISONumeric == masterPOST.ISONumeric || x.ISO2Code == masterPOST.ISO2Code || x.ISO3Code == masterPOST.ISO3Code || x.Icon == masterPOST.Icon);
+            var isExists = await context.Languages.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
 
             if (isExists == false)
             {
-                Language masterData = new();
+                ExportType masterData = new();
                 masterData.Name = masterPOST.Name;
-                masterData.ISONumeric = masterPOST.ISONumeric;
-                masterData.ISO2Code = masterPOST.ISO2Code;
-                masterData.ISO3Code = masterPOST.ISO3Code;
-                masterData.Icon = masterPOST.Icon;
+                masterData.LanguageId = masterPOST.LanguageId;
+                masterData.Description = masterPOST.Description;
                 masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
-                await context.Languages.AddAsync(masterData);
+                await context.ExportTypes.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                LanguageAudit audit = new();
-                audit.LanguageId = masterData.Id;
-                audit.Name = masterPOST.Name;
-                audit.ISONumeric = masterPOST.ISONumeric;
-                audit.ISO2Code = masterPOST.ISO2Code;
-                audit.ISO3Code = masterPOST.ISO3Code;
-                audit.Icon = masterPOST.Icon;
-
-                await context.LanguageAudits.AddAsync(audit);
+                ExportTypeAudit audit = new();
+                audit.ExportTypeId = masterData.Id;
+                audit.Name = masterData.Name;
+                audit.Description = masterPOST.Description;
+                
+                await context.ExportTypeAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
 
-                LanguageTracker tracker = new();
-                tracker.LanguageId = masterData.Id;
+                ExportTypeTracker tracker = new();
+                tracker.ExportTypeId = masterData.Id;
+                tracker.ExportTo = masterPOST.ExportTo;
+                tracker.SourceURL = masterPOST.SourceURL;
                 tracker.Browser = masterPOST.Browser;
                 tracker.Location = masterPOST.Location;
                 tracker.DeviceIP = masterPOST.DeviceIP;
@@ -89,7 +83,7 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
                 tracker.ActionBy = masterPOST.ActionBy;
                 tracker.ActionAt = DateTime.Now;
 
-                await context.LanguageTrackers.AddAsync(tracker);
+                await context.ExportTypeTrackers.AddAsync(tracker);
                 await context.SaveChangesAsync();
 
                 requestResponse = new()
@@ -131,10 +125,10 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
     {
         try
         {
-            var isExists = await context.Languages.AsNoTracking().AnyAsync(x => x.Id == id);
-            var isLanguageAuditExists = await context.LanguageAudits.AsNoTracking().AnyAsync(x => x.LanguageId == id);
-            var isLanguageTrackerExists = await context.LanguageTrackers.AsNoTracking().AnyAsync(x => x.LanguageId == id);
-            
+            var isExists = await context.ExportTypes.AsNoTracking().AnyAsync(x => x.Id == id);
+            var isLanguageAuditExists = await context.ExportTypeAudits.AsNoTracking().AnyAsync(x => x.ExportTypeId == id);
+            var isLanguageTrackerExists = await context.ExportTypeTrackers.AsNoTracking().AnyAsync(x => x.ExportTypeId == id);
+
             if (isExists == false || isLanguageAuditExists == false || isLanguageTrackerExists == false)
             {
                 requestResponse = new()
@@ -147,9 +141,9 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
 
             else
             {
-                await context.Languages.Where(x => x.Id == id).ExecuteDeleteAsync();
-                await context.LanguageAudits.Where(x => x.LanguageId == id).ExecuteDeleteAsync();
-                await context.LanguageTrackers.Where(x => x.LanguageId == id).ExecuteDeleteAsync();
+                await context.ExportTypes.Where(x => x.Id == id).ExecuteDeleteAsync();
+                await context.ExportTypeAudits.Where(x => x.ExportTypeId == id).ExecuteDeleteAsync();
+                await context.ExportTypeTrackers.Where(x => x.ExportTypeId == id).ExecuteDeleteAsync();
             }
 
             requestResponse = new()
@@ -179,8 +173,8 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
     {
         try
         {
-            var data = context.Languages.AsNoTracking().AsQueryable();
-            
+            var data = context.ExportTypes.AsNoTracking().AsQueryable();
+
             if (skip == 0 || take == 0)
             {
                 var result = await data.ToListAsync();
@@ -227,8 +221,8 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
     {
         try
         {
-            var data = context.LanguageAudits
-                .Select(x => new { x.ISO2Code, x.ISO3Code, x.ISONumeric, x.Icon, x.Name, Language = x.Language.Name })
+            var data = context.ExportTypeAudits
+                .Select(x => new { x.Name, x.Description, ExportType = x.ExportType.Name })
                 .AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -277,7 +271,7 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
     {
         try
         {
-            var data = await context.Languages.Where(x => x.Id == id).AsNoTracking().ToListAsync();
+            var data = await context.ExportTypes.Where(x => x.Id == id).AsNoTracking().ToListAsync();
 
             requestResponse = new()
             {
@@ -302,34 +296,31 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
             return requestResponse;
         }
     }
-     
-    public async Task<RequestResponse> Update(LanguagePUT masterPUT)
+
+    public async Task<RequestResponse> Update(ExportTypePUT masterPUT)
     {
         try
         {
-            var isExists = await context.Languages.AsNoTracking().AnyAsync(x => (x.Name == masterPUT.Name || x.ISONumeric == masterPUT.ISONumeric || x.ISO2Code == masterPUT.ISO2Code || x.ISO3Code == masterPUT.ISO3Code || x.Icon == masterPUT.Icon) && x.Id != masterPUT.Id);
+            var isExists = await context.ExportTypes.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
 
             if (isExists == false)
             {
-                await context.Languages.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
+                await context.ExportTypes.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
-                .SetProperty(x => x.ISO2Code, masterPUT.ISO2Code)
-                .SetProperty(x => x.ISO3Code, masterPUT.ISO3Code)
-                .SetProperty(x => x.ISONumeric, masterPUT.ISONumeric)
-                .SetProperty(x => x.Icon, masterPUT.Icon)
+                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                .SetProperty(x => x.Description, masterPUT.Description)
                 .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
-                
-                await context.LanguageAudits.Where(x => x.Id == masterPUT.LanguageAuditId).ExecuteUpdateAsync(x => x
-                 .SetProperty(x => x.LanguageId, masterPUT.Id)
-                 .SetProperty(x => x.Name, masterPUT.Name)
-                .SetProperty(x => x.ISO2Code, masterPUT.ISO2Code)
-                .SetProperty(x => x.ISO3Code, masterPUT.ISO3Code)
-                .SetProperty(x => x.ISONumeric, masterPUT.ISONumeric)
-                .SetProperty(x => x.Icon, masterPUT.Icon));
 
-                await context.LanguageTrackers.Where(x => x.Id == masterPUT.LanguageTrackerId).ExecuteUpdateAsync(x => x
-                 .SetProperty(x => x.LanguageId, masterPUT.Id)
+                await context.ExportTypeAudits.Where(x => x.Id == masterPUT.ExportTypeAuditId).ExecuteUpdateAsync(x => x
+                 .SetProperty(x => x.ExportTypeId, masterPUT.Id)
+                 .SetProperty(x => x.Description, masterPUT.Description)
+                 .SetProperty(x => x.Name, masterPUT.Name));
+
+                await context.ExportTypeTrackers.Where(x => x.Id == masterPUT.ExportTypeTrackerId).ExecuteUpdateAsync(x => x
+                 .SetProperty(x => x.ExportTypeId, masterPUT.Id)
+                 .SetProperty(x => x.ExportTo, masterPUT.ExportTo)
+                 .SetProperty(x => x.SourceURL, masterPUT.SourceURL)
                  .SetProperty(x => x.Browser, masterPUT.Browser)
                 .SetProperty(x => x.Location, masterPUT.Location)
                 .SetProperty(x => x.DeviceIP, masterPUT.DeviceIP)

@@ -9,7 +9,7 @@ public static class RegisterLifetimeServices
     {
         //services.AddScoped<IStatusType, StatusTypeService>();
         //services.AddScoped<IActionType, ActionTypeService>();
-        //services.AddScoped<IExportMediaService, ExportMediaService>();
+        services.AddScoped<IExportType, ExportTypeService>();
         //services.AddScoped<IDocumentTypeService, DocumentTypeService>();
         services.AddScoped<ILanguage, LanguageService>();
         //services.AddScoped<ILanguageLocalization, LanguageLocalizationService>();
