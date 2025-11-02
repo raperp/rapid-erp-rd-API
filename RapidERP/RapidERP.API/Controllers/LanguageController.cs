@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RapidERP.Application.DTOs.LanguageDTOs;
+using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
+using RapidERP.Domain.Entities.ExportTypeModels;
+using System.Reflection.Metadata;
 
 namespace RapidERP.API.Controllers;
 
@@ -29,10 +32,24 @@ public class LanguageController(ILanguage language) : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet("GetAllExports")]
+    public async Task<IActionResult> GetAllExports(int skip, int take)
+    {
+        var result = await language.GetAllExports(skip, take);
+        return Ok(result);
+    }
+
     [HttpPost("CreateSingle")]
     public async Task<IActionResult> CreateSingle(LanguagePOST masterPOST)
     {
         var result = await language.CreateSingle(masterPOST);
+        return Ok(result);
+    }
+
+    [HttpPost("CreateExport")]
+    public async Task<IActionResult> CreateExport(LanguageExportDTO export)
+    {
+        var result = await language.CreateExport(export);
         return Ok(result);
     }
 

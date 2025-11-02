@@ -1,7 +1,6 @@
 ﻿using RapidERP.Domain.Entities.Shared;
 
 namespace RapidERP.Domain.Entities.LanguageModels;
-
 public class LanguageAudit : Master
 {
     public Language Language { get; set; }

@@ -5,8 +5,8 @@ namespace RapidERP.Domain.Entities.Shared
     public class MasterBase  
     {
         public int Id { get; set; }
-        public Language Language { get; set; }
-        public int LanguageId { get; set; }
+        //public Language Language { get; set; }
+        //public int LanguageId { get; set; }
         public string Name { get; set; }
         public long CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; }

@@ -45,6 +45,43 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
         }
     }
 
+    public async Task<RequestResponse> CreateExport(LanguageExportDTO export)
+    {
+        try
+        {
+            LanguageExport masterData = new();
+            masterData.LanguageId = export.LanguageId;
+            masterData.ExportTypeId = export.ExportTypeId;
+            masterData.ExportTo = export.ExportTo;
+            masterData.SourceURL = export.SourceURL;
+
+            await context.LanguageExports.AddAsync(masterData);
+            await context.SaveChangesAsync();
+
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
+                IsSuccess = true,
+                Message = ResponseMessage.CreateSuccess,
+                Data = export
+            };
+
+            return requestResponse;
+        }
+
+        catch
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
+                IsSuccess = false,
+                Message = ResponseMessage.WrongDataInput
+            };
+
+            return requestResponse;
+        }
+    }
+
     public async Task<RequestResponse> CreateSingle(LanguagePOST masterPOST)
     {
         try
@@ -85,7 +122,7 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
                 tracker.DeviceName = masterPOST.DeviceName;
                 tracker.Latitude = masterPOST.Latitude;
                 tracker.Longitude = masterPOST.Longitude;
-                tracker.ActionBy = masterPOST.ActionBy;
+                tracker.ActionBy = masterPOST.CreatedBy;
                 tracker.ActionAt = DateTime.Now;
 
                 await context.LanguageTrackers.AddAsync(tracker);
@@ -131,10 +168,8 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
         try
         {
             var isExists = await context.Languages.AsNoTracking().AnyAsync(x => x.Id == id);
-            var isLanguageAuditExists = await context.LanguageAudits.AsNoTracking().AnyAsync(x => x.LanguageId == id);
-            var isLanguageTrackerExists = await context.LanguageTrackers.AsNoTracking().AnyAsync(x => x.LanguageId == id);
-            
-            if (isExists == false || isLanguageAuditExists == false || isLanguageTrackerExists == false)
+
+            if (isExists == false)
             {
                 requestResponse = new()
                 {
@@ -147,7 +182,39 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
             else
             {
                 await context.Languages.Where(x => x.Id == id).ExecuteDeleteAsync();
+            }
+
+            var isAuditExists = await context.LanguageAudits.AsNoTracking().AnyAsync(x => x.LanguageId == id);
+
+            if (isAuditExists == false)
+            {
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
+                    IsSuccess = false,
+                    Message = ResponseMessage.NoRecordFound
+                };
+            }
+
+            else
+            {
                 await context.LanguageAudits.Where(x => x.LanguageId == id).ExecuteDeleteAsync();
+            }
+
+            var isTrackerExists = await context.LanguageTrackers.AsNoTracking().AnyAsync(x => x.LanguageId == id);
+            
+            if (isTrackerExists == false)
+            {
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
+                    IsSuccess = false,
+                    Message = ResponseMessage.NoRecordFound
+                };
+            }
+
+            else
+            {
                 await context.LanguageTrackers.Where(x => x.LanguageId == id).ExecuteDeleteAsync();
             }
 
@@ -178,7 +245,27 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
     {
         try
         {
-            var data = context.Languages.AsNoTracking().AsQueryable();
+            //var data = context.Languages.AsNoTracking().AsQueryable();
+            var data = (from l in context.Languages
+                        join lt in context.LanguageTrackers on l.Id equals lt.LanguageId
+                        select new
+                        {
+                            l.Id,
+                            l.Name,
+                            l.ISO2Code,
+                            l.ISO3Code,
+                            l.ISONumeric,
+                            l.Icon,
+                            lt.Browser,
+                            lt.DeviceIP,
+                            lt.DeviceName,
+                            lt.Location,
+                            lt.GoogleMapUrl,
+                            lt.Latitude,
+                            lt.Longitude,
+                            lt.ActionBy,
+                            lt.ActionAt
+                        }).AsNoTracking().AsQueryable();
             
             if (skip == 0 || take == 0)
             {
@@ -228,6 +315,56 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
         {
             var data = context.LanguageAudits
                 .Select(x => new { x.ISO2Code, x.ISO3Code, x.ISONumeric, x.Icon, x.Name, Language = x.Language.Name })
+                .AsNoTracking().AsQueryable();
+
+            if (skip == 0 || take == 0)
+            {
+                var result = await data.ToListAsync();
+
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                    IsSuccess = true,
+                    Message = ResponseMessage.FetchSuccess,
+                    Data = result
+                };
+            }
+
+            else
+            {
+                var result = await data.Skip(skip).Take(take).ToListAsync();
+
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                    IsSuccess = true,
+                    Message = ResponseMessage.FetchSuccessWithPagination,
+                    Data = result
+                };
+            }
+
+            return requestResponse;
+        }
+
+        catch (Exception ex)
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ex.Message
+            };
+
+            return requestResponse;
+        }
+    }
+
+    public async Task<RequestResponse> GetAllExports(int skip, int take)
+    {
+        try
+        {
+            var data = context.LanguageExports
+                .Select(x => new { x.ExportTo, x.SourceURL, ExportType = x.ExportType.Name })
                 .AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -330,7 +467,6 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
                 await context.LanguageAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
 
-                masterPUT.ActionAt = DateTime.Now;
                 LanguageTracker tracker = new();
                 tracker.LanguageId = masterPUT.Id;              
                 tracker.Browser = masterPUT.Browser;
@@ -340,8 +476,8 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
                 tracker.DeviceName = masterPUT.DeviceName;
                 tracker.Latitude = masterPUT.Latitude;
                 tracker.Longitude = masterPUT.Longitude;
-                tracker.ActionBy = masterPUT.ActionBy;
-                tracker.ActionAt = masterPUT.ActionAt;
+                tracker.ActionBy = masterPUT.UpdatedBy;
+                tracker.ActionAt = DateTime.Now;
 
                 await context.LanguageTrackers.AddAsync(tracker);
                 await context.SaveChangesAsync();

@@ -9,6 +9,7 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
     public DbSet<Language> Languages { get; set; }
     public DbSet<LanguageAudit> LanguageAudits { get; set; }
     public DbSet<LanguageTracker> LanguageTrackers { get; set; }
+    public DbSet<LanguageExport> LanguageExports { get; set; }
 
     public DbSet<ExportType> ExportTypes { get; set; }
     public DbSet<ExportTypeAudit> ExportTypeAudits { get; set; }

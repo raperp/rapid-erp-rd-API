@@ -259,7 +259,7 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
                                   ett.Longitude,
                                   ett.ActionAt,
                                   ett.ActionBy
-                              }).AsQueryable();
+                              }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
             {

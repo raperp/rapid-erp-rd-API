@@ -1,13 +1,7 @@
-﻿using RapidERP.Domain.Entities.ExportTypeModels;
-
-namespace RapidERP.Domain.Entities.Shared;
+﻿namespace RapidERP.Domain.Entities.Shared;
 public class Tracker
 {
     public int Id { get; set; }
-    public ExportType ExportType { get; set; }
-    public int ExportTypeId { get; set; }
-    public string ExportTo { get; set; }
-    public string SourceURL { get; set; }
     public string Browser { get; set; }
     public string Location { get; set; }
     public string DeviceIP { get; set; }

@@ -72,9 +72,9 @@ public class ActionTypeService(RapidERPDbContext context) : IActionType
 
                 ActionTypeTracker tracker = new();
                 tracker.ActionTypeId = masterData.Id;
-                tracker.ExportTypeId = masterPOST.ExportTypeId;
-                tracker.ExportTo = masterPOST.ExportTo;
-                tracker.SourceURL = masterPOST.SourceURL;
+                //tracker.ExportTypeId = masterPOST.ExportTypeId;
+                //tracker.ExportTo = masterPOST.ExportTo;
+                //tracker.SourceURL = masterPOST.SourceURL;
                 tracker.Browser = masterPOST.Browser;
                 tracker.Location = masterPOST.Location;
                 tracker.DeviceIP = masterPOST.DeviceIP;
@@ -82,7 +82,7 @@ public class ActionTypeService(RapidERPDbContext context) : IActionType
                 tracker.DeviceName = masterPOST.DeviceName;
                 tracker.Latitude = masterPOST.Latitude;
                 tracker.Longitude = masterPOST.Longitude;
-                tracker.ActionBy = masterPOST.ActionBy;
+                tracker.ActionBy = masterPOST.CreatedBy;
                 tracker.ActionAt = DateTime.Now;
 
                 await context.ActionTypeTrackers.AddAsync(tracker);
@@ -322,12 +322,12 @@ public class ActionTypeService(RapidERPDbContext context) : IActionType
                 await context.ActionTypeAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
 
-                masterPUT.ActionAt = DateTime.Now;
+                 
                 ActionTypeTracker tracker = new();
                 tracker.ActionTypeId = masterPUT.Id;
-                tracker.ExportTypeId = masterPUT.ExportTypeId;
-                tracker.ExportTo = masterPUT.ExportTo;
-                tracker.SourceURL = masterPUT.SourceURL;
+                //tracker.ExportTypeId = masterPUT.ExportTypeId;
+                //tracker.ExportTo = masterPUT.ExportTo;
+                //tracker.SourceURL = masterPUT.SourceURL;
                 tracker.Browser = masterPUT.Browser;
                 tracker.Location = masterPUT.Location;
                 tracker.DeviceIP = masterPUT.DeviceIP;
@@ -335,8 +335,8 @@ public class ActionTypeService(RapidERPDbContext context) : IActionType
                 tracker.DeviceName = masterPUT.DeviceName;
                 tracker.Latitude = masterPUT.Latitude;
                 tracker.Longitude = masterPUT.Longitude;
-                tracker.ActionBy = masterPUT.ActionBy;
-                tracker.ActionAt = masterPUT.ActionAt;
+                tracker.ActionBy = masterPUT.UpdatedBy;
+                tracker.ActionAt = DateTime.Now;
                 
                 await context.ActionTypeTrackers.AddAsync(tracker);
                 await context.SaveChangesAsync();
