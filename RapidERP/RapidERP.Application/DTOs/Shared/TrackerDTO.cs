@@ -1,6 +1,4 @@
-﻿using RapidERP.Domain.Entities.ExportTypeModels;
-
-namespace RapidERP.Application.DTOs.Shared;
+﻿namespace RapidERP.Application.DTOs.Shared;
 
 public class TrackerDTO 
 {

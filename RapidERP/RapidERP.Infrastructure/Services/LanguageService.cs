@@ -1,11 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.LanguageDTOs;
 using RapidERP.Application.Interfaces;
+using RapidERP.Domain.Entities.ExportTypeModels;
 using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
-using System.Xml.Linq;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RapidERP.Infrastructure.Services;
 #nullable enable
@@ -320,25 +319,32 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
                 .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
                 
-                await context.LanguageAudits.Where(x => x.Id == masterPUT.LanguageAuditId).ExecuteUpdateAsync(x => x
-                 .SetProperty(x => x.LanguageId, masterPUT.Id)
-                 .SetProperty(x => x.Name, masterPUT.Name)
-                .SetProperty(x => x.ISO2Code, masterPUT.ISO2Code)
-                .SetProperty(x => x.ISO3Code, masterPUT.ISO3Code)
-                .SetProperty(x => x.ISONumeric, masterPUT.ISONumeric)
-                .SetProperty(x => x.Icon, masterPUT.Icon));
+                LanguageAudit audit = new();
+                audit.LanguageId = masterPUT.Id;
+                audit.Name = masterPUT.Name;
+                audit.ISO2Code = masterPUT.ISO2Code;
+                audit.ISO3Code = masterPUT.ISO3Code;
+                audit.ISONumeric = masterPUT.ISONumeric;
+                audit.Icon = masterPUT.Icon;
 
-                await context.LanguageTrackers.Where(x => x.Id == masterPUT.LanguageTrackerId).ExecuteUpdateAsync(x => x
-                 .SetProperty(x => x.LanguageId, masterPUT.Id)
-                 .SetProperty(x => x.Browser, masterPUT.Browser)
-                .SetProperty(x => x.Location, masterPUT.Location)
-                .SetProperty(x => x.DeviceIP, masterPUT.DeviceIP)
-                .SetProperty(x => x.GoogleMapUrl, masterPUT.GoogleMapUrl)
-                .SetProperty(x => x.DeviceName, masterPUT.DeviceName)
-                .SetProperty(x => x.Latitude, masterPUT.Latitude)
-                .SetProperty(x => x.Longitude, masterPUT.Longitude)
-                .SetProperty(x => x.ActionBy, masterPUT.UpdatedBy)
-                .SetProperty(x => x.ActionAt, DateTime.Now));
+                await context.LanguageAudits.AddAsync(audit);
+                await context.SaveChangesAsync();
+
+                masterPUT.ActionAt = DateTime.Now;
+                LanguageTracker tracker = new();
+                tracker.LanguageId = masterPUT.Id;              
+                tracker.Browser = masterPUT.Browser;
+                tracker.Location = masterPUT.Location;
+                tracker.DeviceIP = masterPUT.DeviceIP;
+                tracker.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                tracker.DeviceName = masterPUT.DeviceName;
+                tracker.Latitude = masterPUT.Latitude;
+                tracker.Longitude = masterPUT.Longitude;
+                tracker.ActionBy = masterPUT.ActionBy;
+                tracker.ActionAt = masterPUT.ActionAt;
+
+                await context.LanguageTrackers.AddAsync(tracker);
+                await context.SaveChangesAsync();
 
                 requestResponse = new()
                 {

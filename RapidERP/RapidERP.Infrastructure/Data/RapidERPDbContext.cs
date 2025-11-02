@@ -13,6 +13,7 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
     public DbSet<ExportType> ExportTypes { get; set; }
     public DbSet<ExportTypeAudit> ExportTypeAudits { get; set; }
     public DbSet<ExportTypeTracker> ExportTypeTrackers { get; set; }
+    public DbSet<ExportTypeExport> ExportTypeExports { get; set; }
 
     public DbSet<ActionType> ActionTypes { get; set; }
     public DbSet<ActionTypeAudit> ActionTypeAudits { get; set; }

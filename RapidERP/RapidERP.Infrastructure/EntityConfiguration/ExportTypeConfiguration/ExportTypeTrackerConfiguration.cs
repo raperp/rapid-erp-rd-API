@@ -9,8 +9,6 @@ public class ExportTypeTrackerConfiguration : IEntityTypeConfiguration<ExportTyp
     public void Configure(EntityTypeBuilder<ExportTypeTracker> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.ExportTo).HasMaxLength(30).IsRequired();
-        builder.Property(x => x.SourceURL).IsRequired();
         builder.Property(x => x.Browser).HasMaxLength(10).IsRequired();
         builder.Property(x => x.Location).HasMaxLength(40).IsRequired();
         builder.Property(x => x.DeviceIP).HasMaxLength(15).IsRequired();

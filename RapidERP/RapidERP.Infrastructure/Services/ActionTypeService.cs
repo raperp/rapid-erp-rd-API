@@ -314,24 +314,32 @@ public class ActionTypeService(RapidERPDbContext context) : IActionType
                 .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
-                await context.ActionTypeAudits.Where(x => x.Id == masterPUT.ActionTypeAuditId).ExecuteUpdateAsync(x => x
-                 .SetProperty(x => x.ActionTypeId, masterPUT.Id)
-                 .SetProperty(x => x.Description, masterPUT.Description)
-                 .SetProperty(x => x.Name, masterPUT.Name));
+                ActionTypeAudit audit = new();
+                audit.ActionTypeId = masterPUT.Id;
+                audit.Name = masterPUT.Name;
+                audit.Description = masterPUT.Description;
 
-                await context.ActionTypeTrackers.Where(x => x.Id == masterPUT.ActionTypeTrackerId).ExecuteUpdateAsync(x => x
-                 .SetProperty(x => x.ExportTypeId, masterPUT.Id)
-                 .SetProperty(x => x.ExportTo, masterPUT.ExportTo)
-                 .SetProperty(x => x.SourceURL, masterPUT.SourceURL)
-                 .SetProperty(x => x.Browser, masterPUT.Browser)
-                .SetProperty(x => x.Location, masterPUT.Location)
-                .SetProperty(x => x.DeviceIP, masterPUT.DeviceIP)
-                .SetProperty(x => x.GoogleMapUrl, masterPUT.GoogleMapUrl)
-                .SetProperty(x => x.DeviceName, masterPUT.DeviceName)
-                .SetProperty(x => x.Latitude, masterPUT.Latitude)
-                .SetProperty(x => x.Longitude, masterPUT.Longitude)
-                .SetProperty(x => x.ActionBy, masterPUT.UpdatedBy)
-                .SetProperty(x => x.ActionAt, DateTime.Now));
+                await context.ActionTypeAudits.AddAsync(audit);
+                await context.SaveChangesAsync();
+
+                masterPUT.ActionAt = DateTime.Now;
+                ActionTypeTracker tracker = new();
+                tracker.ActionTypeId = masterPUT.Id;
+                tracker.ExportTypeId = masterPUT.ExportTypeId;
+                tracker.ExportTo = masterPUT.ExportTo;
+                tracker.SourceURL = masterPUT.SourceURL;
+                tracker.Browser = masterPUT.Browser;
+                tracker.Location = masterPUT.Location;
+                tracker.DeviceIP = masterPUT.DeviceIP;
+                tracker.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                tracker.DeviceName = masterPUT.DeviceName;
+                tracker.Latitude = masterPUT.Latitude;
+                tracker.Longitude = masterPUT.Longitude;
+                tracker.ActionBy = masterPUT.ActionBy;
+                tracker.ActionAt = masterPUT.ActionAt;
+                
+                await context.ActionTypeTrackers.AddAsync(tracker);
+                await context.SaveChangesAsync();
 
                 requestResponse = new()
                 {
