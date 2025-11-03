@@ -8,8 +8,7 @@ public interface ILanguage
     Task<RequestResponse> GetSingle(int id);
     Task<RequestResponse> GetAllAudits(int skip, int take);
     Task<RequestResponse> GetAllExports(int skip, int take);
-    Task<RequestResponse> CreateSingle(LanguagePOST masterPOST);
-    Task<RequestResponse> CreateExport(LanguageExportDTO export);
+    Task<RequestResponse> CreateSingle(LanguagePOST masterPOST); 
     Task<RequestResponse> CreateBulk(List<LanguagePOST> masterPOSTs);
     Task<RequestResponse> Update(LanguagePUT masterPUT);
     Task<RequestResponse> Delete(int id);  

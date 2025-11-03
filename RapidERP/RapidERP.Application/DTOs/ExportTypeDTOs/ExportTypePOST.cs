@@ -1,4 +1,7 @@
-﻿namespace RapidERP.Application.DTOs.ExportTypeDTOs;
+﻿using RapidERP.Domain.Entities.ExportTypeModels;
+using RapidERP.Domain.Entities.LanguageModels;
+
+namespace RapidERP.Application.DTOs.ExportTypeDTOs;
 public class ExportTypePOST  
 {
     public int LanguageId { get; set; }
@@ -13,4 +16,9 @@ public class ExportTypePOST
     public string DeviceName { get; set; }
     public decimal Latitude { get; set; }
     public decimal Longitude { get; set; }
+
+    public string ExportTo { get; set; }
+    public string SourceURL { get; set; } 
+    public int ExportTypeId { get; set; }
+    public bool IsDefault { get; set; }
 }

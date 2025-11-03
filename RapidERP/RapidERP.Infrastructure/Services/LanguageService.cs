@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.LanguageDTOs;
 using RapidERP.Application.Interfaces;
-using RapidERP.Domain.Entities.ExportTypeModels;
 using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
@@ -45,42 +44,7 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
         }
     }
 
-    public async Task<RequestResponse> CreateExport(LanguageExportDTO export)
-    {
-        try
-        {
-            LanguageExport masterData = new();
-            masterData.LanguageId = export.LanguageId;
-            masterData.ExportTypeId = export.ExportTypeId;
-            masterData.ExportTo = export.ExportTo;
-            masterData.SourceURL = export.SourceURL;
-
-            await context.LanguageExports.AddAsync(masterData);
-            await context.SaveChangesAsync();
-
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
-                IsSuccess = true,
-                Message = ResponseMessage.CreateSuccess,
-                Data = export
-            };
-
-            return requestResponse;
-        }
-
-        catch
-        {
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
-                IsSuccess = false,
-                Message = ResponseMessage.WrongDataInput
-            };
-
-            return requestResponse;
-        }
-    }
+     
 
     public async Task<RequestResponse> CreateSingle(LanguagePOST masterPOST)
     {
@@ -363,8 +327,7 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
     {
         try
         {
-            var data = context.LanguageExports
-                .Select(x => new { x.ExportTo, x.SourceURL, ExportType = x.ExportType.Name })
+            var data = context.Languages
                 .AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)

@@ -12,10 +12,12 @@ public class LanguageTrackerConfiguration : IEntityTypeConfiguration<LanguageTra
         builder.Property(x => x.Location).HasMaxLength(40).IsRequired();
         builder.Property(x => x.DeviceIP).HasMaxLength(15).IsRequired();
         builder.Property(x => x.GoogleMapUrl).IsRequired();
-        builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired();
-        builder.Property(x => x.Latitude).HasPrecision(9, 6).IsRequired();
-        builder.Property(x => x.Longitude).HasPrecision(9, 6).IsRequired();
         builder.Property(x => x.ActionBy).IsRequired();
         builder.Property(x => x.ActionAt).IsRequired();
+        builder.Ignore(x => x.Latitude);
+        builder.Ignore(x => x.Longitude);
+        builder.Ignore(x => x.DeviceName);
+        builder.Ignore(x => x.ActionTypeId);
+        builder.Ignore(x => x.StatusTypeId);
     }
 }

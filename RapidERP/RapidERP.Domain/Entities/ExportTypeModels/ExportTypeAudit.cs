@@ -1,9 +1,7 @@
 ﻿using RapidERP.Domain.Entities.Shared;
 
 namespace RapidERP.Domain.Entities.ExportTypeModels;
-public class ExportTypeAudit : Master
+public class ExportTypeAudit : Base
 {
-    public ExportType ExportType { get; set; }
-    public int ExportTypeId { get; set; }
     public string Description { get; set; }
 }

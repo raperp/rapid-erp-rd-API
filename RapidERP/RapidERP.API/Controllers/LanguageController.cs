@@ -46,12 +46,7 @@ public class LanguageController(ILanguage language) : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost("CreateExport")]
-    public async Task<IActionResult> CreateExport(LanguageExportDTO export)
-    {
-        var result = await language.CreateExport(export);
-        return Ok(result);
-    }
+     
 
     [HttpPost("CreateBulk")]
     public async Task<IActionResult> CreateBulk(List<LanguagePOST> masterPOSTs)

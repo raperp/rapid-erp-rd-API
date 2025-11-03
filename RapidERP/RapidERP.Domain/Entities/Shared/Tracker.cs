@@ -1,7 +1,6 @@
 ﻿namespace RapidERP.Domain.Entities.Shared;
 public class Tracker
 {
-    public int Id { get; set; }
     public string Browser { get; set; }
     public string Location { get; set; }
     public string DeviceIP { get; set; }

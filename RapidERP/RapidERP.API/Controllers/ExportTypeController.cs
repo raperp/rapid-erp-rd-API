@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RapidERP.Application.DTOs.ExportTypeDTOs;
-using RapidERP.Application.DTOs.LanguageDTOs;
-using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
 
 namespace RapidERP.API.Controllers
@@ -31,24 +29,10 @@ namespace RapidERP.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("GetAllExports")]
-        public async Task<IActionResult> GetAllExports(int skip, int take)
-        {
-            var result = await exportType.GetAllExports(skip, take);
-            return Ok(result);
-        }
-
         [HttpPost("CreateSingle")]
         public async Task<IActionResult> CreateSingle(ExportTypePOST masterPOST)
         {
             var result = await exportType.CreateSingle(masterPOST);
-            return Ok(result);
-        }
-
-        [HttpPost("CreateExport")]
-        public async Task<IActionResult> CreateExport(ExportDTO export)
-        {
-            var result = await exportType.CreateExport(export);
             return Ok(result);
         }
 

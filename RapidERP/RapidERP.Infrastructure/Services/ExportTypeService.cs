@@ -7,7 +7,7 @@ using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
-public class ExportTypeService(RapidERPDbContext context) : IExportType
+public class ExportTypeService(RapidERPDbContextConfig configContext, RapidERPDbContextRead readContext, RapidERPDbContextWrite writeContext) : IExportType
 {
     RequestResponse? requestResponse { get; set; }
 
@@ -44,47 +44,11 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
         }
     }
 
-    public async Task<RequestResponse> CreateExport(ExportDTO export)
-    {
-        try
-        {
-            ExportTypeExport masterData = new();
-            masterData.ExportTypeId = export.ExportTypeId;
-            masterData.ExportTo = export.ExportTo;
-            masterData.SourceURL = export.SourceURL;
-            
-            await context.ExportTypeExports.AddAsync(masterData);
-            await context.SaveChangesAsync();
-
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
-                IsSuccess = true,
-                Message = ResponseMessage.CreateSuccess,
-                Data = export
-            };
-
-            return requestResponse;
-        }
-
-        catch
-        {
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
-                IsSuccess = false,
-                Message = ResponseMessage.WrongDataInput
-            };
-
-            return requestResponse;
-        }
-    }
-
     public async Task<RequestResponse> CreateSingle(ExportTypePOST masterPOST)
     {
         try
         {
-            var isExists = await context.ExportTypes.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
+            var isExists = await configContext.ExportTypes.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
 
             if (isExists == false)
             {
@@ -95,31 +59,44 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
                 masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
-                await context.ExportTypes.AddAsync(masterData);
-                await context.SaveChangesAsync();
+                await configContext.ExportTypes.AddAsync(masterData);
+                await configContext.SaveChangesAsync();
 
                 ExportTypeAudit audit = new();
-                audit.ExportTypeId = masterData.Id;
                 audit.Name = masterData.Name;
                 audit.Description = masterPOST.Description;
-                
-                await context.ExportTypeAudits.AddAsync(audit);
-                await context.SaveChangesAsync();
+                audit.ExportTypeId = masterData.Id;
+                audit.ExportTo = masterPOST.ExportTo;
+                audit.SourceURL = masterPOST.SourceURL;
+                audit.IsDefault = masterPOST.IsDefault;
+                audit.Browser = masterPOST.Browser;
+                audit.Location = masterPOST.Location;
+                audit.DeviceIP = masterPOST.DeviceIP;
+                audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                audit.Latitude = masterPOST.Latitude;
+                audit.Longitude = masterPOST.Longitude;
+                audit.ActionBy = masterPOST.CreatedBy;
+                audit.ActionAt = DateTime.Now;
+
+                await writeContext.ExportTypeAudits.AddAsync(audit);
+                await writeContext.SaveChangesAsync();
 
                 ExportTypeTracker tracker = new();
-                tracker.ExportTypeId = masterData.Id;
-                tracker.Browser = masterPOST.Browser;
-                tracker.Location = masterPOST.Location;
-                tracker.DeviceIP = masterPOST.DeviceIP;
-                tracker.GoogleMapUrl = masterPOST.GoogleMapUrl;
-                tracker.DeviceName = masterPOST.DeviceName;
-                tracker.Latitude = masterPOST.Latitude;
-                tracker.Longitude = masterPOST.Longitude;
-                tracker.ActionBy = masterPOST.CreatedBy;
-                tracker.ActionAt = DateTime.Now;
+                audit.Name = masterData.Name;
+                audit.Description = masterPOST.Description;
+                audit.ExportTypeId = masterData.Id;
+                audit.ExportTo = masterPOST.ExportTo;
+                audit.SourceURL = masterPOST.SourceURL;
+                audit.IsDefault = masterPOST.IsDefault;
+                audit.Browser = masterPOST.Browser;
+                audit.Location = masterPOST.Location;
+                audit.DeviceIP = masterPOST.DeviceIP;
+                audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                audit.ActionBy = masterPOST.CreatedBy;
+                audit.ActionAt = DateTime.Now;
 
-                await context.ExportTypeTrackers.AddAsync(tracker);
-                await context.SaveChangesAsync();
+                await readContext.ExportTypeTrackers.AddAsync(tracker);
+                await readContext.SaveChangesAsync();
 
                 requestResponse = new()
                 {
@@ -160,7 +137,7 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
     {
         try
         {
-            var isExists = await context.ExportTypes.AsNoTracking().AnyAsync(x => x.Id == id);
+            var isExists = await configContext.ExportTypes.AsNoTracking().AnyAsync(x => x.Id == id);
 
             if (isExists == false)
             {
@@ -174,10 +151,10 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
 
             else
             {
-                await context.ExportTypes.Where(x => x.Id == id).ExecuteDeleteAsync();
+                await configContext.ExportTypes.Where(x => x.Id == id).ExecuteDeleteAsync();
             }
 
-            var isAuditExists = await context.ExportTypeAudits.AsNoTracking().AnyAsync(x => x.ExportTypeId == id);
+            var isAuditExists = await writeContext.ExportTypeAudits.AsNoTracking().AnyAsync(x => x.ExportTypeId == id);
 
             if (isAuditExists == false)
             {
@@ -191,10 +168,10 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
 
             else
             {
-                await context.ExportTypeAudits.Where(x => x.ExportTypeId == id).ExecuteDeleteAsync();
+                await writeContext.ExportTypeAudits.Where(x => x.ExportTypeId == id).ExecuteDeleteAsync();
             }
 
-            var isTrackerExists = await context.ExportTypeTrackers.AsNoTracking().AnyAsync(x => x.ExportTypeId == id);
+            var isTrackerExists = await readContext.ExportTypeTrackers.AsNoTracking().AnyAsync(x => x.ExportTypeId == id);
 
             if (isTrackerExists == false)
             {
@@ -208,7 +185,7 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
 
             else
             {
-                await context.ExportTypeTrackers.Where(x => x.ExportTypeId == id).ExecuteDeleteAsync();
+                await readContext.ExportTypeTrackers.Where(x => x.ExportTypeId == id).ExecuteDeleteAsync();
             }
 
             requestResponse = new()
@@ -239,8 +216,8 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
         try
         {
             //var data = context.ExportTypes.AsNoTracking().AsQueryable();
-            var data = (from et in context.ExportTypes
-                              join ett in context.ExportTypeTrackers on et.Id equals ett.ExportTypeId
+            var data = (from et in readContext.ExportTypes
+                              join ett in readContext.ExportTypeTrackers on et.Id equals ett.ExportTypeId
                               select new
                               {
                                   et.Id,
@@ -307,58 +284,8 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
     {
         try
         {
-            var data = context.ExportTypeAudits
+            var data = writeContext.ExportTypeAudits
                 .Select(x => new { x.Name, x.Description, ExportType = x.ExportType.Name })
-                .AsNoTracking().AsQueryable();
-
-            if (skip == 0 || take == 0)
-            {
-                var result = await data.ToListAsync();
-
-                requestResponse = new()
-                {
-                    StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
-                    IsSuccess = true,
-                    Message = ResponseMessage.FetchSuccess,
-                    Data = result
-                };
-            }
-
-            else
-            {
-                var result = await data.Skip(skip).Take(take).ToListAsync();
-
-                requestResponse = new()
-                {
-                    StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
-                    IsSuccess = true,
-                    Message = ResponseMessage.FetchSuccessWithPagination,
-                    Data = result
-                };
-            }
-
-            return requestResponse;
-        }
-
-        catch (Exception ex)
-        {
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
-                IsSuccess = false,
-                Message = ex.Message
-            };
-
-            return requestResponse;
-        }
-    }
-
-    public async Task<RequestResponse> GetAllExports(int skip, int take)
-    {
-        try
-        {
-            var data = context.ExportTypeExports
-                .Select(x => new { x.ExportTo, x.SourceURL, ExportType = x.ExportType.Name })
                 .AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -407,7 +334,7 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
     {
         try
         {
-            var data = await context.ExportTypes.Where(x => x.Id == id).AsNoTracking().ToListAsync();
+            var data = await configContext.ExportTypes.Where(x => x.Id == id).AsNoTracking().ToListAsync();
 
             requestResponse = new()
             {
@@ -437,11 +364,11 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
     {
         try
         {
-            var isExists = await context.ExportTypes.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
+            var isExists = await configContext.ExportTypes.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
 
             if (isExists == false)
             {
-                await context.ExportTypes.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
+                await configContext.ExportTypes.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Description, masterPUT.Description)
@@ -453,10 +380,9 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
                 audit.Name = masterPUT.Name;
                 audit.Description = masterPUT.Description;
 
-                await context.ExportTypeAudits.AddAsync(audit);
-                await context.SaveChangesAsync();
+                await writeContext.ExportTypeAudits.AddAsync(audit);
+                await writeContext.SaveChangesAsync();
 
-                 
                 ExportTypeTracker tracker = new();
                 tracker.ExportTypeId = masterPUT.Id;
                 tracker.Browser = masterPUT.Browser;
@@ -469,8 +395,8 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
                 tracker.ActionBy = masterPUT.UpdatedBy;
                 tracker.ActionAt = DateTime.Now;
 
-                await context.ExportTypeTrackers.AddAsync(tracker);
-                await context.SaveChangesAsync();
+                await readContext.ExportTypeTrackers.AddAsync(tracker);
+                await readContext.SaveChangesAsync();
 
                 requestResponse = new()
                 {
