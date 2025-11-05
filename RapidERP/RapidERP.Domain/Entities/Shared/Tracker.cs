@@ -6,8 +6,8 @@ public class Tracker
     public string DeviceIP { get; set; }
     public string GoogleMapUrl { get; set; }
     public string DeviceName { get; set; }
-    public decimal Latitude { get; set; }    
-    public decimal Longitude { get; set; }   
+    public decimal Latitude { get; set; } // (9, 6)   
+    public decimal Longitude { get; set; } // (9, 6)   
     public long ActionBy { get; set; }
     public DateTime ActionAt { get; set; }
 }

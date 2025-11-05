@@ -2,7 +2,7 @@
 using RapidERP.Domain.Entities.Shared;
 
 namespace RapidERP.Domain.Entities.ActionTypeModels;
-public class ActionType : MasterBase
+public class ActionType : BaseMaster
 {
     public Language Language { get; set; }
     public int LanguageId { get; set; }
