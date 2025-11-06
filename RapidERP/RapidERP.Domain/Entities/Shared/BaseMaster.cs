@@ -1,15 +1,14 @@
-﻿using RapidERP.Domain.Entities.LanguageModels;
+﻿using RapidERP.Domain.Entities.StatusTypeModels;
 
-namespace RapidERP.Domain.Entities.Shared
+namespace RapidERP.Domain.Entities.Shared;
+public class BaseMaster  
 {
-    public class BaseMaster  
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int StatusTypeId { get; set; }
-        public long CreatedBy { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public long? UpdatedBy { get; set; }
-        public DateTime? UpdatedAt { get; set; }
-    }
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public StatusType StatusType { get; set; }
+    public int StatusTypeId { get; set; }
+    public long CreatedBy { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public long? UpdatedBy { get; set; }
+    public DateTime? UpdatedAt { get; set; }
 }

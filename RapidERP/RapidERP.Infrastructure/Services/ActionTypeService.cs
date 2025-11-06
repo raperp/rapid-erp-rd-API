@@ -85,8 +85,8 @@ public class ActionTypeService(RapidERPDbContext context) : IActionType
                 tracker.ActionBy = masterPOST.CreatedBy;
                 tracker.ActionAt = DateTime.Now;
 
-                await context.ActionTypeTrackers.AddAsync(tracker);
-                await context.SaveChangesAsync();
+                //await context.ActionTypeTrackers.AddAsync(tracker);
+                //await context.SaveChangesAsync();
 
                 requestResponse = new()
                 {
@@ -129,9 +129,9 @@ public class ActionTypeService(RapidERPDbContext context) : IActionType
         {
             var isExists = await context.ActionTypes.AsNoTracking().AnyAsync(x => x.Id == id);
             var isLanguageAuditExists = await context.ActionTypeAudits.AsNoTracking().AnyAsync(x => x.ActionTypeId == id);
-            var isLanguageTrackerExists = await context.ActionTypeTrackers.AsNoTracking().AnyAsync(x => x.ActionTypeId == id);
+            //var isLanguageTrackerExists = await context.ActionTypeTrackers.AsNoTracking().AnyAsync(x => x.ActionTypeId == id);
 
-            if (isExists == false || isLanguageAuditExists == false || isLanguageTrackerExists == false)
+            if (isExists == false || isLanguageAuditExists == false )
             {
                 requestResponse = new()
                 {
@@ -145,7 +145,7 @@ public class ActionTypeService(RapidERPDbContext context) : IActionType
             {
                 await context.ActionTypes.Where(x => x.Id == id).ExecuteDeleteAsync();
                 await context.ActionTypeAudits.Where(x => x.ActionTypeId == id).ExecuteDeleteAsync();
-                await context.ActionTypeTrackers.Where(x => x.ActionTypeId == id).ExecuteDeleteAsync();
+                //await context.ActionTypeTrackers.Where(x => x.ActionTypeId == id).ExecuteDeleteAsync();
             }
 
             requestResponse = new()
@@ -338,8 +338,8 @@ public class ActionTypeService(RapidERPDbContext context) : IActionType
                 tracker.ActionBy = masterPUT.UpdatedBy;
                 tracker.ActionAt = DateTime.Now;
                 
-                await context.ActionTypeTrackers.AddAsync(tracker);
-                await context.SaveChangesAsync();
+                //await context.ActionTypeTrackers.AddAsync(tracker);
+                //await context.SaveChangesAsync();
 
                 requestResponse = new()
                 {

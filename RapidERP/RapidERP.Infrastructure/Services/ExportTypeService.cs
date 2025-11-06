@@ -1,15 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.ExportTypeDTOs;
-using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
 using RapidERP.Domain.Entities.ExportTypeModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
-public class ExportTypeService(RapidERPDbContextConfig configContext, RapidERPDbContextRead readContext, RapidERPDbContextWrite writeContext) : IExportType
+public class ExportTypeService(RapidERPDbContext context) : IExportType
 {
-    RequestResponse? requestResponse { get; set; }
+    RequestResponse requestResponse { get; set; }
 
     public async Task<RequestResponse> CreateBulk(List<ExportTypePOST> masterPOSTs)
     {
@@ -48,7 +47,7 @@ public class ExportTypeService(RapidERPDbContextConfig configContext, RapidERPDb
     {
         try
         {
-            var isExists = await configContext.ExportTypes.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
+            var isExists = await context.ExportTypes.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
 
             if (isExists == false)
             {
@@ -59,8 +58,8 @@ public class ExportTypeService(RapidERPDbContextConfig configContext, RapidERPDb
                 masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
-                await configContext.ExportTypes.AddAsync(masterData);
-                await configContext.SaveChangesAsync();
+                await context.ExportTypes.AddAsync(masterData);
+                await context.SaveChangesAsync();
 
                 ExportTypeAudit audit = new();
                 audit.Name = masterData.Name;
@@ -78,25 +77,25 @@ public class ExportTypeService(RapidERPDbContextConfig configContext, RapidERPDb
                 audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await writeContext.ExportTypeAudits.AddAsync(audit);
-                await writeContext.SaveChangesAsync();
+                await context.ExportTypeAudits.AddAsync(audit);
+                await context.SaveChangesAsync();
 
-                ExportTypeTracker tracker = new();
-                audit.Name = masterData.Name;
-                audit.Description = masterPOST.Description;
-                audit.ExportTypeId = masterData.Id;
-                audit.ExportTo = masterPOST.ExportTo;
-                audit.SourceURL = masterPOST.SourceURL;
-                audit.IsDefault = masterPOST.IsDefault;
-                audit.Browser = masterPOST.Browser;
-                audit.Location = masterPOST.Location;
-                audit.DeviceIP = masterPOST.DeviceIP;
-                audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
-                audit.ActionBy = masterPOST.CreatedBy;
-                audit.ActionAt = DateTime.Now;
+                //ExportTypeTracker tracker = new();
+                //audit.Name = masterData.Name;
+                //audit.Description = masterPOST.Description;
+                //audit.ExportTypeId = masterData.Id;
+                //audit.ExportTo = masterPOST.ExportTo;
+                //audit.SourceURL = masterPOST.SourceURL;
+                //audit.IsDefault = masterPOST.IsDefault;
+                //audit.Browser = masterPOST.Browser;
+                //audit.Location = masterPOST.Location;
+                //audit.DeviceIP = masterPOST.DeviceIP;
+                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                //audit.ActionBy = masterPOST.CreatedBy;
+                //audit.ActionAt = DateTime.Now;
 
-                await readContext.ExportTypeTrackers.AddAsync(tracker);
-                await readContext.SaveChangesAsync();
+                //await context.ExportTypeTrackers.AddAsync(tracker);
+                //await context.SaveChangesAsync();
 
                 requestResponse = new()
                 {
@@ -137,7 +136,7 @@ public class ExportTypeService(RapidERPDbContextConfig configContext, RapidERPDb
     {
         try
         {
-            var isExists = await configContext.ExportTypes.AsNoTracking().AnyAsync(x => x.Id == id);
+            var isExists = await context.ExportTypes.AsNoTracking().AnyAsync(x => x.Id == id);
 
             if (isExists == false)
             {
@@ -151,10 +150,10 @@ public class ExportTypeService(RapidERPDbContextConfig configContext, RapidERPDb
 
             else
             {
-                await configContext.ExportTypes.Where(x => x.Id == id).ExecuteDeleteAsync();
+                await context.ExportTypes.Where(x => x.Id == id).ExecuteDeleteAsync();
             }
 
-            var isAuditExists = await writeContext.ExportTypeAudits.AsNoTracking().AnyAsync(x => x.ExportTypeId == id);
+            var isAuditExists = await context.ExportTypeAudits.AsNoTracking().AnyAsync(x => x.ExportTypeId == id);
 
             if (isAuditExists == false)
             {
@@ -168,25 +167,25 @@ public class ExportTypeService(RapidERPDbContextConfig configContext, RapidERPDb
 
             else
             {
-                await writeContext.ExportTypeAudits.Where(x => x.ExportTypeId == id).ExecuteDeleteAsync();
+                await context.ExportTypeAudits.Where(x => x.ExportTypeId == id).ExecuteDeleteAsync();
             }
 
-            var isTrackerExists = await readContext.ExportTypeTrackers.AsNoTracking().AnyAsync(x => x.ExportTypeId == id);
+            //var isTrackerExists = await context.ExportTypeTrackers.AsNoTracking().AnyAsync(x => x.ExportTypeId == id);
 
-            if (isTrackerExists == false)
-            {
-                requestResponse = new()
-                {
-                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
-                    IsSuccess = false,
-                    Message = ResponseMessage.NoRecordFound
-                };
-            }
+            //if (isTrackerExists == false)
+            //{
+            //    requestResponse = new()
+            //    {
+            //        StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
+            //        IsSuccess = false,
+            //        Message = ResponseMessage.NoRecordFound
+            //    };
+            //}
 
-            else
-            {
-                await readContext.ExportTypeTrackers.Where(x => x.ExportTypeId == id).ExecuteDeleteAsync();
-            }
+            //else
+            //{
+            //    await context.ExportTypeTrackers.Where(x => x.ExportTypeId == id).ExecuteDeleteAsync();
+            //}
 
             requestResponse = new()
             {
@@ -215,28 +214,28 @@ public class ExportTypeService(RapidERPDbContextConfig configContext, RapidERPDb
     {
         try
         {
-            //var data = context.ExportTypes.AsNoTracking().AsQueryable();
-            var data = (from et in readContext.ExportTypes
-                              join ett in readContext.ExportTypeTrackers on et.Id equals ett.ExportTypeId
-                              select new
-                              {
-                                  et.Id,
-                                  et.Name,
-                                  et.Description,
-                                  et.CreatedBy,
-                                  et.CreatedAt,
-                                  et.UpdatedBy,
-                                  et.UpdatedAt,
-                                  ett.Browser,
-                                  ett.Location,
-                                  ett.DeviceIP,
-                                  ett.GoogleMapUrl,
-                                  ett.DeviceName,
-                                  ett.Latitude,
-                                  ett.Longitude,
-                                  ett.ActionAt,
-                                  ett.ActionBy
-                              }).AsNoTracking().AsQueryable();
+            var data = context.ExportTypes.AsNoTracking().AsQueryable();
+            //var data = (from et in context.ExportTypes
+            //                  join ett in context.ExportTypeTrackers on et.Id equals ett.ExportTypeId
+            //                  select new
+            //                  {
+            //                      et.Id,
+            //                      et.Name,
+            //                      et.Description,
+            //                      et.CreatedBy,
+            //                      et.CreatedAt,
+            //                      et.UpdatedBy,
+            //                      et.UpdatedAt,
+            //                      ett.Browser,
+            //                      ett.Location,
+            //                      ett.DeviceIP,
+            //                      ett.GoogleMapUrl,
+            //                      ett.DeviceName,
+            //                      ett.Latitude,
+            //                      ett.Longitude,
+            //                      ett.ActionAt,
+            //                      ett.ActionBy
+            //                  }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
             {
@@ -284,7 +283,7 @@ public class ExportTypeService(RapidERPDbContextConfig configContext, RapidERPDb
     {
         try
         {
-            var data = writeContext.ExportTypeAudits
+            var data = context.ExportTypeAudits
                 .Select(x => new { x.Name, x.Description, ExportType = x.ExportType.Name })
                 .AsNoTracking().AsQueryable();
 
@@ -334,7 +333,7 @@ public class ExportTypeService(RapidERPDbContextConfig configContext, RapidERPDb
     {
         try
         {
-            var data = await configContext.ExportTypes.Where(x => x.Id == id).AsNoTracking().ToListAsync();
+            var data = await context.ExportTypes.Where(x => x.Id == id).AsNoTracking().ToListAsync();
 
             requestResponse = new()
             {
@@ -364,11 +363,11 @@ public class ExportTypeService(RapidERPDbContextConfig configContext, RapidERPDb
     {
         try
         {
-            var isExists = await configContext.ExportTypes.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
+            var isExists = await context.ExportTypes.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
 
             if (isExists == false)
             {
-                await configContext.ExportTypes.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
+                await context.ExportTypes.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Description, masterPUT.Description)
@@ -380,23 +379,23 @@ public class ExportTypeService(RapidERPDbContextConfig configContext, RapidERPDb
                 audit.Name = masterPUT.Name;
                 audit.Description = masterPUT.Description;
 
-                await writeContext.ExportTypeAudits.AddAsync(audit);
-                await writeContext.SaveChangesAsync();
+                await context.ExportTypeAudits.AddAsync(audit);
+                await context.SaveChangesAsync();
 
-                ExportTypeTracker tracker = new();
-                tracker.ExportTypeId = masterPUT.Id;
-                tracker.Browser = masterPUT.Browser;
-                tracker.Location = masterPUT.Location;
-                tracker.DeviceIP = masterPUT.DeviceIP;
-                tracker.GoogleMapUrl = masterPUT.GoogleMapUrl;
-                tracker.DeviceName = masterPUT.DeviceName;
-                tracker.Latitude = masterPUT.Latitude;
-                tracker.Longitude = masterPUT.Longitude;
-                tracker.ActionBy = masterPUT.UpdatedBy;
-                tracker.ActionAt = DateTime.Now;
+                //ExportTypeTracker tracker = new();
+                //tracker.ExportTypeId = masterPUT.Id;
+                //tracker.Browser = masterPUT.Browser;
+                //tracker.Location = masterPUT.Location;
+                //tracker.DeviceIP = masterPUT.DeviceIP;
+                //tracker.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                //tracker.DeviceName = masterPUT.DeviceName;
+                //tracker.Latitude = masterPUT.Latitude;
+                //tracker.Longitude = masterPUT.Longitude;
+                //tracker.ActionBy = masterPUT.UpdatedBy;
+                //tracker.ActionAt = DateTime.Now;
 
-                await readContext.ExportTypeTrackers.AddAsync(tracker);
-                await readContext.SaveChangesAsync();
+                //await context.ExportTypeTrackers.AddAsync(tracker);
+                //await context.SaveChangesAsync();
 
                 requestResponse = new()
                 {

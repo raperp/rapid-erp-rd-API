@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace RapidERP.Infrastructure.Migrations.RapidERPDbContextWriteMigrations
+namespace RapidERP.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class ExportWriteInitial : Migration
+    public partial class Initital : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,9 +38,9 @@ namespace RapidERP.Infrastructure.Migrations.RapidERPDbContextWriteMigrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    LanguageId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Name = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
-                    LanguageId = table.Column<int>(type: "int", nullable: false),
                     CreatedBy = table.Column<long>(type: "bigint", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedBy = table.Column<long>(type: "bigint", nullable: true),

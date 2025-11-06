@@ -89,7 +89,7 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
                 tracker.ActionBy = masterPOST.CreatedBy;
                 tracker.ActionAt = DateTime.Now;
 
-                await context.LanguageTrackers.AddAsync(tracker);
+                //await context.LanguageTrackers.AddAsync(tracker);
                 await context.SaveChangesAsync();
 
                 requestResponse = new()
@@ -165,22 +165,22 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
                 await context.LanguageAudits.Where(x => x.LanguageId == id).ExecuteDeleteAsync();
             }
 
-            var isTrackerExists = await context.LanguageTrackers.AsNoTracking().AnyAsync(x => x.LanguageId == id);
+            //var isTrackerExists = await context.LanguageTrackers.AsNoTracking().AnyAsync(x => x.LanguageId == id);
             
-            if (isTrackerExists == false)
-            {
-                requestResponse = new()
-                {
-                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
-                    IsSuccess = false,
-                    Message = ResponseMessage.NoRecordFound
-                };
-            }
+            //if (isTrackerExists == false)
+            //{
+            //    requestResponse = new()
+            //    {
+            //        StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
+            //        IsSuccess = false,
+            //        Message = ResponseMessage.NoRecordFound
+            //    };
+            //}
 
-            else
-            {
-                await context.LanguageTrackers.Where(x => x.LanguageId == id).ExecuteDeleteAsync();
-            }
+            //else
+            //{
+            //    await context.LanguageTrackers.Where(x => x.LanguageId == id).ExecuteDeleteAsync();
+            //}
 
             requestResponse = new()
             {
@@ -209,28 +209,28 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
     {
         try
         {
-            //var data = context.Languages.AsNoTracking().AsQueryable();
-            var data = (from l in context.Languages
-                        join lt in context.LanguageTrackers on l.Id equals lt.LanguageId
-                        select new
-                        {
-                            l.Id,
-                            l.Name,
-                            l.ISO2Code,
-                            l.ISO3Code,
-                            l.ISONumeric,
-                            l.Icon,
-                            lt.Browser,
-                            lt.DeviceIP,
-                            lt.DeviceName,
-                            lt.Location,
-                            lt.GoogleMapUrl,
-                            lt.Latitude,
-                            lt.Longitude,
-                            lt.ActionBy,
-                            lt.ActionAt
-                        }).AsNoTracking().AsQueryable();
-            
+            var data = context.Languages.AsNoTracking().AsQueryable();
+            //var data = (from l in context.Languages
+            //            join lt in context.LanguageTrackers on l.Id equals lt.LanguageId
+            //            select new
+            //            {
+            //                l.Id,
+            //                l.Name,
+            //                l.ISO2Code,
+            //                l.ISO3Code,
+            //                l.ISONumeric,
+            //                l.Icon,
+            //                lt.Browser,
+            //                lt.DeviceIP,
+            //                lt.DeviceName,
+            //                lt.Location,
+            //                lt.GoogleMapUrl,
+            //                lt.Latitude,
+            //                lt.Longitude,
+            //                lt.ActionBy,
+            //                lt.ActionAt
+            //            }).AsNoTracking().AsQueryable();
+
             if (skip == 0 || take == 0)
             {
                 var result = await data.ToListAsync();
@@ -442,7 +442,7 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
                 tracker.ActionBy = masterPUT.UpdatedBy;
                 tracker.ActionAt = DateTime.Now;
 
-                await context.LanguageTrackers.AddAsync(tracker);
+                //await context.LanguageTrackers.AddAsync(tracker);
                 await context.SaveChangesAsync();
 
                 requestResponse = new()
