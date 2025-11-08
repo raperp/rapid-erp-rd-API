@@ -18,7 +18,7 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
             {
                 await CreateSingle(masterPOST);
             }
-
+             
             requestResponse = new()
             {
                 StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
@@ -69,6 +69,7 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
                 audit.SourceURL = masterPOST.SourceURL;
                 audit.IsDefault = masterPOST.IsDefault;
                 audit.Browser = masterPOST.Browser;
+                audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
                 audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
@@ -79,23 +80,6 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
 
                 await context.ExportTypeAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
-
-                //ExportTypeTracker tracker = new();
-                //audit.Name = masterData.Name;
-                //audit.Description = masterPOST.Description;
-                //audit.ExportTypeId = masterData.Id;
-                //audit.ExportTo = masterPOST.ExportTo;
-                //audit.SourceURL = masterPOST.SourceURL;
-                //audit.IsDefault = masterPOST.IsDefault;
-                //audit.Browser = masterPOST.Browser;
-                //audit.Location = masterPOST.Location;
-                //audit.DeviceIP = masterPOST.DeviceIP;
-                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
-                //audit.ActionBy = masterPOST.CreatedBy;
-                //audit.ActionAt = DateTime.Now;
-
-                //await context.ExportTypeTrackers.AddAsync(tracker);
-                //await context.SaveChangesAsync();
 
                 requestResponse = new()
                 {
@@ -170,23 +154,6 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
                 await context.ExportTypeAudits.Where(x => x.ExportTypeId == id).ExecuteDeleteAsync();
             }
 
-            //var isTrackerExists = await context.ExportTypeTrackers.AsNoTracking().AnyAsync(x => x.ExportTypeId == id);
-
-            //if (isTrackerExists == false)
-            //{
-            //    requestResponse = new()
-            //    {
-            //        StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
-            //        IsSuccess = false,
-            //        Message = ResponseMessage.NoRecordFound
-            //    };
-            //}
-
-            //else
-            //{
-            //    await context.ExportTypeTrackers.Where(x => x.ExportTypeId == id).ExecuteDeleteAsync();
-            //}
-
             requestResponse = new()
             {
                 StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
@@ -214,28 +181,17 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
     {
         try
         {
-            var data = context.ExportTypes.AsNoTracking().AsQueryable();
-            //var data = (from et in context.ExportTypes
-            //                  join ett in context.ExportTypeTrackers on et.Id equals ett.ExportTypeId
-            //                  select new
-            //                  {
-            //                      et.Id,
-            //                      et.Name,
-            //                      et.Description,
-            //                      et.CreatedBy,
-            //                      et.CreatedAt,
-            //                      et.UpdatedBy,
-            //                      et.UpdatedAt,
-            //                      ett.Browser,
-            //                      ett.Location,
-            //                      ett.DeviceIP,
-            //                      ett.GoogleMapUrl,
-            //                      ett.DeviceName,
-            //                      ett.Latitude,
-            //                      ett.Longitude,
-            //                      ett.ActionAt,
-            //                      ett.ActionBy
-            //                  }).AsNoTracking().AsQueryable();
+            var data = (from et in context.ExportTypes
+                        join l in context.Languages on et.LanguageId equals l.Id
+                        select new
+                        {
+                            et.Id,
+                            et.Name,
+                            et.Description,
+                            et.CreatedBy,
+                            et.CreatedAt,
+                            Language = l.Name
+                        }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
             {
@@ -283,9 +239,27 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
     {
         try
         {
-            var data = context.ExportTypeAudits
-                .Select(x => new { x.Name, x.Description, ExportType = x.ExportType.Name })
-                .AsNoTracking().AsQueryable();
+            var data = (from eta in context.ExportTypeAudits
+                        join et in context.ExportTypes on eta.ExportTypeId equals et.Id
+                        select new
+                        {
+                            eta.Id,
+                            eta.Name,
+                            eta.Description,
+                            ExportType = et.Name,
+                            eta.ExportTo,
+                            eta.SourceURL,
+                            eta.IsDefault,
+                            eta.Browser,
+                            eta.DeviceName,
+                            eta.Location,
+                            eta.DeviceIP,
+                            eta.GoogleMapUrl,
+                            eta.Latitude,
+                            eta.Longitude,
+                            eta.ActionBy,
+                            eta.ActionAt
+                        }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
             {
@@ -375,27 +349,24 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
                 ExportTypeAudit audit = new();
-                audit.ExportTypeId = masterPUT.Id;
                 audit.Name = masterPUT.Name;
                 audit.Description = masterPUT.Description;
+                audit.ExportTypeId = masterPUT.Id;
+                audit.ExportTo = masterPUT.ExportTo;
+                audit.SourceURL = masterPUT.SourceURL;
+                audit.IsDefault = masterPUT.IsDefault;
+                audit.Browser = masterPUT.Browser;
+                audit.DeviceName = masterPUT.DeviceName;
+                audit.Location = masterPUT.Location;
+                audit.DeviceIP = masterPUT.DeviceIP;
+                audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                audit.Latitude = masterPUT.Latitude;
+                audit.Longitude = masterPUT.Longitude;
+                audit.ActionBy = masterPUT.UpdatedBy;
+                audit.ActionAt = DateTime.Now;
 
                 await context.ExportTypeAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
-
-                //ExportTypeTracker tracker = new();
-                //tracker.ExportTypeId = masterPUT.Id;
-                //tracker.Browser = masterPUT.Browser;
-                //tracker.Location = masterPUT.Location;
-                //tracker.DeviceIP = masterPUT.DeviceIP;
-                //tracker.GoogleMapUrl = masterPUT.GoogleMapUrl;
-                //tracker.DeviceName = masterPUT.DeviceName;
-                //tracker.Latitude = masterPUT.Latitude;
-                //tracker.Longitude = masterPUT.Longitude;
-                //tracker.ActionBy = masterPUT.UpdatedBy;
-                //tracker.ActionAt = DateTime.Now;
-
-                //await context.ExportTypeTrackers.AddAsync(tracker);
-                //await context.SaveChangesAsync();
 
                 requestResponse = new()
                 {
