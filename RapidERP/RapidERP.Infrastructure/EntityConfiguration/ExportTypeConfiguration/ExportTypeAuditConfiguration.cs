@@ -14,6 +14,8 @@ public class ExportTypeAuditConfiguration : IEntityTypeConfiguration<ExportTypeA
         builder.Property(x => x.Latitude).HasPrecision(9, 6);
         builder.Property(x => x.Longitude).HasPrecision(9, 6);
         builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired(false);
+        builder.Property(x => x.LanguageId).IsRequired(false);
+        builder.Property(x => x.ExportTypeId).IsRequired(false);
         builder.Ignore(x => x.ActionType);
         builder.Ignore(x => x.ActionTypeId);
         builder.Ignore(x => x.StatusType);

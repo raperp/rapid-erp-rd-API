@@ -7,9 +7,6 @@ public class ExportTypePOST
     public long CreatedBy { get; set; } 
     public string ExportTo { get; set; }
     public string SourceURL { get; set; }
-    public int ExportTypeId { get; set; }
-    public int ActionTypeId { get; set; }
-    public int StatusTypeId { get; set; }
     public bool IsDefault { get; set; }
     public string Browser { get; set; }
     public string Location { get; set; }

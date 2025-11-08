@@ -11,8 +11,6 @@ public class LanguagePUT
     public string ExportTo { get; set; }
     public string SourceURL { get; set; }
     public int ExportTypeId { get; set; }
-    public int ActionTypeId { get; set; }
-    public int StatusTypeId { get; set; }
     public string Browser { get; set; }
     public string Location { get; set; }
     public string DeviceIP { get; set; }
@@ -20,4 +18,5 @@ public class LanguagePUT
     public string DeviceName { get; set; }
     public decimal Latitude { get; set; } // (9, 6)   
     public decimal Longitude { get; set; } // (9, 6)
+    public bool IsDefault { get; set; }
 }

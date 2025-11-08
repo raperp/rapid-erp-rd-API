@@ -47,6 +47,7 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
     {
         try
         {
+            await using var transaction = await context.Database.BeginTransactionAsync();
             var isExists = await context.ExportTypes.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
 
             if (isExists == false)
@@ -65,6 +66,7 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
                 audit.Name = masterData.Name;
                 audit.Description = masterPOST.Description;
                 audit.ExportTypeId = masterData.Id;
+                audit.LanguageId = masterPOST.LanguageId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
                 audit.IsDefault = masterPOST.IsDefault;
@@ -80,6 +82,7 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
 
                 await context.ExportTypeAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
+                await transaction.CommitAsync();
 
                 requestResponse = new()
                 {
@@ -120,23 +123,7 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
     {
         try
         {
-            var isExists = await context.ExportTypes.AsNoTracking().AnyAsync(x => x.Id == id);
-
-            if (isExists == false)
-            {
-                requestResponse = new()
-                {
-                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
-                    IsSuccess = false,
-                    Message = ResponseMessage.NoRecordFound
-                };
-            }
-
-            else
-            {
-                await context.ExportTypes.Where(x => x.Id == id).ExecuteDeleteAsync();
-            }
-
+            await using var transaction = await context.Database.BeginTransactionAsync();
             var isAuditExists = await context.ExportTypeAudits.AsNoTracking().AnyAsync(x => x.ExportTypeId == id);
 
             if (isAuditExists == false)
@@ -152,6 +139,24 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
             else
             {
                 await context.ExportTypeAudits.Where(x => x.ExportTypeId == id).ExecuteDeleteAsync();
+            }
+
+            var isExists = await context.ExportTypes.AsNoTracking().AnyAsync(x => x.Id == id);
+
+            if (isExists == false)
+            {
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
+                    IsSuccess = false,
+                    Message = ResponseMessage.NoRecordFound
+                };
+            }
+
+            else
+            {
+                await context.ExportTypes.Where(x => x.Id == id).ExecuteDeleteAsync();
+                await transaction.CommitAsync();
             }
 
             requestResponse = new()
@@ -337,6 +342,7 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
     {
         try
         {
+            await using var transaction = await context.Database.BeginTransactionAsync();
             var isExists = await context.ExportTypes.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
 
             if (isExists == false)
@@ -352,6 +358,7 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
                 audit.Name = masterPUT.Name;
                 audit.Description = masterPUT.Description;
                 audit.ExportTypeId = masterPUT.Id;
+                audit.LanguageId = masterPUT.LanguageId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
                 audit.IsDefault = masterPUT.IsDefault;
@@ -367,6 +374,7 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
 
                 await context.ExportTypeAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
+                await transaction.CommitAsync();
 
                 requestResponse = new()
                 {

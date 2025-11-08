@@ -44,12 +44,11 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
         }
     }
 
-     
-
     public async Task<RequestResponse> CreateSingle(LanguagePOST masterPOST)
     {
         try
         {
+            await using var transaction = await context.Database.BeginTransactionAsync();
             var isExists = await context.Languages.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name || x.ISONumeric == masterPOST.ISONumeric || x.ISO2Code == masterPOST.ISO2Code || x.ISO3Code == masterPOST.ISO3Code || x.Icon == masterPOST.Icon);
 
             if (isExists == false)
@@ -67,15 +66,29 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
                 await context.SaveChangesAsync();
 
                 LanguageAudit audit = new();
-                audit.LanguageId = masterData.Id;
                 audit.Name = masterPOST.Name;
                 audit.ISONumeric = masterPOST.ISONumeric;
                 audit.ISO2Code = masterPOST.ISO2Code;
                 audit.ISO3Code = masterPOST.ISO3Code;
                 audit.Icon = masterPOST.Icon;
+                audit.LanguageId = masterData.Id;
+                audit.ExportTypeId = masterPOST.ExportTypeId;
+                audit.ExportTo = masterPOST.ExportTo;
+                audit.SourceURL = masterPOST.SourceURL;
+                audit.IsDefault = masterPOST.IsDefault;
+                audit.Browser = masterPOST.Browser;
+                audit.DeviceName = masterPOST.DeviceName;
+                audit.Location = masterPOST.Location;
+                audit.DeviceIP = masterPOST.DeviceIP;
+                audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                audit.Latitude = masterPOST.Latitude;
+                audit.Longitude = masterPOST.Longitude;
+                audit.ActionBy = masterPOST.CreatedBy;
+                audit.ActionAt = DateTime.Now;
 
                 await context.LanguageAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
+                await transaction.CommitAsync();
 
                 requestResponse = new()
                 {
@@ -116,23 +129,7 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
     {
         try
         {
-            var isExists = await context.Languages.AsNoTracking().AnyAsync(x => x.Id == id);
-
-            if (isExists == false)
-            {
-                requestResponse = new()
-                {
-                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
-                    IsSuccess = false,
-                    Message = ResponseMessage.NoRecordFound
-                };
-            }
-
-            else
-            {
-                await context.Languages.Where(x => x.Id == id).ExecuteDeleteAsync();
-            }
-
+            await using var transaction = await context.Database.BeginTransactionAsync();
             var isAuditExists = await context.LanguageAudits.AsNoTracking().AnyAsync(x => x.LanguageId == id);
 
             if (isAuditExists == false)
@@ -150,22 +147,23 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
                 await context.LanguageAudits.Where(x => x.LanguageId == id).ExecuteDeleteAsync();
             }
 
-            //var isTrackerExists = await context.LanguageTrackers.AsNoTracking().AnyAsync(x => x.LanguageId == id);
-            
-            //if (isTrackerExists == false)
-            //{
-            //    requestResponse = new()
-            //    {
-            //        StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
-            //        IsSuccess = false,
-            //        Message = ResponseMessage.NoRecordFound
-            //    };
-            //}
+            var isExists = await context.Languages.AsNoTracking().AnyAsync(x => x.Id == id);
 
-            //else
-            //{
-            //    await context.LanguageTrackers.Where(x => x.LanguageId == id).ExecuteDeleteAsync();
-            //}
+            if (isExists == false)
+            {
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
+                    IsSuccess = false,
+                    Message = ResponseMessage.NoRecordFound
+                };
+            }
+
+            else
+            {
+                await context.Languages.Where(x => x.Id == id).ExecuteDeleteAsync();
+                await transaction.CommitAsync();
+            }
 
             requestResponse = new()
             {
@@ -194,28 +192,8 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
     {
         try
         {
-            var data = context.Languages.AsNoTracking().AsQueryable();
-            //var data = (from l in context.Languages
-            //            join lt in context.LanguageTrackers on l.Id equals lt.LanguageId
-            //            select new
-            //            {
-            //                l.Id,
-            //                l.Name,
-            //                l.ISO2Code,
-            //                l.ISO3Code,
-            //                l.ISONumeric,
-            //                l.Icon,
-            //                lt.Browser,
-            //                lt.DeviceIP,
-            //                lt.DeviceName,
-            //                lt.Location,
-            //                lt.GoogleMapUrl,
-            //                lt.Latitude,
-            //                lt.Longitude,
-            //                lt.ActionBy,
-            //                lt.ActionAt
-            //            }).AsNoTracking().AsQueryable();
-
+            var data = context.Languages.Select(x => new { x.Id, x.Name, x.ISO2Code, x.ISO3Code, x.ISONumeric, x.Icon, x.CreatedAt, x.CreatedBy }).AsNoTracking().AsQueryable();
+            
             if (skip == 0 || take == 0)
             {
                 var result = await data.ToListAsync();
@@ -262,58 +240,28 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
     {
         try
         {
-            var data = context.LanguageAudits
-                .Select(x => new { x.ISO2Code, x.ISO3Code, x.ISONumeric, x.Icon, x.Name, Language = x.Language.Name })
-                .AsNoTracking().AsQueryable();
-
-            if (skip == 0 || take == 0)
-            {
-                var result = await data.ToListAsync();
-
-                requestResponse = new()
-                {
-                    StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
-                    IsSuccess = true,
-                    Message = ResponseMessage.FetchSuccess,
-                    Data = result
-                };
-            }
-
-            else
-            {
-                var result = await data.Skip(skip).Take(take).ToListAsync();
-
-                requestResponse = new()
-                {
-                    StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
-                    IsSuccess = true,
-                    Message = ResponseMessage.FetchSuccessWithPagination,
-                    Data = result
-                };
-            }
-
-            return requestResponse;
-        }
-
-        catch (Exception ex)
-        {
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
-                IsSuccess = false,
-                Message = ex.Message
-            };
-
-            return requestResponse;
-        }
-    }
-
-    public async Task<RequestResponse> GetAllExports(int skip, int take)
-    {
-        try
-        {
-            var data = context.Languages
-                .AsNoTracking().AsQueryable();
+            var data = (from l in context.Languages
+                        join la in context.LanguageAudits on l.Id equals la.LanguageId
+                        join et in context.ExportTypes on la.ExportTypeId equals et.Id
+                        select new
+                        {
+                            l.Id,
+                            l.Name,
+                            ExportType = et.Name,
+                            l.ISO2Code,
+                            l.ISO3Code,
+                            l.ISONumeric,
+                            l.Icon,
+                            la.Browser,
+                            la.DeviceIP,
+                            la.DeviceName,
+                            la.Location,
+                            la.GoogleMapUrl,
+                            la.Latitude,
+                            la.Longitude,
+                            la.ActionBy,
+                            la.ActionAt
+                        }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
             {
@@ -359,10 +307,26 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
 
     public async Task<RequestResponse> GetSingle(int id)
     {
+        List<Language> data = new();
+
         try
         {
-            var data = await context.Languages.Where(x => x.Id == id).AsNoTracking().ToListAsync();
+            if (id == 0)
+            {
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
+                    IsSuccess = false,
+                    Message = ResponseMessage.ParameterCanNotBeNullZero
+                };
+                return requestResponse;
+            }
 
+            else
+            {
+                data = await context.Languages.Where(x => x.Id == id).AsNoTracking().ToListAsync();
+            }
+            
             requestResponse = new()
             {
                 StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
@@ -391,6 +355,7 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
     {
         try
         {
+            await using var transaction = await context.Database.BeginTransactionAsync();
             var isExists = await context.Languages.AsNoTracking().AnyAsync(x => (x.Name == masterPUT.Name || x.ISONumeric == masterPUT.ISONumeric || x.ISO2Code == masterPUT.ISO2Code || x.ISO3Code == masterPUT.ISO3Code || x.Icon == masterPUT.Icon) && x.Id != masterPUT.Id);
 
             if (isExists == false)
@@ -405,15 +370,28 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
                 
                 LanguageAudit audit = new();
-                audit.LanguageId = masterPUT.Id;
                 audit.Name = masterPUT.Name;
+                audit.ISONumeric = masterPUT.ISONumeric;
                 audit.ISO2Code = masterPUT.ISO2Code;
                 audit.ISO3Code = masterPUT.ISO3Code;
-                audit.ISONumeric = masterPUT.ISONumeric;
                 audit.Icon = masterPUT.Icon;
+                audit.ExportTypeId = masterPUT.Id;
+                audit.ExportTo = masterPUT.ExportTo;
+                audit.SourceURL = masterPUT.SourceURL;
+                audit.IsDefault = masterPUT.IsDefault;
+                audit.Browser = masterPUT.Browser;
+                audit.DeviceName = masterPUT.DeviceName;
+                audit.Location = masterPUT.Location;
+                audit.DeviceIP = masterPUT.DeviceIP;
+                audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                audit.Latitude = masterPUT.Latitude;
+                audit.Longitude = masterPUT.Longitude;
+                audit.ActionBy = masterPUT.UpdatedBy;
+                audit.ActionAt = DateTime.Now;
 
                 await context.LanguageAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
+                await transaction.CommitAsync();
 
                 requestResponse = new()
                 {

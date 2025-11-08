@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RapidERP.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using RapidERP.Infrastructure.Data;
 namespace RapidERP.Infrastructure.Migrations
 {
     [DbContext(typeof(RapidERPDbContext))]
-    partial class RapidERPDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251108124511_ExportTypeFKLangualeIdRemoved")]
+    partial class ExportTypeFKLangualeIdRemoved
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -195,6 +198,8 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ExportTypeId");
+
                     b.ToTable("ExportTypeAudits");
                 });
 
@@ -328,6 +333,8 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ExportTypeId");
+
                     b.HasIndex("LanguageId");
 
                     b.ToTable("LanguageAudits");
@@ -355,13 +362,28 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Navigation("ActionType");
                 });
 
+            modelBuilder.Entity("RapidERP.Domain.Entities.ExportTypeModels.ExportTypeAudit", b =>
+                {
+                    b.HasOne("RapidERP.Domain.Entities.ExportTypeModels.ExportType", "ExportType")
+                        .WithMany()
+                        .HasForeignKey("ExportTypeId");
+
+                    b.Navigation("ExportType");
+                });
+
             modelBuilder.Entity("RapidERP.Domain.Entities.LanguageModels.LanguageAudit", b =>
                 {
+                    b.HasOne("RapidERP.Domain.Entities.ExportTypeModels.ExportType", "ExportType")
+                        .WithMany()
+                        .HasForeignKey("ExportTypeId");
+
                     b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
                         .WithMany()
                         .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ExportType");
 
                     b.Navigation("Language");
                 });

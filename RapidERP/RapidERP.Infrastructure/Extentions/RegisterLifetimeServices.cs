@@ -11,7 +11,7 @@ public static class RegisterLifetimeServices
         //services.AddScoped<IActionType, ActionTypeService>();
         services.AddScoped<IExportType, ExportTypeService>();
         //services.AddScoped<IDocumentTypeService, DocumentTypeService>();
-        //services.AddScoped<ILanguage, LanguageService>();
+        services.AddScoped<ILanguage, LanguageService>();
         //services.AddScoped<ILanguageLocalization, LanguageLocalizationService>();
         //services.AddScoped<IOrganization, OrganizationService>();
         //services.AddScoped<ICurrency, CurrencyService>();
