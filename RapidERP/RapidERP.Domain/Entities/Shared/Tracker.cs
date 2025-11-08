@@ -1,5 +1,5 @@
 ﻿namespace RapidERP.Domain.Entities.Shared;
-public class Tracker
+public class Tracker : Master
 {
     public string Browser { get; set; }
     public string Location { get; set; }

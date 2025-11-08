@@ -1,6 +1,6 @@
 ﻿namespace RapidERP.Application.DTOs.Shared;
 
-public class TrackerDTO 
+public class TrackerDTO  
 {
     public string Browser { get; set; }
     public string Location { get; set; }

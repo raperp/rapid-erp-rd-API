@@ -17,8 +17,6 @@ public class LanguageConfiguration : IEntityTypeConfiguration<Language>
         builder.Property(x => x.CreatedAt).IsRequired();
         builder.Property(x => x.UpdatedAt).IsRequired(false);
         builder.Property(x => x.UpdatedBy).IsRequired(false);
-        //builder.Ignore(x => x.LanguageId);
-        //builder.Ignore(x => x.Language);
         builder.Ignore(x => x.StatusType);
         builder.Ignore(x => x.StatusTypeId);
     }

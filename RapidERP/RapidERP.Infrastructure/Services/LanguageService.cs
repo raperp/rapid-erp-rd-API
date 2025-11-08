@@ -77,21 +77,6 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
                 await context.LanguageAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
 
-                LanguageTracker tracker = new();
-                tracker.LanguageId = masterData.Id;
-                tracker.Browser = masterPOST.Browser;
-                tracker.Location = masterPOST.Location;
-                tracker.DeviceIP = masterPOST.DeviceIP;
-                tracker.GoogleMapUrl = masterPOST.GoogleMapUrl;
-                tracker.DeviceName = masterPOST.DeviceName;
-                tracker.Latitude = masterPOST.Latitude;
-                tracker.Longitude = masterPOST.Longitude;
-                tracker.ActionBy = masterPOST.CreatedBy;
-                tracker.ActionAt = DateTime.Now;
-
-                //await context.LanguageTrackers.AddAsync(tracker);
-                await context.SaveChangesAsync();
-
                 requestResponse = new()
                 {
                     StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
@@ -428,21 +413,6 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
                 audit.Icon = masterPUT.Icon;
 
                 await context.LanguageAudits.AddAsync(audit);
-                await context.SaveChangesAsync();
-
-                LanguageTracker tracker = new();
-                tracker.LanguageId = masterPUT.Id;              
-                tracker.Browser = masterPUT.Browser;
-                tracker.Location = masterPUT.Location;
-                tracker.DeviceIP = masterPUT.DeviceIP;
-                tracker.GoogleMapUrl = masterPUT.GoogleMapUrl;
-                tracker.DeviceName = masterPUT.DeviceName;
-                tracker.Latitude = masterPUT.Latitude;
-                tracker.Longitude = masterPUT.Longitude;
-                tracker.ActionBy = masterPUT.UpdatedBy;
-                tracker.ActionAt = DateTime.Now;
-
-                //await context.LanguageTrackers.AddAsync(tracker);
                 await context.SaveChangesAsync();
 
                 requestResponse = new()
