@@ -1,7 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Domain.Entities.ActionTypeModels;
+using RapidERP.Domain.Entities.CountryModels;
+using RapidERP.Domain.Entities.CurrencyModels;
 using RapidERP.Domain.Entities.ExportTypeModels;
 using RapidERP.Domain.Entities.LanguageModels;
+using RapidERP.Domain.Entities.SateModules;
+using RapidERP.Domain.Entities.StatusTypeModels;
+using RapidERP.Domain.Entities.TenantModels;
 
 namespace RapidERP.Infrastructure.Data;
 public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : DbContext(options)
@@ -13,13 +18,26 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
     public DbSet<ExportTypeAudit> ExportTypeAudits { get; set; } 
 
     public DbSet<ActionType> ActionTypes { get; set; }
-    public DbSet<ActionTypeAudit> ActionTypeAudits { get; set; } 
+    public DbSet<ActionTypeAudit> ActionTypeAudits { get; set; }
+
+    public DbSet<StatusType> StatusTypes { get; set; }
+    public DbSet<StatusTypeAudit> StatusTypeAudits { get; set; }
+
+    public DbSet<Tenant> Tenants { get; set; }
+    public DbSet<TenantAudit> TenantAudits { get; set; }
+
+    public DbSet<Country> Countries { get; set; }
+    public DbSet<CountryAudit> CountryAudits { get; set; }
+
+    public DbSet<State> States { get; set; }
+    public DbSet<StateAudit> StateAudits { get; set; }
+
+    public DbSet<Currency> Currencies { get; set; }
+    public DbSet<CurrencyAudit> CurrencyAudits { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(RapidERPDbContext).Assembly);
-        modelBuilder.Entity<ActionType>().ToTable("ActionTypes", x => x.ExcludeFromMigrations());
-        modelBuilder.Entity<ActionTypeAudit>().ToTable("ActionTypeAudits", x => x.ExcludeFromMigrations());
     }
 }

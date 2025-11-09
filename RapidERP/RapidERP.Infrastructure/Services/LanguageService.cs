@@ -9,7 +9,7 @@ namespace RapidERP.Infrastructure.Services;
 #nullable enable
 public class LanguageService(RapidERPDbContext context) : ILanguage
 {
-    RequestResponse? requestResponse { get; set; }
+    RequestResponse requestResponse { get; set; }
 
     public async Task<RequestResponse> CreateBulk(List<LanguagePOST> masterPOSTs)
     {

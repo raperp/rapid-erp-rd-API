@@ -7,13 +7,13 @@ public static class RegisterLifetimeServices
 {
     public static IServiceCollection AddScopedServices(this IServiceCollection services)
     {
-        //services.AddScoped<IStatusType, StatusTypeService>();
-        //services.AddScoped<IActionType, ActionTypeService>();
+        services.AddScoped<IStatusType, StatusTypeService>();
+        services.AddScoped<IActionType, ActionTypeService>();
         services.AddScoped<IExportType, ExportTypeService>();
         //services.AddScoped<IDocumentTypeService, DocumentTypeService>();
         services.AddScoped<ILanguage, LanguageService>();
         //services.AddScoped<ILanguageLocalization, LanguageLocalizationService>();
-        //services.AddScoped<IOrganization, OrganizationService>();
+        services.AddScoped<ITenant, TenantService>();
         //services.AddScoped<ICurrency, CurrencyService>();
         //services.AddScoped<ICurrencyLocalization, CurrencyLocalizationService>();
         //services.AddScoped<ICountry, CountryService>();

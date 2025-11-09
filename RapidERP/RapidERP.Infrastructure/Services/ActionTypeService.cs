@@ -2,14 +2,13 @@
 using RapidERP.Application.DTOs.ActionTypeDTOs;
 using RapidERP.Application.Interfaces;
 using RapidERP.Domain.Entities.ActionTypeModels;
-using RapidERP.Domain.Entities.ExportTypeModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 public class ActionTypeService(RapidERPDbContext context) : IActionType
 {
-    RequestResponse? requestResponse { get; set; }
+    RequestResponse requestResponse { get; set; }
 
     public async Task<RequestResponse> CreateBulk(List<ActionTypePOST> masterPOSTs)
     {
@@ -48,13 +47,14 @@ public class ActionTypeService(RapidERPDbContext context) : IActionType
     {
         try
         {
+            await using var transaction = await context.Database.BeginTransactionAsync();
             var isExists = await context.ActionTypes.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
 
             if (isExists == false)
             {
                 ActionType masterData = new();
                 masterData.Name = masterPOST.Name;
-                masterData.LanguageId = masterPOST.LanguageId;
+                //masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Description = masterPOST.Description;
                 masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
@@ -63,30 +63,26 @@ public class ActionTypeService(RapidERPDbContext context) : IActionType
                 await context.SaveChangesAsync();
 
                 ActionTypeAudit audit = new();
-                audit.ActionTypeId = masterData.Id;
                 audit.Name = masterData.Name;
                 audit.Description = masterPOST.Description;
+                audit.ActionTypeId = masterData.Id;
+                audit.ExportTypeId = masterPOST.ExportTypeId;
+                audit.ExportTo = masterPOST.ExportTo;
+                audit.SourceURL = masterPOST.SourceURL;
+                audit.IsDefault = masterPOST.IsDefault;
+                audit.Browser = masterPOST.Browser;
+                audit.DeviceName = masterPOST.DeviceName;
+                audit.Location = masterPOST.Location;
+                audit.DeviceIP = masterPOST.DeviceIP;
+                audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                audit.Latitude = masterPOST.Latitude;
+                audit.Longitude = masterPOST.Longitude;
+                audit.ActionBy = masterPOST.CreatedBy;
+                audit.ActionAt = DateTime.Now;
 
                 await context.ActionTypeAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
-
-                ActionTypeTracker tracker = new();
-                tracker.ActionTypeId = masterData.Id;
-                //tracker.ExportTypeId = masterPOST.ExportTypeId;
-                //tracker.ExportTo = masterPOST.ExportTo;
-                //tracker.SourceURL = masterPOST.SourceURL;
-                tracker.Browser = masterPOST.Browser;
-                tracker.Location = masterPOST.Location;
-                tracker.DeviceIP = masterPOST.DeviceIP;
-                tracker.GoogleMapUrl = masterPOST.GoogleMapUrl;
-                tracker.DeviceName = masterPOST.DeviceName;
-                tracker.Latitude = masterPOST.Latitude;
-                tracker.Longitude = masterPOST.Longitude;
-                tracker.ActionBy = masterPOST.CreatedBy;
-                tracker.ActionAt = DateTime.Now;
-
-                //await context.ActionTypeTrackers.AddAsync(tracker);
-                //await context.SaveChangesAsync();
+                await transaction.CommitAsync();
 
                 requestResponse = new()
                 {
@@ -127,11 +123,27 @@ public class ActionTypeService(RapidERPDbContext context) : IActionType
     {
         try
         {
-            var isExists = await context.ActionTypes.AsNoTracking().AnyAsync(x => x.Id == id);
-            var isLanguageAuditExists = await context.ActionTypeAudits.AsNoTracking().AnyAsync(x => x.ActionTypeId == id);
-            //var isLanguageTrackerExists = await context.ActionTypeTrackers.AsNoTracking().AnyAsync(x => x.ActionTypeId == id);
+            await using var transaction = await context.Database.BeginTransactionAsync();
+            var isAuditExists = await context.ActionTypeAudits.AsNoTracking().AnyAsync(x => x.ActionTypeId == id);
 
-            if (isExists == false || isLanguageAuditExists == false )
+            if (isAuditExists == false)
+            {
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
+                    IsSuccess = false,
+                    Message = ResponseMessage.NoRecordFound
+                };
+            }
+
+            else
+            {
+                await context.ActionTypeAudits.Where(x => x.ActionTypeId == id).ExecuteDeleteAsync();
+            }
+
+            var isExists = await context.ActionTypes.AsNoTracking().AnyAsync(x => x.Id == id);
+
+            if (isExists == false)
             {
                 requestResponse = new()
                 {
@@ -144,8 +156,7 @@ public class ActionTypeService(RapidERPDbContext context) : IActionType
             else
             {
                 await context.ActionTypes.Where(x => x.Id == id).ExecuteDeleteAsync();
-                await context.ActionTypeAudits.Where(x => x.ActionTypeId == id).ExecuteDeleteAsync();
-                //await context.ActionTypeTrackers.Where(x => x.ActionTypeId == id).ExecuteDeleteAsync();
+                await transaction.CommitAsync();
             }
 
             requestResponse = new()
@@ -175,7 +186,15 @@ public class ActionTypeService(RapidERPDbContext context) : IActionType
     {
         try
         {
-            var data = context.ActionTypes.AsNoTracking().AsQueryable();
+            var data = (from et in context.ActionTypes
+                        select new
+                        {
+                            et.Id,
+                            et.Name,
+                            et.Description,
+                            et.CreatedBy,
+                            et.CreatedAt
+                        }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
             {
@@ -223,9 +242,27 @@ public class ActionTypeService(RapidERPDbContext context) : IActionType
     {
         try
         {
-            var data = context.ActionTypeAudits
-                .Select(x => new { x.Name, x.Description, ActionType = x.ActionType.Name })
-                .AsNoTracking().AsQueryable();
+            var data = (from ata in context.ActionTypeAudits
+                        join et in context.ExportTypes on ata.ExportTypeId equals et.Id
+                        select new
+                        {
+                            ata.Id,
+                            ata.Name,
+                            ata.Description,
+                            ExportType = et.Name,
+                            ata.ExportTo,
+                            ata.SourceURL,
+                            ata.IsDefault,
+                            ata.Browser,
+                            ata.DeviceName,
+                            ata.Location,
+                            ata.DeviceIP,
+                            ata.GoogleMapUrl,
+                            ata.Latitude,
+                            ata.Longitude,
+                            ata.ActionBy,
+                            ata.ActionAt
+                        }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
             {
@@ -303,43 +340,39 @@ public class ActionTypeService(RapidERPDbContext context) : IActionType
     {
         try
         {
+            await using var transaction = await context.Database.BeginTransactionAsync();
             var isExists = await context.ActionTypes.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
 
             if (isExists == false)
             {
                 await context.ActionTypes.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
-                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Description, masterPUT.Description)
                 .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
                 ActionTypeAudit audit = new();
-                audit.ActionTypeId = masterPUT.Id;
                 audit.Name = masterPUT.Name;
                 audit.Description = masterPUT.Description;
+                audit.ActionTypeId = masterPUT.Id;
+                audit.ExportTypeId = masterPUT.ExportTypeId;
+                audit.ExportTo = masterPUT.ExportTo;
+                audit.SourceURL = masterPUT.SourceURL;
+                audit.IsDefault = masterPUT.IsDefault;
+                audit.Browser = masterPUT.Browser;
+                audit.DeviceName = masterPUT.DeviceName;
+                audit.Location = masterPUT.Location;
+                audit.DeviceIP = masterPUT.DeviceIP;
+                audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                audit.Latitude = masterPUT.Latitude;
+                audit.Longitude = masterPUT.Longitude;
+                audit.ActionBy = masterPUT.UpdatedBy;
+                audit.ActionAt = DateTime.Now;
 
                 await context.ActionTypeAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
-
-                 
-                ActionTypeTracker tracker = new();
-                tracker.ActionTypeId = masterPUT.Id;
-                //tracker.ExportTypeId = masterPUT.ExportTypeId;
-                //tracker.ExportTo = masterPUT.ExportTo;
-                //tracker.SourceURL = masterPUT.SourceURL;
-                tracker.Browser = masterPUT.Browser;
-                tracker.Location = masterPUT.Location;
-                tracker.DeviceIP = masterPUT.DeviceIP;
-                tracker.GoogleMapUrl = masterPUT.GoogleMapUrl;
-                tracker.DeviceName = masterPUT.DeviceName;
-                tracker.Latitude = masterPUT.Latitude;
-                tracker.Longitude = masterPUT.Longitude;
-                tracker.ActionBy = masterPUT.UpdatedBy;
-                tracker.ActionAt = DateTime.Now;
-                
-                //await context.ActionTypeTrackers.AddAsync(tracker);
-                //await context.SaveChangesAsync();
+                await transaction.CommitAsync();
 
                 requestResponse = new()
                 {
