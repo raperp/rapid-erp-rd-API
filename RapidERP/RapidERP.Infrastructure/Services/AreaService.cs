@@ -1,16 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RapidERP.Application.DTOs.CityDTOs;
+using RapidERP.Application.DTOs.AreaDTOs;
 using RapidERP.Application.Interfaces;
+using RapidERP.Domain.Entities.AreaModules;
 using RapidERP.Domain.Entities.CityModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
-public class CityService(RapidERPDbContext context) : ICity
+public class AreaService(RapidERPDbContext context) : IArea
 {
     RequestResponse requestResponse { get; set; }
 
-    public async Task<RequestResponse> CreateBulk(List<CityPOST> masterPOSTs)
+    public async Task<RequestResponse> CreateBulk(List<AreaPOST> masterPOSTs)
     {
         try
         {
@@ -43,16 +44,16 @@ public class CityService(RapidERPDbContext context) : ICity
         }
     }
 
-    public async Task<RequestResponse> CreateSingle(CityPOST masterPOST)
+    public async Task<RequestResponse> CreateSingle(AreaPOST masterPOST)
     {
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.Cities.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
+            var isExists = await context.Areas.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
 
             if (isExists == false)
             {
-                City masterData = new();
+                Area masterData = new();
                 masterData.Name = masterPOST.Name;
                 masterData.Code = masterPOST.Code;
                 masterData.CountryId = masterPOST.CountryId;
@@ -61,16 +62,17 @@ public class CityService(RapidERPDbContext context) : ICity
                 masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
-                await context.Cities.AddAsync(masterData);
+                await context.Areas.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                CityAudit audit = new();
+                AreaAudit audit = new();
                 audit.Name = masterPOST.Name;
                 audit.Code = masterPOST.Code;
                 audit.CountryId = masterPOST.CountryId;
                 audit.StatusTypeId = masterPOST.StatusTypeId;
                 audit.StateId = masterPOST.StateId;
-                audit.CityId = masterData.Id;
+                audit.AreaId = masterData.Id;
+                audit.CityId = masterData.CityId;
                 audit.StatusTypeId = masterPOST.StatusTypeId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
@@ -87,7 +89,7 @@ public class CityService(RapidERPDbContext context) : ICity
                 audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.CityAudits.AddAsync(audit);
+                await context.AreaAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -131,7 +133,7 @@ public class CityService(RapidERPDbContext context) : ICity
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.CityAudits.AsNoTracking().AnyAsync(x => x.CityId == id);
+            var isAuditExists = await context.AreaAudits.AsNoTracking().AnyAsync(x => x.AreaId == id);
 
             if (isAuditExists == false)
             {
@@ -145,10 +147,10 @@ public class CityService(RapidERPDbContext context) : ICity
 
             else
             {
-                await context.CityAudits.Where(x => x.CityId == id).ExecuteDeleteAsync();
+                await context.AreaAudits.Where(x => x.AreaId == id).ExecuteDeleteAsync();
             }
 
-            var isExists = await context.Cities.AsNoTracking().AnyAsync(x => x.Id == id);
+            var isExists = await context.Areas.AsNoTracking().AnyAsync(x => x.Id == id);
 
             if (isExists == false)
             {
@@ -162,7 +164,7 @@ public class CityService(RapidERPDbContext context) : ICity
 
             else
             {
-                await context.Cities.Where(x => x.Id == id).ExecuteDeleteAsync();
+                await context.Areas.Where(x => x.Id == id).ExecuteDeleteAsync();
                 await transaction.CommitAsync();
             }
 
@@ -193,20 +195,21 @@ public class CityService(RapidERPDbContext context) : ICity
     {
         try
         {
-            var data = (from c in context.Cities
-                        join st in context.StatusTypes on c.StatusTypeId equals st.Id
-                        join co in context.Countries on c.CountryId equals co.Id
-                        join sta in context.States on c.StateId equals sta.Id
+            var data = (from a in context.Areas
+                        join st in context.StatusTypes on a.StatusTypeId equals st.Id
+                        join co in context.Countries on a.CountryId equals co.Id
+                        join sta in context.States on a.StateId equals sta.Id
+                        join ci in context.Cities on a.CityId equals ci.Id
                         select new
                         {
-                            c.Id,
-                            c.Name,
+                            a.Id,
+                            a.Name,
                             Tanent = st.Name,
                             Country = co.Name,
                             State = sta.Name,
                             Status = st.Name,
-                            c.CreatedBy,
-                            c.CreatedAt
+                            a.CreatedBy,
+                            a.CreatedAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -255,36 +258,35 @@ public class CityService(RapidERPDbContext context) : ICity
     {
         try
         {
-            var data = (from ca in context.CountryAudits
-                        join c in context.Countries on ca.CountryId equals c.Id
-                        join et in context.ExportTypes on ca.ExportTypeId equals et.Id
-                        join at in context.ActionTypes on ca.ActionTypeId equals at.Id
-                        join st in context.StatusTypes on ca.StatusTypeId equals st.Id
+            var data = (from aa in context.AreaAudits
+                        join c in context.Countries on aa.CountryId equals c.Id
+                        join sta in context.States on aa.StateId equals sta.Id
+                        join cit in context.Cities on aa.CityId equals cit.Id
+                        join et in context.ExportTypes on aa.ExportTypeId equals et.Id
+                        join at in context.ActionTypes on aa.ActionTypeId equals at.Id
+                        join st in context.StatusTypes on aa.StatusTypeId equals st.Id
                         select new
                         {
-                            ca.Id,
+                            aa.Id,
                             Country = c.Name,
-                            ca.Name,
+                            State = sta.Name,
+                            City = cit.Name,
+                            aa.Name,
                             ExportType = et.Name,
                             ActionType = at.Name,
                             StatusType = st.Name,
-                            ca.ExportTo,
-                            ca.SourceURL,
-                            ca.IsDefault,
-                            ca.ISONumeric,
-                            ca.DialCode,
-                            ca.ISO2Code,
-                            ca.ISO3Code,
-                            ca.FlagURL,
-                            ca.Browser,
-                            ca.DeviceName,
-                            ca.Location,
-                            ca.DeviceIP,
-                            ca.GoogleMapUrl,
-                            ca.Latitude,
-                            ca.Longitude,
-                            ca.ActionBy,
-                            ca.ActionAt
+                            aa.ExportTo,
+                            aa.SourceURL,
+                            aa.IsDefault,
+                            aa.Browser,
+                            aa.DeviceName,
+                            aa.Location,
+                            aa.DeviceIP,
+                            aa.GoogleMapUrl,
+                            aa.Latitude,
+                            aa.Longitude,
+                            aa.ActionBy,
+                            aa.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -333,7 +335,7 @@ public class CityService(RapidERPDbContext context) : ICity
     {
         try
         {
-            var data = await context.Cities.Where(x => x.Id == id).AsNoTracking().ToListAsync();
+            var data = await context.Areas.Where(x => x.Id == id).AsNoTracking().ToListAsync();
 
             requestResponse = new()
             {
@@ -359,7 +361,7 @@ public class CityService(RapidERPDbContext context) : ICity
         }
     }
 
-    public async Task<RequestResponse> Update(CityPUT masterPUT)
+    public async Task<RequestResponse> Update(AreaPUT masterPUT)
     {
         try
         {
@@ -368,21 +370,23 @@ public class CityService(RapidERPDbContext context) : ICity
 
             if (isExists == false)
             {
-                await context.Cities.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
+                await context.Areas.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.CountryId, masterPUT.CountryId)
                 .SetProperty(x => x.StateId, masterPUT.StateId)
+                .SetProperty(x => x.CityId, masterPUT.CityId)
                 .SetProperty(x => x.Code, masterPUT.Code)
                 .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
-                CityAudit audit = new();
+                AreaAudit audit = new();
                 audit.Name = masterPUT.Name;
                 audit.Code = masterPUT.Code;
                 audit.CountryId = masterPUT.CountryId;
                 audit.StatusTypeId = masterPUT.StatusTypeId;
                 audit.StateId = masterPUT.StateId;
-                audit.CityId = masterPUT.Id;
+                audit.AreaId = masterPUT.Id;
+                audit.CityId = masterPUT.CityId;
                 audit.StatusTypeId = masterPUT.StatusTypeId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
                 audit.ExportTypeId = masterPUT.ExportTypeId;
@@ -399,7 +403,7 @@ public class CityService(RapidERPDbContext context) : ICity
                 audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.CityAudits.AddAsync(audit);
+                await context.AreaAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
