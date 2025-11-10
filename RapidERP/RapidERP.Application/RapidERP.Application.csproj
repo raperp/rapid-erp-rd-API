@@ -10,4 +10,8 @@
     <ProjectReference Include="..\RapidERP.Domain\RapidERP.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTOs\AreaDTOs\" />
+  </ItemGroup>
+
 </Project>

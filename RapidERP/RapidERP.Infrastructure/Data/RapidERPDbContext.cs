@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Domain.Entities.ActionTypeModels;
+using RapidERP.Domain.Entities.AreaModules;
+using RapidERP.Domain.Entities.CityModels;
 using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Entities.CurrencyModels;
 using RapidERP.Domain.Entities.ExportTypeModels;
@@ -34,6 +36,12 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
 
     public DbSet<Currency> Currencies { get; set; }
     public DbSet<CurrencyAudit> CurrencyAudits { get; set; }
+
+    public DbSet<City> Cities { get; set; }
+    public DbSet<CityAudit> CityAudits { get; set; }
+
+    public DbSet<Area> Areas { get; set; }
+    public DbSet<AreaAudit> AreaAudits { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
