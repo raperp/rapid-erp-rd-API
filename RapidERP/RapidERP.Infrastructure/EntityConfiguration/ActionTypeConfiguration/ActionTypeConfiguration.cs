@@ -8,7 +8,7 @@ public class ActionTypeConfiguration : IEntityTypeConfiguration<ActionType>
     public void Configure(EntityTypeBuilder<ActionType> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.Name).HasMaxLength(8).IsRequired();
+        builder.Property(x => x.Name).HasMaxLength(15).IsRequired();
         builder.Property(x => x.Description).HasMaxLength(100).IsRequired(false);
         builder.Property(x => x.CreatedBy).IsRequired();
         builder.Property(x => x.CreatedAt).IsRequired();

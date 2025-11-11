@@ -1,16 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RapidERP.Application.DTOs.ExportTypeDTOs;
+using RapidERP.Application.DTOs.DesignationDTOs;
 using RapidERP.Application.Interfaces;
-using RapidERP.Domain.Entities.ExportTypeModels;
+using RapidERP.Domain.Entities.DesignationModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
-public class ExportTypeService(RapidERPDbContext context) : IExportType
+public class DesignationService(RapidERPDbContext context) : IDesignation
 {
     RequestResponse requestResponse { get; set; }
 
-    public async Task<RequestResponse> CreateBulk(List<ExportTypePOST> masterPOSTs)
+    public async Task<RequestResponse> CreateBulk(List<DesignationPOST> masterPOSTs)
     {
         try
         {
@@ -18,7 +18,7 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
             {
                 await CreateSingle(masterPOST);
             }
-             
+
             requestResponse = new()
             {
                 StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
@@ -43,30 +43,33 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
         }
     }
 
-    public async Task<RequestResponse> CreateSingle(ExportTypePOST masterPOST)
+    public async Task<RequestResponse> CreateSingle(DesignationPOST masterPOST)
     {
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.ExportTypes.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
+            var isExists = await context.Designations.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
 
             if (isExists == false)
             {
-                ExportType masterData = new();
+                Designation masterData = new();
                 masterData.Name = masterPOST.Name;
-                masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Description = masterPOST.Description;
+                masterData.DepartmentId = masterPOST.DepartmentId;
                 masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
-                await context.ExportTypes.AddAsync(masterData);
+                await context.Designations.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                ExportTypeAudit audit = new();
+                DesignationAudit audit = new();
                 audit.Name = masterData.Name;
                 audit.Description = masterPOST.Description;
-                audit.ExportTypeId = masterData.Id;
-                audit.LanguageId = masterPOST.LanguageId;
+                audit.DesignationId = masterData.Id;
+                audit.DepartmentId = masterPOST.DepartmentId;
+                audit.StatusTypeId = masterPOST.StatusTypeId;
+                audit.ActionTypeId = masterPOST.ActionTypeId;
+                audit.ExportTypeId = masterPOST.ExportTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
                 audit.IsDefault = masterPOST.IsDefault;
@@ -80,7 +83,7 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
                 audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.ExportTypeAudits.AddAsync(audit);
+                await context.DesignationAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -124,7 +127,7 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.ExportTypeAudits.AsNoTracking().AnyAsync(x => x.ExportTypeId == id);
+            var isAuditExists = await context.DesignationAudits.AsNoTracking().AnyAsync(x => x.DesignationId == id);
 
             if (isAuditExists == false)
             {
@@ -138,10 +141,10 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
 
             else
             {
-                await context.ExportTypeAudits.Where(x => x.ExportTypeId == id).ExecuteDeleteAsync();
+                await context.DesignationAudits.Where(x => x.DesignationId == id).ExecuteDeleteAsync();
             }
 
-            var isExists = await context.ExportTypes.AsNoTracking().AnyAsync(x => x.Id == id);
+            var isExists = await context.Designations.AsNoTracking().AnyAsync(x => x.Id == id);
 
             if (isExists == false)
             {
@@ -155,7 +158,7 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
 
             else
             {
-                await context.ExportTypes.Where(x => x.Id == id).ExecuteDeleteAsync();
+                await context.Designations.Where(x => x.Id == id).ExecuteDeleteAsync();
                 await transaction.CommitAsync();
             }
 
@@ -186,21 +189,23 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
     {
         try
         {
-            var data = (from et in context.ExportTypes
-                        join l in context.Languages on et.LanguageId equals l.Id
+            var data = (from d in context.Designations
+                        join dep in context.Departments on d.DepartmentId equals dep.Id
+                        join st in context.StatusTypes on d.StatusTypeId equals st.Id
                         select new
                         {
-                            et.Id,
-                            et.Name,
-                            et.Description,
-                            et.CreatedBy,
-                            et.CreatedAt,
-                            Language = l.Name
+                            d.Id,
+                            d.Name,
+                            d.Description,
+                            Department = dep.Name,
+                            Status = st.Name,
+                            d.CreatedBy,
+                            d.CreatedAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
             {
-                var result = await data.ToListAsync() ;
+                var result = await data.ToListAsync();
 
                 requestResponse = new()
                 {
@@ -244,26 +249,34 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
     {
         try
         {
-            var data = (from eta in context.ExportTypeAudits
-                        //join et in context.ExportTypes on eta.ExportTypeId equals et.Id
+            var data = (from da in context.DesignationAudits
+                        join des in context.Designations on da.DepartmentId equals des.Id
+                        join dep in context.Departments on da.DepartmentId equals dep.Id
+                        //join et in context.ExportTypes on da.ExportTypeId equals et.Id
+                        join at in context.ActionTypes on da.ActionTypeId equals at.Id
+                        join st in context.StatusTypes on da.StatusTypeId equals st.Id
                         select new
                         {
-                            eta.Id,
-                            eta.Name,
-                            eta.Description,
+                            da.Id,
+                            Department = dep.Name,
+                            Designation = des.Name,
+                            da.Name,
+                            da.Description,
                             //ExportType = et.Name,
-                            eta.ExportTo,
-                            eta.SourceURL,
-                            eta.IsDefault,
-                            eta.Browser,
-                            eta.DeviceName,
-                            eta.Location,
-                            eta.DeviceIP,
-                            eta.GoogleMapUrl,
-                            eta.Latitude,
-                            eta.Longitude,
-                            eta.ActionBy,
-                            eta.ActionAt
+                            ActionType = at.Name,
+                            StatusType = st.Name,
+                            da.ExportTo,
+                            da.SourceURL,
+                            da.IsDefault,
+                            da.Browser,
+                            da.DeviceName,
+                            da.Location,
+                            da.DeviceIP,
+                            da.GoogleMapUrl,
+                            da.Latitude,
+                            da.Longitude,
+                            da.ActionBy,
+                            da.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -312,7 +325,7 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
     {
         try
         {
-            var data = await context.ExportTypes.Where(x => x.Id == id).AsNoTracking().ToListAsync();
+            var data = await context.Designations.Where(x => x.Id == id).AsNoTracking().ToListAsync();
 
             requestResponse = new()
             {
@@ -338,27 +351,30 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
         }
     }
 
-    public async Task<RequestResponse> Update(ExportTypePUT masterPUT)
+    public async Task<RequestResponse> Update(DesignationPUT masterPUT)
     {
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.ExportTypes.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
+            var isExists = await context.Designations.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
 
             if (isExists == false)
             {
-                await context.ExportTypes.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
+                await context.Designations.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
-                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Description, masterPUT.Description)
+                .SetProperty(x => x.DepartmentId, masterPUT.DepartmentId)
                 .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
-                ExportTypeAudit audit = new();
+                DesignationAudit audit = new();
                 audit.Name = masterPUT.Name;
                 audit.Description = masterPUT.Description;
-                audit.ExportTypeId = masterPUT.Id;
-                audit.LanguageId = masterPUT.LanguageId;
+                audit.DesignationId = masterPUT.Id;
+                audit.DepartmentId = masterPUT.DepartmentId;
+                audit.StatusTypeId = masterPUT.StatusTypeId;
+                audit.ActionTypeId = masterPUT.ActionTypeId;
+                audit.ExportTypeId = masterPUT.ExportTypeId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
                 audit.IsDefault = masterPUT.IsDefault;
@@ -372,7 +388,7 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
                 audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.ExportTypeAudits.AddAsync(audit);
+                await context.DesignationAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

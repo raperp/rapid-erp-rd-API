@@ -8,7 +8,7 @@ public class StatysTypeAuditConfiguration : IEntityTypeConfiguration<StatusTypeA
     public void Configure(EntityTypeBuilder<StatusTypeAudit> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.Name).HasMaxLength(5).IsRequired();
+        builder.Property(x => x.Name).HasMaxLength(15).IsRequired();
         builder.Property(x => x.Description).HasMaxLength(100).IsRequired(false);
         builder.Property(x => x.Latitude).HasPrecision(9, 6);
         builder.Property(x => x.Longitude).HasPrecision(9, 6);

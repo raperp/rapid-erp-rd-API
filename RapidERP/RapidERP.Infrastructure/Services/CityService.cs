@@ -257,7 +257,7 @@ public class CityService(RapidERPDbContext context) : ICity
         {
             var data = (from ca in context.CountryAudits
                         join c in context.Countries on ca.CountryId equals c.Id
-                        join et in context.ExportTypes on ca.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on ca.ExportTypeId equals et.Id
                         join at in context.ActionTypes on ca.ActionTypeId equals at.Id
                         join st in context.StatusTypes on ca.StatusTypeId equals st.Id
                         select new
@@ -265,7 +265,7 @@ public class CityService(RapidERPDbContext context) : ICity
                             ca.Id,
                             Country = c.Name,
                             ca.Name,
-                            ExportType = et.Name,
+                            //ExportType = et.Name,
                             ActionType = at.Name,
                             StatusType = st.Name,
                             ca.ExportTo,

@@ -2,7 +2,6 @@
 using RapidERP.Application.DTOs.CurrencyDTOs;
 using RapidERP.Application.Interfaces;
 using RapidERP.Domain.Entities.CurrencyModels;
-using RapidERP.Domain.Entities.SateModules;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
@@ -260,7 +259,7 @@ public class CurrencyService(RapidERPDbContext context) : ICurrency
         {
             var data = (from ca in context.CurrencyAudits
                         join c in context.Currencies on ca.CurrencyId equals c.Id
-                        join et in context.ExportTypes on ca.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on ca.ExportTypeId equals et.Id
                         join at in context.ActionTypes on ca.ActionTypeId equals at.Id
                         join st in context.StatusTypes on ca.StatusTypeId equals st.Id
                         select new
@@ -268,7 +267,7 @@ public class CurrencyService(RapidERPDbContext context) : ICurrency
                             ca.Id,
                             Currency = c.Name,
                             ca.Name,
-                            ExportType = et.Name,
+                            //ExportType = et.Name,
                             Action = at.Name,
                             Status = st.Name,
                             ca.ExportTo,

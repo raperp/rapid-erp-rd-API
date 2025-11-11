@@ -48,7 +48,7 @@ public class CountryService(RapidERPDbContext context) : ICountry
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.Tenants.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
+            var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
 
             if (isExists == false)
             {
@@ -142,7 +142,7 @@ public class CountryService(RapidERPDbContext context) : ICountry
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.CountryAudits.AsNoTracking().AnyAsync(x => x.ActionTypeId == id);
+            var isAuditExists = await context.CountryAudits.AsNoTracking().AnyAsync(x => x.CountryId == id);
 
             if (isAuditExists == false)
             {
@@ -159,7 +159,7 @@ public class CountryService(RapidERPDbContext context) : ICountry
                 await context.CountryAudits.Where(x => x.CountryId == id).ExecuteDeleteAsync();
             }
 
-            var isExists = await context.Tenants.AsNoTracking().AnyAsync(x => x.Id == id);
+            var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Id == id);
 
             if (isExists == false)
             {
@@ -273,7 +273,7 @@ public class CountryService(RapidERPDbContext context) : ICountry
         {
             var data = (from ca in context.CountryAudits
                         join c in context.Countries on ca.CountryId equals c.Id
-                        join et in context.ExportTypes on ca.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on ca.ExportTypeId equals et.Id
                         join at in context.ActionTypes on ca.ActionTypeId equals at.Id
                         join st in context.StatusTypes on ca.StatusTypeId equals st.Id
                         select new
@@ -281,7 +281,7 @@ public class CountryService(RapidERPDbContext context) : ICountry
                             ca.Id,
                             Country = c.Name,
                             ca.Name,
-                            ExportType = et.Name,
+                            //ExportType = et.Name,
                             ActionType = at.Name,
                             StatusType = st.Name,
                             ca.ExportTo,

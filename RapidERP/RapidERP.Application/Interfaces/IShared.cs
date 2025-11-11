@@ -1,8 +1,8 @@
-﻿using RapidERP.Application.DTOs.Shared;
-using RapidERP.Domain.Utilities;
+﻿
+using RapidERP.Domain.Entities.Shared;
 
 namespace RapidERP.Application.Interfaces;
 public interface IShared
 {
-    Task<CounterDTO> GetCounts<T>() where T : class;
+    Task<dynamic> GetSum<T>() where T : GetDTO;
 }

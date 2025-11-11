@@ -243,13 +243,13 @@ public class ActionTypeService(RapidERPDbContext context) : IActionType
         try
         {
             var data = (from ata in context.ActionTypeAudits
-                        join et in context.ExportTypes on ata.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on ata.ExportTypeId equals et.Id
                         select new
                         {
                             ata.Id,
                             ata.Name,
                             ata.Description,
-                            ExportType = et.Name,
+                            //ExportType = et.Name,
                             ata.ExportTo,
                             ata.SourceURL,
                             ata.IsDefault,

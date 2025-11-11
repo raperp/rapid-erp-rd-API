@@ -2,7 +2,6 @@
 using RapidERP.Application.DTOs.AreaDTOs;
 using RapidERP.Application.Interfaces;
 using RapidERP.Domain.Entities.AreaModules;
-using RapidERP.Domain.Entities.CityModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
@@ -262,7 +261,7 @@ public class AreaService(RapidERPDbContext context) : IArea
                         join c in context.Countries on aa.CountryId equals c.Id
                         join sta in context.States on aa.StateId equals sta.Id
                         join cit in context.Cities on aa.CityId equals cit.Id
-                        join et in context.ExportTypes on aa.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on aa.ExportTypeId equals et.Id
                         join at in context.ActionTypes on aa.ActionTypeId equals at.Id
                         join st in context.StatusTypes on aa.StatusTypeId equals st.Id
                         select new
@@ -272,7 +271,7 @@ public class AreaService(RapidERPDbContext context) : IArea
                             State = sta.Name,
                             City = cit.Name,
                             aa.Name,
-                            ExportType = et.Name,
+                            //ExportType = et.Name,
                             ActionType = at.Name,
                             StatusType = st.Name,
                             aa.ExportTo,
@@ -366,7 +365,7 @@ public class AreaService(RapidERPDbContext context) : IArea
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.Cities.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
+            var isExists = await context.Areas.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
 
             if (isExists == false)
             {

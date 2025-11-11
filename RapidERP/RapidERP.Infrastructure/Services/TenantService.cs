@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.DTOs.TenantDTOs;
 using RapidERP.Application.Interfaces;
 using RapidERP.Domain.Entities.ActionTypeModels;
@@ -146,7 +147,7 @@ public class TenantService(RapidERPDbContext context) : ITenant
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.TenantAudits.AsNoTracking().AnyAsync(x => x.ActionTypeId == id);
+            var isAuditExists = await context.TenantAudits.AsNoTracking().AnyAsync(x => x.TenantId == id);
 
             if (isAuditExists == false)
             {
@@ -177,7 +178,7 @@ public class TenantService(RapidERPDbContext context) : ITenant
 
             else
             {
-                await context.ActionTypes.Where(x => x.Id == id).ExecuteDeleteAsync();
+                await context.Tenants.Where(x => x.Id == id).ExecuteDeleteAsync();
                 await transaction.CommitAsync();
             }
 
@@ -208,6 +209,8 @@ public class TenantService(RapidERPDbContext context) : ITenant
     {
         try
         {
+            GetAllDTO result = new();
+
             var data = (from t in context.Tenants
                         join st in context.StatusTypes on t.StatusTypeId equals st.Id
                         select new
@@ -229,7 +232,10 @@ public class TenantService(RapidERPDbContext context) : ITenant
 
             if (skip == 0 || take == 0)
             {
-                var result = await data.ToListAsync();
+                result.Count = await GetAllCounts();
+                result.Data = await data.ToListAsync();
+
+                //var result = await data.ToListAsync();
 
                 requestResponse = new()
                 {
@@ -242,7 +248,7 @@ public class TenantService(RapidERPDbContext context) : ITenant
 
             else
             {
-                var result = await data.Skip(skip).Take(take).ToListAsync();
+                var results = await data.Skip(skip).Take(take).ToListAsync();
 
                 requestResponse = new()
                 {
@@ -274,14 +280,14 @@ public class TenantService(RapidERPDbContext context) : ITenant
         try
         {
             var data = (from ta in context.TenantAudits
-                        join et in context.ExportTypes on ta.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on ta.ExportTypeId equals et.Id
                         join at in context.ActionTypes on ta.ActionTypeId equals at.Id
                         join st in context.StatusTypes on ta.StatusTypeId equals st.Id
                         select new
                         {
                             ta.Id,
                             ta.Name,
-                            ExportType = et.Name,
+                            //ExportType = et.Name,
                             ActionType = at.Name,
                             StatusType = st.Name,
                             ta.ExportTo,
@@ -462,6 +468,53 @@ public class TenantService(RapidERPDbContext context) : ITenant
             };
 
             return requestResponse;
+        }
+    }
+    public async Task<dynamic> GetAllCounts()
+    {
+        try
+        {
+            float totalCount = await context.Tenants.CountAsync();
+            int activeCount = await context.Tenants.Where(x => x.StatusTypeId == 3).CountAsync();
+            int inActiveCount = await context.Tenants.Where(x => x.StatusTypeId == 10).CountAsync();
+            int draftCount = await context.Tenants.Where(x => x.StatusTypeId == 5).CountAsync();
+            int updatedCount = await context.Tenants.Where(x => x.UpdatedAt != null).CountAsync();
+            int deletedCount = await context.Tenants.Where(x => x.StatusTypeId == 7).CountAsync();
+            int softDeletedCount = await context.Tenants.Where(x => x.StatusTypeId == 6).CountAsync();
+
+            float totalPercentage = totalCount / totalCount * 100;
+            float activePercentage = activeCount / totalCount * 100;
+            float inActivePercentage = inActiveCount / totalCount * 100;
+            float draftPercentage = draftCount / totalCount * 100;
+            float updatedPercentage = updatedCount / totalCount * 100;
+            float deletedPercentage = deletedCount / totalCount * 100;
+            float softDeletedPercentage = softDeletedCount / totalCount * 100;
+
+            var result = new
+            {
+                totalCount,
+                activeCount,
+                inActiveCount,
+                draftCount,
+                updatedCount,
+                deletedCount,
+                softDeletedCount,
+
+                totalPercentage = $"{totalPercentage.ToString()}%",
+                activePercentage = $"{activePercentage.ToString()}%",
+                inActivePercentage = $"{inActivePercentage.ToString()}%",
+                draftPercentage = $"{draftPercentage.ToString()}%",
+                updatedPercentage = $"{updatedPercentage.ToString()}%",
+                deletedPercentage = $"{deletedPercentage.ToString()}%",
+                softDeletedPercentage = $"{softDeletedPercentage.ToString()}%"
+            };
+
+            return result;
+        }
+
+        catch (Exception ex)
+        {
+            throw new ApplicationException(ex.Message);
         }
     }
 }

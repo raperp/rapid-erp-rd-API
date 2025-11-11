@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.DepartmentDTOs;
 using RapidERP.Application.Interfaces;
-using RapidERP.Domain.Entities.CityModels;
 using RapidERP.Domain.Entities.DepartmentModels;
-using RapidERP.Domain.Entities.ExportTypeModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
@@ -249,7 +247,7 @@ public class DepartmentService(RapidERPDbContext context) : IDepartment
         {
             var data = (from da in context.DepartmentAudits
                         join d in context.Departments on da.DepartmentId equals d.Id
-                        join et in context.ExportTypes on da.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on da.ExportTypeId equals et.Id
                         join at in context.ActionTypes on da.ActionTypeId equals at.Id
                         join st in context.StatusTypes on da.StatusTypeId equals st.Id
                         select new
@@ -258,7 +256,7 @@ public class DepartmentService(RapidERPDbContext context) : IDepartment
                             Department = d.Name,
                             da.Name,
                             da.Description,
-                            ExportType = et.Name,
+                            //ExportType = et.Name,
                             ActionType = at.Name,
                             StatusType = st.Name,
                             da.ExportTo,

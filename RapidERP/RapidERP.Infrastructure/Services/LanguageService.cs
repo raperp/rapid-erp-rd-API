@@ -242,12 +242,12 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
         {
             var data = (from l in context.Languages
                         join la in context.LanguageAudits on l.Id equals la.LanguageId
-                        join et in context.ExportTypes on la.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on la.ExportTypeId equals et.Id
                         select new
                         {
                             l.Id,
                             l.Name,
-                            ExportType = et.Name,
+                            //ExportType = et.Name,
                             l.ISO2Code,
                             l.ISO3Code,
                             l.ISONumeric,

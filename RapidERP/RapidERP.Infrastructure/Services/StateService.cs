@@ -264,7 +264,7 @@ namespace RapidERP.Infrastructure.Services
             {
                 var data = (from sa in context.StateAudits
                             join c in context.Countries on sa.CountryId equals c.Id
-                            join et in context.ExportTypes on sa.ExportTypeId equals et.Id
+                            //join et in context.ExportTypes on sa.ExportTypeId equals et.Id
                             join at in context.ActionTypes on sa.ActionTypeId equals at.Id
                             join st in context.StatusTypes on sa.StatusTypeId equals st.Id
                             select new
@@ -272,7 +272,7 @@ namespace RapidERP.Infrastructure.Services
                                 sa.Id,
                                 Country = c.Name,
                                 sa.Name,
-                                ExportType = et.Name,
+                                //ExportType = et.Name,
                                 Action = at.Name,
                                 Status = st.Name,
                                 sa.ExportTo,
