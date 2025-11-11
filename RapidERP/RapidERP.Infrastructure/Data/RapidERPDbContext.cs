@@ -4,6 +4,7 @@ using RapidERP.Domain.Entities.AreaModules;
 using RapidERP.Domain.Entities.CityModels;
 using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Entities.CurrencyModels;
+using RapidERP.Domain.Entities.DepartmentModels;
 using RapidERP.Domain.Entities.ExportTypeModels;
 using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Entities.SateModules;
@@ -42,6 +43,9 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
 
     public DbSet<Area> Areas { get; set; }
     public DbSet<AreaAudit> AreaAudits { get; set; }
+
+    public DbSet<Department> Departments { get; set; }
+    public DbSet<DepartmentAudit> DepartmentAudits { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
