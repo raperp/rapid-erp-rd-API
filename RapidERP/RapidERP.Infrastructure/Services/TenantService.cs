@@ -235,8 +235,6 @@ public class TenantService(RapidERPDbContext context) : ITenant
                 result.Count = await GetAllCounts();
                 result.Data = await data.ToListAsync();
 
-                //var result = await data.ToListAsync();
-
                 requestResponse = new()
                 {
                     StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
@@ -248,8 +246,9 @@ public class TenantService(RapidERPDbContext context) : ITenant
 
             else
             {
-                var results = await data.Skip(skip).Take(take).ToListAsync();
-
+                result.Count = await GetAllCounts();
+                result.Data = await data.Skip(skip).Take(take).ToListAsync();
+                
                 requestResponse = new()
                 {
                     StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",

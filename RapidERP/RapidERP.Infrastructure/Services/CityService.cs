@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.CityDTOs;
+using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
 using RapidERP.Domain.Entities.CityModels;
 using RapidERP.Domain.Utilities;
@@ -193,6 +194,8 @@ public class CityService(RapidERPDbContext context) : ICity
     {
         try
         {
+            GetAllDTO result = new();
+
             var data = (from c in context.Cities
                         join st in context.StatusTypes on c.StatusTypeId equals st.Id
                         join co in context.Countries on c.CountryId equals co.Id
@@ -211,7 +214,8 @@ public class CityService(RapidERPDbContext context) : ICity
 
             if (skip == 0 || take == 0)
             {
-                var result = await data.ToListAsync();
+                result.Count = await GetAllCounts();
+                result.Data = await data.ToListAsync();
 
                 requestResponse = new()
                 {
@@ -224,7 +228,8 @@ public class CityService(RapidERPDbContext context) : ICity
 
             else
             {
-                var result = await data.Skip(skip).Take(take).ToListAsync();
+                result.Count = await GetAllCounts();
+                result.Data = await data.Skip(skip).Take(take).ToListAsync();
 
                 requestResponse = new()
                 {
@@ -435,6 +440,53 @@ public class CityService(RapidERPDbContext context) : ICity
             };
 
             return requestResponse;
+        }
+    }
+    public async Task<dynamic> GetAllCounts()
+    {
+        try
+        {
+            float totalCount = await context.Cities.CountAsync();
+            int activeCount = await context.Cities.Where(x => x.StatusTypeId == 3).CountAsync();
+            int inActiveCount = await context.Cities.Where(x => x.StatusTypeId == 10).CountAsync();
+            int draftCount = await context.Cities.Where(x => x.StatusTypeId == 5).CountAsync();
+            int updatedCount = await context.Cities.Where(x => x.UpdatedAt != null).CountAsync();
+            int deletedCount = await context.Cities.Where(x => x.StatusTypeId == 7).CountAsync();
+            int softDeletedCount = await context.Cities.Where(x => x.StatusTypeId == 6).CountAsync();
+
+            float totalPercentage = totalCount / totalCount * 100;
+            float activePercentage = activeCount / totalCount * 100;
+            float inActivePercentage = inActiveCount / totalCount * 100;
+            float draftPercentage = draftCount / totalCount * 100;
+            float updatedPercentage = updatedCount / totalCount * 100;
+            float deletedPercentage = deletedCount / totalCount * 100;
+            float softDeletedPercentage = softDeletedCount / totalCount * 100;
+
+            var result = new
+            {
+                totalCount,
+                activeCount,
+                inActiveCount,
+                draftCount,
+                updatedCount,
+                deletedCount,
+                softDeletedCount,
+
+                totalPercentage = $"{totalPercentage.ToString()}%",
+                activePercentage = $"{activePercentage.ToString()}%",
+                inActivePercentage = $"{inActivePercentage.ToString()}%",
+                draftPercentage = $"{draftPercentage.ToString()}%",
+                updatedPercentage = $"{updatedPercentage.ToString()}%",
+                deletedPercentage = $"{deletedPercentage.ToString()}%",
+                softDeletedPercentage = $"{softDeletedPercentage.ToString()}%"
+            };
+
+            return result;
+        }
+
+        catch (Exception ex)
+        {
+            throw new ApplicationException(ex.Message);
         }
     }
 }

@@ -10,19 +10,19 @@ public static class RegisterLifetimeServices
         services.AddScoped<IStatusType, StatusTypeService>();
         services.AddScoped<IActionType, ActionTypeService>();
         services.AddScoped<IExportType, ExportTypeService>();
-        //services.AddScoped<IDocumentTypeService, DocumentTypeService>();
+        services.AddScoped<IArea, AreaService>();
         services.AddScoped<ILanguage, LanguageService>();
-        //services.AddScoped<ILanguageLocalization, LanguageLocalizationService>();
+        services.AddScoped<ICity, CityService>();
         services.AddScoped<ITenant, TenantService>();
-        //services.AddScoped<ICurrency, CurrencyService>();
-        //services.AddScoped<ICurrencyLocalization, CurrencyLocalizationService>();
-        //services.AddScoped<ICountry, CountryService>();
-        //services.AddScoped<ICountryLocalization, CountryLocalizationService>();
-        //services.AddScoped<IState, StateService>();
+        services.AddScoped<ICurrency, CurrencyService>();
+        services.AddScoped<ICountry, CountryService>();
+        services.AddScoped<ILanguage, LanguageService>();
+        services.AddScoped<ITenant, TenantService>();
+        services.AddScoped<IState, StateService>();
         //services.AddScoped<IStateLocalization, StateLocalizationService>();
-        //services.AddScoped<IDepartment, DepartmentService>();
+        services.AddScoped<IDepartment, DepartmentService>();
         //services.AddScoped<IDepartmentLocalization, DepartmentLocalizationService>();
-        //services.AddScoped<IDesignation, DesignationService>();
+        services.AddScoped<IDesignation, DesignationService>();
         //services.AddScoped<IDesignationLocalization, DesignationLocalizationService>();
 
         return services;

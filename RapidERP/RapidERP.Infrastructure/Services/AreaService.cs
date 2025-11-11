@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.AreaDTOs;
+using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
 using RapidERP.Domain.Entities.AreaModules;
 using RapidERP.Domain.Utilities;
@@ -194,6 +195,8 @@ public class AreaService(RapidERPDbContext context) : IArea
     {
         try
         {
+            GetAllDTO result = new();
+
             var data = (from a in context.Areas
                         join st in context.StatusTypes on a.StatusTypeId equals st.Id
                         join co in context.Countries on a.CountryId equals co.Id
@@ -213,7 +216,8 @@ public class AreaService(RapidERPDbContext context) : IArea
 
             if (skip == 0 || take == 0)
             {
-                var result = await data.ToListAsync();
+                result.Count = await GetAllCounts();
+                result.Data = await data.ToListAsync();
 
                 requestResponse = new()
                 {
@@ -226,8 +230,9 @@ public class AreaService(RapidERPDbContext context) : IArea
 
             else
             {
-                var result = await data.Skip(skip).Take(take).ToListAsync();
-
+                result.Count = await GetAllCounts();
+                result.Data = await data.Skip(skip).Take(take).ToListAsync();
+                
                 requestResponse = new()
                 {
                     StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
@@ -438,6 +443,53 @@ public class AreaService(RapidERPDbContext context) : IArea
             };
 
             return requestResponse;
+        }
+    }
+    public async Task<dynamic> GetAllCounts()
+    {
+        try
+        {
+            float totalCount = await context.Areas.CountAsync();
+            int activeCount = await context.Areas.Where(x => x.StatusTypeId == 3).CountAsync();
+            int inActiveCount = await context.Areas.Where(x => x.StatusTypeId == 10).CountAsync();
+            int draftCount = await context.Areas.Where(x => x.StatusTypeId == 5).CountAsync();
+            int updatedCount = await context.Areas.Where(x => x.UpdatedAt != null).CountAsync();
+            int deletedCount = await context.Areas.Where(x => x.StatusTypeId == 7).CountAsync();
+            int softDeletedCount = await context.Areas.Where(x => x.StatusTypeId == 6).CountAsync();
+
+            float totalPercentage = totalCount / totalCount * 100;
+            float activePercentage = activeCount / totalCount * 100;
+            float inActivePercentage = inActiveCount / totalCount * 100;
+            float draftPercentage = draftCount / totalCount * 100;
+            float updatedPercentage = updatedCount / totalCount * 100;
+            float deletedPercentage = deletedCount / totalCount * 100;
+            float softDeletedPercentage = softDeletedCount / totalCount * 100;
+
+            var result = new
+            {
+                totalCount,
+                activeCount,
+                inActiveCount,
+                draftCount,
+                updatedCount,
+                deletedCount,
+                softDeletedCount,
+
+                totalPercentage = $"{totalPercentage.ToString()}%",
+                activePercentage = $"{activePercentage.ToString()}%",
+                inActivePercentage = $"{inActivePercentage.ToString()}%",
+                draftPercentage = $"{draftPercentage.ToString()}%",
+                updatedPercentage = $"{updatedPercentage.ToString()}%",
+                deletedPercentage = $"{deletedPercentage.ToString()}%",
+                softDeletedPercentage = $"{softDeletedPercentage.ToString()}%"
+            };
+
+            return result;
+        }
+
+        catch (Exception ex)
+        {
+            throw new ApplicationException(ex.Message);
         }
     }
 }
