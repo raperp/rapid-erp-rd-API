@@ -6,7 +6,7 @@ using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
-public class ActionTypeService(RapidERPDbContext context) : IActionType
+public class ActionTypeService(RapidERPDbContext context, IShared shared) : IActionType
 {
     RequestResponse requestResponse { get; set; }
 
@@ -306,34 +306,10 @@ public class ActionTypeService(RapidERPDbContext context) : IActionType
         }
     }
 
-    public async Task<RequestResponse> GetSingle(int id)
+    public async Task<dynamic> GetSingle(int id)
     {
-        try
-        {
-            var data = await context.ActionTypes.Where(x => x.Id == id).AsNoTracking().ToListAsync();
-
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
-                IsSuccess = true,
-                Message = ResponseMessage.FetchSuccess,
-                Data = data
-            };
-
-            return requestResponse;
-        }
-
-        catch (Exception ex)
-        {
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
-                IsSuccess = false,
-                Message = ex.Message
-            };
-
-            return requestResponse;
-        }
+        var result = await shared.GetSingle<ActionType>(id);
+        return result;
     }
 
     public async Task<RequestResponse> Update(ActionTypePUT masterPUT)

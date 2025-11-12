@@ -1,11 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.Interfaces;
 using RapidERP.Domain.Entities.Shared;
+using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 public class SharedServices(RapidERPDbContext context) : IShared
 {
+    RequestResponse requestResponse { get; set; }
+
     public async Task<dynamic> GetCounts<T>() where T : BaseMaster
     {
         float totalCount = await context.Set<T>().CountAsync();
@@ -41,6 +44,36 @@ public class SharedServices(RapidERPDbContext context) : IShared
         };
 
         return result;
+    }
+
+    public async Task<RequestResponse> GetSingle<T>(int id) where T : BaseMaster
+    {
+        try
+        {
+            var data = await context.Set<T>().Where(x => x.Id == id).AsNoTracking().ToListAsync();
+
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                IsSuccess = true,
+                Message = ResponseMessage.FetchSuccess,
+                Data = data
+            };
+
+            return requestResponse;
+        }
+
+        catch (Exception ex)
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ex.Message
+            };
+
+            return requestResponse;
+        }
     }
 }
 

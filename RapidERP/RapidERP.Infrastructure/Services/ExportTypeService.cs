@@ -6,7 +6,7 @@ using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
-public class ExportTypeService(RapidERPDbContext context) : IExportType
+public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExportType
 {
     RequestResponse requestResponse { get; set; }
 
@@ -16,7 +16,8 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
         {
             foreach (var masterPOST in masterPOSTs)
             {
-                await CreateSingle(masterPOST);
+                var task = CreateSingle(masterPOST);
+                await Task.WhenAll(task);
             }
              
             requestResponse = new()
@@ -308,34 +309,10 @@ public class ExportTypeService(RapidERPDbContext context) : IExportType
         }
     }
 
-    public async Task<RequestResponse> GetSingle(int id)
+    public async Task<dynamic> GetSingle(int id)
     {
-        try
-        {
-            var data = await context.ExportTypes.Where(x => x.Id == id).AsNoTracking().ToListAsync();
-
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
-                IsSuccess = true,
-                Message = ResponseMessage.FetchSuccess,
-                Data = data
-            };
-
-            return requestResponse;
-        }
-
-        catch (Exception ex)
-        {
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
-                IsSuccess = false,
-                Message = ex.Message
-            };
-
-            return requestResponse;
-        }
+        var result = await shared.GetSingle<ExportType>(id);
+        return result;
     }
 
     public async Task<RequestResponse> Update(ExportTypePUT masterPUT)

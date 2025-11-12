@@ -350,34 +350,10 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
         }
     }
 
-    public async Task<RequestResponse> GetSingle(int id)
+    public async Task<dynamic> GetSingle(int id)
     {
-        try
-        {
-            var data = await context.Countries.Where(x => x.Id == id).AsNoTracking().ToListAsync();
-
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
-                IsSuccess = true,
-                Message = ResponseMessage.FetchSuccess,
-                Data = data
-            };
-
-            return requestResponse;
-        }
-
-        catch (Exception ex)
-        {
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
-                IsSuccess = false,
-                Message = ex.Message
-            };
-
-            return requestResponse;
-        }
+        var result = await shared.GetSingle<Country>(id);
+        return result;
     }
 
     public async Task<RequestResponse> Update(CountryPUT masterPUT)

@@ -7,7 +7,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 #nullable enable
-public class LanguageService(RapidERPDbContext context) : ILanguage
+public class LanguageService(RapidERPDbContext context, IShared shared) : ILanguage
 {
     RequestResponse requestResponse { get; set; }
 
@@ -305,50 +305,10 @@ public class LanguageService(RapidERPDbContext context) : ILanguage
         }
     }
 
-    public async Task<RequestResponse> GetSingle(int id)
+    public async Task<dynamic> GetSingle(int id)
     {
-        List<Language> data = new();
-
-        try
-        {
-            if (id == 0)
-            {
-                requestResponse = new()
-                {
-                    StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
-                    IsSuccess = false,
-                    Message = ResponseMessage.ParameterCanNotBeNullZero
-                };
-                return requestResponse;
-            }
-
-            else
-            {
-                data = await context.Languages.Where(x => x.Id == id).AsNoTracking().ToListAsync();
-            }
-            
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
-                IsSuccess = true,
-                Message = ResponseMessage.FetchSuccess,
-                Data = data
-            };
-
-            return requestResponse;
-        }
-
-        catch (Exception ex)
-        {
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
-                IsSuccess = false,
-                Message = ex.Message
-            };
-
-            return requestResponse;
-        }
+        var result = await shared.GetSingle<Language>(id);
+        return result;
     }
      
     public async Task<RequestResponse> Update(LanguagePUT masterPUT)

@@ -4,7 +4,7 @@ namespace RapidERP.Application.Interfaces;
 public interface IBase<POSTEntity, PUTEntity> where POSTEntity : class 
 {
     Task<RequestResponse> GetAll(int skip, int take);
-    Task<RequestResponse> GetSingle(int id);
+    Task<dynamic> GetSingle(int id);
     Task<RequestResponse> GetAllAudits(int skip, int take);
     Task<RequestResponse> CreateSingle(POSTEntity masterPOST);
     Task<RequestResponse> CreateBulk(List<POSTEntity> masterPOSTs);
