@@ -17,7 +17,8 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
         {
             foreach (var masterPOST in masterPOSTs)
             {
-                await CreateSingle(masterPOST);
+                var task = CreateSingle(masterPOST);
+                await Task.WhenAll(task);
             }
 
             requestResponse = new()

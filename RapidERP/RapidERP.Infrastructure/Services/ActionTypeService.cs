@@ -16,7 +16,8 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
         {
             foreach (var masterPOST in masterPOSTs)
             {
-                await CreateSingle(masterPOST);
+                var task = CreateSingle(masterPOST);
+                await Task.WhenAll(task);
             }
 
             requestResponse = new()

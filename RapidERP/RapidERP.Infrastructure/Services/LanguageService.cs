@@ -17,7 +17,8 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
         {
             foreach (var masterPOST in masterPOSTs)
             {
-                await CreateSingle(masterPOST);
+                var task = CreateSingle(masterPOST);
+                await Task.WhenAll(task);
             }
 
             requestResponse = new()

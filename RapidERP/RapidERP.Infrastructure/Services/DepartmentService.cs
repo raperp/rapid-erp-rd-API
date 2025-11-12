@@ -17,7 +17,8 @@ public class DepartmentService(RapidERPDbContext context, IShared shared) : IDep
         {
             foreach (var masterPOST in masterPOSTs)
             {
-                await CreateSingle(masterPOST);
+                var task = CreateSingle(masterPOST);
+                await Task.WhenAll(task);
             }
 
             requestResponse = new()

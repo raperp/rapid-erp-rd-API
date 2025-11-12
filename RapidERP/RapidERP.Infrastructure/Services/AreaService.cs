@@ -17,7 +17,8 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
         {
             foreach (var masterPOST in masterPOSTs)
             {
-                await CreateSingle(masterPOST);
+                var task = CreateSingle(masterPOST);
+                await Task.WhenAll(task);
             }
 
             requestResponse = new()

@@ -17,7 +17,8 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
         {
             foreach (var masterPOST in masterPOSTs)
             {
-                await CreateSingle(masterPOST);
+                var task = CreateSingle(masterPOST);
+                await Task.WhenAll(task);
             }
 
             requestResponse = new()

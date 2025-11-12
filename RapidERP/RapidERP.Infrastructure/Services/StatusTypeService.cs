@@ -17,7 +17,8 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
         {
             foreach (var masterPOST in masterPOSTs)
             {
-                await CreateSingle(masterPOST);
+                var task = CreateSingle(masterPOST);
+                await Task.WhenAll(task);
             }
 
             requestResponse = new()

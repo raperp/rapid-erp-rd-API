@@ -18,7 +18,8 @@ namespace RapidERP.Infrastructure.Services
             {
                 foreach (var masterPOST in masterPOSTs)
                 {
-                    await CreateSingle(masterPOST);
+                    var task = CreateSingle(masterPOST);
+                    await Task.WhenAll(task);
                 }
 
                 requestResponse = new()
