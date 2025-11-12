@@ -8,7 +8,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services
 {
-    public class StateService(RapidERPDbContext context) : IState
+    public class StateService(RapidERPDbContext context, IShared shared) : IState
     {
         RequestResponse requestResponse { get; set; }
 
@@ -219,7 +219,7 @@ namespace RapidERP.Infrastructure.Services
 
                 if (skip == 0 || take == 0)
                 {
-                    result.Count = await GetAllCounts();
+                    result.Count = await shared.GetCounts<State>();
                     result.Data = await data.ToListAsync();
 
                     requestResponse = new()
@@ -233,7 +233,7 @@ namespace RapidERP.Infrastructure.Services
 
                 else
                 {
-                    result.Count = await GetAllCounts();
+                    result.Count = await shared.GetCounts<State>();
                     result.Data = await data.Skip(skip).Take(take).ToListAsync();
 
                     requestResponse = new()
@@ -445,53 +445,6 @@ namespace RapidERP.Infrastructure.Services
                 };
 
                 return requestResponse;
-            }
-        }
-        public async Task<dynamic> GetAllCounts()
-        {
-            try
-            {
-                float totalCount = await context.States.CountAsync();
-                int activeCount = await context.States.Where(x => x.StatusTypeId == 3).CountAsync();
-                int inActiveCount = await context.States.Where(x => x.StatusTypeId == 10).CountAsync();
-                int draftCount = await context.States.Where(x => x.StatusTypeId == 5).CountAsync();
-                int updatedCount = await context.States.Where(x => x.UpdatedAt != null).CountAsync();
-                int deletedCount = await context.States.Where(x => x.StatusTypeId == 7).CountAsync();
-                int softDeletedCount = await context.States.Where(x => x.StatusTypeId == 6).CountAsync();
-
-                float totalPercentage = totalCount / totalCount * 100;
-                float activePercentage = activeCount / totalCount * 100;
-                float inActivePercentage = inActiveCount / totalCount * 100;
-                float draftPercentage = draftCount / totalCount * 100;
-                float updatedPercentage = updatedCount / totalCount * 100;
-                float deletedPercentage = deletedCount / totalCount * 100;
-                float softDeletedPercentage = softDeletedCount / totalCount * 100;
-
-                var result = new
-                {
-                    totalCount,
-                    activeCount,
-                    inActiveCount,
-                    draftCount,
-                    updatedCount,
-                    deletedCount,
-                    softDeletedCount,
-
-                    totalPercentage = $"{totalPercentage.ToString()}%",
-                    activePercentage = $"{activePercentage.ToString()}%",
-                    inActivePercentage = $"{inActivePercentage.ToString()}%",
-                    draftPercentage = $"{draftPercentage.ToString()}%",
-                    updatedPercentage = $"{updatedPercentage.ToString()}%",
-                    deletedPercentage = $"{deletedPercentage.ToString()}%",
-                    softDeletedPercentage = $"{softDeletedPercentage.ToString()}%"
-                };
-
-                return result;
-            }
-
-            catch (Exception ex)
-            {
-                throw new ApplicationException(ex.Message);
             }
         }
     }

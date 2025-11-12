@@ -19,7 +19,7 @@ public static class RegisterLifetimeServices
         services.AddScoped<ILanguage, LanguageService>();
         services.AddScoped<ITenant, TenantService>();
         services.AddScoped<IState, StateService>();
-        //services.AddScoped<IStateLocalization, StateLocalizationService>();
+        services.AddScoped<IShared, SharedServices>();
         services.AddScoped<IDepartment, DepartmentService>();
         //services.AddScoped<IDepartmentLocalization, DepartmentLocalizationService>();
         services.AddScoped<IDesignation, DesignationService>();

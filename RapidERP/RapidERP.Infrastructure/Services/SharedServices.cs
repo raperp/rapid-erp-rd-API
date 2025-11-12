@@ -6,15 +6,15 @@ using RapidERP.Infrastructure.Data;
 namespace RapidERP.Infrastructure.Services;
 public class SharedServices(RapidERPDbContext context) : IShared
 {
-    public async Task<dynamic>  GetSum<T>() where T : GetDTO
+    public async Task<dynamic> GetCounts<T>() where T : BaseMaster
     {
-        //var p = await context.Set<T>().Where(x => x.StatusTypeId == 23).CountAsync();
         float totalCount = await context.Set<T>().CountAsync();
         int activeCount = await context.Set<T>().Where(x => x.StatusTypeId == 3).CountAsync();
-        int inActiveCount = await context.Set<T>().Where(x => x.StatusTypeId == 3).CountAsync();
-        int draftCount = await context.Set<T>().Where(x => x.StatusTypeId == 3).CountAsync();
-        int updatedCount = await context.Set<T>().Where(x => x.StatusTypeId == 3).CountAsync();
-        int deletedCount = await context.Set<T>().Where(x => x.StatusTypeId == 3).CountAsync();
+        int inActiveCount = await context.Set<T>().Where(x => x.StatusTypeId == 10).CountAsync();
+        int draftCount = await context.Set<T>().Where(x => x.StatusTypeId == 5).CountAsync();
+        int updatedCount = await context.Set<T>().Where(x => x.UpdatedAt != null).CountAsync();
+        int deletedCount = await context.Set<T>().Where(x => x.StatusTypeId == 7).CountAsync();
+        int softDeletedCount = await context.Set<T>().Where(x => x.StatusTypeId == 6).CountAsync();
 
         float totalPercentage = totalCount / totalCount * 100;
         float activePercentage = activeCount / totalCount * 100;
