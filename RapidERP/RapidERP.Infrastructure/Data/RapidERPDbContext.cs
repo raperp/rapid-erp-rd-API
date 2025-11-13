@@ -11,6 +11,7 @@ using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Entities.SalesmanModels;
 using RapidERP.Domain.Entities.SateModules;
 using RapidERP.Domain.Entities.StatusTypeModels;
+using RapidERP.Domain.Entities.SupplierTypeModels;
 using RapidERP.Domain.Entities.TenantModels;
 
 namespace RapidERP.Infrastructure.Data;
@@ -54,6 +55,9 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
 
     public DbSet<Salesman> Salesmen { get; set; }
     public DbSet<SalesmanAudit> SalesmanAudits { get; set; }
+
+    public DbSet<SupplierType> SupplierTypes { get; set; }
+    public DbSet<SupplierTypeAudit> SupplierTypeAudits { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
