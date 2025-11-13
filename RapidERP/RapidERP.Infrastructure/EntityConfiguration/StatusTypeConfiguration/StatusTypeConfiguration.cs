@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RapidERP.Domain.Entities.StatusTypeModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.StatusTypeConfiguration;
-
 public class StatusTypeConfiguration : IEntityTypeConfiguration<StatusType>
 {
     public void Configure(EntityTypeBuilder<StatusType> builder)
