@@ -21,7 +21,7 @@ public static class RegisterLifetimeServices
         services.AddScoped<IState, StateService>();
         services.AddScoped<IShared, SharedServices>();
         services.AddScoped<IDepartment, DepartmentService>();
-        //services.AddScoped<IDepartmentLocalization, DepartmentLocalizationService>();
+        services.AddScoped<ISalesman, SalesmanService>();
         services.AddScoped<IDesignation, DesignationService>();
         //services.AddScoped<IDesignationLocalization, DesignationLocalizationService>();
 

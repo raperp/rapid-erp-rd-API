@@ -8,6 +8,7 @@ using RapidERP.Domain.Entities.DepartmentModels;
 using RapidERP.Domain.Entities.DesignationModels;
 using RapidERP.Domain.Entities.ExportTypeModels;
 using RapidERP.Domain.Entities.LanguageModels;
+using RapidERP.Domain.Entities.SalesmanModels;
 using RapidERP.Domain.Entities.SateModules;
 using RapidERP.Domain.Entities.StatusTypeModels;
 using RapidERP.Domain.Entities.TenantModels;
@@ -50,6 +51,9 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
 
     public DbSet<Designation> Designations { get; set; }
     public DbSet<DesignationAudit> DesignationAudits { get; set; }
+
+    public DbSet<Salesman> Salesmen { get; set; }
+    public DbSet<SalesmanAudit> SalesmanAudits { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
