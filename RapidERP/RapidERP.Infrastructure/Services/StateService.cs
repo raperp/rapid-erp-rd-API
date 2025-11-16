@@ -16,10 +16,16 @@ namespace RapidERP.Infrastructure.Services
         {
             try
             {
+                requestResponse = new();
+
                 foreach (var masterPOST in masterPOSTs)
                 {
                     var task = CreateSingle(masterPOST);
-                    await Task.WhenAll(task);
+                    var result = await Task.WhenAll(task);
+                    requestResponse.Message = result.FirstOrDefault().Message;
+                    requestResponse.IsSuccess = result.FirstOrDefault().IsSuccess;
+                    requestResponse.StatusCode = result.FirstOrDefault().StatusCode;
+                    requestResponse.Data = result.FirstOrDefault().Data;
                 }
 
                 requestResponse = new()
@@ -112,7 +118,7 @@ namespace RapidERP.Infrastructure.Services
                     {
                         StatusCode = $"{HTTPStatusCode.Conflict} {HTTPStatusCode.StatusCode409}",
                         IsSuccess = false,
-                        Message = ResponseMessage.RecordExists
+                        Message = $"{ResponseMessage.RecordExists} {masterPOST.Name}"
                     };
                 }
 

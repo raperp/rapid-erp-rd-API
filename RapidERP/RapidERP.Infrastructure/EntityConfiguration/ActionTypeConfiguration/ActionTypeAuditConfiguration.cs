@@ -14,8 +14,6 @@ public class ActionTypeAuditConfiguration : IEntityTypeConfiguration<ActionTypeA
         builder.Property(x => x.Longitude).HasPrecision(9, 6);
         builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired(false);
         builder.Property(x => x.ExportTypeId).IsRequired(false);
-        builder.Ignore(x => x.ActionType);
-        builder.Ignore(x => x.ActionTypeId);
         builder.Ignore(x => x.StatusType);
         builder.Ignore(x => x.StatusTypeId);
     }

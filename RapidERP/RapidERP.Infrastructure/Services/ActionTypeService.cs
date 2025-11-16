@@ -14,19 +14,25 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
     {
         try
         {
+            requestResponse = new();
+
             foreach (var masterPOST in masterPOSTs)
             {
                 var task = CreateSingle(masterPOST);
-                await Task.WhenAll(task);
+                var result = await Task.WhenAll(task);
+                requestResponse.Message = result.FirstOrDefault().Message;
+                requestResponse.IsSuccess = result.FirstOrDefault().IsSuccess;
+                requestResponse.StatusCode = result.FirstOrDefault().StatusCode;
+                requestResponse.Data = result.FirstOrDefault().Data;
             }
 
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
-                IsSuccess = true,
-                Message = ResponseMessage.CreateSuccess,
-                Data = masterPOSTs
-            };
+            //requestResponse = new()
+            //{
+            //    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
+            //    IsSuccess = true,
+            //    Message = ResponseMessage.CreateSuccess,
+            //    Data = masterPOSTs
+            //};
 
             return requestResponse;
         }
@@ -100,7 +106,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                 {
                     StatusCode = $"{HTTPStatusCode.Conflict} {HTTPStatusCode.StatusCode409}",
                     IsSuccess = false,
-                    Message = ResponseMessage.RecordExists
+                    Message = $"{ResponseMessage.RecordExists} {masterPOST.Name}"
                 };
             }
 

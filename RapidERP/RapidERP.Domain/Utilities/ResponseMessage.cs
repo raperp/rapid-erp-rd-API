@@ -9,7 +9,7 @@ public static class ResponseMessage
     public const string DeleteSuccess = "Record Deleted Successfully";
     public const string DeleteFailed = "Failed to Delete Record";
     public const string NoRecordFound = "No Record Found";
-    public const string RecordExists = "Record exists already. Try with a different one please";
+    public const string RecordExists = "Record exists already. Try with a different one. Check detail of";
     public const string WrongDataInput = "Wrong Data Entered";
     public const string ParameterCanNotBeNullZero = "Supplied Parameter Value Can Not Be Null or Zero";
     public const string FetchSuccess = "Fetched Data Successfully";

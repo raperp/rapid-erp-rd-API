@@ -70,6 +70,9 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<long>("ActionBy")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("ActionTypeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Browser")
                         .HasColumnType("nvarchar(max)");
 
@@ -116,6 +119,8 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ActionTypeId");
 
                     b.ToTable("ActionTypeAudits");
                 });
@@ -2178,6 +2183,17 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasIndex("TenantId");
 
                     b.ToTable("TenantAudits");
+                });
+
+            modelBuilder.Entity("RapidERP.Domain.Entities.ActionTypeModels.ActionTypeAudit", b =>
+                {
+                    b.HasOne("RapidERP.Domain.Entities.ActionTypeModels.ActionType", "ActionType")
+                        .WithMany()
+                        .HasForeignKey("ActionTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ActionType");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.AreaModules.Area", b =>

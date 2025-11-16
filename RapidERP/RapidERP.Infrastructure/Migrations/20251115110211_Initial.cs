@@ -12,33 +12,6 @@ namespace RapidERP.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ActionTypeAudits",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
-                    Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
-                    ActionBy = table.Column<long>(type: "bigint", nullable: false),
-                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ExportTypeId = table.Column<int>(type: "int", nullable: true),
-                    IsDefault = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ActionTypeAudits", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ActionTypes",
                 columns: table => new
                 {
@@ -122,6 +95,40 @@ namespace RapidERP.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Languages", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ActionTypeAudits",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GoogleMapUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
+                    Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
+                    ActionBy = table.Column<long>(type: "bigint", nullable: false),
+                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExportTypeId = table.Column<int>(type: "int", nullable: true),
+                    ActionTypeId = table.Column<int>(type: "int", nullable: false),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ActionTypeAudits", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ActionTypeAudits_ActionTypes_ActionTypeId",
+                        column: x => x.ActionTypeId,
+                        principalTable: "ActionTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -1235,6 +1242,11 @@ namespace RapidERP.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActionTypeAudits_ActionTypeId",
+                table: "ActionTypeAudits",
+                column: "ActionTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AreaAudits_ActionTypeId",

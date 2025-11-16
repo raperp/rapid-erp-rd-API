@@ -6,7 +6,6 @@ using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
-#nullable enable
 public class LanguageService(RapidERPDbContext context, IShared shared) : ILanguage
 {
     RequestResponse requestResponse { get; set; }
@@ -15,19 +14,25 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
     {
         try
         {
+            requestResponse = new();
+
             foreach (var masterPOST in masterPOSTs)
             {
                 var task = CreateSingle(masterPOST);
-                await Task.WhenAll(task);
+                var result = await Task.WhenAll(task);
+                requestResponse.Message = result.FirstOrDefault().Message;
+                requestResponse.IsSuccess = result.FirstOrDefault().IsSuccess;
+                requestResponse.StatusCode = result.FirstOrDefault().StatusCode;
+                requestResponse.Data = result.FirstOrDefault().Data;
             }
 
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
-                IsSuccess = true,
-                Message = ResponseMessage.CreateSuccess,
-                Data = masterPOSTs
-            };
+            //requestResponse = new()
+            //{
+            //    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
+            //    IsSuccess = true,
+            //    Message = req.Message,
+            //    Data = req.Data
+            //};
 
             return requestResponse;
         }
@@ -106,7 +111,7 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
                 {
                     StatusCode = $"{HTTPStatusCode.Conflict} {HTTPStatusCode.StatusCode409}",
                     IsSuccess = false,
-                    Message = ResponseMessage.RecordExists
+                    Message = $"{ResponseMessage.RecordExists} {masterPOST.Name}"
                 };
             }
 
