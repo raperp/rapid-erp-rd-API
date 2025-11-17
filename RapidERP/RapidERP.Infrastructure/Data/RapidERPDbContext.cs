@@ -8,6 +8,7 @@ using RapidERP.Domain.Entities.DepartmentModels;
 using RapidERP.Domain.Entities.DesignationModels;
 using RapidERP.Domain.Entities.ExportTypeModels;
 using RapidERP.Domain.Entities.LanguageModels;
+using RapidERP.Domain.Entities.OrderTypeModels;
 using RapidERP.Domain.Entities.SalesmanModels;
 using RapidERP.Domain.Entities.SateModules;
 using RapidERP.Domain.Entities.StatusTypeModels;
@@ -62,6 +63,9 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
 
     public DbSet<Supplier> Suppliers { get; set; }
     public DbSet<SupplierAudit> SupplierAudits { get; set; }
+
+    public DbSet<OrderType> OrderTypes { get; set; }
+    public DbSet<OrderTypeAudit> OrderTypeAudits { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
