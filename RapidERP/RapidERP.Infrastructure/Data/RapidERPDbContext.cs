@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RapidERP.Domain.Entities.ActionTypeModels;
 using RapidERP.Domain.Entities.AreaModules;
 using RapidERP.Domain.Entities.CityModels;
@@ -7,14 +8,18 @@ using RapidERP.Domain.Entities.CurrencyModels;
 using RapidERP.Domain.Entities.DepartmentModels;
 using RapidERP.Domain.Entities.DesignationModels;
 using RapidERP.Domain.Entities.ExportTypeModels;
+using RapidERP.Domain.Entities.KitchenModels;
 using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Entities.OrderTypeModels;
+using RapidERP.Domain.Entities.RiderModels;
 using RapidERP.Domain.Entities.SalesmanModels;
 using RapidERP.Domain.Entities.SateModules;
 using RapidERP.Domain.Entities.StatusTypeModels;
 using RapidERP.Domain.Entities.SupplierModels;
 using RapidERP.Domain.Entities.SupplierTypeModels;
+using RapidERP.Domain.Entities.TableModules;
 using RapidERP.Domain.Entities.TenantModels;
+using Table = RapidERP.Domain.Entities.TableModules.Table;
 
 namespace RapidERP.Infrastructure.Data;
 public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : DbContext(options)
@@ -66,6 +71,15 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
 
     public DbSet<OrderType> OrderTypes { get; set; }
     public DbSet<OrderTypeAudit> OrderTypeAudits { get; set; }
+
+    public DbSet<Rider> Riders { get; set; }
+    public DbSet<RiderAudit> RiderAudits { get; set; }
+
+    public DbSet<Table> Tables { get; set; }
+    public DbSet<TableAudit> TableAudits { get; set; }
+
+    public DbSet<Kitchen> Kitchens { get; set; }
+    public DbSet<KitchenAudit> KitchenAudits { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

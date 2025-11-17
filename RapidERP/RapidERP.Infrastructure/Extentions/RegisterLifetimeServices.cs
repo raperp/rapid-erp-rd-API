@@ -23,7 +23,10 @@ public static class RegisterLifetimeServices
         services.AddScoped<IDepartment, DepartmentService>();
         services.AddScoped<ISalesman, SalesmanService>();
         services.AddScoped<IDesignation, DesignationService>();
-        //services.AddScoped<IDesignationLocalization, DesignationLocalizationService>();
+        services.AddScoped<IOrderType, OrderTypeService>();
+        services.AddScoped<ITable, TableService>();
+        services.AddScoped<IKitchen, KitchenService>();
+        services.AddScoped<IRider, RiderService>();
 
         return services;
     }
