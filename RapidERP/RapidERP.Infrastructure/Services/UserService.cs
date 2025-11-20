@@ -1,17 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RapidERP.Application.DTOs.AreaDTOs;
 using RapidERP.Application.DTOs.Shared;
+using RapidERP.Application.DTOs.UserDTOs;
 using RapidERP.Application.Interfaces;
-using RapidERP.Domain.Entities.AreaModules;
+using RapidERP.Domain.Entities.UserModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
-public class AreaService(RapidERPDbContext context, IShared shared) : IArea
+
+public class UserService(RapidERPDbContext context, IShared shared) : IUser
 {
     RequestResponse requestResponse { get; set; }
 
-    public async Task<RequestResponse> CreateBulk(List<AreaPOST> masterPOSTs)
+    public async Task<RequestResponse> CreateBulk(List<UserPOST> masterPOSTs)
     {
         try
         {
@@ -51,34 +52,37 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
         }
     }
 
-    public async Task<RequestResponse> CreateSingle(AreaPOST masterPOST)
+    public async Task<RequestResponse> CreateSingle(UserPOST masterPOST)
     {
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.Areas.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
+            var isExists = await context.Users.AsNoTracking().AnyAsync(x => x.UserName == masterPOST.UserName || x.Email == masterPOST.Email || x.Mobile == masterPOST.Mobile);
 
             if (isExists == false)
             {
-                Area masterData = new();
+                User masterData = new();
                 masterData.Name = masterPOST.Name;
-                masterData.Code = masterPOST.Code;
-                masterData.CountryId = masterPOST.CountryId;
+                masterData.UserName = masterPOST.UserName;
+                masterData.Email = masterPOST.Email;
+                masterData.Mobile = masterPOST.Mobile;
+                masterData.Address = masterPOST.Address;
+                masterData.Password = masterPOST.Password;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                masterData.StateId = masterPOST.StateId;
                 masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
-                await context.Areas.AddAsync(masterData);
+                await context.Users.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                AreaAudit audit = new();
+                UserAudit audit = new();
                 audit.Name = masterPOST.Name;
-                audit.Code = masterPOST.Code;
-                audit.CountryId = masterPOST.CountryId;
-                audit.StateId = masterPOST.StateId;
-                audit.AreaId = masterData.Id;
-                audit.CityId = masterPOST.CityId;
+                audit.UserName = masterPOST.UserName;
+                audit.Email = masterPOST.Email;
+                audit.Mobile = masterPOST.Mobile;
+                audit.Address = masterPOST.Address;
+                audit.Password = masterPOST.Password;
+                audit.UserId = masterData.Id;
                 audit.StatusTypeId = masterPOST.StatusTypeId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
@@ -95,7 +99,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                 audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.AreaAudits.AddAsync(audit);
+                await context.UserAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -139,7 +143,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.AreaAudits.AsNoTracking().AnyAsync(x => x.AreaId == id);
+            var isAuditExists = await context.UserAudits.AsNoTracking().AnyAsync(x => x.UserId == id);
 
             if (isAuditExists == false)
             {
@@ -153,10 +157,10 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
 
             else
             {
-                await context.AreaAudits.Where(x => x.AreaId == id).ExecuteDeleteAsync();
+                await context.UserAudits.Where(x => x.UserId == id).ExecuteDeleteAsync();
             }
 
-            var isExists = await context.Areas.AsNoTracking().AnyAsync(x => x.Id == id);
+            var isExists = await context.Users.AsNoTracking().AnyAsync(x => x.Id == id);
 
             if (isExists == false)
             {
@@ -170,7 +174,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
 
             else
             {
-                await context.Areas.Where(x => x.Id == id).ExecuteDeleteAsync();
+                await context.Users.Where(x => x.Id == id).ExecuteDeleteAsync();
                 await transaction.CommitAsync();
             }
 
@@ -203,26 +207,25 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
         {
             GetAllDTO result = new();
 
-            var data = (from a in context.Areas
-                        join st in context.StatusTypes on a.StatusTypeId equals st.Id
-                        join co in context.Countries on a.CountryId equals co.Id
-                        join sta in context.States on a.StateId equals sta.Id
-                        join ci in context.Cities on a.CityId equals ci.Id
+            var data = (from u in context.Users
+                        join st in context.StatusTypes on u.StatusTypeId equals st.Id
                         select new
                         {
-                            a.Id,
-                            a.Name,
-                            Tanent = st.Name,
-                            Country = co.Name,
-                            State = sta.Name,
+                            u.Id,
+                            u.Name,
+                            u.UserName,
+                            u.Email,
+                            u.Mobile,
+                            u.OTP,
+                            StatusType = st.Name,
                             Status = st.Name,
-                            a.CreatedBy,
-                            a.CreatedAt
+                            u.CreatedBy,
+                            u.CreatedAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
             {
-                result.Count = await shared.GetCounts<Area>();
+                result.Count = await shared.GetCounts<User>();
                 result.Data = await data.ToListAsync();
 
                 requestResponse = new()
@@ -236,9 +239,9 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
 
             else
             {
-                result.Count = await shared.GetCounts<Area>();
+                result.Count = await shared.GetCounts<User>();
                 result.Data = await data.Skip(skip).Take(take).ToListAsync();
-                
+
                 requestResponse = new()
                 {
                     StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
@@ -268,35 +271,35 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
     {
         try
         {
-            var data = (from aa in context.AreaAudits
-                        join c in context.Countries on aa.CountryId equals c.Id
-                        join sta in context.States on aa.StateId equals sta.Id
-                        join cit in context.Cities on aa.CityId equals cit.Id
+            var data = (from ua in context.UserAudits
+                        join u in context.Users on ua.UserId equals u.Id
                         //join et in context.ExportTypes on aa.ExportTypeId equals et.Id
-                        join at in context.ActionTypes on aa.ActionTypeId equals at.Id
-                        join st in context.StatusTypes on aa.StatusTypeId equals st.Id
+                        join at in context.ActionTypes on ua.ActionTypeId equals at.Id
+                        join st in context.StatusTypes on ua.StatusTypeId equals st.Id
                         select new
                         {
-                            aa.Id,
-                            Country = c.Name,
-                            State = sta.Name,
-                            City = cit.Name,
-                            aa.Name,
+                            ua.Id,
+                            User = u.Name,
+                            ua.Name,
+                            ua.UserName,
+                            ua.Email,
+                            ua.Mobile,
+                            ua.Address,
                             //ExportType = et.Name,
                             ActionType = at.Name,
                             StatusType = st.Name,
-                            aa.ExportTo,
-                            aa.SourceURL,
-                            aa.IsDefault,
-                            aa.Browser,
-                            aa.DeviceName,
-                            aa.Location,
-                            aa.DeviceIP,
-                            aa.GoogleMapUrl,
-                            aa.Latitude,
-                            aa.Longitude,
-                            aa.ActionBy,
-                            aa.ActionAt
+                            ua.ExportTo,
+                            ua.SourceURL,
+                            ua.IsDefault,
+                            ua.Browser,
+                            ua.DeviceName,
+                            ua.Location,
+                            ua.DeviceIP,
+                            ua.GoogleMapUrl,
+                            ua.Latitude,
+                            ua.Longitude,
+                            ua.ActionBy,
+                            ua.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -343,36 +346,38 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
 
     public async Task<dynamic> GetSingle(int id)
     {
-        var result = await shared.GetSingle<Area>(id);
+        var result = await shared.GetSingle<User>(id);
         return result;
     }
 
-    public async Task<RequestResponse> Update(AreaPUT masterPUT)
+    public async Task<RequestResponse> Update(UserPUT masterPUT)
     {
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.Areas.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
+            var isExists = await context.Users.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
 
             if (isExists == false)
             {
-                await context.Areas.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
+                await context.Users.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
-                .SetProperty(x => x.CountryId, masterPUT.CountryId)
-                .SetProperty(x => x.StateId, masterPUT.StateId)
-                .SetProperty(x => x.CityId, masterPUT.CityId)
-                .SetProperty(x => x.Code, masterPUT.Code)
+                .SetProperty(x => x.UserName, masterPUT.UserName)
+                .SetProperty(x => x.Email, masterPUT.Email)
+                .SetProperty(x => x.Mobile, masterPUT.Mobile)
+                .SetProperty(x => x.Address, masterPUT.Address)
+                .SetProperty(x => x.Password, masterPUT.Password)
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
-                AreaAudit audit = new();
+                UserAudit audit = new();
                 audit.Name = masterPUT.Name;
-                audit.Code = masterPUT.Code;
-                audit.CountryId = masterPUT.CountryId;
-                audit.StateId = masterPUT.StateId;
-                audit.AreaId = masterPUT.Id;
-                audit.CityId = masterPUT.CityId;
+                audit.UserName = masterPUT.UserName;
+                audit.Email = masterPUT.Email;
+                audit.Mobile = masterPUT.Mobile;
+                audit.Address = masterPUT.Address;
+                audit.Password = masterPUT.Password;
+                audit.UserId = masterPUT.Id;
                 audit.StatusTypeId = masterPUT.StatusTypeId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
                 audit.ExportTypeId = masterPUT.ExportTypeId;
@@ -389,7 +394,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                 audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.AreaAudits.AddAsync(audit);
+                await context.UserAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

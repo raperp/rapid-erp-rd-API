@@ -29,6 +29,9 @@ public static class RegisterLifetimeServices
         services.AddScoped<IRider, RiderService>();
         services.AddScoped<IMainModule, MainModuleService>();
         services.AddScoped<IMenu, MenuService>();
+        services.AddScoped<ISubmodule, SubmoduleService>();
+        services.AddScoped<IUser, UserService>();
+        services.AddScoped<IRole, RoleService>();
 
         return services;
     }

@@ -1,17 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RapidERP.Application.DTOs.AreaDTOs;
+using RapidERP.Application.DTOs.RoleDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
-using RapidERP.Domain.Entities.AreaModules;
+using RapidERP.Domain.Entities.OrderTypeModels;
+using RapidERP.Domain.Entities.RoleModules;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
-public class AreaService(RapidERPDbContext context, IShared shared) : IArea
+
+public class RoleService(RapidERPDbContext context, IShared shared) : IRole
 {
     RequestResponse requestResponse { get; set; }
 
-    public async Task<RequestResponse> CreateBulk(List<AreaPOST> masterPOSTs)
+    public async Task<RequestResponse> CreateBulk(List<RolePOST> masterPOSTs)
     {
         try
         {
@@ -51,34 +53,27 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
         }
     }
 
-    public async Task<RequestResponse> CreateSingle(AreaPOST masterPOST)
+    public async Task<RequestResponse> CreateSingle(RolePOST masterPOST)
     {
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.Areas.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
+            var isExists = await context.Roles.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
 
             if (isExists == false)
             {
-                Area masterData = new();
+                Role masterData = new();
                 masterData.Name = masterPOST.Name;
-                masterData.Code = masterPOST.Code;
-                masterData.CountryId = masterPOST.CountryId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                masterData.StateId = masterPOST.StateId;
                 masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
-                await context.Areas.AddAsync(masterData);
+                await context.Roles.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                AreaAudit audit = new();
+                RoleAudit audit = new();
                 audit.Name = masterPOST.Name;
-                audit.Code = masterPOST.Code;
-                audit.CountryId = masterPOST.CountryId;
-                audit.StateId = masterPOST.StateId;
-                audit.AreaId = masterData.Id;
-                audit.CityId = masterPOST.CityId;
+                audit.RoleId = masterData.Id;
                 audit.StatusTypeId = masterPOST.StatusTypeId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
@@ -95,7 +90,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                 audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.AreaAudits.AddAsync(audit);
+                await context.RoleAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -139,7 +134,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.AreaAudits.AsNoTracking().AnyAsync(x => x.AreaId == id);
+            var isAuditExists = await context.RoleAudits.AsNoTracking().AnyAsync(x => x.RoleId == id);
 
             if (isAuditExists == false)
             {
@@ -153,10 +148,10 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
 
             else
             {
-                await context.AreaAudits.Where(x => x.AreaId == id).ExecuteDeleteAsync();
+                await context.RoleAudits.Where(x => x.RoleId == id).ExecuteDeleteAsync();
             }
 
-            var isExists = await context.Areas.AsNoTracking().AnyAsync(x => x.Id == id);
+            var isExists = await context.Roles.AsNoTracking().AnyAsync(x => x.Id == id);
 
             if (isExists == false)
             {
@@ -170,7 +165,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
 
             else
             {
-                await context.Areas.Where(x => x.Id == id).ExecuteDeleteAsync();
+                await context.Roles.Where(x => x.Id == id).ExecuteDeleteAsync();
                 await transaction.CommitAsync();
             }
 
@@ -203,26 +198,20 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
         {
             GetAllDTO result = new();
 
-            var data = (from a in context.Areas
-                        join st in context.StatusTypes on a.StatusTypeId equals st.Id
-                        join co in context.Countries on a.CountryId equals co.Id
-                        join sta in context.States on a.StateId equals sta.Id
-                        join ci in context.Cities on a.CityId equals ci.Id
+            var data = (from r in context.Roles
+                        join st in context.StatusTypes on r.StatusTypeId equals st.Id
                         select new
                         {
-                            a.Id,
-                            a.Name,
-                            Tanent = st.Name,
-                            Country = co.Name,
-                            State = sta.Name,
+                            r.Id,
+                            r.Name,
                             Status = st.Name,
-                            a.CreatedBy,
-                            a.CreatedAt
+                            r.CreatedBy,
+                            r.CreatedAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
             {
-                result.Count = await shared.GetCounts<Area>();
+                result.Count = await shared.GetCounts<Role>();
                 result.Data = await data.ToListAsync();
 
                 requestResponse = new()
@@ -236,9 +225,9 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
 
             else
             {
-                result.Count = await shared.GetCounts<Area>();
+                result.Count = await shared.GetCounts<Role>();
                 result.Data = await data.Skip(skip).Take(take).ToListAsync();
-                
+
                 requestResponse = new()
                 {
                     StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
@@ -268,35 +257,30 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
     {
         try
         {
-            var data = (from aa in context.AreaAudits
-                        join c in context.Countries on aa.CountryId equals c.Id
-                        join sta in context.States on aa.StateId equals sta.Id
-                        join cit in context.Cities on aa.CityId equals cit.Id
-                        //join et in context.ExportTypes on aa.ExportTypeId equals et.Id
-                        join at in context.ActionTypes on aa.ActionTypeId equals at.Id
-                        join st in context.StatusTypes on aa.StatusTypeId equals st.Id
+            var data = (from ra in context.RoleAudits
+                        join r in context.Roles on ra.RoleId equals r.Id
+                        join at in context.ActionTypes on ra.ActionTypeId equals at.Id
+                        join st in context.StatusTypes on ra.StatusTypeId equals st.Id
                         select new
                         {
-                            aa.Id,
-                            Country = c.Name,
-                            State = sta.Name,
-                            City = cit.Name,
-                            aa.Name,
+                            ra.Id,
+                            Role = r.Name,
+                            ra.Name,
                             //ExportType = et.Name,
                             ActionType = at.Name,
                             StatusType = st.Name,
-                            aa.ExportTo,
-                            aa.SourceURL,
-                            aa.IsDefault,
-                            aa.Browser,
-                            aa.DeviceName,
-                            aa.Location,
-                            aa.DeviceIP,
-                            aa.GoogleMapUrl,
-                            aa.Latitude,
-                            aa.Longitude,
-                            aa.ActionBy,
-                            aa.ActionAt
+                            ra.ExportTo,
+                            ra.SourceURL,
+                            ra.IsDefault,
+                            ra.Browser,
+                            ra.DeviceName,
+                            ra.Location,
+                            ra.DeviceIP,
+                            ra.GoogleMapUrl,
+                            ra.Latitude,
+                            ra.Longitude,
+                            ra.ActionBy,
+                            ra.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -343,36 +327,28 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
 
     public async Task<dynamic> GetSingle(int id)
     {
-        var result = await shared.GetSingle<Area>(id);
+        var result = await shared.GetSingle<Role>(id);
         return result;
     }
 
-    public async Task<RequestResponse> Update(AreaPUT masterPUT)
+    public async Task<RequestResponse> Update(RolePUT masterPUT)
     {
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.Areas.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
+            var isExists = await context.Roles.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
 
             if (isExists == false)
             {
-                await context.Areas.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
+                await context.Roles.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
-                .SetProperty(x => x.CountryId, masterPUT.CountryId)
-                .SetProperty(x => x.StateId, masterPUT.StateId)
-                .SetProperty(x => x.CityId, masterPUT.CityId)
-                .SetProperty(x => x.Code, masterPUT.Code)
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
-                AreaAudit audit = new();
+                RoleAudit audit = new();
                 audit.Name = masterPUT.Name;
-                audit.Code = masterPUT.Code;
-                audit.CountryId = masterPUT.CountryId;
-                audit.StateId = masterPUT.StateId;
-                audit.AreaId = masterPUT.Id;
-                audit.CityId = masterPUT.CityId;
+                audit.RoleId = masterPUT.Id;
                 audit.StatusTypeId = masterPUT.StatusTypeId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
                 audit.ExportTypeId = masterPUT.ExportTypeId;
@@ -389,7 +365,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                 audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.AreaAudits.AddAsync(audit);
+                await context.RoleAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
