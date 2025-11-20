@@ -79,7 +79,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                 audit.StatusTypeId = masterPOST.StatusTypeId;
                 audit.StateId = masterPOST.StateId;
                 audit.AreaId = masterData.Id;
-                audit.CityId = masterData.CityId;
+                audit.CityId = masterPOST.CityId;
                 audit.StatusTypeId = masterPOST.StatusTypeId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
@@ -363,6 +363,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                 .SetProperty(x => x.StateId, masterPUT.StateId)
                 .SetProperty(x => x.CityId, masterPUT.CityId)
                 .SetProperty(x => x.Code, masterPUT.Code)
+                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
@@ -370,7 +371,6 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                 audit.Name = masterPUT.Name;
                 audit.Code = masterPUT.Code;
                 audit.CountryId = masterPUT.CountryId;
-                audit.StatusTypeId = masterPUT.StatusTypeId;
                 audit.StateId = masterPUT.StateId;
                 audit.AreaId = masterPUT.Id;
                 audit.CityId = masterPUT.CityId;

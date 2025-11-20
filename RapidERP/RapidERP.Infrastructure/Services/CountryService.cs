@@ -82,7 +82,6 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 audit.Name = masterPOST.Name;
                 audit.TenantId = masterPOST.TenantId;
                 audit.MenuId = masterPOST.MenuId;
-                audit.StatusTypeId = masterPOST.StatusTypeId;
                 audit.LanguageId = masterPOST.LanguageId;
                 audit.ISONumeric = masterPOST.ISONumeric;
                 audit.DialCode = masterPOST.DialCode;
@@ -391,7 +390,6 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 audit.Name = masterPUT.Name;
                 audit.TenantId = masterPUT.TenantId;
                 audit.MenuId = masterPUT.MenuId;
-                audit.StatusTypeId = masterPUT.StatusTypeId;
                 audit.LanguageId = masterPUT.LanguageId;
                 audit.ISONumeric = masterPUT.ISONumeric;
                 audit.DialCode = masterPUT.DialCode;

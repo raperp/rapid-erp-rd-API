@@ -64,6 +64,7 @@ public class DesignationService(RapidERPDbContext context, IShared shared) : IDe
                 masterData.Name = masterPOST.Name;
                 masterData.Description = masterPOST.Description;
                 masterData.DepartmentId = masterPOST.DepartmentId;
+                masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
@@ -352,6 +353,7 @@ public class DesignationService(RapidERPDbContext context, IShared shared) : IDe
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description)
                 .SetProperty(x => x.DepartmentId, masterPUT.DepartmentId)
+                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 

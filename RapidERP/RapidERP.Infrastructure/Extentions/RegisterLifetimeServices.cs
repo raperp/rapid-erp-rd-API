@@ -27,6 +27,8 @@ public static class RegisterLifetimeServices
         services.AddScoped<ITable, TableService>();
         services.AddScoped<IKitchen, KitchenService>();
         services.AddScoped<IRider, RiderService>();
+        services.AddScoped<IMainModule, MainModuleService>();
+        services.AddScoped<IMenu, MenuService>();
 
         return services;
     }

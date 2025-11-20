@@ -2,7 +2,6 @@
 public class ActionTypePOST  
 {
     public string Name { get; set; }
-    //public int LanguageId { get; set; }
     public int ExportTypeId { get; set; }
     public string Description { get; set; }
     public long CreatedBy { get; set; }

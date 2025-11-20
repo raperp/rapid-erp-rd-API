@@ -76,7 +76,6 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
                 audit.Name = masterPOST.Name;
                 audit.Code = masterPOST.Code;
                 audit.CountryId = masterPOST.CountryId;
-                audit.StatusTypeId = masterPOST.StatusTypeId;
                 audit.StateId = masterPOST.StateId;
                 audit.CityId = masterData.Id;
                 audit.StatusTypeId = masterPOST.StatusTypeId;
@@ -361,6 +360,7 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
                 .SetProperty(x => x.CountryId, masterPUT.CountryId)
                 .SetProperty(x => x.StateId, masterPUT.StateId)
                 .SetProperty(x => x.Code, masterPUT.Code)
+                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
@@ -368,7 +368,6 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
                 audit.Name = masterPUT.Name;
                 audit.Code = masterPUT.Code;
                 audit.CountryId = masterPUT.CountryId;
-                audit.StatusTypeId = masterPUT.StatusTypeId;
                 audit.StateId = masterPUT.StateId;
                 audit.CityId = masterPUT.Id;
                 audit.StatusTypeId = masterPUT.StatusTypeId;

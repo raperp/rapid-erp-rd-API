@@ -3,7 +3,6 @@ public class ActionTypePUT
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    //public int LanguageId { get; set; }
     public int ExportTypeId { get; set; }
     public string Description { get; set; }
     public long UpdatedBy { get; set; }

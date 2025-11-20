@@ -67,6 +67,7 @@ public class SupplierTypeService(RapidERPDbContext context, IShared shared) : IS
                 masterData.Street = masterPOST.Street;
                 masterData.PostCode = masterPOST.PostCode;
                 masterData.LanguageId = masterPOST.LanguageId;
+                masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.CurrencyId = masterPOST.CurrencyId;
                 masterData.CountryId = masterPOST.CountryId;
                 masterData.CreatedBy = masterPOST.CreatedBy;
@@ -372,6 +373,7 @@ public class SupplierTypeService(RapidERPDbContext context, IShared shared) : IS
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.CurrencyId, masterPUT.CurrencyId)
                 .SetProperty(x => x.CountryId, masterPUT.CountryId)
+                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 

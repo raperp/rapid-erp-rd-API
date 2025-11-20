@@ -63,6 +63,7 @@ public class DepartmentService(RapidERPDbContext context, IShared shared) : IDep
                 Department masterData = new();
                 masterData.Name = masterPOST.Name;
                 masterData.Description = masterPOST.Description;
+                masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
@@ -345,6 +346,7 @@ public class DepartmentService(RapidERPDbContext context, IShared shared) : IDep
                 await context.Departments.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description)
+                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 

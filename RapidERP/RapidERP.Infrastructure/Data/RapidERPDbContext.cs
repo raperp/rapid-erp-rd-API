@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RapidERP.Domain.Entities.ActionTypeModels;
 using RapidERP.Domain.Entities.AreaModules;
 using RapidERP.Domain.Entities.CityModels;
@@ -10,11 +9,14 @@ using RapidERP.Domain.Entities.DesignationModels;
 using RapidERP.Domain.Entities.ExportTypeModels;
 using RapidERP.Domain.Entities.KitchenModels;
 using RapidERP.Domain.Entities.LanguageModels;
+using RapidERP.Domain.Entities.MainModuleModels;
+using RapidERP.Domain.Entities.MenuModules;
 using RapidERP.Domain.Entities.OrderTypeModels;
 using RapidERP.Domain.Entities.RiderModels;
 using RapidERP.Domain.Entities.SalesmanModels;
 using RapidERP.Domain.Entities.SateModules;
 using RapidERP.Domain.Entities.StatusTypeModels;
+using RapidERP.Domain.Entities.SubmoduleModels;
 using RapidERP.Domain.Entities.SupplierModels;
 using RapidERP.Domain.Entities.SupplierTypeModels;
 using RapidERP.Domain.Entities.TableModules;
@@ -80,6 +82,15 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
 
     public DbSet<Kitchen> Kitchens { get; set; }
     public DbSet<KitchenAudit> KitchenAudits { get; set; }
+
+    public DbSet<MainModule> MainModules { get; set; }
+    public DbSet<MainModuleAudit> MainModuleAudits { get; set; }
+
+    public DbSet<Submodule> Submodules { get; set; }
+    public DbSet<SubmoduleAudit> SubmoduleAudits { get; set; }
+
+    public DbSet<Menu> Menus { get; set; }
+    public DbSet<MenuAudit> MenuAudits { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
