@@ -14,9 +14,5 @@ public class ActionTypeConfiguration : IEntityTypeConfiguration<ActionType>
         builder.Property(x => x.CreatedAt).IsRequired();
         builder.Property(x => x.UpdatedAt).IsRequired(false);
         builder.Property(x => x.UpdatedBy).IsRequired(false);
-        builder.Ignore(x => x.StatusType);
-        builder.Ignore(x => x.StatusTypeId);
-        builder.Ignore(x => x.Language);
-        builder.Ignore(x => x.LanguageId);
     }
 }

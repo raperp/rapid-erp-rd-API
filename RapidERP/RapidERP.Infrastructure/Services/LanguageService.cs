@@ -72,12 +72,12 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
                 await context.SaveChangesAsync();
 
                 LanguageAudit audit = new();
+                audit.LanguageId = masterData.Id;
                 audit.Name = masterPOST.Name;
                 audit.ISONumeric = masterPOST.ISONumeric;
                 audit.ISO2Code = masterPOST.ISO2Code;
                 audit.ISO3Code = masterPOST.ISO3Code;
                 audit.Icon = masterPOST.Icon;
-                audit.LanguageId = masterData.Id;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
@@ -198,7 +198,7 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
     {
         try
         {
-            var data = context.Languages.Select(x => new { x.Id, x.Name, x.ISO2Code, x.ISO3Code, x.ISONumeric, x.Icon, x.CreatedAt, x.CreatedBy }).AsNoTracking().AsQueryable();
+            var data = context.Languages.Select(x => new { x.Id, x.Name, x.ISONumeric, x.ISO2Code, x.ISO3Code, x.Icon, x.CreatedAt, x.CreatedBy }).AsNoTracking().AsQueryable();
             
             if (skip == 0 || take == 0)
             {
@@ -246,23 +246,24 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
     {
         try
         {
-            var data = (from l in context.Languages
-                        join la in context.LanguageAudits on l.Id equals la.LanguageId
+            var data = (from la in context.LanguageAudits
+                        join l in context.Languages on la.LanguageId equals l.Id
                         //join et in context.ExportTypes on la.ExportTypeId equals et.Id
                         select new
                         {
-                            l.Id,
-                            l.Name,
+                            la.Id,
+                            Language = l.Name,
+                            la.Name,
+                            la.ISONumeric,
+                            la.ISO2Code,
+                            la.ISO3Code,
+                            la.Icon,
                             //ExportType = et.Name,
-                            l.ISO2Code,
-                            l.ISO3Code,
-                            l.ISONumeric,
-                            l.Icon,
                             la.Browser,
-                            la.DeviceIP,
-                            la.DeviceName,
                             la.Location,
+                            la.DeviceIP,
                             la.GoogleMapUrl,
+                            la.DeviceName,
                             la.Latitude,
                             la.Longitude,
                             la.ActionBy,
@@ -328,20 +329,21 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
             {
                 await context.Languages.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
+                .SetProperty(x => x.ISONumeric, masterPUT.ISONumeric)
                 .SetProperty(x => x.ISO2Code, masterPUT.ISO2Code)
                 .SetProperty(x => x.ISO3Code, masterPUT.ISO3Code)
-                .SetProperty(x => x.ISONumeric, masterPUT.ISONumeric)
                 .SetProperty(x => x.Icon, masterPUT.Icon)
                 .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
-                
+
                 LanguageAudit audit = new();
+                audit.LanguageId = masterPUT.Id;
                 audit.Name = masterPUT.Name;
                 audit.ISONumeric = masterPUT.ISONumeric;
                 audit.ISO2Code = masterPUT.ISO2Code;
                 audit.ISO3Code = masterPUT.ISO3Code;
                 audit.Icon = masterPUT.Icon;
-                audit.ExportTypeId = masterPUT.Id;
+                audit.ExportTypeId = masterPUT.ExportTypeId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
                 audit.IsDefault = masterPUT.IsDefault;

@@ -60,8 +60,9 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
             if (isExists == false)
             {
                 ActionType masterData = new();
+                masterData.LanguageId = masterPOST.LanguageId;
+                masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.Name = masterPOST.Name;
-                //masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Description = masterPOST.Description;
                 masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
@@ -70,13 +71,14 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                 await context.SaveChangesAsync();
 
                 ActionTypeAudit audit = new();
-                audit.Name = masterData.Name;
-                audit.Description = masterPOST.Description;
                 audit.ActionTypeId = masterData.Id;
+                audit.LanguageId = masterPOST.LanguageId;
+                audit.Name = masterPOST.Name;
+                audit.Description = masterPOST.Description;
+                audit.IsDefault = masterPOST.IsDefault;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
-                audit.IsDefault = masterPOST.IsDefault;
                 audit.Browser = masterPOST.Browser;
                 audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
@@ -193,14 +195,18 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
     {
         try
         {
-            var data = (from et in context.ActionTypes
+            var data = (from at in context.ActionTypes
+                        join l in context.Languages on at.LanguageId equals l.Id
+                        join st in context.StatusTypes on at.StatusTypeId equals st.Id
                         select new
                         {
-                            et.Id,
-                            et.Name,
-                            et.Description,
-                            et.CreatedBy,
-                            et.CreatedAt
+                            at.Id,
+                            Language = l.Name,
+                            StatusType = st.Name,
+                            at.Name,
+                            at.Description,
+                            at.CreatedBy,
+                            at.CreatedAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -250,10 +256,14 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
         try
         {
             var data = (from ata in context.ActionTypeAudits
+                        join at in context.ActionTypes on ata.ActionTypeId equals at.Id
+                        join l in context.Languages on ata.LanguageId equals l.Id
                         //join et in context.ExportTypes on ata.ExportTypeId equals et.Id
                         select new
                         {
                             ata.Id,
+                            ActionType = at.Name,
+                            Language = l.Name,
                             ata.Name,
                             ata.Description,
                             //ExportType = et.Name,
@@ -261,10 +271,10 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                             ata.SourceURL,
                             ata.IsDefault,
                             ata.Browser,
-                            ata.DeviceName,
                             ata.Location,
                             ata.DeviceIP,
                             ata.GoogleMapUrl,
+                            ata.DeviceName,
                             ata.Latitude,
                             ata.Longitude,
                             ata.ActionBy,
@@ -329,20 +339,22 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
             if (isExists == false)
             {
                 await context.ActionTypes.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
+                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.Name, masterPUT.Name)
-                //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Description, masterPUT.Description)
                 .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
                 ActionTypeAudit audit = new();
+                audit.ActionTypeId = masterPUT.Id;
+                audit.LanguageId = masterPUT.LanguageId;
                 audit.Name = masterPUT.Name;
                 audit.Description = masterPUT.Description;
-                audit.ActionTypeId = masterPUT.Id;
+                audit.IsDefault = masterPUT.IsDefault;
                 audit.ExportTypeId = masterPUT.ExportTypeId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
-                audit.IsDefault = masterPUT.IsDefault;
                 audit.Browser = masterPUT.Browser;
                 audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
