@@ -57,11 +57,11 @@ namespace RapidERP.API.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("Delete")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var result = await tenant.Delete(id);
-            return Ok(result);
-        }
+        //[HttpDelete("Delete")]
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    var result = await tenant.Delete(id);
+        //    return Ok(result);
+        //}
     }
 }

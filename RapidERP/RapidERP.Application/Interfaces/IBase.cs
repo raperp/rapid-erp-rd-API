@@ -10,5 +10,5 @@ public interface IBase<POSTEntity, PUTEntity> where POSTEntity : class
     Task<RequestResponse> CreateBulk(List<POSTEntity> masterPOSTs);
     Task<RequestResponse> Update(PUTEntity masterPUT);
     //Task<RequestResponse> Delete(int id);
-    Task<RequestResponse> Delete(int id);
+    //Task<RequestResponse> Delete(int id);
 }

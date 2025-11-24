@@ -50,10 +50,10 @@ public class LanguageController(ILanguage language) : ControllerBase
         return Ok(result);
     }
 
-    [HttpDelete("Delete")]
-    public async Task<IActionResult> Delete(int id)
-    {
-        var result = await language.Delete(id);
-        return Ok(result);
-    }
+    //[HttpDelete("Delete")]
+    //public async Task<IActionResult> Delete(int id)
+    //{
+    //    var result = await language.Delete(id);
+    //    return Ok(result);
+    //}
 }
