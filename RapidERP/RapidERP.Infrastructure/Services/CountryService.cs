@@ -375,7 +375,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.TenantId, masterPUT.TenantId)
                 .SetProperty(x => x.MenuId, masterPUT.MenuId)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.ISONumeric, masterPUT.ISONumeric)
                 .SetProperty(x => x.DialCode, masterPUT.DialCode)

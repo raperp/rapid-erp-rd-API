@@ -357,7 +357,7 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
                 await context.Currencies.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.MenuId, masterPUT.MenuId)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Code, masterPUT.Code)
                 .SetProperty(x => x.IsDefault, masterPUT.IsDefault)

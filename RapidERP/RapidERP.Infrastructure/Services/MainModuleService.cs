@@ -356,7 +356,7 @@ public class MainModuleService(RapidERPDbContext context, IShared shared) : IMai
                 .SetProperty(x => x.Prefix, masterPUT.Prefix)
                 .SetProperty(x => x.IconURL, masterPUT.IconURL)
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 

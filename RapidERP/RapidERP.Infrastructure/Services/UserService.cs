@@ -366,7 +366,7 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
                 .SetProperty(x => x.Mobile, masterPUT.Mobile)
                 .SetProperty(x => x.Address, masterPUT.Address)
                 .SetProperty(x => x.Password, masterPUT.Password)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 

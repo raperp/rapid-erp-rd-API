@@ -362,7 +362,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                 .SetProperty(x => x.StateId, masterPUT.StateId)
                 .SetProperty(x => x.CityId, masterPUT.CityId)
                 .SetProperty(x => x.Code, masterPUT.Code)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 

@@ -384,7 +384,7 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                 .SetProperty(x => x.Phone, masterPUT.Phone)
                 .SetProperty(x => x.Email, masterPUT.Email)
                 .SetProperty(x => x.Description, masterPUT.Description)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 

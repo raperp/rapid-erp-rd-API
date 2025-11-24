@@ -386,7 +386,7 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
                 .SetProperty(x => x.StateId, masterPUT.StateId)
                 .SetProperty(x => x.CityId, masterPUT.CityId)
                 .SetProperty(x => x.AreaId, masterPUT.AreaId)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 

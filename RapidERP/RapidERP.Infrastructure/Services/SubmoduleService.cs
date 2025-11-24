@@ -354,7 +354,7 @@ public class SubmoduleService(RapidERPDbContext context, IShared shared) : ISubm
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Prefix, masterPUT.Prefix)
                 .SetProperty(x => x.MainModuleId, masterPUT.MainModuleId)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 

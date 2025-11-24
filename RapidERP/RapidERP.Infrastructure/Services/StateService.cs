@@ -361,7 +361,7 @@ namespace RapidERP.Infrastructure.Services
                     .SetProperty(x => x.Name, masterPUT.Name)
                     .SetProperty(x => x.CountryId, masterPUT.CountryId)
                     .SetProperty(x => x.MenuId, masterPUT.MenuId)
-                    .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                    //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                     .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                     .SetProperty(x => x.Code, masterPUT.Code)
                     .SetProperty(x => x.IsDefault, masterPUT.IsDefault)

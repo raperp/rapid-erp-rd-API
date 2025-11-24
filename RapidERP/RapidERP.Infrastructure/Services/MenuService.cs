@@ -354,7 +354,7 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
                 .SetProperty(x => x.Prefix, masterPUT.Prefix)
                 .SetProperty(x => x.IconURL, masterPUT.IconURL)
                 .SetProperty(x => x.SubModuleId, masterPUT.SubModuleId)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 

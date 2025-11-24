@@ -409,7 +409,7 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                 .SetProperty(x => x.Mobile, masterPUT.Mobile)
                 .SetProperty(x => x.Email, masterPUT.Email)
                 .SetProperty(x => x.Website, masterPUT.Website)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 

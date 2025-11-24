@@ -373,7 +373,7 @@ public class SupplierTypeService(RapidERPDbContext context, IShared shared) : IS
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.CurrencyId, masterPUT.CurrencyId)
                 .SetProperty(x => x.CountryId, masterPUT.CountryId)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
