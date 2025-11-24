@@ -72,7 +72,7 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                 masterData.Phone = masterPOST.Phone;
                 masterData.Email = masterPOST.Email;
                 masterData.Description = masterPOST.Description;
-                masterData.CreatedBy = masterPOST.CreatedBy;
+                //masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
                 await context.Salesmen.AddAsync(masterData);
@@ -89,20 +89,20 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                 audit.Phone = masterPOST.Phone;
                 audit.Email = masterPOST.Email;
                 audit.Description = masterPOST.Description;
-                audit.StatusTypeId = masterPOST.StatusTypeId;
+                //audit.StatusTypeId = masterPOST.StatusTypeId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
-                audit.IsDefault = masterPOST.IsDefault;
+                //audit.IsDefault = masterPOST.IsDefault;
                 audit.Browser = masterPOST.Browser;
                 audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.CreatedBy;
+                //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.SalesmanAudits.AddAsync(audit);
@@ -284,7 +284,7 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                         join s in context.Salesmen on sa.SalesmanId equals s.Id
                         join d in context.Departments on sa.DepartmentId equals d.Id
                         join at in context.ActionTypes on sa.ActionTypeId equals at.Id
-                        join st in context.StatusTypes on sa.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on sa.StatusTypeId equals st.Id
                         select new
                         {
                             sa.Id,
@@ -297,19 +297,19 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                             sa.Phone,
                             sa.Email,
                             sa.Description,
-                            State = st.Name,
+                            //State = st.Name,
                             Action = at.Name,
                             //ExportType = et.Name,
                             ActionType = at.Name,
-                            StatusType = st.Name,
+                            //StatusType = st.Name,
                             sa.ExportTo,
                             sa.SourceURL,
-                            sa.IsDefault,
+                            //sa.IsDefault,
                             sa.Browser,
                             sa.DeviceName,
                             sa.Location,
                             sa.DeviceIP,
-                            sa.GoogleMapUrl,
+                            //sa.GoogleMapUrl,
                             sa.Latitude,
                             sa.Longitude,
                             sa.ActionBy,
@@ -385,7 +385,7 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                 .SetProperty(x => x.Email, masterPUT.Email)
                 .SetProperty(x => x.Description, masterPUT.Description)
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
+                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
                 SalesmanAudit audit = new();
@@ -399,20 +399,20 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                 audit.Phone = masterPUT.Phone;
                 audit.Email = masterPUT.Email;
                 audit.Description = masterPUT.Description;
-                audit.StatusTypeId = masterPUT.StatusTypeId;
+                //audit.StatusTypeId = masterPUT.StatusTypeId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
                 audit.ExportTypeId = masterPUT.ExportTypeId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
-                audit.IsDefault = masterPUT.IsDefault;
+                //audit.IsDefault = masterPUT.IsDefault;
                 audit.Browser = masterPUT.Browser;
                 audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.UpdatedBy;
+                //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.SalesmanAudits.AddAsync(audit);

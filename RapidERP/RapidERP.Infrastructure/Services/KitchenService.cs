@@ -67,7 +67,7 @@ namespace RapidERP.Infrastructure.Services
                     masterData.Description = masterPOST.Description;
                     masterData.PrinterId = masterPOST.PrinterId;
                     masterData.StatusTypeId = masterPOST.StatusTypeId;
-                    masterData.CreatedBy = masterPOST.CreatedBy;
+                    //masterData.CreatedBy = masterPOST.CreatedBy;
                     masterData.CreatedAt = DateTime.Now;
 
                     await context.Kitchens.AddAsync(masterData);
@@ -78,20 +78,20 @@ namespace RapidERP.Infrastructure.Services
                     audit.Description = masterPOST.Description;
                     audit.PrinterId = masterPOST.PrinterId;
                     audit.KitchenId = masterData.Id;
-                    audit.StatusTypeId = masterPOST.StatusTypeId;
+                    //audit.StatusTypeId = masterPOST.StatusTypeId;
                     audit.ActionTypeId = masterPOST.ActionTypeId;
                     audit.ExportTypeId = masterPOST.ExportTypeId;
                     audit.ExportTo = masterPOST.ExportTo;
                     audit.SourceURL = masterPOST.SourceURL;
-                    audit.IsDefault = masterPOST.IsDefault;
+                    //audit.IsDefault = masterPOST.IsDefault;
                     audit.Browser = masterPOST.Browser;
                     audit.DeviceName = masterPOST.DeviceName;
                     audit.Location = masterPOST.Location;
                     audit.DeviceIP = masterPOST.DeviceIP;
-                    audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                    //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
                     audit.Latitude = masterPOST.Latitude;
                     audit.Longitude = masterPOST.Longitude;
-                    audit.ActionBy = masterPOST.CreatedBy;
+                    //audit.ActionBy = masterPOST.CreatedBy;
                     audit.ActionAt = DateTime.Now;
 
                     await context.KitchenAudits.AddAsync(audit);
@@ -266,7 +266,7 @@ namespace RapidERP.Infrastructure.Services
                 var data = (from ka in context.KitchenAudits
                             join k in context.Kitchens on ka.KitchenId equals k.Id
                             join at in context.ActionTypes on ka.ActionTypeId equals at.Id
-                            join st in context.StatusTypes on ka.StatusTypeId equals st.Id
+                            //join st in context.StatusTypes on ka.StatusTypeId equals st.Id
                             select new
                             {
                                 ka.Id,
@@ -276,15 +276,15 @@ namespace RapidERP.Infrastructure.Services
                                 ka.PrinterId,
                                 //ExportType = et.Name,
                                 ActionType = at.Name,
-                                StatusType = st.Name,
+                                //StatusType = st.Name,
                                 ka.ExportTo,
                                 ka.SourceURL,
-                                ka.IsDefault,
+                                //ka.IsDefault,
                                 ka.Browser,
                                 ka.DeviceName,
                                 ka.Location,
                                 ka.DeviceIP,
-                                ka.GoogleMapUrl,
+                                //ka.GoogleMapUrl,
                                 ka.Latitude,
                                 ka.Longitude,
                                 ka.ActionBy,
@@ -353,7 +353,7 @@ namespace RapidERP.Infrastructure.Services
                     .SetProperty(x => x.Description, masterPUT.Description)
                     .SetProperty(x => x.PrinterId, masterPUT.PrinterId)
                     .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                    .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
+                    //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                     .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
                     KitchenAudit audit = new();
@@ -361,20 +361,20 @@ namespace RapidERP.Infrastructure.Services
                     audit.Description = masterPUT.Description;
                     audit.PrinterId = masterPUT.PrinterId;
                     audit.KitchenId = masterPUT.Id;
-                    audit.StatusTypeId = masterPUT.StatusTypeId;
+                    //audit.StatusTypeId = masterPUT.StatusTypeId;
                     audit.ActionTypeId = masterPUT.ActionTypeId;
                     audit.ExportTypeId = masterPUT.ExportTypeId;
                     audit.ExportTo = masterPUT.ExportTo;
                     audit.SourceURL = masterPUT.SourceURL;
-                    audit.IsDefault = masterPUT.IsDefault;
+                    //audit.IsDefault = masterPUT.IsDefault;
                     audit.Browser = masterPUT.Browser;
                     audit.DeviceName = masterPUT.DeviceName;
                     audit.Location = masterPUT.Location;
                     audit.DeviceIP = masterPUT.DeviceIP;
-                    audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                    //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
                     audit.Latitude = masterPUT.Latitude;
                     audit.Longitude = masterPUT.Longitude;
-                    audit.ActionBy = masterPUT.UpdatedBy;
+                    //audit.ActionBy = masterPUT.UpdatedBy;
                     audit.ActionAt = DateTime.Now;
 
                     await context.KitchenAudits.AddAsync(audit);

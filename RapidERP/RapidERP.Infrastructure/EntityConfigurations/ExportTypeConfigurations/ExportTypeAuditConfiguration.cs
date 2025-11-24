@@ -16,9 +16,9 @@ public class ExportTypeAuditConfiguration : IEntityTypeConfiguration<ExportTypeA
         builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired(false);
         builder.Property(x => x.LanguageId).IsRequired(false);
         builder.Property(x => x.ExportTypeId).IsRequired(false);
-        builder.Ignore(x => x.ActionType);
+        //builder.Ignore(x => x.ActionType);
         builder.Ignore(x => x.ActionTypeId);
-        builder.Ignore(x => x.StatusType);
-        builder.Ignore(x => x.StatusTypeId);
+        //builder.Ignore(x => x.StatusType);
+        //builder.Ignore(x => x.StatusTypeId);
     }
 }

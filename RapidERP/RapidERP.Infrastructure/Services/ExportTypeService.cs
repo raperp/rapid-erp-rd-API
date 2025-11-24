@@ -63,7 +63,7 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
                 masterData.Name = masterPOST.Name;
                 masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Description = masterPOST.Description;
-                masterData.CreatedBy = masterPOST.CreatedBy;
+                //masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
                 await context.ExportTypes.AddAsync(masterData);
@@ -76,15 +76,15 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
                 audit.LanguageId = masterPOST.LanguageId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
-                audit.IsDefault = masterPOST.IsDefault;
+                //audit.IsDefault = masterPOST.IsDefault;
                 audit.Browser = masterPOST.Browser;
                 audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.CreatedBy;
+                //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.ExportTypeAudits.AddAsync(audit);
@@ -261,12 +261,12 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
                             //ExportType = et.Name,
                             eta.ExportTo,
                             eta.SourceURL,
-                            eta.IsDefault,
+                            //eta.IsDefault,
                             eta.Browser,
                             eta.DeviceName,
                             eta.Location,
                             eta.DeviceIP,
-                            eta.GoogleMapUrl,
+                            //eta.GoogleMapUrl,
                             eta.Latitude,
                             eta.Longitude,
                             eta.ActionBy,
@@ -334,7 +334,7 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Description, masterPUT.Description)
-                .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
+                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
                 ExportTypeAudit audit = new();
@@ -344,15 +344,15 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
                 audit.LanguageId = masterPUT.LanguageId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
-                audit.IsDefault = masterPUT.IsDefault;
+                //audit.IsDefault = masterPUT.IsDefault;
                 audit.Browser = masterPUT.Browser;
                 audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.UpdatedBy;
+                //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.ExportTypeAudits.AddAsync(audit);

@@ -66,7 +66,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                 masterData.CountryId = masterPOST.CountryId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.StateId = masterPOST.StateId;
-                masterData.CreatedBy = masterPOST.CreatedBy;
+                //masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
                 await context.Areas.AddAsync(masterData);
@@ -79,20 +79,20 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                 audit.StateId = masterPOST.StateId;
                 audit.AreaId = masterData.Id;
                 audit.CityId = masterPOST.CityId;
-                audit.StatusTypeId = masterPOST.StatusTypeId;
+                //audit.StatusTypeId = masterPOST.StatusTypeId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
-                audit.IsDefault = masterPOST.IsDefault;
+                //audit.IsDefault = masterPOST.IsDefault;
                 audit.Browser = masterPOST.Browser;
                 audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.CreatedBy;
+                //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.AreaAudits.AddAsync(audit);
@@ -274,7 +274,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                         join cit in context.Cities on aa.CityId equals cit.Id
                         //join et in context.ExportTypes on aa.ExportTypeId equals et.Id
                         join at in context.ActionTypes on aa.ActionTypeId equals at.Id
-                        join st in context.StatusTypes on aa.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on aa.StatusTypeId equals st.Id
                         select new
                         {
                             aa.Id,
@@ -284,15 +284,15 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                             aa.Name,
                             //ExportType = et.Name,
                             ActionType = at.Name,
-                            StatusType = st.Name,
+                            //StatusType = st.Name,
                             aa.ExportTo,
                             aa.SourceURL,
-                            aa.IsDefault,
+                            //aa.IsDefault,
                             aa.Browser,
                             aa.DeviceName,
                             aa.Location,
                             aa.DeviceIP,
-                            aa.GoogleMapUrl,
+                            //aa.GoogleMapUrl,
                             aa.Latitude,
                             aa.Longitude,
                             aa.ActionBy,
@@ -363,7 +363,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                 .SetProperty(x => x.CityId, masterPUT.CityId)
                 .SetProperty(x => x.Code, masterPUT.Code)
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
+                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
                 AreaAudit audit = new();
@@ -373,20 +373,20 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                 audit.StateId = masterPUT.StateId;
                 audit.AreaId = masterPUT.Id;
                 audit.CityId = masterPUT.CityId;
-                audit.StatusTypeId = masterPUT.StatusTypeId;
+                //audit.StatusTypeId = masterPUT.StatusTypeId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
                 audit.ExportTypeId = masterPUT.ExportTypeId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
-                audit.IsDefault = masterPUT.IsDefault;
+                //audit.IsDefault = masterPUT.IsDefault;
                 audit.Browser = masterPUT.Browser;
                 audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.UpdatedBy;
+                //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.AreaAudits.AddAsync(audit);

@@ -64,7 +64,7 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
                 masterData.Name = masterPOST.Name;
                 masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Description = masterPOST.Description;
-                masterData.CreatedBy = masterPOST.CreatedBy;
+                //masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
                 await context.StatusTypes.AddAsync(masterData);
@@ -74,19 +74,19 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
                 audit.Name = masterPOST.Name;
                 audit.Description = masterPOST.Description;
                 audit.LanguageId = masterPOST.LanguageId;
-                audit.StatusTypeId = masterData.Id;
+                //audit.StatusTypeId = masterData.Id;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
-                audit.IsDefault = masterPOST.IsDefault;
+                //audit.IsDefault = masterPOST.IsDefault;
                 audit.Browser = masterPOST.Browser;
                 audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.CreatedBy;
+                //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.StatusTypeAudits.AddAsync(audit);
@@ -132,48 +132,48 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
     {
         try
         {
-            await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.StatusTypeAudits.AsNoTracking().AnyAsync(x => x.StatusTypeId == id);
+            //await using var transaction = await context.Database.BeginTransactionAsync();
+            //var isAuditExists = await context.StatusTypeAudits.AsNoTracking().AnyAsync(x => x.StatusTypeId == id);
 
-            if (isAuditExists == false)
-            {
-                requestResponse = new()
-                {
-                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
-                    IsSuccess = false,
-                    Message = ResponseMessage.NoRecordFound
-                };
-            }
+            //if (isAuditExists == false)
+            //{
+            //    requestResponse = new()
+            //    {
+            //        StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
+            //        IsSuccess = false,
+            //        Message = ResponseMessage.NoRecordFound
+            //    };
+            //}
 
-            else
-            {
-                await context.StatusTypeAudits.Where(x => x.StatusTypeId == id).ExecuteDeleteAsync();
-            }
+            //else
+            //{
+            //    await context.StatusTypeAudits.Where(x => x.StatusTypeId == id).ExecuteDeleteAsync();
+            //}
 
-            var isExists = await context.StatusTypes.AsNoTracking().AnyAsync(x => x.Id == id);
+            //var isExists = await context.StatusTypes.AsNoTracking().AnyAsync(x => x.Id == id);
 
-            if (isExists == false)
-            {
-                requestResponse = new()
-                {
-                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
-                    IsSuccess = false,
-                    Message = ResponseMessage.NoRecordFound
-                };
-            }
+            //if (isExists == false)
+            //{
+            //    requestResponse = new()
+            //    {
+            //        StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
+            //        IsSuccess = false,
+            //        Message = ResponseMessage.NoRecordFound
+            //    };
+            //}
 
-            else
-            {
-                await context.StatusTypes.Where(x => x.Id == id).ExecuteDeleteAsync();
-                await transaction.CommitAsync();
-            }
+            //else
+            //{
+            //    await context.StatusTypes.Where(x => x.Id == id).ExecuteDeleteAsync();
+            //    await transaction.CommitAsync();
+            //}
 
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
-                IsSuccess = true,
-                Message = ResponseMessage.DeleteSuccess
-            };
+            //requestResponse = new()
+            //{
+            //    StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+            //    IsSuccess = true,
+            //    Message = ResponseMessage.DeleteSuccess
+            //};
 
             return requestResponse;
         }
@@ -263,12 +263,12 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
                             //ExportType = et.Name,
                             ata.ExportTo,
                             ata.SourceURL,
-                            ata.IsDefault,
+                            //ata.IsDefault,
                             ata.Browser,
                             ata.DeviceName,
                             ata.Location,
                             ata.DeviceIP,
-                            ata.GoogleMapUrl,
+                            //ata.GoogleMapUrl,
                             ata.Latitude,
                             ata.Longitude,
                             ata.ActionBy,
@@ -336,26 +336,26 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Description, masterPUT.Description)
-                .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
+                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
                 StatusTypeAudit audit = new();
                 audit.Name = masterPUT.Name;
                 audit.Description = masterPUT.Description;
                 audit.LanguageId = masterPUT.LanguageId;
-                audit.StatusTypeId = masterPUT.Id;
+                //audit.StatusTypeId = masterPUT.Id;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
-                audit.IsDefault = masterPUT.IsDefault;
+                //audit.IsDefault = masterPUT.IsDefault;
                 audit.Browser = masterPUT.Browser;
                 audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.UpdatedBy;
+                //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.StatusTypeAudits.AddAsync(audit);

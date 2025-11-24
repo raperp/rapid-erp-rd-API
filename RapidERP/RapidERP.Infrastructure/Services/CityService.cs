@@ -66,7 +66,7 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
                 masterData.CountryId = masterPOST.CountryId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.StateId = masterPOST.StateId;
-                masterData.CreatedBy = masterPOST.CreatedBy;
+                //masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
                 await context.Cities.AddAsync(masterData);
@@ -78,20 +78,20 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
                 audit.CountryId = masterPOST.CountryId;
                 audit.StateId = masterPOST.StateId;
                 audit.CityId = masterData.Id;
-                audit.StatusTypeId = masterPOST.StatusTypeId;
+                //audit.StatusTypeId = masterPOST.StatusTypeId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
-                audit.IsDefault = masterPOST.IsDefault;
+                //audit.IsDefault = masterPOST.IsDefault;
                 audit.Browser = masterPOST.Browser;
                 audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.CreatedBy;
+                //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.CityAudits.AddAsync(audit);
@@ -270,7 +270,7 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
                         join c in context.Countries on ca.CountryId equals c.Id
                         //join et in context.ExportTypes on ca.ExportTypeId equals et.Id
                         join at in context.ActionTypes on ca.ActionTypeId equals at.Id
-                        join st in context.StatusTypes on ca.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on ca.StatusTypeId equals st.Id
                         select new
                         {
                             ca.Id,
@@ -278,10 +278,10 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
                             ca.Name,
                             //ExportType = et.Name,
                             ActionType = at.Name,
-                            StatusType = st.Name,
+                            //StatusType = st.Name,
                             ca.ExportTo,
                             ca.SourceURL,
-                            ca.IsDefault,
+                            //ca.IsDefault,
                             ca.ISONumeric,
                             ca.DialCode,
                             ca.ISO2Code,
@@ -291,7 +291,7 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
                             ca.DeviceName,
                             ca.Location,
                             ca.DeviceIP,
-                            ca.GoogleMapUrl,
+                            //ca.GoogleMapUrl,
                             ca.Latitude,
                             ca.Longitude,
                             ca.ActionBy,
@@ -361,7 +361,7 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
                 .SetProperty(x => x.StateId, masterPUT.StateId)
                 .SetProperty(x => x.Code, masterPUT.Code)
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
+                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
                 CityAudit audit = new();
@@ -370,20 +370,20 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
                 audit.CountryId = masterPUT.CountryId;
                 audit.StateId = masterPUT.StateId;
                 audit.CityId = masterPUT.Id;
-                audit.StatusTypeId = masterPUT.StatusTypeId;
+                //audit.StatusTypeId = masterPUT.StatusTypeId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
                 audit.ExportTypeId = masterPUT.ExportTypeId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
-                audit.IsDefault = masterPUT.IsDefault;
+                //audit.IsDefault = masterPUT.IsDefault;
                 audit.Browser = masterPUT.Browser;
                 audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.UpdatedBy;
+                //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.CityAudits.AddAsync(audit);

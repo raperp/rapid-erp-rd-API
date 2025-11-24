@@ -64,7 +64,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.Name = masterPOST.Name;
                 masterData.Description = masterPOST.Description;
-                masterData.CreatedBy = masterPOST.CreatedBy;
+                //masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
                 await context.ActionTypes.AddAsync(masterData);
@@ -75,7 +75,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                 audit.LanguageId = masterPOST.LanguageId;
                 audit.Name = masterPOST.Name;
                 audit.Description = masterPOST.Description;
-                audit.IsDefault = masterPOST.IsDefault;
+                //audit.IsDefault = masterPOST.IsDefault;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
@@ -83,10 +83,10 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                 audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.CreatedBy;
+                //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.ActionTypeAudits.AddAsync(audit);
@@ -269,11 +269,11 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                             //ExportType = et.Name,
                             ata.ExportTo,
                             ata.SourceURL,
-                            ata.IsDefault,
+                            //ata.IsDefault,
                             ata.Browser,
                             ata.Location,
                             ata.DeviceIP,
-                            ata.GoogleMapUrl,
+                            //ata.GoogleMapUrl,
                             ata.DeviceName,
                             ata.Latitude,
                             ata.Longitude,
@@ -343,7 +343,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description)
-                .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
+                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
                 ActionTypeAudit audit = new();
@@ -351,7 +351,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                 audit.LanguageId = masterPUT.LanguageId;
                 audit.Name = masterPUT.Name;
                 audit.Description = masterPUT.Description;
-                audit.IsDefault = masterPUT.IsDefault;
+                //audit.IsDefault = masterPUT.IsDefault;
                 audit.ExportTypeId = masterPUT.ExportTypeId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
@@ -359,10 +359,10 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                 audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.UpdatedBy;
+                //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.ActionTypeAudits.AddAsync(audit);

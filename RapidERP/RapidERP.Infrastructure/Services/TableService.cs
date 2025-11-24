@@ -68,7 +68,7 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
                 masterData.Description = masterPOST.Description;
                 masterData.TotalPersons = masterPOST.TotalPersons;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                masterData.CreatedBy = masterPOST.CreatedBy;
+                //masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
                 await context.Tables.AddAsync(masterData);
@@ -79,20 +79,20 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
                 audit.Description = masterPOST.Description;
                 audit.TotalPersons = masterPOST.TotalPersons;
                 audit.TableId = masterData.Id;
-                audit.StatusTypeId = masterPOST.StatusTypeId;
+                //audit.StatusTypeId = masterPOST.StatusTypeId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
-                audit.IsDefault = masterPOST.IsDefault;
+                //audit.IsDefault = masterPOST.IsDefault;
                 audit.Browser = masterPOST.Browser;
                 audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.CreatedBy;
+                //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.TableAudits.AddAsync(audit);
@@ -267,7 +267,7 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
             var data = (from ta in context.TableAudits
                         join t in context.Tables on ta.TableId equals t.Id
                         join at in context.ActionTypes on ta.ActionTypeId equals at.Id
-                        join st in context.StatusTypes on ta.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on ta.StatusTypeId equals st.Id
                         select new
                         {
                             ta.Id,
@@ -277,15 +277,15 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
                             Table = t.Name,
                             //ExportType = et.Name,
                             ActionType = at.Name,
-                            StatusType = st.Name,
+                            //StatusType = st.Name,
                             ta.ExportTo,
                             ta.SourceURL,
-                            ta.IsDefault,
+                            //ta.IsDefault,
                             ta.Browser,
                             ta.DeviceName,
                             ta.Location,
                             ta.DeviceIP,
-                            ta.GoogleMapUrl,
+                            //ta.GoogleMapUrl,
                             ta.Latitude,
                             ta.Longitude,
                             ta.ActionBy,
@@ -354,7 +354,7 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
                 .SetProperty(x => x.Description, masterPUT.Description)
                 .SetProperty(x => x.TotalPersons, masterPUT.TotalPersons)
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
+                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
                 TableAudit audit = new();
@@ -362,20 +362,20 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
                 audit.Description = masterPUT.Description;
                 audit.TotalPersons = masterPUT.TotalPersons;
                 audit.TableId = masterPUT.Id;
-                audit.StatusTypeId = masterPUT.StatusTypeId;
+                //audit.StatusTypeId = masterPUT.StatusTypeId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
                 audit.ExportTypeId = masterPUT.ExportTypeId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
-                audit.IsDefault = masterPUT.IsDefault;
+                //audit.IsDefault = masterPUT.IsDefault;
                 audit.Browser = masterPUT.Browser;
                 audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.UpdatedBy;
+                //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.TableAudits.AddAsync(audit);

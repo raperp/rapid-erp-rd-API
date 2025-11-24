@@ -70,7 +70,7 @@ public class SupplierTypeService(RapidERPDbContext context, IShared shared) : IS
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.CurrencyId = masterPOST.CurrencyId;
                 masterData.CountryId = masterPOST.CountryId;
-                masterData.CreatedBy = masterPOST.CreatedBy;
+                //masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
                 await context.SupplierTypes.AddAsync(masterData);
@@ -87,20 +87,20 @@ public class SupplierTypeService(RapidERPDbContext context, IShared shared) : IS
                 audit.CurrencyId = masterPOST.CurrencyId;
                 audit.CountryId = masterPOST.CountryId;
                 audit.SupplierTypeId = masterData.Id;
-                audit.StatusTypeId = masterData.StatusTypeId;
+                //audit.StatusTypeId = masterData.StatusTypeId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
-                audit.IsDefault = masterPOST.IsDefault;
+                //audit.IsDefault = masterPOST.IsDefault;
                 audit.Browser = masterPOST.Browser;
                 audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.CreatedBy;
+                //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.SupplierTypeAudits.AddAsync(audit);
@@ -294,12 +294,12 @@ public class SupplierTypeService(RapidERPDbContext context, IShared shared) : IS
                             //ExportType = et.Name,
                             sta.ExportTo,
                             sta.SourceURL,
-                            sta.IsDefault,
+                            //sta.IsDefault,
                             sta.Browser,
                             sta.DeviceName,
                             sta.Location,
                             sta.DeviceIP,
-                            sta.GoogleMapUrl,
+                            //sta.GoogleMapUrl,
                             sta.Latitude,
                             sta.Longitude,
                             sta.ActionBy,
@@ -374,7 +374,7 @@ public class SupplierTypeService(RapidERPDbContext context, IShared shared) : IS
                 .SetProperty(x => x.CurrencyId, masterPUT.CurrencyId)
                 .SetProperty(x => x.CountryId, masterPUT.CountryId)
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
+                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
                 SupplierTypeAudit audit = new();
@@ -388,20 +388,20 @@ public class SupplierTypeService(RapidERPDbContext context, IShared shared) : IS
                 audit.CurrencyId = masterPUT.CurrencyId;
                 audit.CountryId = masterPUT.CountryId;
                 audit.SupplierTypeId = masterPUT.Id;
-                audit.StatusTypeId = masterPUT.StatusTypeId;
+                //audit.StatusTypeId = masterPUT.StatusTypeId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
                 audit.ExportTypeId = masterPUT.ExportTypeId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
-                audit.IsDefault = masterPUT.IsDefault;
+                //audit.IsDefault = masterPUT.IsDefault;
                 audit.Browser = masterPUT.Browser;
                 audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.UpdatedBy;
+                //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.SupplierTypeAudits.AddAsync(audit);

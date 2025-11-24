@@ -65,7 +65,7 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
                 masterData.Name = masterPOST.Name;
                 masterData.Description = masterPOST.Description;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                masterData.CreatedBy = masterPOST.CreatedBy;
+                //masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
                 await context.OrderTypes.AddAsync(masterData);
@@ -75,20 +75,20 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
                 audit.Name = masterPOST.Name;
                 audit.Description = masterPOST.Description;
                 audit.OrderTypeId = masterData.Id;
-                audit.StatusTypeId = masterPOST.StatusTypeId;
+                //audit.StatusTypeId = masterPOST.StatusTypeId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
-                audit.IsDefault = masterPOST.IsDefault;
+                //audit.IsDefault = masterPOST.IsDefault;
                 audit.Browser = masterPOST.Browser;
                 audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.CreatedBy;
+                //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.OrderTypeAudits.AddAsync(audit);
@@ -262,7 +262,7 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
             var data = (from ota in context.OrderTypeAudits
                         join ot in context.OrderTypes on ota.OrderTypeId equals ot.Id
                         join at in context.ActionTypes on ota.ActionTypeId equals at.Id
-                        join st in context.StatusTypes on ota.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on ota.StatusTypeId equals st.Id
                         select new
                         {
                             ota.Id,
@@ -271,15 +271,15 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
                             OrderType = ot.Name,
                             //ExportType = et.Name,
                             ActionType = at.Name,
-                            StatusType = st.Name,
+                            //StatusType = st.Name,
                             ota.ExportTo,
                             ota.SourceURL,
-                            ota.IsDefault,
+                            //ota.IsDefault,
                             ota.Browser,
                             ota.DeviceName,
                             ota.Location,
                             ota.DeviceIP,
-                            ota.GoogleMapUrl,
+                            //ota.GoogleMapUrl,
                             ota.Latitude,
                             ota.Longitude,
                             ota.ActionBy,
@@ -347,27 +347,27 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description)
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
+                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
                 OrderTypeAudit audit = new();
                 audit.Name = masterPUT.Name;
                 audit.Description = masterPUT.Description;
                 audit.OrderTypeId = masterPUT.Id;
-                audit.StatusTypeId = masterPUT.StatusTypeId;
+                //audit.StatusTypeId = masterPUT.StatusTypeId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
                 audit.ExportTypeId = masterPUT.ExportTypeId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
-                audit.IsDefault = masterPUT.IsDefault;
+                //audit.IsDefault = masterPUT.IsDefault;
                 audit.Browser = masterPUT.Browser;
                 audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.UpdatedBy;
+                //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.OrderTypeAudits.AddAsync(audit);

@@ -69,7 +69,7 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
                 masterData.IconURL = masterPOST.IconURL;
                 masterData.SubModuleId = masterPOST.SubModuleId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                masterData.CreatedBy = masterPOST.CreatedBy;
+                //masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
                 await context.Menus.AddAsync(masterData);
@@ -81,20 +81,20 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
                 audit.IconURL = masterPOST.IconURL;
                 audit.SubModuleId = masterPOST.SubModuleId;
                 audit.MenuId = masterData.Id;
-                audit.StatusTypeId = masterPOST.StatusTypeId;
+                //audit.StatusTypeId = masterPOST.StatusTypeId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
-                audit.IsDefault = masterPOST.IsDefault;
+                //audit.IsDefault = masterPOST.IsDefault;
                 audit.Browser = masterPOST.Browser;
                 audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.CreatedBy;
+                //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.MenuAudits.AddAsync(audit);
@@ -268,7 +268,7 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
             var data = (from ma in context.MenuAudits
                         join m in context.Menus on ma.MenuId equals m.Id
                         join at in context.ActionTypes on ma.ActionTypeId equals at.Id
-                        join st in context.StatusTypes on ma.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on ma.StatusTypeId equals st.Id
                         select new
                         {
                             ma.Id,
@@ -277,15 +277,15 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
                             MainModule = m.Name,
                             //ExportType = et.Name,
                             ActionType = at.Name,
-                            StatusType = st.Name,
+                            //StatusType = st.Name,
                             ma.ExportTo,
                             ma.SourceURL,
-                            ma.IsDefault,
+                            //ma.IsDefault,
                             ma.Browser,
                             ma.DeviceName,
                             ma.Location,
                             ma.DeviceIP,
-                            ma.GoogleMapUrl,
+                            //ma.GoogleMapUrl,
                             ma.Latitude,
                             ma.Longitude,
                             ma.ActionBy,
@@ -355,7 +355,7 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
                 .SetProperty(x => x.IconURL, masterPUT.IconURL)
                 .SetProperty(x => x.SubModuleId, masterPUT.SubModuleId)
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
+                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
                 MenuAudit audit = new();
@@ -364,20 +364,20 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
                 audit.IconURL = masterPUT.IconURL;
                 audit.SubModuleId = masterPUT.SubModuleId;
                 audit.MenuId = masterPUT.Id;
-                audit.StatusTypeId = masterPUT.StatusTypeId;
+                //audit.StatusTypeId = masterPUT.StatusTypeId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
                 audit.ExportTypeId = masterPUT.ExportTypeId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
-                audit.IsDefault = masterPUT.IsDefault;
+                //audit.IsDefault = masterPUT.IsDefault;
                 audit.Browser = masterPUT.Browser;
                 audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.UpdatedBy;
+                //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.MenuAudits.AddAsync(audit);

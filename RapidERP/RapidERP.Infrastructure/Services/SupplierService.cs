@@ -78,7 +78,7 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                 masterData.Email = masterPOST.Email;
                 masterData.Website = masterPOST.Website;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                masterData.CreatedBy = masterPOST.CreatedBy;
+                //masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
                 await context.Suppliers.AddAsync(masterData);
@@ -100,20 +100,20 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                 audit.Mobile = masterPOST.Mobile;
                 audit.Email = masterPOST.Email;
                 audit.Website = masterPOST.Website;
-                audit.StatusTypeId = masterPOST.StatusTypeId;
+                //audit.StatusTypeId = masterPOST.StatusTypeId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
-                audit.IsDefault = masterPOST.IsDefault;
+                //audit.IsDefault = masterPOST.IsDefault;
                 audit.Browser = masterPOST.Browser;
                 audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.CreatedBy;
+                //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.SupplierAudits.AddAsync(audit);
@@ -303,7 +303,7 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                         join co in context.Countries on sa.CountryId equals co.Id
                         join cu in context.Currencies on sa.CurrencyId equals cu.Id
                         join at in context.ActionTypes on sa.ActionTypeId equals at.Id
-                        join st in context.StatusTypes on sa.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on sa.StatusTypeId equals st.Id
                         select new
                         {
                             sa.Id,
@@ -322,15 +322,15 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                             Currency = cu.Name,
                             //ExportType = et.Name,
                             ActionType = at.Name,
-                            StatusType = st.Name,
+                            //StatusType = st.Name,
                             sa.ExportTo,
                             sa.SourceURL,
-                            sa.IsDefault,
+                            //sa.IsDefault,
                             sa.Browser,
                             sa.DeviceName,
                             sa.Location,
                             sa.DeviceIP,
-                            sa.GoogleMapUrl,
+                            //sa.GoogleMapUrl,
                             sa.Latitude,
                             sa.Longitude,
                             sa.ActionBy,
@@ -410,7 +410,7 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                 .SetProperty(x => x.Email, masterPUT.Email)
                 .SetProperty(x => x.Website, masterPUT.Website)
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
+                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
                 SupplierAudit audit = new();
@@ -429,20 +429,20 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                 audit.Mobile = masterPUT.Mobile;
                 audit.Email = masterPUT.Email;
                 audit.Website = masterPUT.Website;
-                audit.StatusTypeId = masterPUT.StatusTypeId;
+                //audit.StatusTypeId = masterPUT.StatusTypeId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
                 audit.ExportTypeId = masterPUT.ExportTypeId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
-                audit.IsDefault = masterPUT.IsDefault;
+                //audit.IsDefault = masterPUT.IsDefault;
                 audit.Browser = masterPUT.Browser;
                 audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.UpdatedBy;
+                //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.SupplierAudits.AddAsync(audit);

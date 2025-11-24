@@ -69,7 +69,7 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
                 masterData.Address = masterPOST.Address;
                 masterData.Password = masterPOST.Password;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                masterData.CreatedBy = masterPOST.CreatedBy;
+                //masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
                 await context.Users.AddAsync(masterData);
@@ -83,20 +83,20 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
                 audit.Address = masterPOST.Address;
                 audit.Password = masterPOST.Password;
                 audit.UserId = masterData.Id;
-                audit.StatusTypeId = masterPOST.StatusTypeId;
+                //audit.StatusTypeId = masterPOST.StatusTypeId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
-                audit.IsDefault = masterPOST.IsDefault;
+                //audit.IsDefault = masterPOST.IsDefault;
                 audit.Browser = masterPOST.Browser;
                 audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.CreatedBy;
+                //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.UserAudits.AddAsync(audit);
@@ -275,7 +275,7 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
                         join u in context.Users on ua.UserId equals u.Id
                         //join et in context.ExportTypes on aa.ExportTypeId equals et.Id
                         join at in context.ActionTypes on ua.ActionTypeId equals at.Id
-                        join st in context.StatusTypes on ua.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on ua.StatusTypeId equals st.Id
                         select new
                         {
                             ua.Id,
@@ -287,15 +287,15 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
                             ua.Address,
                             //ExportType = et.Name,
                             ActionType = at.Name,
-                            StatusType = st.Name,
+                            //StatusType = st.Name,
                             ua.ExportTo,
                             ua.SourceURL,
-                            ua.IsDefault,
+                            //ua.IsDefault,
                             ua.Browser,
                             ua.DeviceName,
                             ua.Location,
                             ua.DeviceIP,
-                            ua.GoogleMapUrl,
+                            //ua.GoogleMapUrl,
                             ua.Latitude,
                             ua.Longitude,
                             ua.ActionBy,
@@ -367,7 +367,7 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
                 .SetProperty(x => x.Address, masterPUT.Address)
                 .SetProperty(x => x.Password, masterPUT.Password)
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
+                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
                 UserAudit audit = new();
@@ -378,20 +378,20 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
                 audit.Address = masterPUT.Address;
                 audit.Password = masterPUT.Password;
                 audit.UserId = masterPUT.Id;
-                audit.StatusTypeId = masterPUT.StatusTypeId;
+                //audit.StatusTypeId = masterPUT.StatusTypeId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
                 audit.ExportTypeId = masterPUT.ExportTypeId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
-                audit.IsDefault = masterPUT.IsDefault;
+                //audit.IsDefault = masterPUT.IsDefault;
                 audit.Browser = masterPUT.Browser;
                 audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.UpdatedBy;
+                //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.UserAudits.AddAsync(audit);

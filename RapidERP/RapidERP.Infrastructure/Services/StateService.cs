@@ -69,7 +69,7 @@ namespace RapidERP.Infrastructure.Services
                     masterData.LanguageId = masterPOST.LanguageId;
                     masterData.Code = masterPOST.Code;
                     masterData.IsDefault = masterPOST.IsDefault;
-                    masterData.CreatedBy = masterPOST.CreatedBy;
+                    //masterData.CreatedBy = masterPOST.CreatedBy;
                     masterData.CreatedAt = DateTime.Now;
 
                     await context.States.AddAsync(masterData);
@@ -82,21 +82,21 @@ namespace RapidERP.Infrastructure.Services
                     audit.StateId = masterData.Id;
                     audit.LanguageId = masterPOST.LanguageId;
                     audit.Code = masterPOST.Code;
-                    audit.IsDefault = masterPOST.IsDefault;
-                    audit.StatusTypeId = masterPOST.StatusTypeId;
+                    //audit.IsDefault = masterPOST.IsDefault;
+                    //audit.StatusTypeId = masterPOST.StatusTypeId;
                     audit.ActionTypeId = masterPOST.ActionTypeId;
                     audit.ExportTypeId = masterPOST.ExportTypeId;
                     audit.ExportTo = masterPOST.ExportTo;
                     audit.SourceURL = masterPOST.SourceURL;
-                    audit.IsDefault = masterPOST.IsDefault;
+                    //audit.IsDefault = masterPOST.IsDefault;
                     audit.Browser = masterPOST.Browser; 
                     audit.DeviceName = masterPOST.DeviceName;
                     audit.Location = masterPOST.Location;
                     audit.DeviceIP = masterPOST.DeviceIP;
-                    audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                    //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
                     audit.Latitude = masterPOST.Latitude;
                     audit.Longitude = masterPOST.Longitude;
-                    audit.ActionBy = masterPOST.CreatedBy;
+                    //audit.ActionBy = masterPOST.CreatedBy;
                     audit.ActionAt = DateTime.Now;
 
                     await context.StateAudits.AddAsync(audit);
@@ -276,7 +276,7 @@ namespace RapidERP.Infrastructure.Services
                             join c in context.Countries on sa.CountryId equals c.Id
                             //join et in context.ExportTypes on sa.ExportTypeId equals et.Id
                             join at in context.ActionTypes on sa.ActionTypeId equals at.Id
-                            join st in context.StatusTypes on sa.StatusTypeId equals st.Id
+                            //join st in context.StatusTypes on sa.StatusTypeId equals st.Id
                             select new
                             {
                                 sa.Id,
@@ -284,16 +284,16 @@ namespace RapidERP.Infrastructure.Services
                                 sa.Name,
                                 //ExportType = et.Name,
                                 Action = at.Name,
-                                Status = st.Name,
+                                //Status = st.Name,
                                 sa.ExportTo,
                                 sa.SourceURL,
-                                sa.IsDefault,
+                                //sa.IsDefault,
                                 sa.Code,
                                 sa.Browser,
                                 sa.DeviceName,
                                 sa.Location,
                                 sa.DeviceIP,
-                                sa.GoogleMapUrl,
+                                //sa.GoogleMapUrl,
                                 sa.Latitude,
                                 sa.Longitude,
                                 sa.ActionBy,
@@ -365,7 +365,7 @@ namespace RapidERP.Infrastructure.Services
                     .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                     .SetProperty(x => x.Code, masterPUT.Code)
                     .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
-                    .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
+                    //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                     .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
                     StateAudit audit = new();
@@ -375,21 +375,21 @@ namespace RapidERP.Infrastructure.Services
                     audit.StateId = masterPUT.Id;
                     audit.LanguageId = masterPUT.LanguageId;
                     audit.Code = masterPUT.Code;
-                    audit.IsDefault = masterPUT.IsDefault;
-                    audit.StatusTypeId = masterPUT.StatusTypeId;
+                    //audit.IsDefault = masterPUT.IsDefault;
+                    //audit.StatusTypeId = masterPUT.StatusTypeId;
                     audit.ActionTypeId = masterPUT.ActionTypeId;
                     audit.ExportTypeId = masterPUT.ExportTypeId;
                     audit.ExportTo = masterPUT.ExportTo;
                     audit.SourceURL = masterPUT.SourceURL;
-                    audit.IsDefault = masterPUT.IsDefault;
+                    //audit.IsDefault = masterPUT.IsDefault;
                     audit.Browser = masterPUT.Browser;
                     audit.DeviceName = masterPUT.DeviceName;
                     audit.Location = masterPUT.Location;
                     audit.DeviceIP = masterPUT.DeviceIP;
-                    audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                    //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
                     audit.Latitude = masterPUT.Latitude;
                     audit.Longitude = masterPUT.Longitude;
-                    audit.ActionBy = masterPUT.UpdatedBy;
+                    //audit.ActionBy = masterPUT.UpdatedBy;
                     audit.ActionAt = DateTime.Now;
 
                     await context.StateAudits.AddAsync(audit);

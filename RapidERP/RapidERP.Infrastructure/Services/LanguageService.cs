@@ -65,7 +65,7 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
                 masterData.ISO2Code = masterPOST.ISO2Code;
                 masterData.ISO3Code = masterPOST.ISO3Code;
                 masterData.Icon = masterPOST.Icon;
-                masterData.CreatedBy = masterPOST.CreatedBy;
+                //masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
                 await context.Languages.AddAsync(masterData);
@@ -81,15 +81,15 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
                 audit.ExportTypeId = masterPOST.ExportTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
-                audit.IsDefault = masterPOST.IsDefault;
+                //audit.IsDefault = masterPOST.IsDefault;
                 audit.Browser = masterPOST.Browser;
                 audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.CreatedBy;
+                //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.LanguageAudits.AddAsync(audit);
@@ -262,7 +262,7 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
                             la.Browser,
                             la.Location,
                             la.DeviceIP,
-                            la.GoogleMapUrl,
+                            //la.GoogleMapUrl,
                             la.DeviceName,
                             la.Latitude,
                             la.Longitude,
@@ -333,7 +333,7 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
                 .SetProperty(x => x.ISO2Code, masterPUT.ISO2Code)
                 .SetProperty(x => x.ISO3Code, masterPUT.ISO3Code)
                 .SetProperty(x => x.Icon, masterPUT.Icon)
-                .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
+                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
                 LanguageAudit audit = new();
@@ -346,15 +346,15 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
                 audit.ExportTypeId = masterPUT.ExportTypeId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
-                audit.IsDefault = masterPUT.IsDefault;
+                //audit.IsDefault = masterPUT.IsDefault;
                 audit.Browser = masterPUT.Browser;
                 audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.UpdatedBy;
+                //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.LanguageAudits.AddAsync(audit);

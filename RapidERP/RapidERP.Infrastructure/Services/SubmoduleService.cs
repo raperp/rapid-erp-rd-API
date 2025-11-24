@@ -67,7 +67,7 @@ public class SubmoduleService(RapidERPDbContext context, IShared shared) : ISubm
                 masterData.Prefix = masterPOST.Prefix;
                 masterData.MainModuleId = masterPOST.MainModuleId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                masterData.CreatedBy = masterPOST.CreatedBy;
+                //masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
                 await context.Submodules.AddAsync(masterData);
@@ -78,20 +78,20 @@ public class SubmoduleService(RapidERPDbContext context, IShared shared) : ISubm
                 audit.Prefix = masterPOST.Prefix;
                 audit.MainModuleId = masterPOST.MainModuleId;
                 audit.SubmoduleId = masterData.Id;
-                audit.StatusTypeId = masterPOST.StatusTypeId;
+                //audit.StatusTypeId = masterPOST.StatusTypeId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
-                audit.IsDefault = masterPOST.IsDefault;
+                //audit.IsDefault = masterPOST.IsDefault;
                 audit.Browser = masterPOST.Browser;
                 audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.CreatedBy;
+                //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.SubmoduleAudits.AddAsync(audit);
@@ -268,7 +268,7 @@ public class SubmoduleService(RapidERPDbContext context, IShared shared) : ISubm
                         join s in context.Submodules on sa.SubmoduleId equals s.Id
                         join mm in context.MainModules on sa.MainModuleId equals mm.Id
                         join at in context.ActionTypes on sa.ActionTypeId equals at.Id
-                        join st in context.StatusTypes on sa.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on sa.StatusTypeId equals st.Id
                         select new
                         {
                             sa.Id,
@@ -278,15 +278,15 @@ public class SubmoduleService(RapidERPDbContext context, IShared shared) : ISubm
                             Submodule = s.Name,
                             //ExportType = et.Name,
                             ActionType = at.Name,
-                            StatusType = st.Name,
+                            //StatusType = st.Name,
                             sa.ExportTo,
                             sa.SourceURL,
-                            sa.IsDefault,
+                            //sa.IsDefault,
                             sa.Browser,
                             sa.DeviceName,
                             sa.Location,
                             sa.DeviceIP,
-                            sa.GoogleMapUrl,
+                            //sa.GoogleMapUrl,
                             sa.Latitude,
                             sa.Longitude,
                             sa.ActionBy,
@@ -355,7 +355,7 @@ public class SubmoduleService(RapidERPDbContext context, IShared shared) : ISubm
                 .SetProperty(x => x.Prefix, masterPUT.Prefix)
                 .SetProperty(x => x.MainModuleId, masterPUT.MainModuleId)
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                .SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
+                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
                 SubmoduleAudit audit = new();
@@ -363,20 +363,20 @@ public class SubmoduleService(RapidERPDbContext context, IShared shared) : ISubm
                 audit.Prefix = masterPUT.Prefix;
                 audit.MainModuleId = masterPUT.MainModuleId;
                 audit.SubmoduleId = masterPUT.Id;
-                audit.StatusTypeId = masterPUT.StatusTypeId;
+                //audit.StatusTypeId = masterPUT.StatusTypeId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
                 audit.ExportTypeId = masterPUT.ExportTypeId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
-                audit.IsDefault = masterPUT.IsDefault;
+                //audit.IsDefault = masterPUT.IsDefault;
                 audit.Browser = masterPUT.Browser;
                 audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.UpdatedBy;
+                //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.SubmoduleAudits.AddAsync(audit);
