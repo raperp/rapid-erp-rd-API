@@ -66,7 +66,7 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
                 masterData.ISO2Code = masterPOST.ISO2Code;
                 masterData.ISO3Code = masterPOST.ISO3Code;
                 masterData.Icon = masterPOST.Icon;
-                //masterData.CreatedBy = masterPOST.CreatedBy;
+                masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
                 await context.Languages.AddAsync(masterData);

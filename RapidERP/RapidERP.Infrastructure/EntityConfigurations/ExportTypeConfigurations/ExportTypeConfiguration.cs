@@ -19,5 +19,7 @@ public class ExportTypeConfiguration : IEntityTypeConfiguration<ExportType>
         builder.Property(x => x.UpdatedBy).IsRequired(false);
         builder.Ignore(x => x.StatusType);
         builder.Ignore(x => x.StatusTypeId);
+        builder.Ignore(x => x.Menu);
+        builder.Ignore(x => x.MenuId);
     }
 }

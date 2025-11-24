@@ -65,7 +65,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.Name = masterPOST.Name;
                 masterData.Description = masterPOST.Description;
-                //masterData.CreatedBy = masterPOST.CreatedBy;
+                masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
                 await context.ActionTypes.AddAsync(masterData);

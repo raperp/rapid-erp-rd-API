@@ -6,7 +6,7 @@ public class LanguagePOST
     public string ISO3Code { get; set; }
     public string ISONumeric { get; set; }
     public string Icon { get; set; }
-    public long CreatedBy { get; set; }   
+    public int CreatedBy { get; set; }   
     public string ExportTo { get; set; }
     public string SourceURL { get; set; }
     public int ExportTypeId { get; set; }

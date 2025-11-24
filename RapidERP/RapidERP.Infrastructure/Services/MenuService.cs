@@ -67,9 +67,9 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
                 masterData.Name = masterPOST.Name;
                 masterData.Prefix = masterPOST.Prefix;
                 masterData.IconURL = masterPOST.IconURL;
-                masterData.SubModuleId = masterPOST.SubModuleId;
+                masterData.SubmoduleId = masterPOST.SubmoduleId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                //masterData.CreatedBy = masterPOST.CreatedBy;
+                masterData.CreatedBy = masterPOST.ActionBy;
                 masterData.CreatedAt = DateTime.Now;
 
                 await context.Menus.AddAsync(masterData);
@@ -79,7 +79,7 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
                 audit.Name = masterPOST.Name;
                 audit.Prefix = masterPOST.Prefix;
                 audit.IconURL = masterPOST.IconURL;
-                audit.SubModuleId = masterPOST.SubModuleId;
+                audit.SubModuleId = masterPOST.SubmoduleId;
                 audit.MenuId = masterData.Id;
                 //audit.StatusTypeId = masterPOST.StatusTypeId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
@@ -358,7 +358,7 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Prefix, masterPUT.Prefix)
                 .SetProperty(x => x.IconURL, masterPUT.IconURL)
-                .SetProperty(x => x.SubModuleId, masterPUT.SubModuleId)
+                .SetProperty(x => x.SubmoduleId, masterPUT.SubModuleId)
                 //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));

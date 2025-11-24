@@ -71,7 +71,9 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 masterData.DraftedAt = (masterPOST.IsDraft == true) ? DateTime.Now : null;
                 masterData.SoftDeletedBy = null;
                 masterData.SoftDeletedAt = null;
-                
+                masterData.RestoredAt = null;
+                masterData.RestoredBy = null;
+
                 await context.Countries.AddAsync(masterData);
                 await context.SaveChangesAsync();
 

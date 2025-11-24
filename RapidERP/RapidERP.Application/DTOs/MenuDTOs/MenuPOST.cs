@@ -4,7 +4,7 @@ namespace RapidERP.Application.DTOs.MenuDTOs;
 
 public class MenuPOST : BasePOST
 {
-    public int SubModuleId { get; set; }
+    public int SubmoduleId { get; set; }
     public string Prefix { get; set; }
     public string IconURL { get; set; }
 }

@@ -64,7 +64,7 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
                 masterData.Name = masterPOST.Name;
                 masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Description = masterPOST.Description;
-                //masterData.CreatedBy = masterPOST.CreatedBy;
+                masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
                 await context.ExportTypes.AddAsync(masterData);
@@ -85,7 +85,7 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
                 //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                //audit.ActionBy = masterPOST.CreatedBy;
+                audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.ExportTypeAudits.AddAsync(audit);

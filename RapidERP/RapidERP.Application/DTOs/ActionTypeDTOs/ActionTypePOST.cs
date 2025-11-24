@@ -6,7 +6,7 @@ public class ActionTypePOST
     public int LanguageId { get; set; }
     public int StatusTypeId { get; set; }
     public string Description { get; set; }
-    public long CreatedBy { get; set; }
+    public int CreatedBy { get; set; }
     public string ExportTo { get; set; }
     public string SourceURL { get; set; }
     public bool IsDefault { get; set; }

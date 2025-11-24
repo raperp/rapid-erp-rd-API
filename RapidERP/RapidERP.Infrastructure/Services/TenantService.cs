@@ -70,8 +70,9 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
                 masterData.Website = masterPOST.Website;
                 masterData.CountryId = masterPOST.CountryId;
                 masterData.StateId = masterPOST.StateId;
+                masterData.MenuId = masterPOST.MenuId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                //masterData.CreatedBy = masterPOST.CreatedBy;
+                masterData.CreatedBy = masterPOST.ActionBy;
                 masterData.CreatedAt = DateTime.Now;
 
                 await context.Tenants.AddAsync(masterData);
@@ -101,7 +102,7 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
                 //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                //audit.ActionBy = masterPOST.CreatedBy;
+                audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.TenantAudits.AddAsync(audit);

@@ -65,7 +65,7 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
                 masterData.Name = masterPOST.Name;
                 masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Description = masterPOST.Description;
-                //masterData.CreatedBy = masterPOST.CreatedBy;
+                masterData.CreatedBy = masterPOST.CreatedBy;
                 masterData.CreatedAt = DateTime.Now;
 
                 await context.StatusTypes.AddAsync(masterData);
@@ -87,7 +87,7 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
                 //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                //audit.ActionBy = masterPOST.CreatedBy;
+                audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.StatusTypeAudits.AddAsync(audit);
