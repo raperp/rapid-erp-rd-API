@@ -5,8 +5,9 @@ namespace RapidERP.Domain.Entities.MenuModules;
 
 public class Menu : BaseMaster
 {
-    public Submodule Submodule { get; set; }
-    public int SubmoduleId { get; set; }
+    //public Submodule Submodule { get; set; }
+    public int? SubmoduleId { get; set; }
     public string Prefix { get; set; }
     public string IconURL { get; set; }
+    public ICollection<Submodule> Submodules { get; }
 }

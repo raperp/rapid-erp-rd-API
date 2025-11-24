@@ -16,7 +16,14 @@ public class MenuConfiguration : IEntityTypeConfiguration<Menu>
         builder.Property(x => x.CreatedAt).IsRequired();
         builder.Property(x => x.UpdatedAt).IsRequired(false);
         builder.Property(x => x.UpdatedBy).IsRequired(false);
+        builder.Property(x => x.SubmoduleId).IsRequired(false);
         builder.Ignore(x => x.Menu);
         builder.Ignore(x => x.MenuId);
+        //builder.Ignore(x => x.SubmoduleId);
+
+        builder.HasMany(x => x.Submodules)
+                .WithOne(x => x.Menu)
+                .HasForeignKey(x => x.MenuId)
+                .OnDelete(DeleteBehavior.NoAction);
     }
 }

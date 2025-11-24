@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RapidERP.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using RapidERP.Infrastructure.Data;
 namespace RapidERP.Infrastructure.Migrations
 {
     [DbContext(typeof(RapidERPDbContext))]
-    partial class RapidERPDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251124193932_ChangeMenu")]
+    partial class ChangeMenu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1667,7 +1670,10 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int>("StatusTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SubmoduleId")
+                    b.Property<int>("SubmoduleId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SubmoduleId1")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -1679,6 +1685,8 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("StatusTypeId");
+
+                    b.HasIndex("SubmoduleId1");
 
                     b.ToTable("Menus");
                 });
@@ -4026,7 +4034,13 @@ namespace RapidERP.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("RapidERP.Domain.Entities.SubmoduleModels.Submodule", "Submodule")
+                        .WithMany()
+                        .HasForeignKey("SubmoduleId1");
+
                     b.Navigation("StatusType");
+
+                    b.Navigation("Submodule");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.MenuModules.MenuAudit", b =>

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RapidERP.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using RapidERP.Infrastructure.Data;
 namespace RapidERP.Infrastructure.Migrations
 {
     [DbContext(typeof(RapidERPDbContext))]
-    partial class RapidERPDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251124195253_ChangeSubModule")]
+    partial class ChangeSubModule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1665,9 +1668,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("StatusTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SubmoduleId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -4264,9 +4264,9 @@ namespace RapidERP.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("RapidERP.Domain.Entities.MenuModules.Menu", "Menu")
-                        .WithMany("Submodules")
+                        .WithMany()
                         .HasForeignKey("MenuId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
@@ -4481,11 +4481,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("RapidERP.Domain.Entities.MenuModules.Menu", b =>
-                {
-                    b.Navigation("Submodules");
                 });
 #pragma warning restore 612, 618
         }
