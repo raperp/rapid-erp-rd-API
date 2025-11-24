@@ -17,5 +17,7 @@ public class MenuConfiguration : IEntityTypeConfiguration<Menu>
         builder.Property(x => x.CreatedAt).IsRequired();
         builder.Property(x => x.UpdatedAt).IsRequired(false);
         builder.Property(x => x.UpdatedBy).IsRequired(false);
+        builder.Ignore(x => x.Menu);
+        builder.Ignore(x => x.MenuId);
     }
 }

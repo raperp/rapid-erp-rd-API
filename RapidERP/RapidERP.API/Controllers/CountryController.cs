@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RapidERP.Application.DTOs.CountryDTOs;
+using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
 
 namespace RapidERP.API.Controllers
@@ -47,6 +48,13 @@ namespace RapidERP.API.Controllers
         public async Task<IActionResult> Update(CountryPUT masterPUT)
         {
             var result = await country.Update(masterPUT);
+            return Ok(result);
+        }
+
+        [HttpPut("SoftDeleteRestore")]
+        public async Task<IActionResult> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+        {
+            var result = await country.SoftDeleteRestore(softDeleteRestore);
             return Ok(result);
         }
 

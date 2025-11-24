@@ -8,4 +8,5 @@ public class StatePOST : BasePOST
     public int? MenuId { get; set; }
     public int LanguageId { get; set; }
     public string Code { get; set; }
+    public bool IsDefault { get; set; }
 }

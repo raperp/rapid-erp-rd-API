@@ -7,4 +7,5 @@ public class StatePUT : BasePUT
     public int? MenuId { get; set; }
     public int LanguageId { get; set; }
     public string Code { get; set; }
+    public bool IsDefault { get; set; }
 }

@@ -19,7 +19,6 @@ public class CountryAuditConfiguration : IEntityTypeConfiguration<CountryAudit>
         builder.Property(x => x.SourceURL).IsRequired(false);
         builder.Property(x => x.ExportTo).IsRequired(false);
         builder.Property(x => x.TenantId).IsRequired(false);
-        builder.Property(x => x.MenuId).IsRequired(false);
         builder.Property(x => x.LanguageId).IsRequired(false);
     }
 }

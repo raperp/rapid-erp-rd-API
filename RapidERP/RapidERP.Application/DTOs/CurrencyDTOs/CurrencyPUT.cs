@@ -7,4 +7,5 @@ public class CurrencyPUT : BasePUT
     public int LanguageId { get; set; }
     public string Code { get; set; }
     public string Icon { get; set; }
+    public bool IsDefault { get; set; }
 }

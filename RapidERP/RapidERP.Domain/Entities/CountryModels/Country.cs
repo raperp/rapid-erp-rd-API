@@ -2,11 +2,11 @@
 using RapidERP.Domain.Entities.Shared;
 
 namespace RapidERP.Domain.Entities.CountryModels;
+
 public class Country : BaseMaster
 {
     //public Tenant Tenant { get; set; } 
     public int? TenantId { get; set; } 
-    public int MenuId { get; set; }
     public Language Language { get; set; }
     public int LanguageId { get; set; }
     public string ISONumeric { get; set; }
