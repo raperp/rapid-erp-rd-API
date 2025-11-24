@@ -350,6 +350,11 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
         return result;
     }
 
+    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> Update(UserPUT masterPUT)
     {
         try

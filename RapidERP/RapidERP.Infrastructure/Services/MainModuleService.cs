@@ -342,6 +342,11 @@ public class MainModuleService(RapidERPDbContext context, IShared shared) : IMai
         return result;
     }
 
+    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> Update(MainModulePUT masterPUT)
     {
         try

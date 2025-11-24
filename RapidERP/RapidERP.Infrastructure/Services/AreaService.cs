@@ -347,6 +347,11 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
         return result;
     }
 
+    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> Update(AreaPUT masterPUT)
     {
         try

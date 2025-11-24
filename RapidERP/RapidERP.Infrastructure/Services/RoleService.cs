@@ -331,6 +331,11 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
         return result;
     }
 
+    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> Update(RolePUT masterPUT)
     {
         try

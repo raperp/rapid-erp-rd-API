@@ -358,6 +358,11 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
         return result;
     }
 
+    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> Update(TenantPUT masterPUT)
     {
         try

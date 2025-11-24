@@ -334,6 +334,11 @@ public class DepartmentService(RapidERPDbContext context, IShared shared) : IDep
         return result;
     }
 
+    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> Update(DepartmentPUT masterPUT)
     {
         try

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.ActionTypeDTOs;
+using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
 using RapidERP.Domain.Entities.ActionTypeModels;
 using RapidERP.Domain.Utilities;
@@ -327,6 +328,11 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
     {
         var result = await shared.GetSingle<ActionType>(id);
         return result;
+    }
+
+    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<RequestResponse> Update(ActionTypePUT masterPUT)

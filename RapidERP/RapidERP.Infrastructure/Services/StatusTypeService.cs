@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.DTOs.StatusTypeDTOs;
 using RapidERP.Application.Interfaces;
 using RapidERP.Domain.Entities.StatusTypeModels;
@@ -321,6 +322,11 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
     {
         var result = await shared.GetSingle<StatusType>(id);
         return result;
+    }
+
+    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<RequestResponse> Update(StatusTypePUT masterPUT)

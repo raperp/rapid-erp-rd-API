@@ -1,7 +1,8 @@
-﻿using RapidERP.Application.DTOs.StateDTOs;
+﻿using RapidERP.Application.DTOs.Shared;
+using RapidERP.Application.DTOs.StateDTOs;
 
 namespace RapidERP.Application.Interfaces;
-public interface IState : IBase<StatePOST, StatePUT>
+public interface IState : IBase<StatePOST, StatePUT, SoftDeleteRestore>
 {
     //Task<RequestResponse> GetAll(int skip, int take);
     //Task<RequestResponse> GetSingle(int id);

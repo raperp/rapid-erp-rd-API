@@ -346,6 +346,11 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
         return result;
     }
 
+    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> Update(CityPUT masterPUT)
     {
         try

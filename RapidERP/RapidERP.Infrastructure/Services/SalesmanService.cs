@@ -364,6 +364,11 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
         return result;
     }
 
+    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> Update(SalesmanPUT masterPUT)
     {
         try

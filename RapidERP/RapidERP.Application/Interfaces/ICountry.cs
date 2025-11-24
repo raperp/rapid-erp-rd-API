@@ -1,7 +1,8 @@
 ﻿using RapidERP.Application.DTOs.CountryDTOs;
+using RapidERP.Application.DTOs.Shared;
 
 namespace RapidERP.Application.Interfaces;
-public interface ICountry : IBase<CountryPOST, CountryPUT>
+public interface ICountry : IBase<CountryPOST, CountryPUT, SoftDeleteRestore>
 {
     //Task<RequestResponse> GetAll(int skip, int take);
     //Task<RequestResponse> GetSingle(int id);

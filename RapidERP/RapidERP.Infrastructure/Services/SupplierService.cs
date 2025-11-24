@@ -385,6 +385,11 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
         return result;
     }
 
+    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> Update(SupplierPUT masterPUT)
     {
         try

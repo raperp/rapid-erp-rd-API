@@ -334,6 +334,11 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
         return result;
     }
 
+    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> Update(OrderTypePUT masterPUT)
     {
         try

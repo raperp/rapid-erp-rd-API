@@ -340,6 +340,11 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
         return result;
     }
 
+    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> Update(TablePUT masterPUT)
     {
         try

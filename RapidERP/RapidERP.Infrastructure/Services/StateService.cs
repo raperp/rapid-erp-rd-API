@@ -348,6 +348,11 @@ namespace RapidERP.Infrastructure.Services
             return result;
         }
 
+        public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<RequestResponse> Update(StatePUT masterPUT)
         {
             try

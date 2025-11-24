@@ -1,7 +1,8 @@
 ﻿using RapidERP.Application.DTOs.ExportTypeDTOs;
+using RapidERP.Application.DTOs.Shared;
 
 namespace RapidERP.Application.Interfaces;
-public interface IExportType : IBase<ExportTypePOST, ExportTypePUT>
+public interface IExportType : IBase<ExportTypePOST, ExportTypePUT, SoftDeleteRestore>
 {
     //Task<RequestResponse> GetAll(int skip, int take);
     //Task<dynamic> GetSingle(int id);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.DTOs.SupplierTypeDTOs;
 using RapidERP.Application.Interfaces;
 using RapidERP.Domain.Entities.SupplierTypeModels;
@@ -352,6 +353,11 @@ public class SupplierTypeService(RapidERPDbContext context, IShared shared) : IS
     {
         var result = await shared.GetSingle<SupplierType>(id);
         return result;
+    }
+
+    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<RequestResponse> Update(SupplierTypePUT masterPUT)

@@ -1,7 +1,8 @@
 ﻿using RapidERP.Application.DTOs.CurrencyDTOs;
+using RapidERP.Application.DTOs.Shared;
 
 namespace RapidERP.Application.Interfaces;
-public interface ICurrency : IBase<CurrencyPOST, CurrencyPUT>
+public interface ICurrency : IBase<CurrencyPOST, CurrencyPUT, SoftDeleteRestore>
 {
     //Task<RequestResponse> GetAll(int skip, int take);
     //Task<RequestResponse> GetSingle(int id);

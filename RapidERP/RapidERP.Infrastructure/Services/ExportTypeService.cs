@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.ExportTypeDTOs;
+using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
 using RapidERP.Domain.Entities.ExportTypeModels;
 using RapidERP.Domain.Utilities;
@@ -319,6 +320,11 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
     {
         var result = await shared.GetSingle<ExportType>(id);
         return result;
+    }
+
+    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<RequestResponse> Update(ExportTypePUT masterPUT)

@@ -341,6 +341,11 @@ public class SubmoduleService(RapidERPDbContext context, IShared shared) : ISubm
         return result;
     }
 
+    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> Update(SubmodulePUT masterPUT)
     {
         try

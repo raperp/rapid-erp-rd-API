@@ -1,7 +1,8 @@
-﻿using RapidERP.Application.DTOs.StatusTypeDTOs;
+﻿using RapidERP.Application.DTOs.Shared;
+using RapidERP.Application.DTOs.StatusTypeDTOs;
 
 namespace RapidERP.Application.Interfaces;
-public interface IStatusType : IBase<StatusTypePOST, StatusTypePUT>
+public interface IStatusType : IBase<StatusTypePOST, StatusTypePUT, SoftDeleteRestore>
 {
     //Task<RequestResponse> GetAll(int skip, int take);
     //Task<RequestResponse> GetSingle(int id);

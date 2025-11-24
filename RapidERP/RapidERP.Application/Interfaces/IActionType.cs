@@ -1,7 +1,8 @@
 ﻿using RapidERP.Application.DTOs.ActionTypeDTOs;
+using RapidERP.Application.DTOs.Shared;
 
 namespace RapidERP.Application.Interfaces;
-public interface IActionType : IBase<ActionTypePOST, ActionTypePUT>
+public interface IActionType : IBase<ActionTypePOST, ActionTypePUT, SoftDeleteRestore>
 {
     //Task<RequestResponse> GetAll(int skip, int take);
     //Task<RequestResponse> GetSingle(int id);

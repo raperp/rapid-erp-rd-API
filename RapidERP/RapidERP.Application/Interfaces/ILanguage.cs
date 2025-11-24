@@ -1,7 +1,8 @@
 ﻿using RapidERP.Application.DTOs.LanguageDTOs;
+using RapidERP.Application.DTOs.Shared;
 
 namespace RapidERP.Application.Interfaces;
-public interface ILanguage : IBase<LanguagePOST, LanguagePUT>
+public interface ILanguage : IBase<LanguagePOST, LanguagePUT, SoftDeleteRestore>
 {
     //Task<RequestResponse> GetAll(int skip, int take);
     //Task<RequestResponse> GetSingle(int id);

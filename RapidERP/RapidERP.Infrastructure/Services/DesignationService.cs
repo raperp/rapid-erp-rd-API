@@ -340,6 +340,11 @@ public class DesignationService(RapidERPDbContext context, IShared shared) : IDe
         return result;
     }
 
+    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> Update(DesignationPUT masterPUT)
     {
         try

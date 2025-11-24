@@ -340,6 +340,11 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
         return result;
     }
 
+    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> Update(MenuPUT masterPUT)
     {
         try

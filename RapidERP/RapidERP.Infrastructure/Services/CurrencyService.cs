@@ -345,6 +345,11 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
         return result;
     }
 
+    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> Update(CurrencyPUT masterPUT)
     {
         try

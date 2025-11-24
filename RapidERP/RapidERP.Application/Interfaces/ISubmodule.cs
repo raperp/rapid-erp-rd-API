@@ -1,5 +1,6 @@
-﻿using RapidERP.Application.DTOs.SubmoduleDTOs;
+﻿using RapidERP.Application.DTOs.Shared;
+using RapidERP.Application.DTOs.SubmoduleDTOs;
 
 namespace RapidERP.Application.Interfaces;
 
-public interface ISubmodule : IBase<SubmodulePOST, SubmodulePUT> { }
+public interface ISubmodule : IBase<SubmodulePOST, SubmodulePUT, SoftDeleteRestore> { }

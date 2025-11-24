@@ -368,6 +368,11 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
         return result;
     }
 
+    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> Update(RiderPUT masterPUT)
     {
         try
