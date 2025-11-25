@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure;
+using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.ExportTypeDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
+using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Entities.ExportTypeModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
@@ -61,31 +63,34 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
             if (isExists == false)
             {
                 ExportType masterData = new();
-                masterData.Name = masterPOST.Name;
                 masterData.LanguageId = masterPOST.LanguageId;
+                masterData.Name = masterPOST.Name;
                 masterData.Description = masterPOST.Description;
-                masterData.CreatedBy = masterPOST.CreatedBy;
-                masterData.CreatedAt = DateTime.Now;
+                masterData.CreatedBy = (masterPOST.IsDraft == false) ? masterPOST.ActionBy : null;
+                masterData.CreatedAt = (masterPOST.IsDraft == false) ? DateTime.Now : null;
+                masterData.DraftedBy = (masterPOST.IsDraft == true) ? masterPOST.ActionBy : null;
+                masterData.DraftedAt = (masterPOST.IsDraft == true) ? DateTime.Now : null;
+                masterData.UpdatedBy = null;
+                masterData.UpdatedAt = null;
+                masterData.DeletedBy = null;
+                masterData.DeletedAt = null;
 
                 await context.ExportTypes.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
                 ExportTypeAudit audit = new();
-                audit.Name = masterData.Name;
-                audit.Description = masterPOST.Description;
                 audit.ExportTypeId = masterData.Id;
                 audit.LanguageId = masterPOST.LanguageId;
-                audit.ExportTo = masterPOST.ExportTo;
-                audit.SourceURL = masterPOST.SourceURL;
-                //audit.IsDefault = masterPOST.IsDefault;
+                audit.Name = masterData.Name;
+                audit.Description = masterPOST.Description;
                 audit.Browser = masterPOST.Browser;
-                audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                audit.LocationURL = masterPOST.LocationURL;
+                audit.DeviceName = masterPOST.DeviceName;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.CreatedBy;
+                audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.ExportTypeAudits.AddAsync(audit);
@@ -199,11 +204,17 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
                         select new
                         {
                             et.Id,
+                            Language = l.Name,
                             et.Name,
                             et.Description,
                             et.CreatedBy,
                             et.CreatedAt,
-                            Language = l.Name
+                            et.DraftedBy,
+                            et.DraftedAt,
+                            et.UpdatedBy,
+                            et.UpdatedAt,
+                            et.DeletedBy,
+                            et.DeletedAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -253,21 +264,20 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
         try
         {
             var data = (from eta in context.ExportTypeAudits
-                        //join et in context.ExportTypes on eta.ExportTypeId equals et.Id
+                        join et in context.ExportTypes on eta.ExportTypeId equals et.Id
+                        join l in context.Languages on eta.LanguageId equals l.Id
                         select new
                         {
                             eta.Id,
+                            ExportType = et.Name,
+                            Language = l.Name,
                             eta.Name,
                             eta.Description,
-                            //ExportType = et.Name,
-                            eta.ExportTo,
-                            eta.SourceURL,
-                            //eta.IsDefault,
                             eta.Browser,
-                            eta.DeviceName,
                             eta.Location,
                             eta.DeviceIP,
-                            //eta.GoogleMapUrl,
+                            eta.LocationURL,
+                            eta.DeviceName,
                             eta.Latitude,
                             eta.Longitude,
                             eta.ActionBy,
@@ -322,9 +332,10 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
         return result;
     }
 
-    public Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public async Task<dynamic> SoftDelete(DeleteDTO softDelete)
     {
-        throw new NotImplementedException();
+        var result = await shared.SoftDelete<ExportType>(softDelete);
+        return result;
     }
 
     public async Task<RequestResponse> Update(ExportTypePUT masterPUT)
@@ -336,29 +347,34 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
 
             if (isExists == false)
             {
+                ActionDTO actionDTO = new();
+                actionDTO.UpdatedBy = (masterPUT.IsDraft == false) ? masterPUT.ActionBy : null;
+                actionDTO.UpdatedAt = (masterPUT.IsDraft == false) ? DateTime.Now : null;
+                actionDTO.DraftedBy = (masterPUT.IsDraft == true) ? masterPUT.ActionBy : null;
+                actionDTO.DraftedAt = (masterPUT.IsDraft == true) ? DateTime.Now : null;
+
                 await context.ExportTypes.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description)
-                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, DateTime.Now));
+                .SetProperty(x => x.UpdatedBy, actionDTO.UpdatedBy)
+                .SetProperty(x => x.UpdatedAt, actionDTO.UpdatedAt)
+                .SetProperty(x => x.DraftedBy, actionDTO.DraftedBy)
+                .SetProperty(x => x.DraftedAt, actionDTO.DraftedAt));
 
                 ExportTypeAudit audit = new();
-                audit.Name = masterPUT.Name;
-                audit.Description = masterPUT.Description;
                 audit.ExportTypeId = masterPUT.Id;
                 audit.LanguageId = masterPUT.LanguageId;
-                audit.ExportTo = masterPUT.ExportTo;
-                audit.SourceURL = masterPUT.SourceURL;
-                //audit.IsDefault = masterPUT.IsDefault;
+                audit.Name = masterPUT.Name;
+                audit.Description = masterPUT.Description;
                 audit.Browser = masterPUT.Browser;
-                audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                audit.LocationURL = masterPUT.LocationURL;
+                audit.DeviceName = masterPUT.DeviceName;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;
-                //audit.ActionBy = masterPUT.UpdatedBy;
+                audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.ExportTypeAudits.AddAsync(audit);

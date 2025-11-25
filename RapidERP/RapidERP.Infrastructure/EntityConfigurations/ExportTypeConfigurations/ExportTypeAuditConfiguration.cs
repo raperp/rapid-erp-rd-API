@@ -14,11 +14,12 @@ public class ExportTypeAuditConfiguration : IEntityTypeConfiguration<ExportTypeA
         builder.Property(x => x.Latitude).HasPrecision(9, 6);
         builder.Property(x => x.Longitude).HasPrecision(9, 6);
         builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired(false);
-        builder.Property(x => x.LanguageId).IsRequired(false);
-        builder.Property(x => x.ExportTypeId).IsRequired(false);
-        //builder.Ignore(x => x.ActionType);
+        builder.Ignore(x => x.TenantId);
+        builder.Ignore(x => x.MenuId);
         builder.Ignore(x => x.ActionTypeId);
-        //builder.Ignore(x => x.StatusType);
-        //builder.Ignore(x => x.StatusTypeId);
+        builder.Ignore(x => x.ExportTo);
+        builder.Ignore(x => x.SourceURL);
+        builder.Ignore(x => x.IsDefault);
+        builder.Ignore(x => x.IsDraft);
     }
 }

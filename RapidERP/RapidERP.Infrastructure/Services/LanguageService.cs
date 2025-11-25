@@ -212,7 +212,7 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
                             l.UpdatedAt,
                             l.DeletedBy,
                             l.DeletedAt
-                        }).AsNoTracking().AsQueryable(); ;
+                        }).AsNoTracking().AsQueryable();
             
             if (skip == 0 || take == 0)
             {

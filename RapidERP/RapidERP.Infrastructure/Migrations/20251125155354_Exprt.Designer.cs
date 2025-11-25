@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RapidERP.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using RapidERP.Infrastructure.Data;
 namespace RapidERP.Infrastructure.Migrations
 {
     [DbContext(typeof(RapidERPDbContext))]
-    partial class RapidERPDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251125155354_Exprt")]
+    partial class Exprt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1240,6 +1243,12 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("DraftedBy")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDraft")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("LanguageId")
                         .HasColumnType("int");
 
@@ -1315,10 +1324,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(5)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ExportTypeId");
-
-                    b.HasIndex("LanguageId");
 
                     b.ToTable("ExportTypeAudits");
                 });
@@ -4461,21 +4466,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
                         .WithMany()
                         .HasForeignKey("LanguageId");
-
-                    b.Navigation("Language");
-                });
-
-            modelBuilder.Entity("RapidERP.Domain.Entities.ExportTypeModels.ExportTypeAudit", b =>
-                {
-                    b.HasOne("RapidERP.Domain.Entities.ExportTypeModels.ExportType", "ExportType")
-                        .WithMany()
-                        .HasForeignKey("ExportTypeId");
-
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.Navigation("ExportType");
 
                     b.Navigation("Language");
                 });
