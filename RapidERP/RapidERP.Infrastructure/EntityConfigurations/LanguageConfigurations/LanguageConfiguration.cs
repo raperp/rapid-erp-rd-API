@@ -12,19 +12,28 @@ public class LanguageConfiguration : IEntityTypeConfiguration<Language>
         builder.Property(x => x.ISO3Code).HasMaxLength(3).IsRequired();
         builder.Property(x => x.ISO2Code).HasMaxLength(2).IsRequired();
         builder.Property(x => x.ISONumeric).HasMaxLength(4).IsRequired();
-        builder.Property(x => x.Icon).HasMaxLength(15).IsRequired();
-        builder.Property(x => x.CreatedBy).IsRequired();
-        builder.Property(x => x.CreatedAt).IsRequired();
-        builder.Property(x => x.UpdatedAt).IsRequired(false);
+        builder.Property(x => x.IconURL).HasMaxLength(15).IsRequired();
+        builder.Property(x => x.CreatedBy).IsRequired(false);
+        builder.Property(x => x.CreatedAt).IsRequired(false);
         builder.Property(x => x.UpdatedBy).IsRequired(false);
-        builder.Ignore(x => x.StatusType);
-        builder.Ignore(x => x.StatusTypeId);
+        builder.Property(x => x.UpdatedAt).IsRequired(false);
+        builder.Property(x => x.DraftedBy).IsRequired(false);
+        builder.Property(x => x.DraftedAt).IsRequired(false);
+        builder.Property(x => x.DeletedBy).IsRequired(false);
+        builder.Property(x => x.DeletedAt).IsRequired(false);
+
         builder.Ignore(x => x.Menu);
         builder.Ignore(x => x.MenuId);
+        builder.Ignore(x => x.Tenant);
+        builder.Ignore(x => x.TenantId);
+        builder.Ignore(x => x.StatusType);
+        builder.Ignore(x => x.StatusTypeId);
+        builder.Ignore(x => x.Language);
+        builder.Ignore(x => x.LanguageId);
 
         builder.HasMany(x => x.Tenants)
-                .WithOne(x => x.Language)
-                .HasForeignKey(x => x.LanguageId)
-                .OnDelete(DeleteBehavior.NoAction);
+            .WithOne(x => x.Language)
+            .HasForeignKey(x => x.LanguageId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

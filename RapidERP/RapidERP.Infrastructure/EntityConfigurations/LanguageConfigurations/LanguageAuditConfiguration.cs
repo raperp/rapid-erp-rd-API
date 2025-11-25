@@ -12,12 +12,17 @@ public class LanguageAuditConfiguration : IEntityTypeConfiguration<LanguageAudit
         builder.Property(x => x.ISO3Code).HasMaxLength(3).IsRequired();
         builder.Property(x => x.ISO2Code).HasMaxLength(2).IsRequired();
         builder.Property(x => x.ISONumeric).HasMaxLength(4).IsRequired();
-        builder.Property(x => x.Icon).HasMaxLength(15).IsRequired();
+        builder.Property(x => x.IconURL).HasMaxLength(15).IsRequired();
         builder.Property(x => x.Latitude).HasPrecision(9, 6);
         builder.Property(x => x.Longitude).HasPrecision(9, 6);
         builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired(false);
-        builder.Property(x => x.ExportTypeId).IsRequired(false);
+        builder.Ignore(x => x.TenantId);
+        builder.Ignore(x => x.MenuId);
         builder.Ignore(x => x.ActionTypeId);
-        //builder.Ignore(x => x.StatusTypeId);
+        builder.Ignore(x => x.ExportTypeId);
+        builder.Ignore(x => x.ExportTo);
+        builder.Ignore(x => x.SourceURL);
+        builder.Ignore(x => x.IsDefault);
+        builder.Ignore(x => x.IsDraft);
     }
 }

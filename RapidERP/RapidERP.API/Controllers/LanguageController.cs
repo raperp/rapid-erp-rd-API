@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RapidERP.Application.DTOs.LanguageDTOs;
+using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
 
 namespace RapidERP.API.Controllers;
@@ -47,6 +48,13 @@ public class LanguageController(ILanguage language) : ControllerBase
     public async Task<IActionResult> Update(LanguagePUT masterPUT)
     {
         var result = await language.Update(masterPUT);
+        return Ok(result);
+    }
+
+    [HttpPut("Delete")]
+    public async Task<IActionResult> SoftDelete(DeleteDTO deleteDTO)
+    {
+        var result = await language.SoftDelete(deleteDTO);
         return Ok(result);
     }
 

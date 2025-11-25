@@ -1,4 +1,5 @@
 ﻿namespace RapidERP.Application.DTOs.LanguageDTOs;
+
 public class LanguagePUT 
 {
     public int Id { get; set; }
@@ -6,17 +7,14 @@ public class LanguagePUT
     public string ISO2Code { get; set; }
     public string ISO3Code { get; set; }
     public string ISONumeric { get; set; }
-    public string Icon { get; set; }
-    public long UpdatedBy { get; set; }
-    public string ExportTo { get; set; }
-    public string SourceURL { get; set; }
-    public int ExportTypeId { get; set; }
+    public string IconURL { get; set; }
     public string Browser { get; set; }
     public string Location { get; set; }
     public string DeviceIP { get; set; }
-    public string GoogleMapUrl { get; set; }
+    public string LocationURL { get; set; }
     public string DeviceName { get; set; }
     public decimal Latitude { get; set; } // (9, 6)   
     public decimal Longitude { get; set; } // (9, 6)
-    public bool IsDefault { get; set; }
+    public bool IsDraft { get; set; }
+    public int ActionBy { get; set; }
 }

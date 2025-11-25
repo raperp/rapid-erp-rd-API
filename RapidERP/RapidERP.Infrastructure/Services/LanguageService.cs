@@ -2,11 +2,13 @@
 using RapidERP.Application.DTOs.LanguageDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
+using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
+
 public class LanguageService(RapidERPDbContext context, IShared shared) : ILanguage
 {
     RequestResponse requestResponse { get; set; }
@@ -26,14 +28,6 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
                 requestResponse.StatusCode = result.FirstOrDefault().StatusCode;
                 requestResponse.Data = result.FirstOrDefault().Data;
             }
-
-            //requestResponse = new()
-            //{
-            //    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
-            //    IsSuccess = true,
-            //    Message = req.Message,
-            //    Data = req.Data
-            //};
 
             return requestResponse;
         }
@@ -56,41 +50,43 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.Languages.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name || x.ISONumeric == masterPOST.ISONumeric || x.ISO2Code == masterPOST.ISO2Code || x.ISO3Code == masterPOST.ISO3Code || x.Icon == masterPOST.Icon);
+            var isExists = await context.Languages.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name || x.ISONumeric == masterPOST.ISONumeric || x.ISO2Code == masterPOST.ISO2Code || x.ISO3Code == masterPOST.ISO3Code || x.IconURL == masterPOST.IconURL);
 
             if (isExists == false)
             {
                 Language masterData = new();
-                masterData.Name = masterPOST.Name;
                 masterData.ISONumeric = masterPOST.ISONumeric;
+                masterData.Name = masterPOST.Name;
                 masterData.ISO2Code = masterPOST.ISO2Code;
                 masterData.ISO3Code = masterPOST.ISO3Code;
-                masterData.Icon = masterPOST.Icon;
-                masterData.CreatedBy = masterPOST.CreatedBy;
-                masterData.CreatedAt = DateTime.Now;
+                masterData.IconURL = masterPOST.IconURL;
+                masterData.CreatedBy = (masterPOST.IsDraft == false) ? masterPOST.ActionBy : null;
+                masterData.CreatedAt = (masterPOST.IsDraft == false) ? DateTime.Now : null;
+                masterData.DraftedBy = (masterPOST.IsDraft == true) ? masterPOST.ActionBy : null;
+                masterData.DraftedAt = (masterPOST.IsDraft == true) ? DateTime.Now : null;
+                masterData.UpdatedBy = null;
+                masterData.UpdatedAt = null;
+                masterData.DeletedBy = null;
+                masterData.DeletedAt = null;
 
                 await context.Languages.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
                 LanguageAudit audit = new();
                 audit.LanguageId = masterData.Id;
-                audit.Name = masterPOST.Name;
                 audit.ISONumeric = masterPOST.ISONumeric;
+                audit.Name = masterPOST.Name;
                 audit.ISO2Code = masterPOST.ISO2Code;
                 audit.ISO3Code = masterPOST.ISO3Code;
-                audit.Icon = masterPOST.Icon;
-                audit.ExportTypeId = masterPOST.ExportTypeId;
-                audit.ExportTo = masterPOST.ExportTo;
-                audit.SourceURL = masterPOST.SourceURL;
-                //audit.IsDefault = masterPOST.IsDefault;
+                audit.IconURL = masterPOST.IconURL;
                 audit.Browser = masterPOST.Browser;
-                audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                audit.LocationURL = masterPOST.LocationURL;
+                audit.DeviceName = masterPOST.DeviceName;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                //audit.ActionBy = masterPOST.CreatedBy;
+                audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.LanguageAudits.AddAsync(audit);
@@ -199,7 +195,24 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
     {
         try
         {
-            var data = context.Languages.Select(x => new { x.Id, x.Name, x.ISONumeric, x.ISO2Code, x.ISO3Code, x.Icon, x.CreatedAt, x.CreatedBy }).AsNoTracking().AsQueryable();
+            var data = (from l in context.Languages
+                        select new
+                        {
+                            l.Id,
+                            l.ISONumeric, 
+                            l.Name,
+                            l.ISO2Code,
+                            l.ISO3Code,
+                            l.IconURL,
+                            l.CreatedBy,
+                            l.CreatedAt,
+                            l.DraftedBy,
+                            l.DraftedAt,
+                            l.UpdatedBy,
+                            l.UpdatedAt,
+                            l.DeletedBy,
+                            l.DeletedAt
+                        }).AsNoTracking().AsQueryable(); ;
             
             if (skip == 0 || take == 0)
             {
@@ -249,21 +262,19 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
         {
             var data = (from la in context.LanguageAudits
                         join l in context.Languages on la.LanguageId equals l.Id
-                        //join et in context.ExportTypes on la.ExportTypeId equals et.Id
                         select new
                         {
                             la.Id,
                             Language = l.Name,
-                            la.Name,
                             la.ISONumeric,
+                            la.Name,
                             la.ISO2Code,
                             la.ISO3Code,
-                            la.Icon,
-                            //ExportType = et.Name,
+                            la.IconURL,
                             la.Browser,
                             la.Location,
                             la.DeviceIP,
-                            //la.GoogleMapUrl,
+                            la.LocationURL,
                             la.DeviceName,
                             la.Latitude,
                             la.Longitude,
@@ -319,9 +330,10 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
         return result;
     }
 
-    public Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public async Task<dynamic> SoftDelete(DeleteDTO softDelete)
     {
-        throw new NotImplementedException();
+        var result = await shared.SoftDelete<Country>(softDelete);
+        return result;
     }
 
     public async Task<RequestResponse> Update(LanguagePUT masterPUT)
@@ -329,38 +341,42 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.Languages.AsNoTracking().AnyAsync(x => (x.Name == masterPUT.Name || x.ISONumeric == masterPUT.ISONumeric || x.ISO2Code == masterPUT.ISO2Code || x.ISO3Code == masterPUT.ISO3Code || x.Icon == masterPUT.Icon) && x.Id != masterPUT.Id);
+            var isExists = await context.Languages.AsNoTracking().AnyAsync(x => (x.Name == masterPUT.Name || x.ISONumeric == masterPUT.ISONumeric || x.ISO2Code == masterPUT.ISO2Code || x.ISO3Code == masterPUT.ISO3Code || x.IconURL == masterPUT.IconURL) && x.Id != masterPUT.Id);
 
             if (isExists == false)
             {
+                ActionDTO actionDTO = new();
+                actionDTO.UpdatedBy = (masterPUT.IsDraft == false) ? masterPUT.ActionBy : null;
+                actionDTO.UpdatedAt = (masterPUT.IsDraft == false) ? DateTime.Now : null;
+                actionDTO.DraftedBy = (masterPUT.IsDraft == true) ? masterPUT.ActionBy : null;
+                actionDTO.DraftedAt = (masterPUT.IsDraft == true) ? DateTime.Now : null;
+
                 await context.Languages.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.ISONumeric, masterPUT.ISONumeric)
+                .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.ISO2Code, masterPUT.ISO2Code)
                 .SetProperty(x => x.ISO3Code, masterPUT.ISO3Code)
-                .SetProperty(x => x.Icon, masterPUT.Icon)
-                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, DateTime.Now));
+                .SetProperty(x => x.IconURL, masterPUT.IconURL)
+                .SetProperty(x => x.UpdatedBy, actionDTO.UpdatedBy)
+                .SetProperty(x => x.UpdatedAt, actionDTO.UpdatedAt)
+                .SetProperty(x => x.DraftedBy, actionDTO.DraftedBy)
+                .SetProperty(x => x.DraftedAt, actionDTO.DraftedAt));
 
                 LanguageAudit audit = new();
                 audit.LanguageId = masterPUT.Id;
-                audit.Name = masterPUT.Name;
                 audit.ISONumeric = masterPUT.ISONumeric;
+                audit.Name = masterPUT.Name;
                 audit.ISO2Code = masterPUT.ISO2Code;
                 audit.ISO3Code = masterPUT.ISO3Code;
-                audit.Icon = masterPUT.Icon;
-                audit.ExportTypeId = masterPUT.ExportTypeId;
-                audit.ExportTo = masterPUT.ExportTo;
-                audit.SourceURL = masterPUT.SourceURL;
-                //audit.IsDefault = masterPUT.IsDefault;
+                audit.IconURL = masterPUT.IconURL;
                 audit.Browser = masterPUT.Browser;
-                audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                audit.LocationURL = masterPUT.LocationURL;
+                audit.DeviceName = masterPUT.DeviceName;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;
-                //audit.ActionBy = masterPUT.UpdatedBy;
+                audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.LanguageAudits.AddAsync(audit);
