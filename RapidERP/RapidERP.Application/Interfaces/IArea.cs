@@ -2,4 +2,4 @@
 using RapidERP.Application.DTOs.Shared;
 
 namespace RapidERP.Application.Interfaces;
-public interface IArea : IBase<AreaPOST, AreaPUT, SoftDeleteRestore> { }
+public interface IArea : IBase<AreaPOST, AreaPUT, DeleteDTO> { }

@@ -1,9 +1,12 @@
-﻿using RapidERP.Domain.Entities.Shared;
+﻿using RapidERP.Domain.Entities.CurrencyModels;
+using RapidERP.Domain.Entities.Shared;
 
 namespace RapidERP.Domain.Entities.CountryModels;
 
 public class Country : BaseMaster
 {
+    public Currency Currency { get; set; }
+    public int? CurrencyId { get; set; }
     public string ISONumeric { get; set; }
     public string DialCode { get; set; }
     public string ISO2Code { get; set; }

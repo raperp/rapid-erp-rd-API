@@ -54,21 +54,25 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
             if (isExists == false)
             {
                 Country masterData = new();
-                masterData.TenantId = masterPOST.TenantId;
                 masterData.MenuId = masterPOST.MenuId;
-                masterData.LanguageId = masterPOST.LanguageId;
+                masterData.TenantId = masterPOST.TenantId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                masterData.ISONumeric = masterPOST.ISONumeric;
-                masterData.Name = masterPOST.Name;
+                masterData.LanguageId = masterPOST.LanguageId;
+                masterData.CurrencyId = masterPOST.CurrencyId;
                 masterData.DialCode = masterPOST.DialCode;
+                masterData.Name = masterPOST.Name;
+                masterData.IsDefault = masterPOST.IsDefault;
+                masterData.IsDraft = masterPOST.IsDraft;
+                masterData.ISONumeric = masterPOST.ISONumeric;
                 masterData.ISO2Code = masterPOST.ISO2Code;
                 masterData.ISO3Code = masterPOST.ISO3Code;
                 masterData.FlagURL = masterPOST.FlagURL;
-                masterData.IsDefault = masterPOST.IsDefault;
                 masterData.CreatedBy = (masterPOST.IsDraft == false) ? masterPOST.ActionBy : null;
                 masterData.CreatedAt = (masterPOST.IsDraft == false) ? DateTime.Now : null;
                 masterData.DraftedBy = (masterPOST.IsDraft == true) ? masterPOST.ActionBy : null;
                 masterData.DraftedAt = (masterPOST.IsDraft == true) ? DateTime.Now : null;
+                masterData.UpdatedBy = null;
+                masterData.UpdatedAt = null;
                 masterData.DeletedBy = null;
                 masterData.DeletedAt = null;
 
@@ -78,22 +82,25 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 CountryAudit audit = new();
                 audit.CountryId = masterData.Id;
                 audit.TenantId = masterPOST.TenantId;
-                audit.LanguageId = masterPOST.LanguageId;
+                audit.MenuId = masterPOST.MenuId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
+                audit.LanguageId = masterPOST.LanguageId;
+                audit.CurrencyId = masterPOST.CurrencyId;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
-                audit.ISONumeric = masterPOST.ISONumeric;
-                audit.Name = masterPOST.Name;
                 audit.DialCode = masterPOST.DialCode;
+                audit.Name = masterPOST.Name;
+                audit.IsDefault = masterPOST.IsDefault;
+                audit.IsDraft = masterPOST.IsDraft;
+                audit.ISONumeric = masterPOST.ISONumeric;
                 audit.ISO2Code = masterPOST.ISO2Code;
                 audit.ISO3Code = masterPOST.ISO3Code;
                 audit.FlagURL = masterPOST.FlagURL;
-                audit.IsDefault = masterPOST.IsDefault;
                 audit.Browser = masterPOST.Browser;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                audit.GoogleMapURL = masterPOST.GoogleMapURL;
+                audit.LocationURL = masterPOST.GoogleMapURL;
                 audit.DeviceName = masterPOST.DeviceName;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
@@ -213,26 +220,29 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                         join t in context.Tenants on c.TenantId equals t.Id
                         join l in context.Languages on c.LanguageId equals l.Id
                         join m in context.Menus on c.MenuId equals m.Id
+                        join cu in context.Currencies on c.CurrencyId equals cu.Id
                         select new
                         {
                             c.Id,
-                            Tanent = t.Name,
                             Menu = m.Name,
-                            Language = l.Name,
+                            Tanent = t.Name,
                             Status = st.Name,
-                            c.ISONumeric,
-                            c.Name,
+                            Language = l.Name,
+                            Currency = cu.Name,
                             c.DialCode,
+                            c.Name,
+                            c.IsDefault,
+                            c.IsDraft,
+                            c.ISONumeric,
                             c.ISO2Code,
                             c.ISO3Code,
                             c.FlagURL,
-                            c.IsDefault,
                             c.CreatedBy,
                             c.CreatedAt,
-                            c.UpdatedBy,
-                            c.UpdatedAt,
                             c.DraftedBy,
                             c.DraftedAt,
+                            c.UpdatedBy,
+                            c.UpdatedAt,
                             c.DeletedBy,
                             c.DeletedAt
                         }).AsNoTracking().AsQueryable();
@@ -291,27 +301,32 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                         join at in context.ActionTypes on ca.ActionTypeId equals at.Id
                         join t in context.Tenants on ca.TenantId equals t.Id
                         join l in context.Languages on ca.LanguageId equals l.Id
+                        join m in context.Menus on ca.MenuId equals m.Id
+                        join cu in context.Currencies on ca.CurrencyId equals cu.Id
                         select new
                         {
                             ca.Id,
                             Country = c.Name,
                             Tanent = t.Name,
-                            Language = l.Name,
+                            Menu = m.Name,
                             Action = at.Name,
+                            Language = l.Name,
+                            Currency = cu.Name,
                             ExportType = et.Name,
                             ca.ExportTo,
                             ca.SourceURL,
-                            c.ISONumeric,
-                            ca.Name,
                             ca.DialCode,
+                            ca.Name,
+                            ca.IsDefault,
+                            ca.IsDraft,
+                            ca.ISONumeric,
                             ca.ISO2Code,
                             ca.ISO3Code,
                             ca.FlagURL,
-                            ca.IsDefault,
                             ca.Browser,
                             ca.Location,
                             ca.DeviceIP,
-                            ca.GoogleMapURL,
+                            ca.LocationURL,
                             ca.DeviceName,
                             ca.Latitude,
                             ca.Longitude,
@@ -367,11 +382,11 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
         return result;
     }
 
-    public async Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    public async Task<RequestResponse> SoftDelete(DeleteDTO softDelete)
     {
         try
         {
-            var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Id == softDeleteRestore.Id);
+            var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Id == softDelete.Id);
 
             if (isExists == false)
             {
@@ -385,14 +400,13 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
 
             else
             {
-                int? softDeletedBy = (softDeleteRestore.IsSoftDelete == true) ? softDeleteRestore.ActionBy : null;
-                DateTime? softDeletedAt = (softDeleteRestore.IsSoftDelete == true) ? DateTime.Now : null;
-                int? restoredBy = (softDeleteRestore.IsSoftDelete == false) ? softDeleteRestore.ActionBy : null;
-                DateTime? restoredAt = (softDeleteRestore.IsSoftDelete == false) ? DateTime.Now : null;
+                ActionDTO actionDTO = new();
+                actionDTO.DeletedBy = (softDelete.IsDelete == true) ? softDelete.ActionBy : null;
+                actionDTO.DeletedAt = (softDelete.IsDelete == true) ? DateTime.Now : null;
 
-                await context.Countries.Where(x => x.Id == softDeleteRestore.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.DeletedBy, softDeletedBy)
-                .SetProperty(x => x.DeletedAt, softDeletedAt));
+                await context.Countries.Where(x => x.Id == softDelete.Id).ExecuteUpdateAsync(x => x
+                .SetProperty(x => x.DeletedBy, actionDTO.DeletedBy)
+                .SetProperty(x => x.DeletedAt, actionDTO.DeletedAt));
             }
 
             requestResponse = new()
@@ -427,47 +441,53 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
 
             if (isExists == false)
             {
-                int? updatedBy = (masterPUT.IsDraft == false) ? masterPUT.ActionBy : null;
-                DateTime? updatedAt = (masterPUT.IsDraft == false) ? DateTime.Now : null;
-                int? draftedBy = (masterPUT.IsDraft == true) ? masterPUT.ActionBy : null;
-                DateTime? draftedAt = (masterPUT.IsDraft == true) ? DateTime.Now : null;
+                ActionDTO actionDTO = new();
+                actionDTO.UpdatedBy = (masterPUT.IsDraft == false) ? masterPUT.ActionBy : null;
+                actionDTO.UpdatedAt = (masterPUT.IsDraft == false) ? DateTime.Now : null;
+                actionDTO.DraftedBy = (masterPUT.IsDraft == true) ? masterPUT.ActionBy : null;
+                actionDTO.DraftedAt = (masterPUT.IsDraft == true) ? DateTime.Now : null;
                 
                 await context.Countries.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.TenantId, masterPUT.TenantId)
                 .SetProperty(x => x.MenuId, masterPUT.MenuId)
-                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                .SetProperty(x => x.TenantId, masterPUT.TenantId)
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                .SetProperty(x => x.ISONumeric, masterPUT.ISONumeric)
-                .SetProperty(x => x.Name, masterPUT.Name)
+                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                .SetProperty(x => x.CurrencyId, masterPUT.CurrencyId)
                 .SetProperty(x => x.DialCode, masterPUT.DialCode)
+                .SetProperty(x => x.Name, masterPUT.Name)
+                .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
+                .SetProperty(x => x.IsDraft, masterPUT.IsDraft)
+                .SetProperty(x => x.ISONumeric, masterPUT.ISONumeric)
                 .SetProperty(x => x.ISO2Code, masterPUT.ISO2Code)
                 .SetProperty(x => x.ISO3Code, masterPUT.ISO3Code)
                 .SetProperty(x => x.FlagURL, masterPUT.FlagURL)
-                .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
-                .SetProperty(x => x.UpdatedAt, updatedAt)
-                .SetProperty(x => x.UpdatedBy, updatedBy)
-                .SetProperty(x => x.DraftedAt, draftedAt)
-                .SetProperty(x => x.DraftedBy, draftedBy));
+                .SetProperty(x => x.UpdatedBy, actionDTO.UpdatedBy)
+                .SetProperty(x => x.UpdatedAt, actionDTO.UpdatedAt)
+                .SetProperty(x => x.DraftedBy, actionDTO.DraftedBy)
+                .SetProperty(x => x.DraftedAt, actionDTO.DraftedAt));
 
                 CountryAudit audit = new();
                 audit.CountryId = masterPUT.Id;
                 audit.TenantId = masterPUT.TenantId;
-                audit.LanguageId = masterPUT.LanguageId;
+                audit.MenuId = masterPUT.MenuId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
+                audit.LanguageId = masterPUT.LanguageId;
+                audit.CurrencyId = masterPUT.CurrencyId;
                 audit.ExportTypeId = masterPUT.ExportTypeId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
-                audit.ISONumeric = masterPUT.ISONumeric;
-                audit.Name = masterPUT.Name;
                 audit.DialCode = masterPUT.DialCode;
+                audit.Name = masterPUT.Name;
+                audit.IsDefault = masterPUT.IsDefault;
+                audit.IsDraft = masterPUT.IsDraft;
+                audit.ISONumeric = masterPUT.ISONumeric;
                 audit.ISO2Code = masterPUT.ISO2Code;
                 audit.ISO3Code = masterPUT.ISO3Code;
                 audit.FlagURL = masterPUT.FlagURL;
-                audit.IsDefault = masterPUT.IsDefault;
                 audit.Browser = masterPUT.Browser;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                audit.GoogleMapURL = masterPUT.GoogleMapURL;
+                audit.LocationURL = masterPUT.GoogleMapURL;
                 audit.DeviceName = masterPUT.DeviceName;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;

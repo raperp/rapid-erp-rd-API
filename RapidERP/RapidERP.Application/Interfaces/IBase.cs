@@ -1,7 +1,7 @@
 ﻿using RapidERP.Domain.Utilities;
 
 namespace RapidERP.Application.Interfaces;
-public interface IBase<POSTEntity, PUTEntity, DeleteRestoreEntity> where POSTEntity : class 
+public interface IBase<POSTEntity, PUTEntity, DeleteEntity> where POSTEntity : class 
 {
     Task<RequestResponse> GetAll(int skip, int take);
     Task<dynamic> GetSingle(int id);
@@ -10,5 +10,5 @@ public interface IBase<POSTEntity, PUTEntity, DeleteRestoreEntity> where POSTEnt
     Task<RequestResponse> CreateBulk(List<POSTEntity> masterPOSTs);
     Task<RequestResponse> Update(PUTEntity masterPUT);
     //Task<RequestResponse> Delete(int id);
-    Task<RequestResponse> SoftDeleteRestore(DeleteRestoreEntity softDeleteRestore);
+    Task<RequestResponse> SoftDelete(DeleteEntity softDelete);
 }

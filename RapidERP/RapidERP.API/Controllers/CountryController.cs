@@ -51,10 +51,10 @@ namespace RapidERP.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut("SoftDeleteRestore")]
-        public async Task<IActionResult> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+        [HttpPut("Delete")]
+        public async Task<IActionResult> SoftDelete(DeleteDTO softDelete)
         {
-            var result = await country.SoftDeleteRestore(softDeleteRestore);
+            var result = await country.SoftDelete(softDelete);
             return Ok(result);
         }
 

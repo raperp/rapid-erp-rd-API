@@ -2,7 +2,7 @@
 using RapidERP.Application.DTOs.StatusTypeDTOs;
 
 namespace RapidERP.Application.Interfaces;
-public interface IStatusType : IBase<StatusTypePOST, StatusTypePUT, SoftDeleteRestore>
+public interface IStatusType : IBase<StatusTypePOST, StatusTypePUT, DeleteDTO>
 {
     //Task<RequestResponse> GetAll(int skip, int take);
     //Task<RequestResponse> GetSingle(int id);

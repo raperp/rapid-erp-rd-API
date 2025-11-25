@@ -340,7 +340,12 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
         return result;
     }
 
-    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    public Task<RequestResponse> SoftDelete(DeleteDTO softDelete)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> SoftDeleteRestore(DeleteDTO softDeleteRestore)
     {
         throw new NotImplementedException();
     }

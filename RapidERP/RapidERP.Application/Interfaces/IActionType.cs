@@ -2,7 +2,7 @@
 using RapidERP.Application.DTOs.Shared;
 
 namespace RapidERP.Application.Interfaces;
-public interface IActionType : IBase<ActionTypePOST, ActionTypePUT, SoftDeleteRestore>
+public interface IActionType : IBase<ActionTypePOST, ActionTypePUT, DeleteDTO>
 {
     //Task<RequestResponse> GetAll(int skip, int take);
     //Task<RequestResponse> GetSingle(int id);

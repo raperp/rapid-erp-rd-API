@@ -368,7 +368,12 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
         return result;
     }
 
-    public Task<RequestResponse> SoftDeleteRestore(SoftDeleteRestore softDeleteRestore)
+    public Task<RequestResponse> SoftDelete(DeleteDTO softDelete)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> SoftDeleteRestore(DeleteDTO softDeleteRestore)
     {
         throw new NotImplementedException();
     }

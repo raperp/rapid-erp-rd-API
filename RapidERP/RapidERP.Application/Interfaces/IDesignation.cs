@@ -2,4 +2,4 @@
 using RapidERP.Application.DTOs.Shared;
 
 namespace RapidERP.Application.Interfaces;
-public interface IDesignation : IBase<DesignationPOST, DesignationPUT, SoftDeleteRestore> { }
+public interface IDesignation : IBase<DesignationPOST, DesignationPUT, DeleteDTO> { }

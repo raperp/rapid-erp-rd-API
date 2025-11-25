@@ -2,4 +2,4 @@
 using RapidERP.Application.DTOs.SupplierDTOs;
 
 namespace RapidERP.Application.Interfaces;
-public interface ISupplier : IBase<SupplierPOST, SupplierPUT, SoftDeleteRestore> { }
+public interface ISupplier : IBase<SupplierPOST, SupplierPUT, DeleteDTO> { }

@@ -2,4 +2,4 @@
 using RapidERP.Application.DTOs.Shared;
 
 namespace RapidERP.Application.Interfaces;
-public interface ICity : IBase<CityPOST, CityPUT, SoftDeleteRestore> { }
+public interface ICity : IBase<CityPOST, CityPUT, DeleteDTO> { }

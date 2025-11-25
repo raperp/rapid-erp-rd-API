@@ -2,7 +2,7 @@
 using RapidERP.Application.DTOs.StateDTOs;
 
 namespace RapidERP.Application.Interfaces;
-public interface IState : IBase<StatePOST, StatePUT, SoftDeleteRestore>
+public interface IState : IBase<StatePOST, StatePUT, DeleteDTO>
 {
     //Task<RequestResponse> GetAll(int skip, int take);
     //Task<RequestResponse> GetSingle(int id);

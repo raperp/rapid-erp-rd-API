@@ -3,4 +3,4 @@ using RapidERP.Application.DTOs.Shared;
 
 namespace RapidERP.Application.Interfaces;
 
-public interface IRole : IBase<RolePOST, RolePUT, SoftDeleteRestore> { }
+public interface IRole : IBase<RolePOST, RolePUT, DeleteDTO> { }

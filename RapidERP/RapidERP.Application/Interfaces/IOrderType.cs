@@ -2,4 +2,4 @@
 using RapidERP.Application.DTOs.Shared;
 
 namespace RapidERP.Application.Interfaces;
-public interface IOrderType : IBase<OrderTypePOST, OrderTypePUT, SoftDeleteRestore> { }
+public interface IOrderType : IBase<OrderTypePOST, OrderTypePUT, DeleteDTO> { }

@@ -16,6 +16,11 @@ namespace RapidERP.Infrastructure.EntityConfiguration.CurrencyConfigurations
             builder.Property(x => x.CreatedAt).IsRequired();
             builder.Property(x => x.UpdatedAt).IsRequired(false);
             builder.Property(x => x.UpdatedBy).IsRequired(false);
+
+            builder.HasMany(x => x.Countries)
+                    .WithOne(x => x.Currency)
+                    .HasForeignKey(x => x.CurrencyId)
+                    .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
