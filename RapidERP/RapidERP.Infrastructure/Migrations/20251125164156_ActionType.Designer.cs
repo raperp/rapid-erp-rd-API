@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RapidERP.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using RapidERP.Infrastructure.Data;
 namespace RapidERP.Infrastructure.Migrations
 {
     [DbContext(typeof(RapidERPDbContext))]
-    partial class RapidERPDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251125164156_ActionType")]
+    partial class ActionType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,7 +90,7 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int>("ActionBy")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ActionTypeId")
+                    b.Property<int?>("ActionTypeId1")
                         .HasColumnType("int");
 
                     b.Property<string>("Browser")
@@ -103,9 +106,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<string>("DeviceName")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("ExportTo")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ExportTypeId")
                         .HasColumnType("int");
@@ -132,12 +132,9 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasMaxLength(5)
                         .HasColumnType("nvarchar(5)");
 
-                    b.Property<string>("SourceURL")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ActionTypeId");
+                    b.HasIndex("ActionTypeId1");
 
                     b.HasIndex("LanguageId");
 
@@ -4140,7 +4137,7 @@ namespace RapidERP.Infrastructure.Migrations
                 {
                     b.HasOne("RapidERP.Domain.Entities.ActionTypeModels.ActionType", "ActionType")
                         .WithMany()
-                        .HasForeignKey("ActionTypeId");
+                        .HasForeignKey("ActionTypeId1");
 
                     b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
                         .WithMany()
