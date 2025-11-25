@@ -21,5 +21,10 @@ public class LanguageConfiguration : IEntityTypeConfiguration<Language>
         builder.Ignore(x => x.StatusTypeId);
         builder.Ignore(x => x.Menu);
         builder.Ignore(x => x.MenuId);
+
+        builder.HasMany(x => x.Tenants)
+                .WithOne(x => x.Language)
+                .HasForeignKey(x => x.LanguageId)
+                .OnDelete(DeleteBehavior.NoAction);
     }
 }

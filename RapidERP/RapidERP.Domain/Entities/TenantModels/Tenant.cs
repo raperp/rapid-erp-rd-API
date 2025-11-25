@@ -1,4 +1,5 @@
-﻿using RapidERP.Domain.Entities.Shared;
+﻿using RapidERP.Domain.Entities.CountryModels;
+using RapidERP.Domain.Entities.Shared;
 
 namespace RapidERP.Domain.Entities.TenantModels;
 public class Tenant : BaseMaster
@@ -11,4 +12,5 @@ public class Tenant : BaseMaster
     public string Website { get; set; }
     public int? CountryId { get; set; }
     public int? StateId { get; set; }
+    public ICollection<Country> Countries { get; set; }
 }

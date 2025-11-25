@@ -69,10 +69,8 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 masterData.CreatedAt = (masterPOST.IsDraft == false) ? DateTime.Now : null;
                 masterData.DraftedBy = (masterPOST.IsDraft == true) ? masterPOST.ActionBy : null;
                 masterData.DraftedAt = (masterPOST.IsDraft == true) ? DateTime.Now : null;
-                masterData.SoftDeletedBy = null;
-                masterData.SoftDeletedAt = null;
-                masterData.RestoredAt = null;
-                masterData.RestoredBy = null;
+                masterData.DeletedBy = null;
+                masterData.DeletedAt = null;
 
                 await context.Countries.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -235,10 +233,8 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                             c.UpdatedAt,
                             c.DraftedBy,
                             c.DraftedAt,
-                            c.SoftDeletedBy,
-                            c.SoftDeletedAt,
-                            c.RestoredBy,
-                            c.RestoredAt
+                            c.DeletedBy,
+                            c.DeletedAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -395,10 +391,8 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 DateTime? restoredAt = (softDeleteRestore.IsSoftDelete == false) ? DateTime.Now : null;
 
                 await context.Countries.Where(x => x.Id == softDeleteRestore.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.SoftDeletedBy, softDeletedBy)
-                .SetProperty(x => x.SoftDeletedAt, softDeletedAt)
-                .SetProperty(x => x.RestoredBy, restoredBy)
-                .SetProperty(x => x.RestoredAt, restoredAt));
+                .SetProperty(x => x.DeletedBy, softDeletedBy)
+                .SetProperty(x => x.DeletedAt, softDeletedAt));
             }
 
             requestResponse = new()

@@ -18,5 +18,10 @@ public class StatusTypeConfiguration : IEntityTypeConfiguration<StatusType>
         builder.Ignore(x => x.StatusTypeId);
         builder.Ignore(x => x.Menu);
         builder.Ignore(x => x.MenuId);
+
+        builder.HasMany(x => x.Tenants)
+                .WithOne(x => x.StatusType)
+                .HasForeignKey(x => x.StatusTypeId)
+                .OnDelete(DeleteBehavior.NoAction);
     }
 }

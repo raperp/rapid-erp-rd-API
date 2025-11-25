@@ -21,5 +21,10 @@ public class TenantConfiguration : IEntityTypeConfiguration<Tenant>
         builder.Property(x => x.Address).HasMaxLength(30).IsRequired(false);
         builder.Property(x => x.Email).HasMaxLength(20).IsRequired(false);
         builder.Property(x => x.Website).HasMaxLength(20).IsRequired(false);
+
+        builder.HasMany(x => x.Countries)
+        .WithOne(x => x.Tenant)
+        .HasForeignKey(x => x.TenantId)
+        .OnDelete(DeleteBehavior.NoAction);
     }
 }
