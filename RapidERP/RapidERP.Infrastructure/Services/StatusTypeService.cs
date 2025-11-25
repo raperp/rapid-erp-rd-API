@@ -2,6 +2,7 @@
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.DTOs.StatusTypeDTOs;
 using RapidERP.Application.Interfaces;
+using RapidERP.Domain.Entities.ActionTypeModels;
 using RapidERP.Domain.Entities.StatusTypeModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
@@ -62,32 +63,38 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
             if (isExists == false)
             {
                 StatusType masterData = new();
-                masterData.Name = masterPOST.Name;
                 masterData.LanguageId = masterPOST.LanguageId;
+                masterData.Name = masterPOST.Name;
                 masterData.Description = masterPOST.Description;
-                masterData.CreatedBy = masterPOST.CreatedBy;
-                masterData.CreatedAt = DateTime.Now;
+                masterData.CreatedBy = (masterPOST.IsDraft == false) ? masterPOST.ActionBy : null;
+                masterData.CreatedAt = (masterPOST.IsDraft == false) ? DateTime.Now : null;
+                masterData.DraftedBy = (masterPOST.IsDraft == true) ? masterPOST.ActionBy : null;
+                masterData.DraftedAt = (masterPOST.IsDraft == true) ? DateTime.Now : null;
+                masterData.UpdatedBy = null;
+                masterData.UpdatedAt = null;
+                masterData.DeletedBy = null;
+                masterData.DeletedAt = null;
 
                 await context.StatusTypes.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
                 StatusTypeAudit audit = new();
-                audit.Name = masterPOST.Name;
-                audit.Description = masterPOST.Description;
+                audit.StatusTypeId = masterData.Id;
                 audit.LanguageId = masterPOST.LanguageId;
-                //audit.StatusTypeId = masterData.Id;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
+                audit.ExportTypeId = masterPOST.ExportTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
-                //audit.IsDefault = masterPOST.IsDefault;
+                audit.Name = masterPOST.Name;
+                audit.Description = masterPOST.Description;
                 audit.Browser = masterPOST.Browser;
-                audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                audit.LocationURL = masterPOST.LocationURL;
+                audit.DeviceName = masterPOST.DeviceName;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.CreatedBy;
+                audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.StatusTypeAudits.AddAsync(audit);
@@ -201,11 +208,17 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
                         select new
                         {
                             st.Id,
+                            Language = l.Name,
                             st.Name,
                             st.Description,
                             st.CreatedBy,
                             st.CreatedAt,
-                            Language = l.Name
+                            st.DraftedBy,
+                            st.DraftedAt,
+                            st.UpdatedBy,
+                            st.UpdatedAt,
+                            st.DeletedBy,
+                            st.DeletedAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -254,26 +267,31 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
     {
         try
         {
-            var data = (from ata in context.StatusTypeAudits
-                        //join et in context.ExportTypes on ata.ExportTypeId equals et.Id
+            var data = (from sta in context.StatusTypeAudits
+                        join st in context.StatusTypes on sta.StatusTypeId equals st.Id
+                        join at in context.ActionTypes on sta.ActionTypeId equals at.Id
+                        join l in context.Languages on sta.LanguageId equals l.Id
+                        join et in context.ExportTypes on sta.ExportTypeId equals et.Id
                         select new
                         {
-                            ata.Id,
-                            ata.Name,
-                            ata.Description,
-                            //ExportType = et.Name,
-                            ata.ExportTo,
-                            ata.SourceURL,
-                            //ata.IsDefault,
-                            ata.Browser,
-                            ata.DeviceName,
-                            ata.Location,
-                            ata.DeviceIP,
-                            //ata.GoogleMapUrl,
-                            ata.Latitude,
-                            ata.Longitude,
-                            ata.ActionBy,
-                            ata.ActionAt
+                            sta.Id,
+                            Status = st.Name,
+                            Language = l.Name,
+                            Action = at.Name,
+                            ExportType = et.Name,
+                            sta.ExportTo,
+                            sta.SourceURL,
+                            sta.Name,
+                            sta.Description,
+                            sta.Browser,
+                            sta.Location,
+                            sta.DeviceIP,
+                            sta.LocationURL,
+                            sta.DeviceName,
+                            sta.Latitude,
+                            sta.Longitude,
+                            sta.ActionBy,
+                            sta.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -324,9 +342,10 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
         return result;
     }
 
-    public Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public async Task<dynamic> SoftDelete(DeleteDTO softDelete)
     {
-        throw new NotImplementedException();
+        var result = await shared.SoftDelete<StatusType>(softDelete);
+        return result;
     }
 
     public async Task<RequestResponse> Update(StatusTypePUT masterPUT)
@@ -338,30 +357,38 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
 
             if (isExists == false)
             {
+                ActionDTO actionDTO = new();
+                actionDTO.UpdatedBy = (masterPUT.IsDraft == false) ? masterPUT.ActionBy : null;
+                actionDTO.UpdatedAt = (masterPUT.IsDraft == false) ? DateTime.Now : null;
+                actionDTO.DraftedBy = (masterPUT.IsDraft == true) ? masterPUT.ActionBy : null;
+                actionDTO.DraftedAt = (masterPUT.IsDraft == true) ? DateTime.Now : null;
+
                 await context.StatusTypes.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description)
-                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, DateTime.Now));
+                .SetProperty(x => x.UpdatedBy, actionDTO.UpdatedBy)
+                .SetProperty(x => x.UpdatedAt, actionDTO.UpdatedAt)
+                .SetProperty(x => x.DraftedBy, actionDTO.DraftedBy)
+                .SetProperty(x => x.DraftedAt, actionDTO.DraftedAt));
 
                 StatusTypeAudit audit = new();
-                audit.Name = masterPUT.Name;
-                audit.Description = masterPUT.Description;
+                audit.StatusTypeId = masterPUT.Id;
                 audit.LanguageId = masterPUT.LanguageId;
-                //audit.StatusTypeId = masterPUT.Id;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
+                audit.ExportTypeId = masterPUT.ExportTypeId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
-                //audit.IsDefault = masterPUT.IsDefault;
+                audit.Name = masterPUT.Name;
+                audit.Description = masterPUT.Description;
                 audit.Browser = masterPUT.Browser;
-                audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                audit.LocationURL = masterPUT.LocationURL;
+                audit.DeviceName = masterPUT.DeviceName;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;
-                //audit.ActionBy = masterPUT.UpdatedBy;
+                audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.StatusTypeAudits.AddAsync(audit);

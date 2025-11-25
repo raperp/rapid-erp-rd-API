@@ -1,14 +1,13 @@
-﻿using Azure;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.ActionTypeDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
 using RapidERP.Domain.Entities.ActionTypeModels;
-using RapidERP.Domain.Entities.ExportTypeModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
+
 public class ActionTypeService(RapidERPDbContext context, IShared shared) : IActionType
 {
     RequestResponse requestResponse { get; set; }
@@ -84,7 +83,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                 audit.ExportTypeId = masterPOST.ExportTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
-                audit.Name = masterData.Name;
+                audit.Name = masterPOST.Name;
                 audit.Description = masterPOST.Description;
                 audit.Browser = masterPOST.Browser;
                 audit.Location = masterPOST.Location;

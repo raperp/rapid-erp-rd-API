@@ -6,92 +6,36 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RapidERP.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ActionTypeAudits",
+                name: "Languages",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LanguageId = table.Column<int>(type: "int", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
-                    Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
-                    ActionBy = table.Column<int>(type: "int", nullable: false),
-                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ActionTypeId = table.Column<int>(type: "int", nullable: true),
-                    ExportTypeId = table.Column<int>(type: "int", nullable: true),
-                    ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ISONumeric = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
+                    ISO2Code = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
+                    ISO3Code = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
+                    IconURL = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedBy = table.Column<int>(type: "int", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DraftedBy = table.Column<int>(type: "int", nullable: true),
+                    DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<int>(type: "int", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ActionTypeAudits", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ExportTypeAudits",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    LanguageId = table.Column<int>(type: "int", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
-                    Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
-                    Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
-                    ActionBy = table.Column<int>(type: "int", nullable: false),
-                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ExportTypeId = table.Column<int>(type: "int", nullable: true),
-                    ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ExportTypeAudits", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "StatusTypeAudits",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    LanguageId = table.Column<int>(type: "int", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
-                    Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
-                    ActionBy = table.Column<int>(type: "int", nullable: false),
-                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ActionTypeId = table.Column<int>(type: "int", nullable: true),
-                    ExportTypeId = table.Column<int>(type: "int", nullable: true),
-                    ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StatusTypeAudits", x => x.Id);
+                    table.PrimaryKey("PK_Languages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -100,25 +44,229 @@ namespace RapidERP.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LanguageId = table.Column<int>(type: "int", nullable: true),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    CreatedBy = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    CreatedBy = table.Column<int>(type: "int", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DraftedBy = table.Column<int>(type: "int", nullable: true),
                     DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ActionTypes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ActionTypes_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExportTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    CreatedBy = table.Column<int>(type: "int", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DraftedBy = table.Column<int>(type: "int", nullable: true),
+                    DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<int>(type: "int", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExportTypes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ExportTypes_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LanguageAudits",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LanguageId = table.Column<int>(type: "int", nullable: false),
+                    ISONumeric = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
+                    ISO2Code = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
+                    ISO3Code = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
+                    IconURL = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
+                    Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
+                    ActionBy = table.Column<int>(type: "int", nullable: false),
+                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LanguageAudits", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LanguageAudits_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StatusTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    StatusTypeId1 = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    CreatedBy = table.Column<int>(type: "int", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DraftedBy = table.Column<int>(type: "int", nullable: true),
+                    DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<int>(type: "int", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StatusTypes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StatusTypes_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_StatusTypes_StatusTypes_StatusTypeId1",
+                        column: x => x.StatusTypeId1,
+                        principalTable: "StatusTypes",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ActionTypeAudits",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ActionTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
+                    Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
+                    ActionBy = table.Column<int>(type: "int", nullable: false),
+                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ExportTypeId = table.Column<int>(type: "int", nullable: true),
+                    ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ActionTypeAudits", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ActionTypeAudits_ActionTypes_ActionTypeId",
+                        column: x => x.ActionTypeId,
+                        principalTable: "ActionTypes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ActionTypeAudits_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExportTypeAudits",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ExportTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
+                    Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
+                    ActionBy = table.Column<int>(type: "int", nullable: false),
+                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExportTypeAudits", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ExportTypeAudits_ExportTypes_ExportTypeId",
+                        column: x => x.ExportTypeId,
+                        principalTable: "ExportTypes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ExportTypeAudits_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StatusTypeAudits",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
+                    Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
+                    Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
+                    ActionBy = table.Column<int>(type: "int", nullable: false),
+                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ActionTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    ExportTypeId = table.Column<int>(type: "int", nullable: true),
+                    ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StatusTypeAudits", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StatusTypeAudits_StatusTypes_StatusTypeId",
+                        column: x => x.StatusTypeId,
+                        principalTable: "StatusTypes",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -136,16 +284,21 @@ namespace RapidERP.Infrastructure.Migrations
                     Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
                     ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -163,22 +316,34 @@ namespace RapidERP.Infrastructure.Migrations
                     StateId = table.Column<int>(type: "int", nullable: false),
                     CityId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DraftedBy = table.Column<int>(type: "int", nullable: true),
                     DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Areas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Areas_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Areas_StatusTypes_StatusTypeId",
+                        column: x => x.StatusTypeId,
+                        principalTable: "StatusTypes",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -191,22 +356,34 @@ namespace RapidERP.Infrastructure.Migrations
                     CountryId = table.Column<int>(type: "int", nullable: false),
                     StateId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DraftedBy = table.Column<int>(type: "int", nullable: true),
                     DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cities_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Cities_StatusTypes_StatusTypeId",
+                        column: x => x.StatusTypeId,
+                        principalTable: "StatusTypes",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -223,16 +400,21 @@ namespace RapidERP.Infrastructure.Migrations
                     Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
                     ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -251,31 +433,41 @@ namespace RapidERP.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TenantId = table.Column<int>(type: "int", nullable: true),
-                    LanguageId = table.Column<int>(type: "int", nullable: false),
+                    CurrencyId = table.Column<int>(type: "int", nullable: true),
                     ISONumeric = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
                     DialCode = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
                     ISO2Code = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
                     ISO3Code = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
                     FlagURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: false),
-                    CreatedBy = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedBy = table.Column<int>(type: "int", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DraftedBy = table.Column<int>(type: "int", nullable: true),
                     DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Countries", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Countries_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Countries_StatusTypes_StatusTypeId",
+                        column: x => x.StatusTypeId,
+                        principalTable: "StatusTypes",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -285,28 +477,31 @@ namespace RapidERP.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CountryId = table.Column<int>(type: "int", nullable: false),
-                    TenantId = table.Column<int>(type: "int", nullable: true),
-                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    CurrencyId = table.Column<int>(type: "int", nullable: true),
                     ISONumeric = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
                     DialCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ISO2Code = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
                     ISO3Code = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
                     FlagURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
                     ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -326,26 +521,36 @@ namespace RapidERP.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MenuId = table.Column<int>(type: "int", nullable: true),
-                    LanguageId = table.Column<int>(type: "int", nullable: false),
                     Code = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
                     Icon = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DraftedBy = table.Column<int>(type: "int", nullable: true),
                     DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Currencies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Currencies_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Currencies_StatusTypes_StatusTypeId",
+                        column: x => x.StatusTypeId,
+                        principalTable: "StatusTypes",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -363,16 +568,19 @@ namespace RapidERP.Infrastructure.Migrations
                     Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
                     ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -397,16 +605,21 @@ namespace RapidERP.Infrastructure.Migrations
                     Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
                     ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -421,22 +634,34 @@ namespace RapidERP.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DraftedBy = table.Column<int>(type: "int", nullable: true),
                     DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Departments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Departments_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Departments_StatusTypes_StatusTypeId",
+                        column: x => x.StatusTypeId,
+                        principalTable: "StatusTypes",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -452,16 +677,21 @@ namespace RapidERP.Infrastructure.Migrations
                     Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
                     ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -477,18 +707,20 @@ namespace RapidERP.Infrastructure.Migrations
                     DepartmentId = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DraftedBy = table.Column<int>(type: "int", nullable: true),
                     DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -499,32 +731,16 @@ namespace RapidERP.Infrastructure.Migrations
                         principalTable: "Departments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ExportTypes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    LanguageId = table.Column<int>(type: "int", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    CreatedBy = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DraftedBy = table.Column<int>(type: "int", nullable: true),
-                    DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<int>(type: "int", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ExportTypes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Designations_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Designations_StatusTypes_StatusTypeId",
+                        column: x => x.StatusTypeId,
+                        principalTable: "StatusTypes",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -540,16 +756,21 @@ namespace RapidERP.Infrastructure.Migrations
                     Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
                     ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -565,144 +786,68 @@ namespace RapidERP.Infrastructure.Migrations
                     PrinterId = table.Column<int>(type: "int", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DraftedBy = table.Column<int>(type: "int", nullable: true),
                     DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Kitchens", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Kitchens_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Kitchens_StatusTypes_StatusTypeId",
+                        column: x => x.StatusTypeId,
+                        principalTable: "StatusTypes",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "LanguageAudits",
+                name: "MainModuleAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LanguageId = table.Column<int>(type: "int", nullable: false),
-                    ISONumeric = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
-                    ISO2Code = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
-                    ISO3Code = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
-                    Icon = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    MainModuleId = table.Column<int>(type: "int", nullable: false),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    Prefix = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
+                    IconURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
                     Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
                     ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    ActionTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LanguageAudits", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Languages",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ISONumeric = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
-                    ISO2Code = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
-                    ISO3Code = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
-                    Icon = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    CreatedBy = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DraftedBy = table.Column<int>(type: "int", nullable: true),
-                    DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<int>(type: "int", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Languages", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "StatusTypes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    LanguageId = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    CreatedBy = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DraftedBy = table.Column<int>(type: "int", nullable: true),
-                    DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<int>(type: "int", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StatusTypes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_StatusTypes_Languages_LanguageId",
-                        column: x => x.LanguageId,
-                        principalTable: "Languages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Menus",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SubModuleId = table.Column<int>(type: "int", nullable: true),
-                    Prefix = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
-                    IconURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: false),
-                    CreatedBy = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DraftedBy = table.Column<int>(type: "int", nullable: true),
-                    DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<int>(type: "int", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Menus", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Menus_StatusTypes_StatusTypeId",
-                        column: x => x.StatusTypeId,
-                        principalTable: "StatusTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                    table.PrimaryKey("PK_MainModuleAudits", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -715,18 +860,19 @@ namespace RapidERP.Infrastructure.Migrations
                     Prefix = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
                     IconURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DraftedBy = table.Column<int>(type: "int", nullable: true),
                     DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -738,17 +884,10 @@ namespace RapidERP.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_MainModules_Menus_MenuId",
-                        column: x => x.MenuId,
-                        principalTable: "Menus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
                         name: "FK_MainModules_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
                         principalTable: "StatusTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -765,26 +904,120 @@ namespace RapidERP.Infrastructure.Migrations
                     Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
                     ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MenuAudits", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Menus",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SubmoduleId = table.Column<int>(type: "int", nullable: true),
+                    Prefix = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
+                    IconURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    TenantId1 = table.Column<int>(type: "int", nullable: true),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedBy = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DraftedBy = table.Column<int>(type: "int", nullable: true),
+                    DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<int>(type: "int", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Menus", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MenuAudits_Menus_MenuId",
+                        name: "FK_Menus_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Menus_StatusTypes_StatusTypeId",
+                        column: x => x.StatusTypeId,
+                        principalTable: "StatusTypes",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tenants",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Contact = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
+                    Mobile = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    Website = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    CountryId = table.Column<int>(type: "int", nullable: true),
+                    StateId = table.Column<int>(type: "int", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    TenantId1 = table.Column<int>(type: "int", nullable: true),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedBy = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DraftedBy = table.Column<int>(type: "int", nullable: true),
+                    DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<int>(type: "int", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tenants", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tenants_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Tenants_Menus_MenuId",
                         column: x => x.MenuId,
                         principalTable: "Menus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Tenants_StatusTypes_StatusTypeId",
+                        column: x => x.StatusTypeId,
+                        principalTable: "StatusTypes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Tenants_Tenants_TenantId1",
+                        column: x => x.TenantId1,
+                        principalTable: "Tenants",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -795,34 +1028,44 @@ namespace RapidERP.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DraftedBy = table.Column<int>(type: "int", nullable: true),
                     DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrderTypes", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_OrderTypes_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_OrderTypes_Menus_MenuId",
                         column: x => x.MenuId,
                         principalTable: "Menus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_OrderTypes_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
                         principalTable: "StatusTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_OrderTypes_Tenants_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "Tenants",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -832,34 +1075,44 @@ namespace RapidERP.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DraftedBy = table.Column<int>(type: "int", nullable: true),
                     DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Roles_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Roles_Menus_MenuId",
                         column: x => x.MenuId,
                         principalTable: "Menus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Roles_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
                         principalTable: "StatusTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Roles_Tenants_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "Tenants",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -878,18 +1131,20 @@ namespace RapidERP.Infrastructure.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DraftedBy = table.Column<int>(type: "int", nullable: true),
                     DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -901,17 +1156,25 @@ namespace RapidERP.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
+                        name: "FK_Salesmen_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Salesmen_Menus_MenuId",
                         column: x => x.MenuId,
                         principalTable: "Menus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Salesmen_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
                         principalTable: "StatusTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Salesmen_Tenants_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "Tenants",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -926,17 +1189,18 @@ namespace RapidERP.Infrastructure.Migrations
                     Code = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
                     IsDefault = table.Column<bool>(type: "bit", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: false),
+                    TenantId1 = table.Column<int>(type: "int", nullable: true),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DraftedBy = table.Column<int>(type: "int", nullable: true),
                     DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -962,8 +1226,67 @@ namespace RapidERP.Infrastructure.Migrations
                         name: "FK_States_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
                         principalTable: "StatusTypes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_States_Tenants_TenantId1",
+                        column: x => x.TenantId1,
+                        principalTable: "Tenants",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Submodules",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MainModuleId = table.Column<int>(type: "int", nullable: false),
+                    Prefix = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedBy = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DraftedBy = table.Column<int>(type: "int", nullable: true),
+                    DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<int>(type: "int", nullable: true),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Submodules", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Submodules_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Submodules_MainModules_MainModuleId",
+                        column: x => x.MainModuleId,
+                        principalTable: "MainModules",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_Submodules_Menus_MenuId",
+                        column: x => x.MenuId,
+                        principalTable: "Menus",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Submodules_StatusTypes_StatusTypeId",
+                        column: x => x.StatusTypeId,
+                        principalTable: "StatusTypes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Submodules_Tenants_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "Tenants",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -986,18 +1309,20 @@ namespace RapidERP.Infrastructure.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Website = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DraftedBy = table.Column<int>(type: "int", nullable: true),
                     DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1015,17 +1340,25 @@ namespace RapidERP.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
+                        name: "FK_Suppliers_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Suppliers_Menus_MenuId",
                         column: x => x.MenuId,
                         principalTable: "Menus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Suppliers_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
                         principalTable: "StatusTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Suppliers_Tenants_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "Tenants",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -1043,18 +1376,19 @@ namespace RapidERP.Infrastructure.Migrations
                     Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PostCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DraftedBy = table.Column<int>(type: "int", nullable: true),
                     DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1081,14 +1415,17 @@ namespace RapidERP.Infrastructure.Migrations
                         name: "FK_SupplierTypes_Menus_MenuId",
                         column: x => x.MenuId,
                         principalTable: "Menus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_SupplierTypes_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
                         principalTable: "StatusTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_SupplierTypes_Tenants_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "Tenants",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -1100,42 +1437,53 @@ namespace RapidERP.Infrastructure.Migrations
                     TotalPersons = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Name = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DraftedBy = table.Column<int>(type: "int", nullable: true),
                     DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tables", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Tables_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Tables_Menus_MenuId",
                         column: x => x.MenuId,
                         principalTable: "Menus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Tables_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
                         principalTable: "StatusTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Tables_Tenants_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "Tenants",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tenants",
+                name: "TenantAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    TenantId = table.Column<int>(type: "int", nullable: false),
                     Contact = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
                     Mobile = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
@@ -1145,32 +1493,31 @@ namespace RapidERP.Infrastructure.Migrations
                     CountryId = table.Column<int>(type: "int", nullable: true),
                     StateId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: false),
-                    CreatedBy = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DraftedBy = table.Column<int>(type: "int", nullable: true),
-                    DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<int>(type: "int", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
+                    Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
+                    ActionBy = table.Column<int>(type: "int", nullable: false),
+                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    ActionTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    ExportTypeId = table.Column<int>(type: "int", nullable: true),
+                    ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tenants", x => x.Id);
+                    table.PrimaryKey("PK_TenantAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tenants_Menus_MenuId",
-                        column: x => x.MenuId,
-                        principalTable: "Menus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_Tenants_StatusTypes_StatusTypeId",
-                        column: x => x.StatusTypeId,
-                        principalTable: "StatusTypes",
+                        name: "FK_TenantAudits_Tenants_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "Tenants",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
@@ -1188,115 +1535,44 @@ namespace RapidERP.Infrastructure.Migrations
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OTP = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
                     Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DraftedBy = table.Column<int>(type: "int", nullable: true),
                     DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Users_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Users_Menus_MenuId",
                         column: x => x.MenuId,
                         principalTable: "Menus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Users_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
                         principalTable: "StatusTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MainModuleAudits",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MainModuleId = table.Column<int>(type: "int", nullable: false),
-                    LanguageId = table.Column<int>(type: "int", nullable: true),
-                    Prefix = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
-                    IconURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
-                    Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
-                    ActionBy = table.Column<int>(type: "int", nullable: false),
-                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ActionTypeId = table.Column<int>(type: "int", nullable: true),
-                    ExportTypeId = table.Column<int>(type: "int", nullable: true),
-                    ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MainModuleAudits", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MainModuleAudits_MainModules_MainModuleId",
-                        column: x => x.MainModuleId,
-                        principalTable: "MainModules",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Submodules",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MainModuleId = table.Column<int>(type: "int", nullable: false),
-                    Prefix = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    MenuId1 = table.Column<int>(type: "int", nullable: true),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: false),
-                    CreatedBy = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DraftedBy = table.Column<int>(type: "int", nullable: true),
-                    DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<int>(type: "int", nullable: true),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Submodules", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Submodules_MainModules_MainModuleId",
-                        column: x => x.MainModuleId,
-                        principalTable: "MainModules",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_Submodules_Menus_MenuId1",
-                        column: x => x.MenuId1,
-                        principalTable: "Menus",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Submodules_StatusTypes_StatusTypeId",
-                        column: x => x.StatusTypeId,
-                        principalTable: "StatusTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        name: "FK_Users_Tenants_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "Tenants",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -1311,16 +1587,21 @@ namespace RapidERP.Infrastructure.Migrations
                     Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
                     ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1344,16 +1625,21 @@ namespace RapidERP.Infrastructure.Migrations
                     Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
                     ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1386,16 +1672,21 @@ namespace RapidERP.Infrastructure.Migrations
                     Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
                     ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1422,18 +1713,20 @@ namespace RapidERP.Infrastructure.Migrations
                     CityId = table.Column<int>(type: "int", nullable: false),
                     AreaId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: false),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DraftedBy = table.Column<int>(type: "int", nullable: true),
                     DraftedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedBy = table.Column<int>(type: "int", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SoftDeletedBy = table.Column<int>(type: "int", nullable: true),
-                    SoftDeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RestoredBy = table.Column<int>(type: "int", nullable: true),
-                    RestoredAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    DeletedBy = table.Column<int>(type: "int", nullable: true),
+                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1457,11 +1750,15 @@ namespace RapidERP.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
+                        name: "FK_Riders_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Riders_Menus_MenuId",
                         column: x => x.MenuId,
                         principalTable: "Menus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Riders_States_StateId",
                         column: x => x.StateId,
@@ -1472,8 +1769,12 @@ namespace RapidERP.Infrastructure.Migrations
                         name: "FK_Riders_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
                         principalTable: "StatusTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Riders_Tenants_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "Tenants",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -1491,16 +1792,19 @@ namespace RapidERP.Infrastructure.Migrations
                     Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
                     ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1509,6 +1813,46 @@ namespace RapidERP.Infrastructure.Migrations
                         name: "FK_StateAudits_States_StateId",
                         column: x => x.StateId,
                         principalTable: "States",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SubmoduleAudits",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SubmoduleId = table.Column<int>(type: "int", nullable: false),
+                    MainModuleId = table.Column<int>(type: "int", nullable: false),
+                    Prefix = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
+                    Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
+                    ActionBy = table.Column<int>(type: "int", nullable: false),
+                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
+                    ActionTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    ExportTypeId = table.Column<int>(type: "int", nullable: true),
+                    ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubmoduleAudits", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubmoduleAudits_Submodules_SubmoduleId",
+                        column: x => x.SubmoduleId,
+                        principalTable: "Submodules",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
@@ -1537,16 +1881,21 @@ namespace RapidERP.Infrastructure.Migrations
                     Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
                     ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1578,16 +1927,20 @@ namespace RapidERP.Infrastructure.Migrations
                     Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
                     ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1613,16 +1966,21 @@ namespace RapidERP.Infrastructure.Migrations
                     Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
                     ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1631,47 +1989,6 @@ namespace RapidERP.Infrastructure.Migrations
                         name: "FK_TableAudits_Tables_TableId",
                         column: x => x.TableId,
                         principalTable: "Tables",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TenantAudits",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TenantId = table.Column<int>(type: "int", nullable: false),
-                    Contact = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
-                    Mobile = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    Website = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    CountryId = table.Column<int>(type: "int", nullable: true),
-                    StateId = table.Column<int>(type: "int", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
-                    Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
-                    ActionBy = table.Column<int>(type: "int", nullable: false),
-                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ActionTypeId = table.Column<int>(type: "int", nullable: true),
-                    ExportTypeId = table.Column<int>(type: "int", nullable: true),
-                    ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TenantAudits", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TenantAudits_Tenants_TenantId",
-                        column: x => x.TenantId,
-                        principalTable: "Tenants",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
@@ -1693,16 +2010,21 @@ namespace RapidERP.Infrastructure.Migrations
                     Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
                     ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1711,41 +2033,6 @@ namespace RapidERP.Infrastructure.Migrations
                         name: "FK_UserAudits_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SubmoduleAudits",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SubmoduleId = table.Column<int>(type: "int", nullable: false),
-                    MainModuleId = table.Column<int>(type: "int", nullable: false),
-                    Prefix = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
-                    Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
-                    ActionBy = table.Column<int>(type: "int", nullable: false),
-                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ActionTypeId = table.Column<int>(type: "int", nullable: true),
-                    ExportTypeId = table.Column<int>(type: "int", nullable: true),
-                    ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SubmoduleAudits", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SubmoduleAudits_Submodules_SubmoduleId",
-                        column: x => x.SubmoduleId,
-                        principalTable: "Submodules",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
@@ -1768,16 +2055,21 @@ namespace RapidERP.Infrastructure.Migrations
                     Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GoogleMapURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
                     ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    MenuId = table.Column<int>(type: "int", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1791,19 +2083,19 @@ namespace RapidERP.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ActionTypes_LanguageId",
-                table: "ActionTypes",
+                name: "IX_ActionTypeAudits_ActionTypeId",
+                table: "ActionTypeAudits",
+                column: "ActionTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActionTypeAudits_LanguageId",
+                table: "ActionTypeAudits",
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ActionTypes_MenuId",
+                name: "IX_ActionTypes_LanguageId",
                 table: "ActionTypes",
-                column: "MenuId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ActionTypes_StatusTypeId",
-                table: "ActionTypes",
-                column: "StatusTypeId");
+                column: "LanguageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AreaAudits_AreaId",
@@ -1821,6 +2113,11 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Areas_LanguageId",
+                table: "Areas",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Areas_MenuId",
                 table: "Areas",
                 column: "MenuId");
@@ -1836,9 +2133,19 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "StatusTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Areas_TenantId",
+                table: "Areas",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Cities_CountryId",
                 table: "Cities",
                 column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cities_LanguageId",
+                table: "Cities",
+                column: "LanguageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cities_MenuId",
@@ -1856,9 +2163,19 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "StatusTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Cities_TenantId",
+                table: "Cities",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CityAudits_CityId",
                 table: "CityAudits",
                 column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Countries_CurrencyId",
+                table: "Countries",
+                column: "CurrencyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Countries_LanguageId",
@@ -1874,6 +2191,11 @@ namespace RapidERP.Infrastructure.Migrations
                 name: "IX_Countries_StatusTypeId",
                 table: "Countries",
                 column: "StatusTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Countries_TenantId",
+                table: "Countries",
+                column: "TenantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CountryAudits_CountryId",
@@ -1896,6 +2218,11 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "StatusTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Currencies_TenantId",
+                table: "Currencies",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CurrencyAudits_CurrencyId",
                 table: "CurrencyAudits",
                 column: "CurrencyId");
@@ -1904,6 +2231,11 @@ namespace RapidERP.Infrastructure.Migrations
                 name: "IX_DepartmentAudits_DepartmentId",
                 table: "DepartmentAudits",
                 column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Departments_LanguageId",
+                table: "Departments",
+                column: "LanguageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Departments_MenuId",
@@ -1916,6 +2248,11 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "StatusTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Departments_TenantId",
+                table: "Departments",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DesignationAudits_DesignationId",
                 table: "DesignationAudits",
                 column: "DesignationId");
@@ -1924,6 +2261,11 @@ namespace RapidERP.Infrastructure.Migrations
                 name: "IX_Designations_DepartmentId",
                 table: "Designations",
                 column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Designations_LanguageId",
+                table: "Designations",
+                column: "LanguageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Designations_MenuId",
@@ -1936,14 +2278,34 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "StatusTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ExportTypes_MenuId",
+                name: "IX_Designations_TenantId",
+                table: "Designations",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExportTypeAudits_ExportTypeId",
+                table: "ExportTypeAudits",
+                column: "ExportTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExportTypeAudits_LanguageId",
+                table: "ExportTypeAudits",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExportTypes_LanguageId",
                 table: "ExportTypes",
-                column: "MenuId");
+                column: "LanguageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_KitchenAudits_KitchenId",
                 table: "KitchenAudits",
                 column: "KitchenId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Kitchens_LanguageId",
+                table: "Kitchens",
+                column: "LanguageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Kitchens_MenuId",
@@ -1956,14 +2318,14 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "StatusTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Kitchens_TenantId",
+                table: "Kitchens",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LanguageAudits_LanguageId",
                 table: "LanguageAudits",
                 column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Languages_MenuId",
-                table: "Languages",
-                column: "MenuId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MainModuleAudits_MainModuleId",
@@ -1986,9 +2348,19 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "StatusTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MainModules_TenantId",
+                table: "MainModules",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MenuAudits_MenuId",
                 table: "MenuAudits",
                 column: "MenuId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Menus_LanguageId",
+                table: "Menus",
+                column: "LanguageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Menus_StatusTypeId",
@@ -1996,9 +2368,19 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "StatusTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Menus_TenantId1",
+                table: "Menus",
+                column: "TenantId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrderTypeAudits_OrderTypeId",
                 table: "OrderTypeAudits",
                 column: "OrderTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderTypes_LanguageId",
+                table: "OrderTypes",
+                column: "LanguageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderTypes_MenuId",
@@ -2009,6 +2391,11 @@ namespace RapidERP.Infrastructure.Migrations
                 name: "IX_OrderTypes_StatusTypeId",
                 table: "OrderTypes",
                 column: "StatusTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderTypes_TenantId",
+                table: "OrderTypes",
+                column: "TenantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RiderAudits_RiderId",
@@ -2031,6 +2418,11 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Riders_LanguageId",
+                table: "Riders",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Riders_MenuId",
                 table: "Riders",
                 column: "MenuId");
@@ -2046,9 +2438,19 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "StatusTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Riders_TenantId",
+                table: "Riders",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RoleAudits_RoleId",
                 table: "RoleAudits",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Roles_LanguageId",
+                table: "Roles",
+                column: "LanguageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Roles_MenuId",
@@ -2061,6 +2463,11 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "StatusTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Roles_TenantId",
+                table: "Roles",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SalesmanAudits_SalesmanId",
                 table: "SalesmanAudits",
                 column: "SalesmanId");
@@ -2071,6 +2478,11 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Salesmen_LanguageId",
+                table: "Salesmen",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Salesmen_MenuId",
                 table: "Salesmen",
                 column: "MenuId");
@@ -2079,6 +2491,11 @@ namespace RapidERP.Infrastructure.Migrations
                 name: "IX_Salesmen_StatusTypeId",
                 table: "Salesmen",
                 column: "StatusTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Salesmen_TenantId",
+                table: "Salesmen",
+                column: "TenantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StateAudits_StateId",
@@ -2106,9 +2523,24 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "StatusTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_States_TenantId1",
+                table: "States",
+                column: "TenantId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StatusTypeAudits_StatusTypeId",
+                table: "StatusTypeAudits",
+                column: "StatusTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StatusTypes_LanguageId",
                 table: "StatusTypes",
                 column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StatusTypes_StatusTypeId1",
+                table: "StatusTypes",
+                column: "StatusTypeId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubmoduleAudits_SubmoduleId",
@@ -2116,19 +2548,29 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "SubmoduleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Submodules_LanguageId",
+                table: "Submodules",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Submodules_MainModuleId",
                 table: "Submodules",
                 column: "MainModuleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Submodules_MenuId1",
+                name: "IX_Submodules_MenuId",
                 table: "Submodules",
-                column: "MenuId1");
+                column: "MenuId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Submodules_StatusTypeId",
                 table: "Submodules",
                 column: "StatusTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Submodules_TenantId",
+                table: "Submodules",
+                column: "TenantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SupplierAudits_SupplierId",
@@ -2146,6 +2588,11 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "CurrencyId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Suppliers_LanguageId",
+                table: "Suppliers",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Suppliers_MenuId",
                 table: "Suppliers",
                 column: "MenuId");
@@ -2154,6 +2601,11 @@ namespace RapidERP.Infrastructure.Migrations
                 name: "IX_Suppliers_StatusTypeId",
                 table: "Suppliers",
                 column: "StatusTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Suppliers_TenantId",
+                table: "Suppliers",
+                column: "TenantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SupplierTypeAudits_SupplierTypeId",
@@ -2186,9 +2638,19 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "StatusTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SupplierTypes_TenantId",
+                table: "SupplierTypes",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TableAudits_TableId",
                 table: "TableAudits",
                 column: "TableId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tables_LanguageId",
+                table: "Tables",
+                column: "LanguageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tables_MenuId",
@@ -2201,9 +2663,19 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "StatusTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Tables_TenantId",
+                table: "Tables",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TenantAudits_TenantId",
                 table: "TenantAudits",
                 column: "TenantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tenants_LanguageId",
+                table: "Tenants",
+                column: "LanguageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tenants_MenuId",
@@ -2216,9 +2688,19 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "StatusTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Tenants_TenantId1",
+                table: "Tenants",
+                column: "TenantId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserAudits_UserId",
                 table: "UserAudits",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_LanguageId",
+                table: "Users",
+                column: "LanguageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_MenuId",
@@ -2230,27 +2712,10 @@ namespace RapidERP.Infrastructure.Migrations
                 table: "Users",
                 column: "StatusTypeId");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_ActionTypes_Languages_LanguageId",
-                table: "ActionTypes",
-                column: "LanguageId",
-                principalTable: "Languages",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ActionTypes_Menus_MenuId",
-                table: "ActionTypes",
-                column: "MenuId",
-                principalTable: "Menus",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ActionTypes_StatusTypes_StatusTypeId",
-                table: "ActionTypes",
-                column: "StatusTypeId",
-                principalTable: "StatusTypes",
-                principalColumn: "Id");
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_TenantId",
+                table: "Users",
+                column: "TenantId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_AreaAudits_Areas_AreaId",
@@ -2281,8 +2746,7 @@ namespace RapidERP.Infrastructure.Migrations
                 table: "Areas",
                 column: "MenuId",
                 principalTable: "Menus",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Areas_States_StateId",
@@ -2293,12 +2757,11 @@ namespace RapidERP.Infrastructure.Migrations
                 onDelete: ReferentialAction.NoAction);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Areas_StatusTypes_StatusTypeId",
+                name: "FK_Areas_Tenants_TenantId",
                 table: "Areas",
-                column: "StatusTypeId",
-                principalTable: "StatusTypes",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
+                column: "TenantId",
+                principalTable: "Tenants",
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Cities_Countries_CountryId",
@@ -2313,8 +2776,7 @@ namespace RapidERP.Infrastructure.Migrations
                 table: "Cities",
                 column: "MenuId",
                 principalTable: "Menus",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Cities_States_StateId",
@@ -2325,44 +2787,32 @@ namespace RapidERP.Infrastructure.Migrations
                 onDelete: ReferentialAction.NoAction);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Cities_StatusTypes_StatusTypeId",
+                name: "FK_Cities_Tenants_TenantId",
                 table: "Cities",
-                column: "StatusTypeId",
-                principalTable: "StatusTypes",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
+                column: "TenantId",
+                principalTable: "Tenants",
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Countries_Languages_LanguageId",
+                name: "FK_Countries_Currencies_CurrencyId",
                 table: "Countries",
-                column: "LanguageId",
-                principalTable: "Languages",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
+                column: "CurrencyId",
+                principalTable: "Currencies",
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Countries_Menus_MenuId",
                 table: "Countries",
                 column: "MenuId",
                 principalTable: "Menus",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Countries_StatusTypes_StatusTypeId",
+                name: "FK_Countries_Tenants_TenantId",
                 table: "Countries",
-                column: "StatusTypeId",
-                principalTable: "StatusTypes",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Currencies_Languages_LanguageId",
-                table: "Currencies",
-                column: "LanguageId",
-                principalTable: "Languages",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
+                column: "TenantId",
+                principalTable: "Tenants",
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Currencies_Menus_MenuId",
@@ -2372,12 +2822,11 @@ namespace RapidERP.Infrastructure.Migrations
                 principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Currencies_StatusTypes_StatusTypeId",
+                name: "FK_Currencies_Tenants_TenantId",
                 table: "Currencies",
-                column: "StatusTypeId",
-                principalTable: "StatusTypes",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
+                column: "TenantId",
+                principalTable: "Tenants",
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_DepartmentAudits_Departments_DepartmentId",
@@ -2392,16 +2841,14 @@ namespace RapidERP.Infrastructure.Migrations
                 table: "Departments",
                 column: "MenuId",
                 principalTable: "Menus",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Departments_StatusTypes_StatusTypeId",
+                name: "FK_Departments_Tenants_TenantId",
                 table: "Departments",
-                column: "StatusTypeId",
-                principalTable: "StatusTypes",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
+                column: "TenantId",
+                principalTable: "Tenants",
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_DesignationAudits_Designations_DesignationId",
@@ -2416,24 +2863,14 @@ namespace RapidERP.Infrastructure.Migrations
                 table: "Designations",
                 column: "MenuId",
                 principalTable: "Menus",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Designations_StatusTypes_StatusTypeId",
+                name: "FK_Designations_Tenants_TenantId",
                 table: "Designations",
-                column: "StatusTypeId",
-                principalTable: "StatusTypes",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ExportTypes_Menus_MenuId",
-                table: "ExportTypes",
-                column: "MenuId",
-                principalTable: "Menus",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
+                column: "TenantId",
+                principalTable: "Tenants",
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_KitchenAudits_Kitchens_KitchenId",
@@ -2448,46 +2885,74 @@ namespace RapidERP.Infrastructure.Migrations
                 table: "Kitchens",
                 column: "MenuId",
                 principalTable: "Menus",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Kitchens_StatusTypes_StatusTypeId",
+                name: "FK_Kitchens_Tenants_TenantId",
                 table: "Kitchens",
-                column: "StatusTypeId",
-                principalTable: "StatusTypes",
+                column: "TenantId",
+                principalTable: "Tenants",
+                principalColumn: "Id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_MainModuleAudits_MainModules_MainModuleId",
+                table: "MainModuleAudits",
+                column: "MainModuleId",
+                principalTable: "MainModules",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.NoAction);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_LanguageAudits_Languages_LanguageId",
-                table: "LanguageAudits",
-                column: "LanguageId",
-                principalTable: "Languages",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
+                name: "FK_MainModules_Menus_MenuId",
+                table: "MainModules",
+                column: "MenuId",
+                principalTable: "Menus",
+                principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Languages_Menus_MenuId",
-                table: "Languages",
+                name: "FK_MainModules_Tenants_TenantId",
+                table: "MainModules",
+                column: "TenantId",
+                principalTable: "Tenants",
+                principalColumn: "Id");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_MenuAudits_Menus_MenuId",
+                table: "MenuAudits",
                 column: "MenuId",
                 principalTable: "Menus",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.NoAction);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Menus_Tenants_TenantId1",
+                table: "Menus",
+                column: "TenantId1",
+                principalTable: "Tenants",
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
+                name: "FK_Menus_Languages_LanguageId",
+                table: "Menus");
+
+            migrationBuilder.DropForeignKey(
                 name: "FK_StatusTypes_Languages_LanguageId",
                 table: "StatusTypes");
 
-            migrationBuilder.DropTable(
-                name: "ActionTypeAudits");
+            migrationBuilder.DropForeignKey(
+                name: "FK_Tenants_Languages_LanguageId",
+                table: "Tenants");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Tenants_Menus_MenuId",
+                table: "Tenants");
 
             migrationBuilder.DropTable(
-                name: "ActionTypes");
+                name: "ActionTypeAudits");
 
             migrationBuilder.DropTable(
                 name: "AreaAudits");
@@ -2509,9 +2974,6 @@ namespace RapidERP.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "ExportTypeAudits");
-
-            migrationBuilder.DropTable(
-                name: "ExportTypes");
 
             migrationBuilder.DropTable(
                 name: "KitchenAudits");
@@ -2562,7 +3024,13 @@ namespace RapidERP.Infrastructure.Migrations
                 name: "UserAudits");
 
             migrationBuilder.DropTable(
+                name: "ActionTypes");
+
+            migrationBuilder.DropTable(
                 name: "Designations");
+
+            migrationBuilder.DropTable(
+                name: "ExportTypes");
 
             migrationBuilder.DropTable(
                 name: "Kitchens");
@@ -2592,9 +3060,6 @@ namespace RapidERP.Infrastructure.Migrations
                 name: "Tables");
 
             migrationBuilder.DropTable(
-                name: "Tenants");
-
-            migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
@@ -2607,9 +3072,6 @@ namespace RapidERP.Infrastructure.Migrations
                 name: "MainModules");
 
             migrationBuilder.DropTable(
-                name: "Currencies");
-
-            migrationBuilder.DropTable(
                 name: "Cities");
 
             migrationBuilder.DropTable(
@@ -2619,10 +3081,16 @@ namespace RapidERP.Infrastructure.Migrations
                 name: "Countries");
 
             migrationBuilder.DropTable(
+                name: "Currencies");
+
+            migrationBuilder.DropTable(
                 name: "Languages");
 
             migrationBuilder.DropTable(
                 name: "Menus");
+
+            migrationBuilder.DropTable(
+                name: "Tenants");
 
             migrationBuilder.DropTable(
                 name: "StatusTypes");

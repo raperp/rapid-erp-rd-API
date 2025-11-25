@@ -1,8 +1,8 @@
-﻿using RapidERP.Domain.Entities.LanguageModels;
-using RapidERP.Domain.Entities.Shared;
+﻿using RapidERP.Domain.Entities.Shared;
 using RapidERP.Domain.Entities.TenantModels;
 
 namespace RapidERP.Domain.Entities.StatusTypeModels;
+
 public class StatusType : BaseMaster
 {
     public string Description { get; set; }
