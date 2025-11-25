@@ -341,12 +341,7 @@ public class SubmoduleService(RapidERPDbContext context, IShared shared) : ISubm
         return result;
     }
 
-    public Task<RequestResponse> SoftDelete(DeleteDTO softDelete)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<RequestResponse> SoftDeleteRestore(DeleteDTO softDeleteRestore)
+    public Task<dynamic> SoftDelete(DeleteDTO softDelete)
     {
         throw new NotImplementedException();
     }

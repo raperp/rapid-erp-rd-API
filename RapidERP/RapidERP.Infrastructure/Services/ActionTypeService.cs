@@ -330,12 +330,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
         return result;
     }
 
-    public Task<RequestResponse> SoftDelete(DeleteDTO softDelete)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<RequestResponse> SoftDeleteRestore(DeleteDTO softDeleteRestore)
+    public Task<dynamic> SoftDelete(DeleteDTO softDelete)
     {
         throw new NotImplementedException();
     }

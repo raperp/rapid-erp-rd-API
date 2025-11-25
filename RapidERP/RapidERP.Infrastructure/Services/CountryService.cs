@@ -382,54 +382,10 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
         return result;
     }
 
-    public async Task<RequestResponse> SoftDelete(DeleteDTO softDelete)
+    public async Task<dynamic> SoftDelete(DeleteDTO softDelete)
     {
-        try
-        {
-            var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Id == softDelete.Id);
-
-            if (isExists == false)
-            {
-                requestResponse = new()
-                {
-                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
-                    IsSuccess = false,
-                    Message = ResponseMessage.NoRecordFound
-                };
-            }
-
-            else
-            {
-                ActionDTO actionDTO = new();
-                actionDTO.DeletedBy = (softDelete.IsDelete == true) ? softDelete.ActionBy : null;
-                actionDTO.DeletedAt = (softDelete.IsDelete == true) ? DateTime.Now : null;
-
-                await context.Countries.Where(x => x.Id == softDelete.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.DeletedBy, actionDTO.DeletedBy)
-                .SetProperty(x => x.DeletedAt, actionDTO.DeletedAt));
-            }
-
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
-                IsSuccess = true,
-                Message = ResponseMessage.DeleteSuccess
-            };
-
-            return requestResponse;
-        }
-
-        catch (Exception ex)
-        {
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
-                IsSuccess = false,
-                Message = ex.Message
-            };
-
-            return requestResponse;
-        }
+        var result = await shared.SoftDelete<Country>(softDelete);
+        return result;
     }
 
     public async Task<RequestResponse> Update(CountryPUT masterPUT)

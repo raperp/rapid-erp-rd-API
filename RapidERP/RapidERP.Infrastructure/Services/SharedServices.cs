@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
 using RapidERP.Domain.Entities.Shared;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
+
 public class SharedServices(RapidERPDbContext context) : IShared
 {
     RequestResponse requestResponse { get; set; }
@@ -75,6 +77,54 @@ public class SharedServices(RapidERPDbContext context) : IShared
             return requestResponse;
         }
     }
-}
 
- 
+    public async Task<RequestResponse> SoftDelete<T>(DeleteDTO softDelete) where T : BaseMaster
+    {
+        try
+        {
+            var isExists = await context.Set<T>().AsNoTracking().AnyAsync(x => x.Id == softDelete.Id);
+
+            if (isExists == false)
+            {
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
+                    IsSuccess = false,
+                    Message = ResponseMessage.NoRecordFound
+                };
+            }
+
+            else
+            {
+                ActionDTO actionDTO = new();
+                actionDTO.DeletedBy = (softDelete.IsDelete == true) ? softDelete.ActionBy : null;
+                actionDTO.DeletedAt = (softDelete.IsDelete == true) ? DateTime.Now : null;
+
+                await context.Set<T>().Where(x => x.Id == softDelete.Id).ExecuteUpdateAsync(x => x
+                .SetProperty(x => x.DeletedBy, actionDTO.DeletedBy)
+                .SetProperty(x => x.DeletedAt, actionDTO.DeletedAt));
+            }
+
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                IsSuccess = true,
+                Message = ResponseMessage.DeleteSuccess
+            };
+
+            return requestResponse;
+        }
+
+        catch (Exception ex)
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ex.Message
+            };
+
+            return requestResponse;
+        }
+    }
+}

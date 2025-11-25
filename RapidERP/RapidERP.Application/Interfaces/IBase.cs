@@ -10,5 +10,5 @@ public interface IBase<POSTEntity, PUTEntity, DeleteEntity> where POSTEntity : c
     Task<RequestResponse> CreateBulk(List<POSTEntity> masterPOSTs);
     Task<RequestResponse> Update(PUTEntity masterPUT);
     //Task<RequestResponse> Delete(int id);
-    Task<RequestResponse> SoftDelete(DeleteEntity softDelete);
+    Task<dynamic> SoftDelete(DeleteEntity softDelete);
 }
