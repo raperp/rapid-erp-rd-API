@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RapidERP.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using RapidERP.Infrastructure.Data;
 namespace RapidERP.Infrastructure.Migrations
 {
     [DbContext(typeof(RapidERPDbContext))]
-    partial class RapidERPDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251126010328_ModMainMod")]
+    partial class ModMainMod
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1632,6 +1635,12 @@ namespace RapidERP.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDraft")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("LanguageId")
                         .HasColumnType("int");
 
@@ -1645,8 +1654,8 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasMaxLength(4)
                         .HasColumnType("nvarchar(4)");
 
-                    b.Property<int>("SetSerial")
-                        .HasColumnType("int");
+                    b.Property<string>("SetSerial")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -1728,8 +1737,8 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasMaxLength(4)
                         .HasColumnType("nvarchar(4)");
 
-                    b.Property<int>("SetSerial")
-                        .HasColumnType("int");
+                    b.Property<string>("SetSerial")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SourceURL")
                         .HasColumnType("nvarchar(max)");
@@ -2925,10 +2934,10 @@ namespace RapidERP.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("CreatedAt")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("CreatedBy")
+                    b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DeletedAt")
@@ -2943,9 +2952,11 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("DraftedBy")
                         .HasColumnType("int");
 
-                    b.Property<string>("IconURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDraft")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("LanguageId")
                         .HasColumnType("int");
@@ -2953,12 +2964,22 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int>("MainModuleId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("MenuId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
-                    b.Property<int>("SetSerial")
+                    b.Property<string>("Prefix")
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
+                    b.Property<int?>("StatusTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -2972,6 +2993,12 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasIndex("LanguageId");
 
                     b.HasIndex("MainModuleId");
+
+                    b.HasIndex("MenuId");
+
+                    b.HasIndex("StatusTypeId");
+
+                    b.HasIndex("TenantId");
 
                     b.ToTable("Submodules");
                 });
@@ -3009,9 +3036,11 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ExportTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("IconURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDraft")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("LanguageId")
                         .HasColumnType("int");
@@ -3033,18 +3062,25 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int>("MainModuleId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("MenuId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
-                    b.Property<int>("SetSerial")
-                        .HasColumnType("int");
+                    b.Property<string>("Prefix")
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
 
                     b.Property<string>("SourceURL")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SubmoduleId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -4759,9 +4795,28 @@ namespace RapidERP.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("RapidERP.Domain.Entities.MenuModules.Menu", "Menu")
+                        .WithMany("Submodules")
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
+                        .WithMany()
+                        .HasForeignKey("StatusTypeId");
+
+                    b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
+                        .WithMany()
+                        .HasForeignKey("TenantId");
+
                     b.Navigation("Language");
 
                     b.Navigation("MainModule");
+
+                    b.Navigation("Menu");
+
+                    b.Navigation("StatusType");
+
+                    b.Navigation("Tenant");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.SubmoduleModels.SubmoduleAudit", b =>
@@ -5014,6 +5069,8 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.MenuModules.Menu", b =>
                 {
+                    b.Navigation("Submodules");
+
                     b.Navigation("Tenants");
                 });
 

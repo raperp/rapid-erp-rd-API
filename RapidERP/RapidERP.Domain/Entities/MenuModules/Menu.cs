@@ -10,6 +10,6 @@ public class Menu : BaseMaster
     public int? SubmoduleId { get; set; }
     public string Prefix { get; set; }
     public string IconURL { get; set; }
-    public ICollection<Submodule> Submodules { get; }
+    //public ICollection<Submodule> Submodules { get; }
     public ICollection<Tenant> Tenants { get; }
 }

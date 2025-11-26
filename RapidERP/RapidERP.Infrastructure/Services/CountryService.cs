@@ -100,7 +100,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 audit.Browser = masterPOST.Browser;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                audit.LocationURL = masterPOST.GoogleMapURL;
+                audit.LocationURL = masterPOST.LocationURL;
                 audit.DeviceName = masterPOST.DeviceName;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
@@ -443,7 +443,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 audit.Browser = masterPUT.Browser;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                audit.LocationURL = masterPUT.GoogleMapURL;
+                audit.LocationURL = masterPUT.LocationURL;
                 audit.DeviceName = masterPUT.DeviceName;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;

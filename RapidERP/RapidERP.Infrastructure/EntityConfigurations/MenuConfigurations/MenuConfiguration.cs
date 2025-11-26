@@ -21,10 +21,10 @@ public class MenuConfiguration : IEntityTypeConfiguration<Menu>
         builder.Ignore(x => x.MenuId);
         //builder.Ignore(x => x.SubmoduleId);
 
-        builder.HasMany(x => x.Submodules)
-                .WithOne(x => x.Menu)
-                .HasForeignKey(x => x.MenuId)
-                .OnDelete(DeleteBehavior.NoAction);
+        //builder.HasMany(x => x.Submodules)
+        //        .WithOne(x => x.Menu)
+        //        .HasForeignKey(x => x.MenuId)
+        //        .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasMany(x => x.Tenants)
                 .WithOne(x => x.Menu)
