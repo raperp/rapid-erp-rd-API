@@ -1,18 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RapidERP.Application.DTOs.MessageModuleDTOs;
 using RapidERP.Application.DTOs.Shared;
-using RapidERP.Application.DTOs.TextModuleDTOs;
 using RapidERP.Application.Interfaces;
-using RapidERP.Domain.Entities.TextModuleModels;
+using RapidERP.Domain.Entities.MessageModuleModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class TextModuleService(RapidERPDbContext context, IShared shared) : ITextModule
+public class MessageModuleService(RapidERPDbContext context, IShared shared) : IMessageModule
 {
     RequestResponse requestResponse { get; set; }
 
-    public async Task<RequestResponse> CreateBulk(List<TextModulePOST> masterPOSTs)
+    public async Task<RequestResponse> CreateBulk(List<MessageModulePOST> masterPOSTs)
     {
         try
         {
@@ -44,17 +44,17 @@ public class TextModuleService(RapidERPDbContext context, IShared shared) : ITex
         }
     }
 
-    public async Task<RequestResponse> CreateSingle(TextModulePOST masterPOST)
+    public async Task<RequestResponse> CreateSingle(MessageModulePOST masterPOST)
     {
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.TextModules.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
+            var isExists = await context.MessageModules.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
 
             if (isExists == false)
             {
-                TextModule masterData = new();
-                masterData.MenuModuleId = masterPOST.MenuModuleId;
+                MessageModule masterData = new();
+                masterData.TextModuleId = masterPOST.TextModuleId;
                 masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Name = masterPOST.Name;
                 masterData.CreatedBy = (masterPOST.IsDraft == false) ? masterPOST.ActionBy : null;
@@ -66,12 +66,12 @@ public class TextModuleService(RapidERPDbContext context, IShared shared) : ITex
                 masterData.DeletedBy = null;
                 masterData.DeletedAt = null;
 
-                await context.TextModules.AddAsync(masterData);
+                await context.MessageModules.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                TextModuleAudit audit = new();
-                audit.TextModuleId = masterData.Id;
-                audit.MenuModuleId = masterPOST.MenuModuleId;
+                MessageModuleAudit audit = new();
+                audit.MessageModuleId = masterData.Id;
+                audit.TextModuleId = masterPOST.TextModuleId;
                 audit.LanguageId = masterPOST.LanguageId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
@@ -88,7 +88,7 @@ public class TextModuleService(RapidERPDbContext context, IShared shared) : ITex
                 audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.TextModuleAudits.AddAsync(audit);
+                await context.MessageModuleAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -133,13 +133,13 @@ public class TextModuleService(RapidERPDbContext context, IShared shared) : ITex
         {
             GetAllDTO result = new();
 
-            var data = (from tm in context.TextModules
-                        join mm in context.MenuModules on tm.MenuModuleId equals mm.Id
-                        join l in context.Languages on tm.LanguageId equals l.Id
+            var data = (from mm in context.MessageModules
+                        join tm in context.TextModules on mm.TextModuleId equals tm.Id
+                        join l in context.Languages on mm.LanguageId equals l.Id
                         select new
                         {
                             tm.Id,
-                            MenuModule = mm.Name,
+                            TextModule = tm.Name,
                             Language = l.Name,
                             tm.Name,
                             tm.CreatedBy,
@@ -154,7 +154,7 @@ public class TextModuleService(RapidERPDbContext context, IShared shared) : ITex
 
             if (skip == 0 || take == 0)
             {
-                result.Count = await shared.GetCounts<TextModule>();
+                result.Count = await shared.GetCounts<MessageModule>();
                 result.Data = await data.ToListAsync();
 
                 requestResponse = new()
@@ -168,7 +168,7 @@ public class TextModuleService(RapidERPDbContext context, IShared shared) : ITex
 
             else
             {
-                result.Count = await shared.GetCounts<TextModule>();
+                result.Count = await shared.GetCounts<MessageModule>();
                 result.Data = await data.Skip(skip).Take(take).ToListAsync();
 
                 requestResponse = new()
@@ -200,32 +200,30 @@ public class TextModuleService(RapidERPDbContext context, IShared shared) : ITex
     {
         try
         {
-            var data = (from tma in context.TextModuleAudits
-                        join tm in context.TextModules on tma.TextModuleId equals tm.Id
-                        join mm in context.MenuModules on tma.MenuModuleId equals mm.Id
-                        join at in context.ActionTypes on tma.ActionTypeId equals at.Id
-                        join l in context.Languages on tma.LanguageId equals l.Id
-                        join et in context.ExportTypes on tma.ExportTypeId equals et.Id
+            var data = (from mma in context.MessageModuleAudits
+                        join mm in context.MessageModules on mma.MessageModuleId equals mm.Id
+                        join at in context.ActionTypes on mma.ActionTypeId equals at.Id
+                        join l in context.Languages on mma.LanguageId equals l.Id
+                        join et in context.ExportTypes on mma.ExportTypeId equals et.Id
                         select new
                         {
-                            tma.Id,
-                            TextModule = tm.Name,
-                            MenuModule = mm.Name,
+                            mma.Id,
+                            TextModule = mm.Name,
                             Language = l.Name,
                             Action = at.Name,
                             ExportType = et.Name,
-                            tma.ExportTo,
-                            tma.SourceURL,
-                            tma.Name,
-                            tma.Browser,
-                            tma.Location,
-                            tma.DeviceIP,
-                            tma.LocationURL,
-                            tma.DeviceName,
-                            tma.Latitude,
-                            tma.Longitude,
-                            tma.ActionBy,
-                            tma.ActionAt
+                            mma.ExportTo,
+                            mma.SourceURL,
+                            mma.Name,
+                            mma.Browser,
+                            mma.Location,
+                            mma.DeviceIP,
+                            mma.LocationURL,
+                            mma.DeviceName,
+                            mma.Latitude,
+                            mma.Longitude,
+                            mma.ActionBy,
+                            mma.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -272,22 +270,22 @@ public class TextModuleService(RapidERPDbContext context, IShared shared) : ITex
 
     public async Task<dynamic> GetSingle(int id)
     {
-        var result = await shared.GetSingle<TextModule>(id);
+        var result = await shared.GetSingle<MessageModule>(id);
         return result;
     }
 
     public async Task<dynamic> SoftDelete(DeleteDTO softDelete)
     {
-        var result = await shared.SoftDelete<TextModule>(softDelete);
+        var result = await shared.SoftDelete<MessageModule>(softDelete);
         return result;
     }
 
-    public async Task<RequestResponse> Update(TextModulePUT masterPUT)
+    public async Task<RequestResponse> Update(MessageModulePUT masterPUT)
     {
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.TextModules.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
+            var isExists = await context.MessageModules.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
 
             if (isExists == false)
             {
@@ -297,8 +295,8 @@ public class TextModuleService(RapidERPDbContext context, IShared shared) : ITex
                 actionDTO.DraftedBy = (masterPUT.IsDraft == true) ? masterPUT.ActionBy : null;
                 actionDTO.DraftedAt = (masterPUT.IsDraft == true) ? DateTime.Now : null;
 
-                await context.TextModules.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                await context.MessageModules.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
+                .SetProperty(x => x.TextModuleId, masterPUT.TextModuleId)
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.UpdatedBy, actionDTO.UpdatedBy)
@@ -306,9 +304,9 @@ public class TextModuleService(RapidERPDbContext context, IShared shared) : ITex
                 .SetProperty(x => x.DraftedBy, actionDTO.DraftedBy)
                 .SetProperty(x => x.DraftedAt, actionDTO.DraftedAt));
 
-                TextModuleAudit audit = new();
-                audit.TextModuleId = masterPUT.Id;
-                audit.MenuModuleId = masterPUT.MenuModuleId;
+                MessageModuleAudit audit = new();
+                audit.MessageModuleId = masterPUT.Id;
+                audit.TextModuleId = masterPUT.TextModuleId;
                 audit.LanguageId = masterPUT.LanguageId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
                 audit.ExportTypeId = masterPUT.ExportTypeId;
@@ -325,7 +323,7 @@ public class TextModuleService(RapidERPDbContext context, IShared shared) : ITex
                 audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.TextModuleAudits.AddAsync(audit);
+                await context.MessageModuleAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

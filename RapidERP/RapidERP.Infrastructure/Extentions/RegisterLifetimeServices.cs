@@ -34,6 +34,7 @@ public static class RegisterLifetimeServices
         services.AddScoped<IUser, UserService>();
         services.AddScoped<IRole, RoleService>();
         services.AddScoped<ITextModule, TextModuleService>();
+        services.AddScoped<IMessageModule, MessageModuleService>();
 
         return services;
     }
