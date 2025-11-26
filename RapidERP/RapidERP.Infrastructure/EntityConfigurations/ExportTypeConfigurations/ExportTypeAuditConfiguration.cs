@@ -15,7 +15,7 @@ public class ExportTypeAuditConfiguration : IEntityTypeConfiguration<ExportTypeA
         builder.Property(x => x.Longitude).HasPrecision(9, 6);
         builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired(false);
         builder.Ignore(x => x.TenantId);
-        builder.Ignore(x => x.MenuId);
+        builder.Ignore(x => x.MenuModuleId);
         builder.Ignore(x => x.ActionTypeId);
         builder.Ignore(x => x.ExportTo);
         builder.Ignore(x => x.SourceURL);

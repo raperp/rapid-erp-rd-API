@@ -82,7 +82,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 CountryAudit audit = new();
                 audit.CountryId = masterData.Id;
                 audit.TenantId = masterPOST.TenantId;
-                audit.MenuId = masterPOST.MenuId;
+                audit.MenuModuleId = masterPOST.MenuId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 audit.LanguageId = masterPOST.LanguageId;
                 audit.CurrencyId = masterPOST.CurrencyId;
@@ -301,7 +301,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                         join at in context.ActionTypes on ca.ActionTypeId equals at.Id
                         join t in context.Tenants on ca.TenantId equals t.Id
                         join l in context.Languages on ca.LanguageId equals l.Id
-                        join m in context.MenuModules on ca.MenuId equals m.Id
+                        join m in context.MenuModules on ca.MenuModuleId equals m.Id
                         join cu in context.Currencies on ca.CurrencyId equals cu.Id
                         select new
                         {
@@ -425,7 +425,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 CountryAudit audit = new();
                 audit.CountryId = masterPUT.Id;
                 audit.TenantId = masterPUT.TenantId;
-                audit.MenuId = masterPUT.MenuId;
+                audit.MenuModuleId = masterPUT.MenuId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
                 audit.LanguageId = masterPUT.LanguageId;
                 audit.CurrencyId = masterPUT.CurrencyId;

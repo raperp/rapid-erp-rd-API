@@ -22,7 +22,6 @@ public class LanguageConfiguration : IEntityTypeConfiguration<Language>
         builder.Property(x => x.DraftedAt).IsRequired(false);
         builder.Property(x => x.DeletedBy).IsRequired(false);
         builder.Property(x => x.DeletedAt).IsRequired(false);
-
         builder.Ignore(x => x.MenuModule);
         builder.Ignore(x => x.MenuModuleId);
         builder.Ignore(x => x.Tenant);

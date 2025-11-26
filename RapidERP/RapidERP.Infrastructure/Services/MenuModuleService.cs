@@ -2,7 +2,9 @@
 using RapidERP.Application.DTOs.MenuModuleDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
+using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Entities.MenuModuleModels;
+using RapidERP.Domain.Entities.SubmoduleModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
@@ -62,37 +64,42 @@ public class MenuModuleService(RapidERPDbContext context, IShared shared) : IMen
             if (isExists == false)
             {
                 MenuModule masterData = new();
-                masterData.Name = masterPOST.Name;
-                //masterData.Prefix = masterPOST.Prefix;
-                masterData.IconURL = masterPOST.IconURL;
                 masterData.SubmoduleId = masterPOST.SubmoduleId;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
-                masterData.CreatedBy = masterPOST.ActionBy;
-                masterData.CreatedAt = DateTime.Now;
+                masterData.LanguageId = masterPOST.LanguageId;
+                masterData.Name = masterPOST.Name;
+                masterData.IconURL = masterPOST.IconURL;
+                masterData.SetSerial = masterPOST.SetSerial;
+                masterData.CreatedBy = (masterPOST.IsDraft == false) ? masterPOST.ActionBy : null;
+                masterData.CreatedAt = (masterPOST.IsDraft == false) ? DateTime.Now : null;
+                masterData.DraftedBy = (masterPOST.IsDraft == true) ? masterPOST.ActionBy : null;
+                masterData.DraftedAt = (masterPOST.IsDraft == true) ? DateTime.Now : null;
+                masterData.UpdatedBy = null;
+                masterData.UpdatedAt = null;
+                masterData.DeletedBy = null;
+                masterData.DeletedAt = null;
 
                 await context.MenuModules.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
                 MenuModuleAudit audit = new();
-                audit.Name = masterPOST.Name;
-                audit.Prefix = masterPOST.Prefix;
-                audit.IconURL = masterPOST.IconURL;
-                audit.SubModuleId = masterPOST.SubmoduleId;
-                audit.MenuId = masterData.Id;
-                //audit.StatusTypeId = masterPOST.StatusTypeId;
+                audit.MenuModuleId = masterData.Id;
+                audit.SubmoduleId = masterPOST.SubmoduleId;
+                audit.LanguageId = masterPOST.LanguageId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
-                //audit.IsDefault = masterPOST.IsDefault;
+                audit.Name = masterPOST.Name;
+                audit.IconURL = masterPOST.IconURL;
+                audit.SetSerial = masterPOST.SetSerial;
                 audit.Browser = masterPOST.Browser;
-                audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                audit.LocationURL = masterPOST.LocationURL;
+                audit.DeviceName = masterPOST.DeviceName;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                //audit.ActionBy = masterPOST.CreatedBy;
+                audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.MenuModuleAudits.AddAsync(audit);
@@ -139,7 +146,7 @@ public class MenuModuleService(RapidERPDbContext context, IShared shared) : IMen
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.MenuModuleAudits.AsNoTracking().AnyAsync(x => x.MenuId == id);
+            var isAuditExists = await context.MenuModuleAudits.AsNoTracking().AnyAsync(x => x.MenuModuleId == id);
 
             if (isAuditExists == false)
             {
@@ -153,7 +160,7 @@ public class MenuModuleService(RapidERPDbContext context, IShared shared) : IMen
 
             else
             {
-                await context.MenuModuleAudits.Where(x => x.MenuId == id).ExecuteDeleteAsync();
+                await context.MenuModuleAudits.Where(x => x.MenuModuleId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.MenuModules.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -203,16 +210,25 @@ public class MenuModuleService(RapidERPDbContext context, IShared shared) : IMen
         {
             GetAllDTO result = new();
 
-            var data = (from m in context.MenuModules
-                        join st in context.StatusTypes on m.StatusTypeId equals st.Id
+            var data = (from mm in context.MenuModules
+                        join sm in context.Submodules on mm.SubmoduleId equals sm.Id
+                        join l in context.Languages on mm.LanguageId equals l.Id
                         select new
                         {
-                            m.Id,
-                            m.Name,
-                            //m.Prefix,
-                            Status = st.Name,
-                            m.CreatedBy,
-                            m.CreatedAt
+                            mm.Id,
+                            Submodule = sm.Name,
+                            Language = l.Name,
+                            mm.Name,
+                            mm.IconURL,
+                            mm.SetSerial,
+                            mm.CreatedBy,
+                            mm.CreatedAt,
+                            mm.DraftedBy,
+                            mm.DraftedAt,
+                            mm.UpdatedBy,
+                            mm.UpdatedAt,
+                            mm.DeletedBy,
+                            mm.DeletedAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -263,31 +279,34 @@ public class MenuModuleService(RapidERPDbContext context, IShared shared) : IMen
     {
         try
         {
-            var data = (from ma in context.MenuModuleAudits
-                        join m in context.MenuModules on ma.MenuId equals m.Id
-                        join at in context.ActionTypes on ma.ActionTypeId equals at.Id
-                        //join st in context.StatusTypes on ma.StatusTypeId equals st.Id
+            var data = (from mma in context.MenuModuleAudits
+                        join mm in context.MenuModules on mma.MenuModuleId equals mm.Id
+                        join at in context.ActionTypes on mma.ActionTypeId equals at.Id
+                        join sm in context.Submodules on mma.SubmoduleId equals sm.Id
+                        join l in context.Languages on mma.LanguageId equals l.Id
+                        join et in context.ExportTypes on mma.LanguageId equals et.Id
                         select new
                         {
-                            ma.Id,
-                            ma.Name,
-                            ma.Prefix,
-                            MainModule = m.Name,
-                            //ExportType = et.Name,
-                            ActionType = at.Name,
-                            //StatusType = st.Name,
-                            ma.ExportTo,
-                            ma.SourceURL,
-                            //ma.IsDefault,
-                            ma.Browser,
-                            ma.DeviceName,
-                            ma.Location,
-                            ma.DeviceIP,
-                            //ma.GoogleMapUrl,
-                            ma.Latitude,
-                            ma.Longitude,
-                            ma.ActionBy,
-                            ma.ActionAt
+                            mma.Id,
+                            MainModule = mm.Name,
+                            Submodule = mm.Name,
+                            Language = l.Name,
+                            Action = at.Name,
+                            ExportType = et.Name,
+                            mma.ExportTo,
+                            mma.SourceURL,
+                            mma.Name,
+                            mma.IconURL,
+                            mma.SetSerial,
+                            mma.Browser,
+                            mma.Location,
+                            mma.DeviceIP,
+                            mma.LocationURL,
+                            mma.DeviceName,
+                            mma.Latitude,
+                            mma.Longitude,
+                            mma.ActionBy,
+                            mma.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -338,9 +357,10 @@ public class MenuModuleService(RapidERPDbContext context, IShared shared) : IMen
         return result;
     }
 
-    public Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public async Task<dynamic> SoftDelete(DeleteDTO softDelete)
     {
-        throw new NotImplementedException();
+        var result = await shared.SoftDelete<MenuModule>(softDelete);
+        return result;
     }
 
     public async Task<RequestResponse> Update(MenuModulePUT masterPUT)
@@ -352,35 +372,42 @@ public class MenuModuleService(RapidERPDbContext context, IShared shared) : IMen
 
             if (isExists == false)
             {
+                ActionDTO actionDTO = new();
+                actionDTO.UpdatedBy = (masterPUT.IsDraft == false) ? masterPUT.ActionBy : null;
+                actionDTO.UpdatedAt = (masterPUT.IsDraft == false) ? DateTime.Now : null;
+                actionDTO.DraftedBy = (masterPUT.IsDraft == true) ? masterPUT.ActionBy : null;
+                actionDTO.DraftedAt = (masterPUT.IsDraft == true) ? DateTime.Now : null;
+
                 await context.MenuModules.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
+                .SetProperty(x => x.SubmoduleId, masterPUT.SubmoduleId)
+                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Name, masterPUT.Name)
-                //.SetProperty(x => x.Prefix, masterPUT.Prefix)
                 .SetProperty(x => x.IconURL, masterPUT.IconURL)
-                .SetProperty(x => x.SubmoduleId, masterPUT.SubModuleId)
-                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, DateTime.Now));
+                .SetProperty(x => x.SetSerial, masterPUT.SetSerial)
+                .SetProperty(x => x.UpdatedBy, actionDTO.UpdatedBy)
+                .SetProperty(x => x.UpdatedAt, actionDTO.UpdatedAt)
+                .SetProperty(x => x.DraftedBy, actionDTO.DraftedBy)
+                .SetProperty(x => x.DraftedAt, actionDTO.DraftedAt));
 
                 MenuModuleAudit audit = new();
-                audit.Name = masterPUT.Name;
-                audit.Prefix = masterPUT.Prefix;
-                audit.IconURL = masterPUT.IconURL;
-                audit.SubModuleId = masterPUT.SubModuleId;
-                audit.MenuId = masterPUT.Id;
-                //audit.StatusTypeId = masterPUT.StatusTypeId;
+                audit.MenuModuleId = masterPUT.Id;
+                audit.SubmoduleId = masterPUT.SubmoduleId;
+                audit.LanguageId = masterPUT.LanguageId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
                 audit.ExportTypeId = masterPUT.ExportTypeId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
-                //audit.IsDefault = masterPUT.IsDefault;
+                audit.Name = masterPUT.Name;
+                audit.IconURL = masterPUT.IconURL;
+                audit.SetSerial = masterPUT.SetSerial;
                 audit.Browser = masterPUT.Browser;
-                audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                audit.LocationURL = masterPUT.LocationURL;
+                audit.DeviceName = masterPUT.DeviceName;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;
-                //audit.ActionBy = masterPUT.UpdatedBy;
+                audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.MenuModuleAudits.AddAsync(audit);

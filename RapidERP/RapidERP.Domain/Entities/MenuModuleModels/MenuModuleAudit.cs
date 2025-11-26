@@ -4,9 +4,9 @@ namespace RapidERP.Domain.Entities.MenuModuleModels;
 
 public class MenuModuleAudit : BaseAudit
 {
-    public MenuModule Menu { get; set; }
-    public int MenuId { get; set; }
-    public int? SubModuleId { get; set; }
-    public string Prefix { get; set; }
+    public MenuModule MenuModule { get; set; }
+    public int? MenuModuleId { get; set; }
+    public int? SubmoduleId { get; set; }
     public string IconURL { get; set; }
+    public int SetSerial { get; set; }
 }
