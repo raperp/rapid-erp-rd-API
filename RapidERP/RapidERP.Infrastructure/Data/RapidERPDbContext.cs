@@ -11,6 +11,7 @@ using RapidERP.Domain.Entities.KitchenModels;
 using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Entities.MainModuleModels;
 using RapidERP.Domain.Entities.MenuModuleModels;
+using RapidERP.Domain.Entities.MessageModuleModels;
 using RapidERP.Domain.Entities.OrderTypeModels;
 using RapidERP.Domain.Entities.RiderModels;
 using RapidERP.Domain.Entities.RoleModules;
@@ -22,6 +23,7 @@ using RapidERP.Domain.Entities.SupplierModels;
 using RapidERP.Domain.Entities.SupplierTypeModels;
 using RapidERP.Domain.Entities.TableModules;
 using RapidERP.Domain.Entities.TenantModels;
+using RapidERP.Domain.Entities.TextModuleModels;
 using RapidERP.Domain.Entities.UserModels;
 using Table = RapidERP.Domain.Entities.TableModules.Table;
 
@@ -99,6 +101,12 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
 
     public DbSet<Role> Roles { get; set; }
     public DbSet<RoleAudit> RoleAudits { get; set; }
+
+    public DbSet<TextModule> TextModules { get; set; }
+    public DbSet<TextModuleAudit> TextModuleAudits { get; set; }
+
+    public DbSet<MessageModule> MessageModules { get; set; }
+    public DbSet<MessageModuleAudit> MessageModuleAudits { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

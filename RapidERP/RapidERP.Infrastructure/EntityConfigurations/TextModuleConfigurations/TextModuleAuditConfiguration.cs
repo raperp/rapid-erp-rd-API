@@ -1,17 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RapidERP.Domain.Entities.MenuModuleModels;
+using RapidERP.Domain.Entities.TextModuleModels;
 
-namespace RapidERP.Infrastructure.EntityConfigurations.MenuModuleConfigurations;
+namespace RapidERP.Infrastructure.EntityConfigurations.TextModuleConfigurations;
 
-public class MenuModuleAuditConfiguration : IEntityTypeConfiguration<MenuModuleAudit>
+public class TextModuleAuditConfiguration : IEntityTypeConfiguration<TextModuleAudit>
 {
-    public void Configure(EntityTypeBuilder<MenuModuleAudit> builder)
+    public void Configure(EntityTypeBuilder<TextModuleAudit> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(20).IsRequired();
-        builder.Property(x => x.IconURL).IsRequired();
-        builder.Property(x => x.SubmoduleId).IsRequired(false);
         builder.Property(x => x.Latitude).HasPrecision(9, 6);
         builder.Property(x => x.Longitude).HasPrecision(9, 6);
         builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired(false);

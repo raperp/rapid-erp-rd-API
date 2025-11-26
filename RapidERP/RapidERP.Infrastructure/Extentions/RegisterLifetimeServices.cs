@@ -33,6 +33,7 @@ public static class RegisterLifetimeServices
         services.AddScoped<ISubmodule, SubmoduleService>();
         services.AddScoped<IUser, UserService>();
         services.AddScoped<IRole, RoleService>();
+        services.AddScoped<ITextModule, TextModuleService>();
 
         return services;
     }
