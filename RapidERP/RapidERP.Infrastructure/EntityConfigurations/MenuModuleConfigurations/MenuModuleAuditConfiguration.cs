@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RapidERP.Domain.Entities.MenuModules;
+using RapidERP.Domain.Entities.MenuModuleModels;
 
-namespace RapidERP.Infrastructure.EntityConfigurations.MenuConfigurations;
+namespace RapidERP.Infrastructure.EntityConfigurations.MenuModuleConfigurations;
 
-public class MenuAuditConfiguration : IEntityTypeConfiguration<MenuAudit>
+public class MenuModuleAuditConfiguration : IEntityTypeConfiguration<MenuModuleAudit>
 {
-    public void Configure(EntityTypeBuilder<MenuAudit> builder)
+    public void Configure(EntityTypeBuilder<MenuModuleAudit> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(15).IsRequired();

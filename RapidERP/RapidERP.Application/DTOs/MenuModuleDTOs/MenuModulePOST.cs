@@ -1,8 +1,8 @@
 ﻿using RapidERP.Application.DTOs.Shared;
 
-namespace RapidERP.Application.DTOs.MenuDTOs;
+namespace RapidERP.Application.DTOs.MenuModuleDTOs;
 
-public class MenuPOST : BasePOST
+public class MenuModulePOST : BasePOST
 {
     public int SubmoduleId { get; set; }
     public string Prefix { get; set; }

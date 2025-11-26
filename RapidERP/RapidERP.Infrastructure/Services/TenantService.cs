@@ -70,7 +70,7 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
                 masterData.Website = masterPOST.Website;
                 masterData.CountryId = masterPOST.CountryId;
                 masterData.StateId = masterPOST.StateId;
-                masterData.MenuId = masterPOST.MenuId;
+                masterData.MenuModuleId = masterPOST.MenuId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.CreatedBy = masterPOST.ActionBy;
                 masterData.CreatedAt = DateTime.Now;

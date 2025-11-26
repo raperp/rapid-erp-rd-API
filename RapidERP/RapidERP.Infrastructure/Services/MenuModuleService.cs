@@ -1,20 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RapidERP.Application.DTOs.MenuDTOs;
+using RapidERP.Application.DTOs.MenuModuleDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
-using RapidERP.Domain.Entities.MainModuleModels;
-using RapidERP.Domain.Entities.MenuModules;
-using RapidERP.Domain.Entities.OrderTypeModels;
+using RapidERP.Domain.Entities.MenuModuleModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
+public class MenuModuleService(RapidERPDbContext context, IShared shared) : IMenuModule
 {
     RequestResponse requestResponse { get; set; }
 
-    public async Task<RequestResponse> CreateBulk(List<MenuPOST> masterPOSTs)
+    public async Task<RequestResponse> CreateBulk(List<MenuModulePOST> masterPOSTs)
     {
         try
         {
@@ -54,28 +52,28 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
         }
     }
 
-    public async Task<RequestResponse> CreateSingle(MenuPOST masterPOST)
+    public async Task<RequestResponse> CreateSingle(MenuModulePOST masterPOST)
     {
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.Menus.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
+            var isExists = await context.MenuModules.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
 
             if (isExists == false)
             {
-                Menu masterData = new();
+                MenuModule masterData = new();
                 masterData.Name = masterPOST.Name;
-                masterData.Prefix = masterPOST.Prefix;
+                //masterData.Prefix = masterPOST.Prefix;
                 masterData.IconURL = masterPOST.IconURL;
                 masterData.SubmoduleId = masterPOST.SubmoduleId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.CreatedBy = masterPOST.ActionBy;
                 masterData.CreatedAt = DateTime.Now;
 
-                await context.Menus.AddAsync(masterData);
+                await context.MenuModules.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                MenuAudit audit = new();
+                MenuModuleAudit audit = new();
                 audit.Name = masterPOST.Name;
                 audit.Prefix = masterPOST.Prefix;
                 audit.IconURL = masterPOST.IconURL;
@@ -97,7 +95,7 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
                 //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.MenuAudits.AddAsync(audit);
+                await context.MenuModuleAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -141,7 +139,7 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.MenuAudits.AsNoTracking().AnyAsync(x => x.MenuId == id);
+            var isAuditExists = await context.MenuModuleAudits.AsNoTracking().AnyAsync(x => x.MenuId == id);
 
             if (isAuditExists == false)
             {
@@ -155,10 +153,10 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
 
             else
             {
-                await context.MenuAudits.Where(x => x.MenuId == id).ExecuteDeleteAsync();
+                await context.MenuModuleAudits.Where(x => x.MenuId == id).ExecuteDeleteAsync();
             }
 
-            var isExists = await context.Menus.AsNoTracking().AnyAsync(x => x.Id == id);
+            var isExists = await context.MenuModules.AsNoTracking().AnyAsync(x => x.Id == id);
 
             if (isExists == false)
             {
@@ -172,7 +170,7 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
 
             else
             {
-                await context.Menus.Where(x => x.Id == id).ExecuteDeleteAsync();
+                await context.MenuModules.Where(x => x.Id == id).ExecuteDeleteAsync();
                 await transaction.CommitAsync();
             }
 
@@ -205,13 +203,13 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
         {
             GetAllDTO result = new();
 
-            var data = (from m in context.Menus
+            var data = (from m in context.MenuModules
                         join st in context.StatusTypes on m.StatusTypeId equals st.Id
                         select new
                         {
                             m.Id,
                             m.Name,
-                            m.Prefix,
+                            //m.Prefix,
                             Status = st.Name,
                             m.CreatedBy,
                             m.CreatedAt
@@ -219,7 +217,7 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
 
             if (skip == 0 || take == 0)
             {
-                result.Count = await shared.GetCounts<Menu>();
+                result.Count = await shared.GetCounts<MenuModule>();
                 result.Data = await data.ToListAsync();
 
                 requestResponse = new()
@@ -233,7 +231,7 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
 
             else
             {
-                result.Count = await shared.GetCounts<Menu>();
+                result.Count = await shared.GetCounts<MenuModule>();
                 result.Data = await data.Skip(skip).Take(take).ToListAsync();
 
                 requestResponse = new()
@@ -265,8 +263,8 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
     {
         try
         {
-            var data = (from ma in context.MenuAudits
-                        join m in context.Menus on ma.MenuId equals m.Id
+            var data = (from ma in context.MenuModuleAudits
+                        join m in context.MenuModules on ma.MenuId equals m.Id
                         join at in context.ActionTypes on ma.ActionTypeId equals at.Id
                         //join st in context.StatusTypes on ma.StatusTypeId equals st.Id
                         select new
@@ -336,7 +334,7 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
 
     public async Task<dynamic> GetSingle(int id)
     {
-        var result = await shared.GetSingle<Menu>(id);
+        var result = await shared.GetSingle<MenuModule>(id);
         return result;
     }
 
@@ -345,25 +343,25 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
         throw new NotImplementedException();
     }
 
-    public async Task<RequestResponse> Update(MenuPUT masterPUT)
+    public async Task<RequestResponse> Update(MenuModulePUT masterPUT)
     {
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.Menus.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
+            var isExists = await context.MenuModules.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
 
             if (isExists == false)
             {
-                await context.Menus.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
+                await context.MenuModules.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
-                .SetProperty(x => x.Prefix, masterPUT.Prefix)
+                //.SetProperty(x => x.Prefix, masterPUT.Prefix)
                 .SetProperty(x => x.IconURL, masterPUT.IconURL)
                 .SetProperty(x => x.SubmoduleId, masterPUT.SubModuleId)
                 //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));
 
-                MenuAudit audit = new();
+                MenuModuleAudit audit = new();
                 audit.Name = masterPUT.Name;
                 audit.Prefix = masterPUT.Prefix;
                 audit.IconURL = masterPUT.IconURL;
@@ -385,7 +383,7 @@ public class MenuService(RapidERPDbContext context, IShared shared) : IMenu
                 //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.MenuAudits.AddAsync(audit);
+                await context.MenuModuleAudits.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

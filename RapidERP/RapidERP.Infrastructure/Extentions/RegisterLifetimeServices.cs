@@ -3,6 +3,7 @@ using RapidERP.Application.Interfaces;
 using RapidERP.Infrastructure.Services;
 
 namespace RapidERP.Infrastructure.Extentions;
+
 public static class RegisterLifetimeServices
 {
     public static IServiceCollection AddScopedServices(this IServiceCollection services)
@@ -28,7 +29,7 @@ public static class RegisterLifetimeServices
         services.AddScoped<IKitchen, KitchenService>();
         services.AddScoped<IRider, RiderService>();
         services.AddScoped<IMainModule, MainModuleService>();
-        services.AddScoped<IMenu, MenuService>();
+        services.AddScoped<IMenuModule, MenuModuleService>();
         services.AddScoped<ISubmodule, SubmoduleService>();
         services.AddScoped<IUser, UserService>();
         services.AddScoped<IRole, RoleService>();

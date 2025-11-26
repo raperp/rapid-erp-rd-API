@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Domain.Entities.ActionTypeModels;
 using RapidERP.Domain.Entities.AreaModules;
-using RapidERP.Domain.Entities.UserModels;
 using RapidERP.Domain.Entities.CityModels;
 using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Entities.CurrencyModels;
@@ -11,9 +10,10 @@ using RapidERP.Domain.Entities.ExportTypeModels;
 using RapidERP.Domain.Entities.KitchenModels;
 using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Entities.MainModuleModels;
-using RapidERP.Domain.Entities.MenuModules;
+using RapidERP.Domain.Entities.MenuModuleModels;
 using RapidERP.Domain.Entities.OrderTypeModels;
 using RapidERP.Domain.Entities.RiderModels;
+using RapidERP.Domain.Entities.RoleModules;
 using RapidERP.Domain.Entities.SalesmanModels;
 using RapidERP.Domain.Entities.SateModules;
 using RapidERP.Domain.Entities.StatusTypeModels;
@@ -22,8 +22,8 @@ using RapidERP.Domain.Entities.SupplierModels;
 using RapidERP.Domain.Entities.SupplierTypeModels;
 using RapidERP.Domain.Entities.TableModules;
 using RapidERP.Domain.Entities.TenantModels;
+using RapidERP.Domain.Entities.UserModels;
 using Table = RapidERP.Domain.Entities.TableModules.Table;
-using RapidERP.Domain.Entities.RoleModules;
 
 namespace RapidERP.Infrastructure.Data;
 public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : DbContext(options)
@@ -91,8 +91,8 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
     public DbSet<Submodule> Submodules { get; set; }
     public DbSet<SubmoduleAudit> SubmoduleAudits { get; set; }
 
-    public DbSet<Menu> Menus { get; set; }
-    public DbSet<MenuAudit> MenuAudits { get; set; }
+    public DbSet<MenuModule> MenuModules { get; set; }
+    public DbSet<MenuModuleAudit> MenuModuleAudits { get; set; }
 
     public DbSet<User> Users { get; set; }
     public DbSet<UserAudit> UserAudits { get; set; }

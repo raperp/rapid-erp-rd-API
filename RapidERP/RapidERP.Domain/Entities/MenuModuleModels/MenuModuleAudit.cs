@@ -1,10 +1,10 @@
 ﻿using RapidERP.Domain.Entities.Shared;
 
-namespace RapidERP.Domain.Entities.MenuModules;
+namespace RapidERP.Domain.Entities.MenuModuleModels;
 
-public class MenuAudit : BaseAudit
+public class MenuModuleAudit : BaseAudit
 {
-    public Menu Menu { get; set; }
+    public MenuModule Menu { get; set; }
     public int MenuId { get; set; }
     public int? SubModuleId { get; set; }
     public string Prefix { get; set; }

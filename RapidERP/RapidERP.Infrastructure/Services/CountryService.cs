@@ -54,7 +54,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
             if (isExists == false)
             {
                 Country masterData = new();
-                masterData.MenuId = masterPOST.MenuId;
+                masterData.MenuModuleId = masterPOST.MenuId;
                 masterData.TenantId = masterPOST.TenantId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.LanguageId = masterPOST.LanguageId;
@@ -219,7 +219,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                         join st in context.StatusTypes on c.StatusTypeId equals st.Id
                         join t in context.Tenants on c.TenantId equals t.Id
                         join l in context.Languages on c.LanguageId equals l.Id
-                        join m in context.Menus on c.MenuId equals m.Id
+                        join m in context.MenuModules on c.MenuModuleId equals m.Id
                         join cu in context.Currencies on c.CurrencyId equals cu.Id
                         select new
                         {
@@ -301,7 +301,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                         join at in context.ActionTypes on ca.ActionTypeId equals at.Id
                         join t in context.Tenants on ca.TenantId equals t.Id
                         join l in context.Languages on ca.LanguageId equals l.Id
-                        join m in context.Menus on ca.MenuId equals m.Id
+                        join m in context.MenuModules on ca.MenuId equals m.Id
                         join cu in context.Currencies on ca.CurrencyId equals cu.Id
                         select new
                         {
@@ -404,7 +404,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 actionDTO.DraftedAt = (masterPUT.IsDraft == true) ? DateTime.Now : null;
                 
                 await context.Countries.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.MenuId, masterPUT.MenuId)
+                .SetProperty(x => x.MenuModuleId, masterPUT.MenuId)
                 .SetProperty(x => x.TenantId, masterPUT.TenantId)
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)

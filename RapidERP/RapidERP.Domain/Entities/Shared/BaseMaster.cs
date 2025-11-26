@@ -1,5 +1,5 @@
 ﻿using RapidERP.Domain.Entities.LanguageModels;
-using RapidERP.Domain.Entities.MenuModules;
+using RapidERP.Domain.Entities.MenuModuleModels;
 using RapidERP.Domain.Entities.StatusTypeModels;
 using RapidERP.Domain.Entities.TenantModels;
 
@@ -7,8 +7,8 @@ namespace RapidERP.Domain.Entities.Shared;
 
 public class BaseMaster : Master
 {
-    public Menu Menu { get; set; }
-    public int? MenuId { get; set; }
+    public MenuModule MenuModule { get; set; }
+    public int? MenuModuleId { get; set; }
     public Tenant Tenant { get; set; }
     public int? TenantId { get; set; }
     public StatusType StatusType { get; set; }

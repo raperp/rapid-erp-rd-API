@@ -18,8 +18,8 @@ public class StatusTypeConfiguration : IEntityTypeConfiguration<StatusType>
         builder.Property(x => x.DraftedAt).IsRequired(false);
         builder.Property(x => x.DeletedBy).IsRequired(false);
         builder.Property(x => x.DeletedAt).IsRequired(false);
-        builder.Ignore(x => x.Menu);
-        builder.Ignore(x => x.MenuId);
+        builder.Ignore(x => x.MenuModule);
+        builder.Ignore(x => x.MenuModuleId);
         builder.Ignore(x => x.StatusType);
         builder.Ignore(x => x.StatusTypeId);
         builder.Ignore(x => x.Tenant);
