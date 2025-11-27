@@ -68,8 +68,6 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
                 masterData.Code = masterPOST.Code;
                 masterData.Icon = masterPOST.Icon;
                 masterData.IsDefault = masterPOST.IsDefault;
-                //masterData.CreatedBy = masterPOST.CreatedBy;
-                masterData.CreatedAt = DateTime.Now;
 
                 await context.Currencies.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -216,9 +214,7 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
                             c.IsDefault,
                             Country = c.Name,
                             Language = l.Name,
-                            Status = st.Name,
-                            c.CreatedBy,
-                            c.CreatedAt
+                            Status = st.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -365,9 +361,7 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
                 //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Code, masterPUT.Code)
-                .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
-                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, DateTime.Now));
+                .SetProperty(x => x.IsDefault, masterPUT.IsDefault));
 
                 CurrencyAudit audit = new();
                 audit.Name = masterPUT.Name;

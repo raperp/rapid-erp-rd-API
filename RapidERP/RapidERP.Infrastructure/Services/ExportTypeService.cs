@@ -66,14 +66,6 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
                 masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Name = masterPOST.Name;
                 masterData.Description = masterPOST.Description;
-                masterData.CreatedBy = (masterPOST.IsDraft == false) ? masterPOST.ActionBy : null;
-                masterData.CreatedAt = (masterPOST.IsDraft == false) ? DateTime.Now : null;
-                masterData.DraftedBy = (masterPOST.IsDraft == true) ? masterPOST.ActionBy : null;
-                masterData.DraftedAt = (masterPOST.IsDraft == true) ? DateTime.Now : null;
-                masterData.UpdatedBy = null;
-                masterData.UpdatedAt = null;
-                masterData.DeletedBy = null;
-                masterData.DeletedAt = null;
 
                 await context.ExportTypes.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -206,15 +198,7 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
                             et.Id,
                             Language = l.Name,
                             et.Name,
-                            et.Description,
-                            et.CreatedBy,
-                            et.CreatedAt,
-                            et.DraftedBy,
-                            et.DraftedAt,
-                            et.UpdatedBy,
-                            et.UpdatedAt,
-                            et.DeletedBy,
-                            et.DeletedAt
+                            et.Description
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -356,11 +340,7 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
                 await context.ExportTypes.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Name, masterPUT.Name)
-                .SetProperty(x => x.Description, masterPUT.Description)
-                .SetProperty(x => x.UpdatedBy, actionDTO.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, actionDTO.UpdatedAt)
-                .SetProperty(x => x.DraftedBy, actionDTO.DraftedBy)
-                .SetProperty(x => x.DraftedAt, actionDTO.DraftedAt));
+                .SetProperty(x => x.Description, masterPUT.Description));
 
                 ExportTypeAudit audit = new();
                 audit.ExportTypeId = masterPUT.Id;

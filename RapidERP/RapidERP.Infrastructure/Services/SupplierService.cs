@@ -78,8 +78,6 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                 masterData.Email = masterPOST.Email;
                 masterData.Website = masterPOST.Website;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                //masterData.CreatedBy = masterPOST.CreatedBy;
-                masterData.CreatedAt = DateTime.Now;
 
                 await context.Suppliers.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -245,9 +243,7 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                             s.Email,
                             Status = st.Name,
                             Country = co.Name,
-                            Currency = cu.Name,
-                            s.CreatedBy,
-                            s.CreatedAt
+                            Currency = cu.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -413,10 +409,7 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                 .SetProperty(x => x.ContactPersonName, masterPUT.ContactPersonName)
                 .SetProperty(x => x.Mobile, masterPUT.Mobile)
                 .SetProperty(x => x.Email, masterPUT.Email)
-                .SetProperty(x => x.Website, masterPUT.Website)
-                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, DateTime.Now));
+                .SetProperty(x => x.Website, masterPUT.Website));
 
                 SupplierAudit audit = new();
                 audit.Name = masterPUT.Name;

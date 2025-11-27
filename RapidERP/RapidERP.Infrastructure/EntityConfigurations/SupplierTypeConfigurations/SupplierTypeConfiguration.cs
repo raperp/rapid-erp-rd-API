@@ -14,10 +14,6 @@ public class SupplierTypeConfiguration : IEntityTypeConfiguration<SupplierType>
         builder.Property(x => x.Phone).IsRequired(false);
         builder.Property(x => x.Street).IsRequired(false);
         builder.Property(x => x.PostCode).IsRequired(false);
-        builder.Property(x => x.Website).IsRequired(false);
-        builder.Property(x => x.CreatedBy).IsRequired();
-        builder.Property(x => x.CreatedAt).IsRequired();
-        builder.Property(x => x.UpdatedAt).IsRequired(false);
-        builder.Property(x => x.UpdatedBy).IsRequired(false);        
+        builder.Property(x => x.Website).IsRequired(false);        
     }
 }

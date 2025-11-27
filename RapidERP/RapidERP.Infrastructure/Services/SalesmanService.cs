@@ -72,8 +72,6 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                 masterData.Phone = masterPOST.Phone;
                 masterData.Email = masterPOST.Email;
                 masterData.Description = masterPOST.Description;
-                //masterData.CreatedBy = masterPOST.CreatedBy;
-                masterData.CreatedAt = DateTime.Now;
 
                 await context.Salesmen.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -227,9 +225,7 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                             s.Territory,
                             s.Experience,
                             Department = d.Name,
-                            Status = st.Name,
-                            s.CreatedBy,
-                            s.CreatedAt
+                            Status = st.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -388,10 +384,7 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                 .SetProperty(x => x.ManagerId, masterPUT.ManagerId)
                 .SetProperty(x => x.Phone, masterPUT.Phone)
                 .SetProperty(x => x.Email, masterPUT.Email)
-                .SetProperty(x => x.Description, masterPUT.Description)
-                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, DateTime.Now));
+                .SetProperty(x => x.Description, masterPUT.Description));
 
                 SalesmanAudit audit = new();
                 audit.Name = masterPUT.Name;

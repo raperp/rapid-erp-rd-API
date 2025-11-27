@@ -68,14 +68,6 @@ public class MainModuleService(RapidERPDbContext context, IShared shared) : IMai
                 masterData.Prefix = masterPOST.Prefix;
                 masterData.IconURL = masterPOST.IconURL;
                 masterData.SetSerial = masterPOST.SetSerial;
-                masterData.CreatedBy = (masterPOST.IsDraft == false) ? masterPOST.ActionBy : null;
-                masterData.CreatedAt = (masterPOST.IsDraft == false) ? DateTime.Now : null;
-                masterData.DraftedBy = (masterPOST.IsDraft == true) ? masterPOST.ActionBy : null;
-                masterData.DraftedAt = (masterPOST.IsDraft == true) ? DateTime.Now : null;
-                masterData.UpdatedBy = null;
-                masterData.UpdatedAt = null;
-                masterData.DeletedBy = null;
-                masterData.DeletedAt = null;
 
                 await context.MainModules.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -218,15 +210,7 @@ public class MainModuleService(RapidERPDbContext context, IShared shared) : IMai
                             mm.Name,
                             mm.Prefix,
                             mm.IconURL,
-                            mm.SetSerial,
-                            mm.CreatedBy,
-                            mm.CreatedAt,
-                            mm.DraftedBy,
-                            mm.DraftedAt,
-                            mm.UpdatedBy,
-                            mm.UpdatedAt,
-                            mm.DeletedBy,
-                            mm.DeletedAt
+                            mm.SetSerial
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -380,11 +364,7 @@ public class MainModuleService(RapidERPDbContext context, IShared shared) : IMai
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Prefix, masterPUT.Prefix)
                 .SetProperty(x => x.IconURL, masterPUT.IconURL)
-                .SetProperty(x => x.SetSerial, masterPUT.SetSerial)
-                .SetProperty(x => x.UpdatedBy, actionDTO.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, actionDTO.UpdatedAt)
-                .SetProperty(x => x.DraftedBy, actionDTO.DraftedBy)
-                .SetProperty(x => x.DraftedAt, actionDTO.DraftedAt));
+                .SetProperty(x => x.SetSerial, masterPUT.SetSerial));
 
                 MainModuleAudit audit = new();
                 audit.MainModuleId = masterPUT.Id;

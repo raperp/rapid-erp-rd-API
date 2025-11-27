@@ -69,8 +69,6 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
                 masterData.Address = masterPOST.Address;
                 masterData.Password = masterPOST.Password;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                //masterData.CreatedBy = masterPOST.CreatedBy;
-                masterData.CreatedAt = DateTime.Now;
 
                 await context.Users.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -218,9 +216,7 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
                             u.Mobile,
                             u.OTP,
                             StatusType = st.Name,
-                            Status = st.Name,
-                            u.CreatedBy,
-                            u.CreatedAt
+                            Status = st.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -370,10 +366,7 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
                 .SetProperty(x => x.Email, masterPUT.Email)
                 .SetProperty(x => x.Mobile, masterPUT.Mobile)
                 .SetProperty(x => x.Address, masterPUT.Address)
-                .SetProperty(x => x.Password, masterPUT.Password)
-                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, DateTime.Now));
+                .SetProperty(x => x.Password, masterPUT.Password));
 
                 UserAudit audit = new();
                 audit.Name = masterPUT.Name;

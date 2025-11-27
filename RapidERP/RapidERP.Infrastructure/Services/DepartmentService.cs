@@ -64,8 +64,6 @@ public class DepartmentService(RapidERPDbContext context, IShared shared) : IDep
                 masterData.Name = masterPOST.Name;
                 masterData.Description = masterPOST.Description;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                //masterData.CreatedBy = masterPOST.CreatedBy;
-                masterData.CreatedAt = DateTime.Now;
 
                 await context.Departments.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -205,9 +203,7 @@ public class DepartmentService(RapidERPDbContext context, IShared shared) : IDep
                             d.Id,
                             d.Name,
                             d.Description,
-                            Status = st.Name,
-                            d.CreatedBy,
-                            d.CreatedAt
+                            Status = st.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -350,10 +346,7 @@ public class DepartmentService(RapidERPDbContext context, IShared shared) : IDep
             {
                 await context.Departments.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
-                .SetProperty(x => x.Description, masterPUT.Description)
-                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, DateTime.Now));
+                .SetProperty(x => x.Description, masterPUT.Description));
 
                 DepartmentAudit audit = new();
                 audit.Name = masterPUT.Name;

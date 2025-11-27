@@ -66,8 +66,6 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                 masterData.CountryId = masterPOST.CountryId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.StateId = masterPOST.StateId;
-                //masterData.CreatedBy = masterPOST.CreatedBy;
-                masterData.CreatedAt = DateTime.Now;
 
                 await context.Areas.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -215,9 +213,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                             Tanent = st.Name,
                             Country = co.Name,
                             State = sta.Name,
-                            Status = st.Name,
-                            a.CreatedBy,
-                            a.CreatedAt
+                            Status = st.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -366,10 +362,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                 .SetProperty(x => x.CountryId, masterPUT.CountryId)
                 .SetProperty(x => x.StateId, masterPUT.StateId)
                 .SetProperty(x => x.CityId, masterPUT.CityId)
-                .SetProperty(x => x.Code, masterPUT.Code)
-                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, DateTime.Now));
+                .SetProperty(x => x.Code, masterPUT.Code));
 
                 AreaAudit audit = new();
                 audit.Name = masterPUT.Name;

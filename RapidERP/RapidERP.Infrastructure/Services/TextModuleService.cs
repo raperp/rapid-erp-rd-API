@@ -57,14 +57,6 @@ public class TextModuleService(RapidERPDbContext context, IShared shared) : ITex
                 masterData.MenuModuleId = masterPOST.MenuModuleId;
                 masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Name = masterPOST.Name;
-                masterData.CreatedBy = (masterPOST.IsDraft == false) ? masterPOST.ActionBy : null;
-                masterData.CreatedAt = (masterPOST.IsDraft == false) ? DateTime.Now : null;
-                masterData.DraftedBy = (masterPOST.IsDraft == true) ? masterPOST.ActionBy : null;
-                masterData.DraftedAt = (masterPOST.IsDraft == true) ? DateTime.Now : null;
-                masterData.UpdatedBy = null;
-                masterData.UpdatedAt = null;
-                masterData.DeletedBy = null;
-                masterData.DeletedAt = null;
 
                 await context.TextModules.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -141,15 +133,7 @@ public class TextModuleService(RapidERPDbContext context, IShared shared) : ITex
                             tm.Id,
                             MenuModule = mm.Name,
                             Language = l.Name,
-                            tm.Name,
-                            tm.CreatedBy,
-                            tm.CreatedAt,
-                            tm.DraftedBy,
-                            tm.DraftedAt,
-                            tm.UpdatedBy,
-                            tm.UpdatedAt,
-                            tm.DeletedBy,
-                            tm.DeletedAt
+                            tm.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -300,11 +284,7 @@ public class TextModuleService(RapidERPDbContext context, IShared shared) : ITex
                 await context.TextModules.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
-                .SetProperty(x => x.Name, masterPUT.Name)
-                .SetProperty(x => x.UpdatedBy, actionDTO.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, actionDTO.UpdatedAt)
-                .SetProperty(x => x.DraftedBy, actionDTO.DraftedBy)
-                .SetProperty(x => x.DraftedAt, actionDTO.DraftedAt));
+                .SetProperty(x => x.Name, masterPUT.Name));
 
                 TextModuleAudit audit = new();
                 audit.TextModuleId = masterPUT.Id;

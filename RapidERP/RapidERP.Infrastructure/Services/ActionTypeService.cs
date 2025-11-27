@@ -65,14 +65,6 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                 masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Name = masterPOST.Name;
                 masterData.Description = masterPOST.Description;
-                masterData.CreatedBy = (masterPOST.IsDraft == false) ? masterPOST.ActionBy : null;
-                masterData.CreatedAt = (masterPOST.IsDraft == false) ? DateTime.Now : null;
-                masterData.DraftedBy = (masterPOST.IsDraft == true) ? masterPOST.ActionBy : null;
-                masterData.DraftedAt = (masterPOST.IsDraft == true) ? DateTime.Now : null;
-                masterData.UpdatedBy = null;
-                masterData.UpdatedAt = null;
-                masterData.DeletedBy = null;
-                masterData.DeletedAt = null;
 
                 await context.ActionTypes.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -208,15 +200,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                             at.Id,
                             Language = l.Name,
                             at.Name,
-                            at.Description,
-                            at.CreatedBy,
-                            at.CreatedAt,
-                            at.DraftedBy,
-                            at.DraftedAt,
-                            at.UpdatedBy,
-                            at.UpdatedAt,
-                            at.DeletedBy,
-                            at.DeletedAt
+                            at.Description
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -362,11 +346,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                 await context.ActionTypes.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Name, masterPUT.Name)
-                .SetProperty(x => x.Description, masterPUT.Description)
-                .SetProperty(x => x.UpdatedBy, actionDTO.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, actionDTO.UpdatedAt)
-                .SetProperty(x => x.DraftedBy, actionDTO.DraftedBy)
-                .SetProperty(x => x.DraftedAt, actionDTO.DraftedAt));
+                .SetProperty(x => x.Description, masterPUT.Description));
 
                 ActionTypeAudit audit = new();
                 audit.ActionTypeId = masterPUT.Id;

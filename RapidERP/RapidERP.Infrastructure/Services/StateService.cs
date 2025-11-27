@@ -69,8 +69,6 @@ namespace RapidERP.Infrastructure.Services
                     masterData.LanguageId = masterPOST.LanguageId;
                     masterData.Code = masterPOST.Code;
                     masterData.IsDefault = masterPOST.IsDefault;
-                    //masterData.CreatedBy = masterPOST.CreatedBy;
-                    masterData.CreatedAt = DateTime.Now;
 
                     await context.States.AddAsync(masterData);
                     await context.SaveChangesAsync();
@@ -219,9 +217,7 @@ namespace RapidERP.Infrastructure.Services
                                 s.IsDefault,
                                 Country = c.Name,
                                 Language = l.Name,
-                                Status = st.Name,
-                                c.CreatedBy,
-                                c.CreatedAt
+                                Status = st.Name
                             }).AsNoTracking().AsQueryable();
 
                 if (skip == 0 || take == 0)
@@ -369,9 +365,7 @@ namespace RapidERP.Infrastructure.Services
                     //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                     .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                     .SetProperty(x => x.Code, masterPUT.Code)
-                    .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
-                    //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
-                    .SetProperty(x => x.UpdatedAt, DateTime.Now));
+                    .SetProperty(x => x.IsDefault, masterPUT.IsDefault));
 
                     StateAudit audit = new();
                     audit.Name = masterPUT.Name;

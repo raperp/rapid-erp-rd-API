@@ -17,9 +17,5 @@ public class SalesmanConfiguration : IEntityTypeConfiguration<Salesman>
         builder.Property(x => x.Phone).IsRequired();
         builder.Property(x => x.Email).IsRequired(false);
         builder.Property(x => x.Description).HasMaxLength(200).IsRequired(false);
-        builder.Property(x => x.CreatedBy).IsRequired();
-        builder.Property(x => x.CreatedAt).IsRequired();
-        builder.Property(x => x.UpdatedAt).IsRequired(false);
-        builder.Property(x => x.UpdatedBy).IsRequired(false);
     }
 }

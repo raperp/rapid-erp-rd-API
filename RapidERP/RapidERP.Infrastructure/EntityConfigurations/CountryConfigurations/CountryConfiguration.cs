@@ -15,14 +15,6 @@ public class CountryConfiguration : IEntityTypeConfiguration<Country>
         builder.Property(x => x.ISONumeric).HasMaxLength(4).IsRequired();
         builder.Ignore(x => x.Tenant);
         builder.Property(x => x.TenantId).IsRequired(false);
-        builder.Property(x => x.CreatedBy).IsRequired(false);
-        builder.Property(x => x.CreatedAt).IsRequired(false);
-        builder.Property(x => x.UpdatedBy).IsRequired(false);
-        builder.Property(x => x.UpdatedAt).IsRequired(false);
-        builder.Property(x => x.DraftedBy).IsRequired(false);
-        builder.Property(x => x.DraftedAt).IsRequired(false);
-        builder.Property(x => x.DeletedBy).IsRequired(false);
-        builder.Property(x => x.DeletedAt).IsRequired(false);
         
         builder.HasMany(x => x.Tenants)
                .WithOne(x => x.Country)
