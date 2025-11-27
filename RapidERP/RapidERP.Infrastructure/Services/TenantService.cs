@@ -69,7 +69,7 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
                 masterData.Email = masterPOST.Email;
                 masterData.Website = masterPOST.Website;
                 masterData.CountryId = masterPOST.CountryId;
-                masterData.StateId = masterPOST.StateId;
+                //masterData.StateId = masterPOST.StateId;
                 masterData.MenuModuleId = masterPOST.MenuId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.CreatedBy = masterPOST.ActionBy;
@@ -226,7 +226,7 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
                             t.Email,
                             t.Website,
                             t.CountryId,
-                            t.StateId,
+                            //t.StateId,
                             Status = st.Name,
                             t.CreatedBy,
                             t.CreatedAt
@@ -382,7 +382,7 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
                 .SetProperty(x => x.Email, masterPUT.Email)
                 .SetProperty(x => x.Website, masterPUT.Website)
                 .SetProperty(x => x.CountryId, masterPUT.CountryId)
-                .SetProperty(x => x.StateId, masterPUT.StateId)
+                //.SetProperty(x => x.StateId, masterPUT.StateId)
                 //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
                 .SetProperty(x => x.UpdatedAt, DateTime.Now));

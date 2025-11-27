@@ -13,6 +13,8 @@ public class CountryConfiguration : IEntityTypeConfiguration<Country>
         builder.Property(x => x.ISO3Code).HasMaxLength(3).IsRequired();
         builder.Property(x => x.ISO2Code).HasMaxLength(2).IsRequired();
         builder.Property(x => x.ISONumeric).HasMaxLength(4).IsRequired();
+        builder.Ignore(x => x.Tenant);
+        builder.Property(x => x.TenantId).IsRequired(false);
         builder.Property(x => x.CreatedBy).IsRequired(false);
         builder.Property(x => x.CreatedAt).IsRequired(false);
         builder.Property(x => x.UpdatedBy).IsRequired(false);
@@ -21,10 +23,10 @@ public class CountryConfiguration : IEntityTypeConfiguration<Country>
         builder.Property(x => x.DraftedAt).IsRequired(false);
         builder.Property(x => x.DeletedBy).IsRequired(false);
         builder.Property(x => x.DeletedAt).IsRequired(false);
-
-        //builder.HasMany(x => x.Submodules)
-        //        .WithOne(x => x.Menu)
-        //        .HasForeignKey(x => x.MenuId)
-        //        .OnDelete(DeleteBehavior.NoAction);
+        
+        builder.HasMany(x => x.Tenants)
+               .WithOne(x => x.Country)
+               .HasForeignKey(x => x.CountryId)
+               .OnDelete(DeleteBehavior.NoAction);
     }
 }
