@@ -25,17 +25,16 @@ using RapidERP.Domain.Entities.TableModules;
 using RapidERP.Domain.Entities.TenantModels;
 using RapidERP.Domain.Entities.TextModuleModels;
 using RapidERP.Domain.Entities.UserModels;
-using Table = RapidERP.Domain.Entities.TableModules.Table;
 
 namespace RapidERP.Infrastructure.Data;
 
-public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : DbContext(options)
+public class RapidMasterERPDbContext(DbContextOptions<RapidMasterERPDbContext> options) : DbContext(options)
 {
     public DbSet<Language> Languages { get; set; }
-    public DbSet<LanguageAudit> LanguageAudits { get; set; } 
+    public DbSet<LanguageAudit> LanguageAudits { get; set; }
 
     public DbSet<ExportType> ExportTypes { get; set; }
-    public DbSet<ExportTypeAudit> ExportTypeAudits { get; set; } 
+    public DbSet<ExportTypeAudit> ExportTypeAudits { get; set; }
 
     public DbSet<ActionType> ActionTypes { get; set; }
     public DbSet<ActionTypeAudit> ActionTypeAudits { get; set; }
@@ -112,6 +111,6 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(RapidERPDbContext).Assembly);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(RapidMasterERPDbContext).Assembly);
     }
 }
