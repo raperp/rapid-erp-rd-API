@@ -1,7 +1,7 @@
 ﻿using RapidERP.Domain.Entities.Shared;
 
 namespace RapidERP.Domain.Entities.DesignationModels;
-public class DesignationAudit : BaseAudit
+public class DesignationAudit : BaseHistory
 {
     public Designation Designation { get; set; }
     public int DesignationId { get; set; }

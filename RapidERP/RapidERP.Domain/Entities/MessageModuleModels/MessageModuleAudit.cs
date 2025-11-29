@@ -2,7 +2,7 @@
 
 namespace RapidERP.Domain.Entities.MessageModuleModels;
 
-public class MessageModuleAudit : BaseAudit
+public class MessageModuleAudit : BaseHistory
 {
     public MessageModule MessageModule { get; set; }
     public int? MessageModuleId { get; set; }

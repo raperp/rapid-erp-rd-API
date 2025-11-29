@@ -71,8 +71,6 @@ public class SupplierTypeService(RapidERPDbContext context, IShared shared) : IS
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.CurrencyId = masterPOST.CurrencyId;
                 masterData.CountryId = masterPOST.CountryId;
-                //masterData.CreatedBy = masterPOST.CreatedBy;
-                masterData.CreatedAt = DateTime.Now;
 
                 await context.SupplierTypes.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -225,9 +223,7 @@ public class SupplierTypeService(RapidERPDbContext context, IShared shared) : IS
                             st.PostCode,
                             Currency = cu.Name,
                             Country = co.Name,
-                            Language = l.Name,
-                            st.CreatedBy,
-                            st.CreatedAt
+                            Language = l.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -378,10 +374,7 @@ public class SupplierTypeService(RapidERPDbContext context, IShared shared) : IS
                 .SetProperty(x => x.PostCode, masterPUT.PostCode)
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.CurrencyId, masterPUT.CurrencyId)
-                .SetProperty(x => x.CountryId, masterPUT.CountryId)
-                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, DateTime.Now));
+                .SetProperty(x => x.CountryId, masterPUT.CountryId));
 
                 SupplierTypeAudit audit = new();
                 audit.Name = masterPUT.Name;

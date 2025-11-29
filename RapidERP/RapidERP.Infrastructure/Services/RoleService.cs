@@ -65,8 +65,6 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
                 Role masterData = new();
                 masterData.Name = masterPOST.Name;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                //masterData.CreatedBy = masterPOST.CreatedBy;
-                masterData.CreatedAt = DateTime.Now;
 
                 await context.Roles.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -204,9 +202,7 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
                         {
                             r.Id,
                             r.Name,
-                            Status = st.Name,
-                            r.CreatedBy,
-                            r.CreatedAt
+                            Status = st.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -346,10 +342,7 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
             if (isExists == false)
             {
                 await context.Roles.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.Name, masterPUT.Name)
-                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, DateTime.Now));
+                .SetProperty(x => x.Name, masterPUT.Name));
 
                 RoleAudit audit = new();
                 audit.Name = masterPUT.Name;

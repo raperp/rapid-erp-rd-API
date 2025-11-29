@@ -1,6 +1,6 @@
 ﻿namespace RapidERP.Domain.Entities.Shared;
 
-public class BaseAudit : Tracker
+public class BaseHistory : Tracker
 {
     public int? TenantId { get; set; }
     public int? MenuModuleId { get; set; }

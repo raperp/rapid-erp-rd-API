@@ -60,14 +60,6 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
                 masterData.ISO2Code = masterPOST.ISO2Code;
                 masterData.ISO3Code = masterPOST.ISO3Code;
                 masterData.IconURL = masterPOST.IconURL;
-                masterData.CreatedBy = (masterPOST.IsDraft == false) ? masterPOST.ActionBy : null;
-                masterData.CreatedAt = (masterPOST.IsDraft == false) ? DateTime.Now : null;
-                masterData.DraftedBy = (masterPOST.IsDraft == true) ? masterPOST.ActionBy : null;
-                masterData.DraftedAt = (masterPOST.IsDraft == true) ? DateTime.Now : null;
-                masterData.UpdatedBy = null;
-                masterData.UpdatedAt = null;
-                masterData.DeletedBy = null;
-                masterData.DeletedAt = null;
 
                 await context.Languages.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -204,14 +196,6 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
                             l.ISO2Code,
                             l.ISO3Code,
                             l.IconURL,
-                            l.CreatedBy,
-                            l.CreatedAt,
-                            l.DraftedBy,
-                            l.DraftedAt,
-                            l.UpdatedBy,
-                            l.UpdatedAt,
-                            l.DeletedBy,
-                            l.DeletedAt
                         }).AsNoTracking().AsQueryable();
             
             if (skip == 0 || take == 0)
@@ -356,11 +340,7 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.ISO2Code, masterPUT.ISO2Code)
                 .SetProperty(x => x.ISO3Code, masterPUT.ISO3Code)
-                .SetProperty(x => x.IconURL, masterPUT.IconURL)
-                .SetProperty(x => x.UpdatedBy, actionDTO.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, actionDTO.UpdatedAt)
-                .SetProperty(x => x.DraftedBy, actionDTO.DraftedBy)
-                .SetProperty(x => x.DraftedAt, actionDTO.DraftedAt));
+                .SetProperty(x => x.IconURL, masterPUT.IconURL));
 
                 LanguageAudit audit = new();
                 audit.LanguageId = masterPUT.Id;

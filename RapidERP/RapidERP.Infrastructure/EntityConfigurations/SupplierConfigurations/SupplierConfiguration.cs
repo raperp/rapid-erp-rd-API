@@ -21,9 +21,5 @@ public class SupplierConfiguration : IEntityTypeConfiguration<Supplier>
         builder.Property(x => x.DepositAmount).HasPrecision(18, 2).IsRequired(false);
         builder.Property(x => x.ExchangeRate).HasPrecision(18, 2).IsRequired(false);
         builder.Property(x => x.LocalAmount).HasPrecision(18, 2).IsRequired(false);
-        builder.Property(x => x.CreatedBy).IsRequired();
-        builder.Property(x => x.CreatedAt).IsRequired();
-        builder.Property(x => x.UpdatedAt).IsRequired(false);
-        builder.Property(x => x.UpdatedBy).IsRequired(false);
     }
 }

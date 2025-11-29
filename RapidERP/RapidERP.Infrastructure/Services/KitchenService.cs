@@ -67,8 +67,6 @@ namespace RapidERP.Infrastructure.Services
                     masterData.Description = masterPOST.Description;
                     masterData.PrinterId = masterPOST.PrinterId;
                     masterData.StatusTypeId = masterPOST.StatusTypeId;
-                    //masterData.CreatedBy = masterPOST.CreatedBy;
-                    masterData.CreatedAt = DateTime.Now;
 
                     await context.Kitchens.AddAsync(masterData);
                     await context.SaveChangesAsync();
@@ -210,9 +208,7 @@ namespace RapidERP.Infrastructure.Services
                                 k.Name,
                                 k.Description,
                                 k.PrinterId,
-                                Status = st.Name,
-                                k.CreatedBy,
-                                k.CreatedAt
+                                Status = st.Name
                             }).AsNoTracking().AsQueryable();
 
                 if (skip == 0 || take == 0)
@@ -356,10 +352,7 @@ namespace RapidERP.Infrastructure.Services
                     await context.Kitchens.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                     .SetProperty(x => x.Name, masterPUT.Name)
                     .SetProperty(x => x.Description, masterPUT.Description)
-                    .SetProperty(x => x.PrinterId, masterPUT.PrinterId)
-                    //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                    //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
-                    .SetProperty(x => x.UpdatedAt, DateTime.Now));
+                    .SetProperty(x => x.PrinterId, masterPUT.PrinterId));
 
                     KitchenAudit audit = new();
                     audit.Name = masterPUT.Name;

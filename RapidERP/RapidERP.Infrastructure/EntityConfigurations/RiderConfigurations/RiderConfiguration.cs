@@ -13,9 +13,5 @@ public class RiderConfiguration : IEntityTypeConfiguration<Rider>
         builder.Property(x => x.Description).HasMaxLength(100).IsRequired(false);
         builder.Property(x => x.Email).HasMaxLength(15).IsRequired(false);
         builder.Property(x => x.MobileNumber).HasMaxLength(15).IsRequired(false);
-        builder.Property(x => x.CreatedBy).IsRequired();
-        builder.Property(x => x.CreatedAt).IsRequired();
-        builder.Property(x => x.UpdatedAt).IsRequired(false);
-        builder.Property(x => x.UpdatedBy).IsRequired(false);
     }
 }

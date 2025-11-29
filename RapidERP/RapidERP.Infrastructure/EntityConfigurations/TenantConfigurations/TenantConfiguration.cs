@@ -15,14 +15,6 @@ public class TenantConfiguration : IEntityTypeConfiguration<Tenant>
         builder.Property(x => x.Address).HasMaxLength(30).IsRequired(false);
         builder.Property(x => x.Email).HasMaxLength(20).IsRequired(false);
         builder.Property(x => x.Website).HasMaxLength(20).IsRequired(false);
-        builder.Property(x => x.CreatedBy).IsRequired(false);
-        builder.Property(x => x.CreatedAt).IsRequired(false);
-        builder.Property(x => x.UpdatedBy).IsRequired(false);
-        builder.Property(x => x.UpdatedAt).IsRequired(false);
-        builder.Property(x => x.DraftedBy).IsRequired(false);
-        builder.Property(x => x.DraftedAt).IsRequired(false);
-        builder.Property(x => x.DeletedBy).IsRequired(false);
-        builder.Property(x => x.DeletedAt).IsRequired(false);
         builder.Ignore(x => x.IsDefault);
         builder.Ignore(x => x.IsDraft);
         builder.Ignore(x => x.Tenant);

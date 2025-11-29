@@ -4,9 +4,9 @@ using RapidERP.Domain.Entities.ActionTypeModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.ActionTypeConfigurations;
 
-public class ActionTypeAuditConfiguration : IEntityTypeConfiguration<ActionTypeAudit>
+public class ActionTypeAuditConfiguration : IEntityTypeConfiguration<ActionTypeHistory>
 {
-    public void Configure(EntityTypeBuilder<ActionTypeAudit> builder)
+    public void Configure(EntityTypeBuilder<ActionTypeHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(5).IsRequired();

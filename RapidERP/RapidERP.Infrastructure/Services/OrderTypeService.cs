@@ -65,8 +65,6 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
                 masterData.Name = masterPOST.Name;
                 masterData.Description = masterPOST.Description;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                //masterData.CreatedBy = masterPOST.CreatedBy;
-                masterData.CreatedAt = DateTime.Now;
 
                 await context.OrderTypes.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -206,9 +204,7 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
                             ot.Id,
                             ot.Name,
                             ot.Description,
-                            Status = st.Name,
-                            ot.CreatedBy,
-                            ot.CreatedAt
+                            Status = st.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -350,10 +346,7 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
             {
                 await context.OrderTypes.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
-                .SetProperty(x => x.Description, masterPUT.Description)
-                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, DateTime.Now));
+                .SetProperty(x => x.Description, masterPUT.Description));
 
                 OrderTypeAudit audit = new();
                 audit.Name = masterPUT.Name;

@@ -69,14 +69,6 @@ public class SubmoduleService(RapidERPDbContext context, IShared shared) : ISubm
                 masterData.Name = masterPOST.Name;
                 masterData.IconURL = masterPOST.IconURL;
                 masterData.SetSerial = masterPOST.SetSerial;
-                masterData.CreatedBy = (masterPOST.IsDraft == false) ? masterPOST.ActionBy : null;
-                masterData.CreatedAt = (masterPOST.IsDraft == false) ? DateTime.Now : null;
-                masterData.DraftedBy = (masterPOST.IsDraft == true) ? masterPOST.ActionBy : null;
-                masterData.DraftedAt = (masterPOST.IsDraft == true) ? DateTime.Now : null;
-                masterData.UpdatedBy = null;
-                masterData.UpdatedAt = null;
-                masterData.DeletedBy = null;
-                masterData.DeletedAt = null;
 
                 await context.Submodules.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -220,15 +212,7 @@ public class SubmoduleService(RapidERPDbContext context, IShared shared) : ISubm
                             Language = l.Name,
                             sm.Name,
                             sm.IconURL,
-                            sm.SetSerial,
-                            sm.CreatedBy,
-                            sm.CreatedAt,
-                            sm.DraftedBy,
-                            sm.DraftedAt,
-                            sm.UpdatedBy,
-                            sm.UpdatedAt,
-                            sm.DeletedBy,
-                            sm.DeletedAt
+                            sm.SetSerial
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -382,11 +366,7 @@ public class SubmoduleService(RapidERPDbContext context, IShared shared) : ISubm
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.IconURL, masterPUT.IconURL)
-                .SetProperty(x => x.SetSerial, masterPUT.SetSerial)
-                .SetProperty(x => x.UpdatedBy, actionDTO.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, actionDTO.UpdatedAt)
-                .SetProperty(x => x.DraftedBy, actionDTO.DraftedBy)
-                .SetProperty(x => x.DraftedAt, actionDTO.DraftedAt));
+                .SetProperty(x => x.SetSerial, masterPUT.SetSerial));
 
                 SubmoduleAudit audit = new();
                 audit.SubmoduleId = masterPUT.Id;

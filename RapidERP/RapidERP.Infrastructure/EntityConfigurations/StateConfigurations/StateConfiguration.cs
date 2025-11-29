@@ -13,10 +13,6 @@ public class StateConfiguration : IEntityTypeConfiguration<State>
         builder.Property(x => x.Code).HasMaxLength(4).IsRequired();
         builder.Property(x => x.MenuId).IsRequired(false);
         builder.Property(x => x.TenantId).IsRequired(false);
-        builder.Property(x => x.CreatedBy).IsRequired();
-        builder.Property(x => x.CreatedAt).IsRequired();
-        builder.Property(x => x.UpdatedAt).IsRequired(false);
-        builder.Property(x => x.UpdatedBy).IsRequired(false);
         builder.Ignore(x => x.Tenant);
 
         builder.HasMany(x => x.Tenants)

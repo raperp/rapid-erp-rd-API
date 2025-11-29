@@ -65,19 +65,11 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                 masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Name = masterPOST.Name;
                 masterData.Description = masterPOST.Description;
-                masterData.CreatedBy = (masterPOST.IsDraft == false) ? masterPOST.ActionBy : null;
-                masterData.CreatedAt = (masterPOST.IsDraft == false) ? DateTime.Now : null;
-                masterData.DraftedBy = (masterPOST.IsDraft == true) ? masterPOST.ActionBy : null;
-                masterData.DraftedAt = (masterPOST.IsDraft == true) ? DateTime.Now : null;
-                masterData.UpdatedBy = null;
-                masterData.UpdatedAt = null;
-                masterData.DeletedBy = null;
-                masterData.DeletedAt = null;
 
                 await context.ActionTypes.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                ActionTypeAudit audit = new();
+                ActionTypeHistory audit = new();
                 audit.ActionTypeId = masterData.Id;
                 audit.LanguageId = masterPOST.LanguageId;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
@@ -95,7 +87,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                 audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.ActionTypeAudits.AddAsync(audit);
+                await context.ActionTypeHistories.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -139,7 +131,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.ActionTypeAudits.AsNoTracking().AnyAsync(x => x.ActionTypeId == id);
+            var isAuditExists = await context.ActionTypeHistories.AsNoTracking().AnyAsync(x => x.ActionTypeId == id);
 
             if (isAuditExists == false)
             {
@@ -153,7 +145,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
 
             else
             {
-                await context.ActionTypeAudits.Where(x => x.ActionTypeId == id).ExecuteDeleteAsync();
+                await context.ActionTypeHistories.Where(x => x.ActionTypeId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.ActionTypes.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -208,15 +200,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                             at.Id,
                             Language = l.Name,
                             at.Name,
-                            at.Description,
-                            at.CreatedBy,
-                            at.CreatedAt,
-                            at.DraftedBy,
-                            at.DraftedAt,
-                            at.UpdatedBy,
-                            at.UpdatedAt,
-                            at.DeletedBy,
-                            at.DeletedAt
+                            at.Description
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -265,29 +249,29 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
     {
         try
         {
-            var data = (from ata in context.ActionTypeAudits
-                        join at in context.ActionTypes on ata.ActionTypeId equals at.Id
-                        join l in context.Languages on ata.LanguageId equals l.Id
-                        join et in context.ExportTypes on ata.ExportTypeId equals et.Id
+            var data = (from ath in context.ActionTypeHistories
+                        join at in context.ActionTypes on ath.ActionTypeId equals at.Id
+                        join l in context.Languages on ath.LanguageId equals l.Id
+                        join et in context.ExportTypes on ath.ExportTypeId equals et.Id
                         select new
                         {
-                            ata.Id,
+                            ath.Id,
                             ActionType = at.Name,
                             Language = l.Name,
                             ExportType = et.Name,
-                            ata.ExportTo,
-                            ata.SourceURL,
-                            ata.Name,
-                            ata.Description,
-                            ata.Browser,
-                            ata.Location,
-                            ata.DeviceIP,
-                            ata.LocationURL,
-                            ata.DeviceName,
-                            ata.Latitude,
-                            ata.Longitude,
-                            ata.ActionBy,
-                            ata.ActionAt
+                            ath.ExportTo,
+                            ath.SourceURL,
+                            ath.Name,
+                            ath.Description,
+                            ath.Browser,
+                            ath.Location,
+                            ath.DeviceIP,
+                            ath.LocationURL,
+                            ath.DeviceName,
+                            ath.Latitude,
+                            ath.Longitude,
+                            ath.ActionBy,
+                            ath.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -362,13 +346,9 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                 await context.ActionTypes.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Name, masterPUT.Name)
-                .SetProperty(x => x.Description, masterPUT.Description)
-                .SetProperty(x => x.UpdatedBy, actionDTO.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, actionDTO.UpdatedAt)
-                .SetProperty(x => x.DraftedBy, actionDTO.DraftedBy)
-                .SetProperty(x => x.DraftedAt, actionDTO.DraftedAt));
+                .SetProperty(x => x.Description, masterPUT.Description));
 
-                ActionTypeAudit audit = new();
+                ActionTypeHistory audit = new();
                 audit.ActionTypeId = masterPUT.Id;
                 audit.LanguageId = masterPUT.LanguageId;
                 audit.ExportTypeId = masterPUT.ExportTypeId;
@@ -386,7 +366,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                 audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.ActionTypeAudits.AddAsync(audit);
+                await context.ActionTypeHistories.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

@@ -72,8 +72,6 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
                 masterData.AreaId = masterPOST.AreaId;
                 masterData.CityId = masterPOST.CityId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                //masterData.CreatedBy = masterPOST.CreatedBy;
-                masterData.CreatedAt = DateTime.Now;
 
                 await context.Riders.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -229,9 +227,7 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
                             Country = c.Name,
                             State = sta.Name,
                             City = c.Name,
-                            Area = a.Name,
-                            r.CreatedBy,
-                            r.CreatedAt
+                            Area = a.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -390,10 +386,7 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
                 .SetProperty(x => x.CountryId, masterPUT.CountryId)
                 .SetProperty(x => x.StateId, masterPUT.StateId)
                 .SetProperty(x => x.CityId, masterPUT.CityId)
-                .SetProperty(x => x.AreaId, masterPUT.AreaId)
-                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, DateTime.Now));
+                .SetProperty(x => x.AreaId, masterPUT.AreaId));
 
                 RiderAudit audit = new();
                 audit.Name = masterPUT.Name;

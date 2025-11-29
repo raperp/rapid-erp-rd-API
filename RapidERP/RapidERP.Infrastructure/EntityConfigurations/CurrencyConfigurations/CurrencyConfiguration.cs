@@ -12,10 +12,6 @@ namespace RapidERP.Infrastructure.EntityConfiguration.CurrencyConfigurations
             builder.Property(x => x.Name).HasMaxLength(40).IsRequired();
             builder.Property(x => x.Code).HasMaxLength(4).IsRequired();
             builder.Property(x => x.MenuId).IsRequired(false);
-            builder.Property(x => x.CreatedBy).IsRequired();
-            builder.Property(x => x.CreatedAt).IsRequired();
-            builder.Property(x => x.UpdatedAt).IsRequired(false);
-            builder.Property(x => x.UpdatedBy).IsRequired(false);
 
             builder.HasMany(x => x.Countries)
                     .WithOne(x => x.Currency)

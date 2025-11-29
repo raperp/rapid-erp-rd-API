@@ -68,8 +68,6 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
                 masterData.Description = masterPOST.Description;
                 masterData.TotalPersons = masterPOST.TotalPersons;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                //masterData.CreatedBy = masterPOST.CreatedBy;
-                masterData.CreatedAt = DateTime.Now;
 
                 await context.Tables.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -211,9 +209,7 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
                             t.Name,
                             t.Description,
                             t.TotalPersons,
-                            Status = st.Name,
-                            t.CreatedBy,
-                            t.CreatedAt
+                            Status = st.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -357,10 +353,7 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
                 await context.Tables.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description)
-                .SetProperty(x => x.TotalPersons, masterPUT.TotalPersons)
-                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                //.SetProperty(x => x.UpdatedBy, masterPUT.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, DateTime.Now));
+                .SetProperty(x => x.TotalPersons, masterPUT.TotalPersons));
 
                 TableAudit audit = new();
                 audit.Name = masterPUT.Name;

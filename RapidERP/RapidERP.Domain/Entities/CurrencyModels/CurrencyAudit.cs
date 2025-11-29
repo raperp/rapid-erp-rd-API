@@ -1,7 +1,7 @@
 ﻿using RapidERP.Domain.Entities.Shared;
 
 namespace RapidERP.Domain.Entities.CurrencyModels;
-public class CurrencyAudit : BaseAudit
+public class CurrencyAudit : BaseHistory
 {
     public Currency Currency { get; set; }
     public int CurrencyId { get; set; }

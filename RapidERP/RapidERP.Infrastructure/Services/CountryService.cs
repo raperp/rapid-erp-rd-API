@@ -67,14 +67,6 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 masterData.ISO2Code = masterPOST.ISO2Code;
                 masterData.ISO3Code = masterPOST.ISO3Code;
                 masterData.FlagURL = masterPOST.FlagURL;
-                masterData.CreatedBy = (masterPOST.IsDraft == false) ? masterPOST.ActionBy : null;
-                masterData.CreatedAt = (masterPOST.IsDraft == false) ? DateTime.Now : null;
-                masterData.DraftedBy = (masterPOST.IsDraft == true) ? masterPOST.ActionBy : null;
-                masterData.DraftedAt = (masterPOST.IsDraft == true) ? DateTime.Now : null;
-                masterData.UpdatedBy = null;
-                masterData.UpdatedAt = null;
-                masterData.DeletedBy = null;
-                masterData.DeletedAt = null;
 
                 await context.Countries.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -236,15 +228,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                             c.ISONumeric,
                             c.ISO2Code,
                             c.ISO3Code,
-                            c.FlagURL,
-                            c.CreatedBy,
-                            c.CreatedAt,
-                            c.DraftedBy,
-                            c.DraftedAt,
-                            c.UpdatedBy,
-                            c.UpdatedAt,
-                            c.DeletedBy,
-                            c.DeletedAt
+                            c.FlagURL
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -397,12 +381,6 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
 
             if (isExists == false)
             {
-                ActionDTO actionDTO = new();
-                actionDTO.UpdatedBy = (masterPUT.IsDraft == false) ? masterPUT.ActionBy : null;
-                actionDTO.UpdatedAt = (masterPUT.IsDraft == false) ? DateTime.Now : null;
-                actionDTO.DraftedBy = (masterPUT.IsDraft == true) ? masterPUT.ActionBy : null;
-                actionDTO.DraftedAt = (masterPUT.IsDraft == true) ? DateTime.Now : null;
-                
                 await context.Countries.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.MenuModuleId, masterPUT.MenuId)
                 .SetProperty(x => x.TenantId, masterPUT.TenantId)
@@ -416,11 +394,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 .SetProperty(x => x.ISONumeric, masterPUT.ISONumeric)
                 .SetProperty(x => x.ISO2Code, masterPUT.ISO2Code)
                 .SetProperty(x => x.ISO3Code, masterPUT.ISO3Code)
-                .SetProperty(x => x.FlagURL, masterPUT.FlagURL)
-                .SetProperty(x => x.UpdatedBy, actionDTO.UpdatedBy)
-                .SetProperty(x => x.UpdatedAt, actionDTO.UpdatedAt)
-                .SetProperty(x => x.DraftedBy, actionDTO.DraftedBy)
-                .SetProperty(x => x.DraftedAt, actionDTO.DraftedAt));
+                .SetProperty(x => x.FlagURL, masterPUT.FlagURL));
 
                 CountryAudit audit = new();
                 audit.CountryId = masterPUT.Id;
