@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RapidERP.Infrastructure.Data;
 
 #nullable disable
 
-namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
+namespace RapidERP.Infrastructure.Migrations
 {
-    [DbContext(typeof(RapidHRMDbContext))]
-    partial class RapidHRMDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(RapidERPDbContext))]
+    [Migration("20251129124713_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,10 +49,10 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("ActionType");
+                    b.ToTable("ActionTypes");
                 });
 
-            modelBuilder.Entity("RapidERP.Domain.Entities.ActionTypeModels.ActionTypeAudit", b =>
+            modelBuilder.Entity("RapidERP.Domain.Entities.ActionTypeModels.ActionTypeHistory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -117,7 +120,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("ActionTypeAudit");
+                    b.ToTable("ActionTypeHistories");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.AreaModules.Area", b =>
@@ -180,7 +183,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("Area");
+                    b.ToTable("Areas");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.AreaModules.AreaAudit", b =>
@@ -274,7 +277,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("AreaId");
 
-                    b.ToTable("AreaAudit");
+                    b.ToTable("AreaAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.CityModels.City", b =>
@@ -332,7 +335,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("City");
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.CityModels.CityAudit", b =>
@@ -423,7 +426,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("CityAudit");
+                    b.ToTable("CityAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.Country", b =>
@@ -493,7 +496,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("StatusTypeId");
 
-                    b.ToTable("Country");
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.CountryAudit", b =>
@@ -597,7 +600,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("CountryAudit");
+                    b.ToTable("CountryAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.CurrencyModels.Currency", b =>
@@ -652,7 +655,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("Currency");
+                    b.ToTable("Currencies");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.CurrencyModels.CurrencyAudit", b =>
@@ -745,7 +748,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("CurrencyId");
 
-                    b.ToTable("CurrencyAudit");
+                    b.ToTable("CurrencyAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.DepartmentModels.Department", b =>
@@ -793,7 +796,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("Department");
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.DepartmentModels.DepartmentAudit", b =>
@@ -878,7 +881,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("DepartmentAudit");
+                    b.ToTable("DepartmentAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.DesignationModels.Designation", b =>
@@ -931,7 +934,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("Designation");
+                    b.ToTable("Designations");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.DesignationModels.DesignationAudit", b =>
@@ -1019,7 +1022,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("DesignationId");
 
-                    b.ToTable("DesignationAudit");
+                    b.ToTable("DesignationAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.ExportTypeModels.ExportType", b =>
@@ -1046,7 +1049,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("ExportType");
+                    b.ToTable("ExportTypes");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.ExportTypeModels.ExportTypeAudit", b =>
@@ -1108,7 +1111,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("ExportTypeAudit");
+                    b.ToTable("ExportTypeAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.KitchenModels.Kitchen", b =>
@@ -1159,7 +1162,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("Kitchen");
+                    b.ToTable("Kitchens");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.KitchenModels.KitchenAudit", b =>
@@ -1246,7 +1249,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("KitchenId");
 
-                    b.ToTable("KitchenAudit");
+                    b.ToTable("KitchenAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.LanguageModels.Language", b =>
@@ -1290,7 +1293,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasKey("Id");
 
-                    b.ToTable("Language");
+                    b.ToTable("Languages");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.LanguageModels.LanguageAudit", b =>
@@ -1363,7 +1366,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("LanguageAudit");
+                    b.ToTable("LanguageAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.MainModuleModels.MainModule", b =>
@@ -1398,7 +1401,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("MainModule");
+                    b.ToTable("MainModules");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.MainModuleModels.MainModuleAudit", b =>
@@ -1478,7 +1481,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("MainModuleId");
 
-                    b.ToTable("MainModuleAudit");
+                    b.ToTable("MainModuleAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", b =>
@@ -1511,7 +1514,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("MenuModule");
+                    b.ToTable("MenuModules");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.MenuModuleModels.MenuModuleAudit", b =>
@@ -1589,7 +1592,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("MenuModuleId");
 
-                    b.ToTable("MenuModuleAudit");
+                    b.ToTable("MenuModuleAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.MessageModuleModels.MessageModule", b =>
@@ -1617,7 +1620,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("TextModuleId");
 
-                    b.ToTable("MessageModule");
+                    b.ToTable("MessageModules");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.MessageModuleModels.MessageModuleAudit", b =>
@@ -1688,7 +1691,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("MessageModuleId");
 
-                    b.ToTable("MessageModuleAudit");
+                    b.ToTable("MessageModuleAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.OrderTypeModels.OrderType", b =>
@@ -1736,7 +1739,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("OrderType");
+                    b.ToTable("OrderTypes");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.OrderTypeModels.OrderTypeAudit", b =>
@@ -1820,7 +1823,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("OrderTypeId");
 
-                    b.ToTable("OrderTypeAudit");
+                    b.ToTable("OrderTypeAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.RiderModels.Rider", b =>
@@ -1896,7 +1899,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("Rider");
+                    b.ToTable("Riders");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.RiderModels.RiderAudit", b =>
@@ -1999,7 +2002,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("RiderId");
 
-                    b.ToTable("RiderAudit");
+                    b.ToTable("RiderAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.RoleModules.Role", b =>
@@ -2043,7 +2046,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("Role");
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.RoleModules.RoleAudit", b =>
@@ -2123,7 +2126,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("RoleAudit");
+                    b.ToTable("RoleAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.SalesmanModels.Salesman", b =>
@@ -2201,7 +2204,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("Salesman");
+                    b.ToTable("Salesmen");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.SalesmanModels.SalesmanAudit", b =>
@@ -2313,7 +2316,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("SalesmanId");
 
-                    b.ToTable("SalesmanAudit");
+                    b.ToTable("SalesmanAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.SateModules.State", b =>
@@ -2368,7 +2371,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("StatusTypeId");
 
-                    b.ToTable("State");
+                    b.ToTable("States");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.SateModules.StateAudit", b =>
@@ -2459,7 +2462,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("StateId");
 
-                    b.ToTable("StateAudit");
+                    b.ToTable("StateAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.StatusTypeModels.StatusType", b =>
@@ -2486,7 +2489,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("StatusType");
+                    b.ToTable("StatusTypes");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.StatusTypeModels.StatusTypeAudit", b =>
@@ -2558,7 +2561,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("StatusTypeId");
 
-                    b.ToTable("StatusTypeAudit");
+                    b.ToTable("StatusTypeAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.SubmoduleModels.Submodule", b =>
@@ -2593,7 +2596,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("MainModuleId");
 
-                    b.ToTable("Submodule");
+                    b.ToTable("Submodules");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.SubmoduleModels.SubmoduleAudit", b =>
@@ -2671,7 +2674,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("SubmoduleId");
 
-                    b.ToTable("SubmoduleAudit");
+                    b.ToTable("SubmoduleAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.SupplierModels.Supplier", b =>
@@ -2762,7 +2765,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("Supplier");
+                    b.ToTable("Suppliers");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.SupplierModels.SupplierAudit", b =>
@@ -2885,7 +2888,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("SupplierAudit");
+                    b.ToTable("SupplierAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.SupplierTypeModels.SupplierType", b =>
@@ -2956,7 +2959,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("SupplierType");
+                    b.ToTable("SupplierTypes");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.SupplierTypeModels.SupplierTypeAudit", b =>
@@ -3059,7 +3062,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("SupplierTypeId");
 
-                    b.ToTable("SupplierTypeAudit");
+                    b.ToTable("SupplierTypeAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.TableModules.Table", b =>
@@ -3110,7 +3113,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("Table");
+                    b.ToTable("Tables");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.TableModules.TableAudit", b =>
@@ -3197,7 +3200,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("TableId");
 
-                    b.ToTable("TableAudit");
+                    b.ToTable("TableAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.TenantModels.Tenant", b =>
@@ -3264,7 +3267,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("StatusTypeId");
 
-                    b.ToTable("Tenant");
+                    b.ToTable("Tenants");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.TenantModels.TenantAudit", b =>
@@ -3371,7 +3374,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("TenantAudit");
+                    b.ToTable("TenantAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.TextModuleModels.TextModule", b =>
@@ -3399,7 +3402,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("MenuModuleId");
 
-                    b.ToTable("TextModule");
+                    b.ToTable("TextModules");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.TextModuleModels.TextModuleAudit", b =>
@@ -3470,7 +3473,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("TextModuleId");
 
-                    b.ToTable("TextModuleAudit");
+                    b.ToTable("TextModuleAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.UserModels.User", b =>
@@ -3538,7 +3541,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.UserModels.UserAudit", b =>
@@ -3642,7 +3645,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserAudit");
+                    b.ToTable("UserAudits");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.ActionTypeModels.ActionType", b =>
@@ -3654,7 +3657,7 @@ namespace RapidERP.Infrastructure.Migrations.RapidHRMDb
                     b.Navigation("Language");
                 });
 
-            modelBuilder.Entity("RapidERP.Domain.Entities.ActionTypeModels.ActionTypeAudit", b =>
+            modelBuilder.Entity("RapidERP.Domain.Entities.ActionTypeModels.ActionTypeHistory", b =>
                 {
                     b.HasOne("RapidERP.Domain.Entities.ActionTypeModels.ActionType", "ActionType")
                         .WithMany()

@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RapidERP.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitA : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Language",
+                name: "Languages",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -27,11 +27,11 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Language", x => x.Id);
+                    table.PrimaryKey("PK_Languages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ActionType",
+                name: "ActionTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -42,16 +42,16 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ActionType", x => x.Id);
+                    table.PrimaryKey("PK_ActionTypes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ActionType_Language_LanguageId",
+                        name: "FK_ActionTypes_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "ExportType",
+                name: "ExportTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -62,16 +62,16 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ExportType", x => x.Id);
+                    table.PrimaryKey("PK_ExportTypes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ExportType_Language_LanguageId",
+                        name: "FK_ExportTypes_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "LanguageAudit",
+                name: "LanguageAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -94,17 +94,17 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LanguageAudit", x => x.Id);
+                    table.PrimaryKey("PK_LanguageAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LanguageAudit_Language_LanguageId",
+                        name: "FK_LanguageAudits_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "MainModule",
+                name: "MainModules",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -117,16 +117,16 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MainModule", x => x.Id);
+                    table.PrimaryKey("PK_MainModules", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MainModule_Language_LanguageId",
+                        name: "FK_MainModules_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "MenuModule",
+                name: "MenuModules",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -139,16 +139,16 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MenuModule", x => x.Id);
+                    table.PrimaryKey("PK_MenuModules", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MenuModule_Language_LanguageId",
+                        name: "FK_MenuModules_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "StatusType",
+                name: "StatusTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -159,16 +159,16 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StatusType", x => x.Id);
+                    table.PrimaryKey("PK_StatusTypes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StatusType_Language_LanguageId",
+                        name: "FK_StatusTypes_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "ActionTypeAudit",
+                name: "ActionTypeHistories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -192,21 +192,21 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ActionTypeAudit", x => x.Id);
+                    table.PrimaryKey("PK_ActionTypeHistories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ActionTypeAudit_ActionType_ActionTypeId",
+                        name: "FK_ActionTypeHistories_ActionTypes_ActionTypeId",
                         column: x => x.ActionTypeId,
-                        principalTable: "ActionType",
+                        principalTable: "ActionTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ActionTypeAudit_Language_LanguageId",
+                        name: "FK_ActionTypeHistories_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "ExportTypeAudit",
+                name: "ExportTypeAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -227,21 +227,21 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ExportTypeAudit", x => x.Id);
+                    table.PrimaryKey("PK_ExportTypeAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ExportTypeAudit_ExportType_ExportTypeId",
+                        name: "FK_ExportTypeAudits_ExportTypes_ExportTypeId",
                         column: x => x.ExportTypeId,
-                        principalTable: "ExportType",
+                        principalTable: "ExportTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ExportTypeAudit_Language_LanguageId",
+                        name: "FK_ExportTypeAudits_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "MainModuleAudit",
+                name: "MainModuleAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -268,17 +268,17 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MainModuleAudit", x => x.Id);
+                    table.PrimaryKey("PK_MainModuleAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MainModuleAudit_MainModule_MainModuleId",
+                        name: "FK_MainModuleAudits_MainModules_MainModuleId",
                         column: x => x.MainModuleId,
-                        principalTable: "MainModule",
+                        principalTable: "MainModules",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Submodule",
+                name: "Submodules",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -291,22 +291,22 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Submodule", x => x.Id);
+                    table.PrimaryKey("PK_Submodules", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Submodule_Language_LanguageId",
+                        name: "FK_Submodules_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Submodule_MainModule_MainModuleId",
+                        name: "FK_Submodules_MainModules_MainModuleId",
                         column: x => x.MainModuleId,
-                        principalTable: "MainModule",
+                        principalTable: "MainModules",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "MenuModuleAudit",
+                name: "MenuModuleAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -333,16 +333,16 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MenuModuleAudit", x => x.Id);
+                    table.PrimaryKey("PK_MenuModuleAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MenuModuleAudit_MenuModule_MenuModuleId",
+                        name: "FK_MenuModuleAudits_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
-                        principalTable: "MenuModule",
+                        principalTable: "MenuModules",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "TextModule",
+                name: "TextModules",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -353,21 +353,21 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TextModule", x => x.Id);
+                    table.PrimaryKey("PK_TextModules", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TextModule_Language_LanguageId",
+                        name: "FK_TextModules_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_TextModule_MenuModule_MenuModuleId",
+                        name: "FK_TextModules_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
-                        principalTable: "MenuModule",
+                        principalTable: "MenuModules",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "StatusTypeAudit",
+                name: "StatusTypeAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -392,16 +392,16 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StatusTypeAudit", x => x.Id);
+                    table.PrimaryKey("PK_StatusTypeAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StatusTypeAudit_StatusType_StatusTypeId",
+                        name: "FK_StatusTypeAudits_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
-                        principalTable: "StatusType",
+                        principalTable: "StatusTypes",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "SubmoduleAudit",
+                name: "SubmoduleAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -428,17 +428,17 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SubmoduleAudit", x => x.Id);
+                    table.PrimaryKey("PK_SubmoduleAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SubmoduleAudit_Submodule_SubmoduleId",
+                        name: "FK_SubmoduleAudits_Submodules_SubmoduleId",
                         column: x => x.SubmoduleId,
-                        principalTable: "Submodule",
+                        principalTable: "Submodules",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "MessageModule",
+                name: "MessageModules",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -449,21 +449,21 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MessageModule", x => x.Id);
+                    table.PrimaryKey("PK_MessageModules", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MessageModule_Language_LanguageId",
+                        name: "FK_MessageModules_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_MessageModule_TextModule_TextModuleId",
+                        name: "FK_MessageModules_TextModules_TextModuleId",
                         column: x => x.TextModuleId,
-                        principalTable: "TextModule",
+                        principalTable: "TextModules",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "TextModuleAudit",
+                name: "TextModuleAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -488,16 +488,16 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TextModuleAudit", x => x.Id);
+                    table.PrimaryKey("PK_TextModuleAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TextModuleAudit_TextModule_TextModuleId",
+                        name: "FK_TextModuleAudits_TextModules_TextModuleId",
                         column: x => x.TextModuleId,
-                        principalTable: "TextModule",
+                        principalTable: "TextModules",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "MessageModuleAudit",
+                name: "MessageModuleAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -522,54 +522,16 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MessageModuleAudit", x => x.Id);
+                    table.PrimaryKey("PK_MessageModuleAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MessageModuleAudit_MessageModule_MessageModuleId",
+                        name: "FK_MessageModuleAudits_MessageModules_MessageModuleId",
                         column: x => x.MessageModuleId,
-                        principalTable: "MessageModule",
+                        principalTable: "MessageModules",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Area",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Code = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
-                    CountryId = table.Column<int>(type: "int", nullable: false),
-                    StateId = table.Column<int>(type: "int", nullable: false),
-                    CityId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    MenuModuleId = table.Column<int>(type: "int", nullable: true),
-                    TenantId = table.Column<int>(type: "int", nullable: true),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
-                    LanguageId = table.Column<int>(type: "int", nullable: true),
-                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
-                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Area", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Area_Language_LanguageId",
-                        column: x => x.LanguageId,
-                        principalTable: "Language",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Area_MenuModule_MenuModuleId",
-                        column: x => x.MenuModuleId,
-                        principalTable: "MenuModule",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Area_StatusType_StatusTypeId",
-                        column: x => x.StatusTypeId,
-                        principalTable: "StatusType",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AreaAudit",
+                name: "AreaAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -601,17 +563,49 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AreaAudit", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AreaAudit_Area_AreaId",
-                        column: x => x.AreaId,
-                        principalTable: "Area",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                    table.PrimaryKey("PK_AreaAudits", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "City",
+                name: "Areas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
+                    CountryId = table.Column<int>(type: "int", nullable: false),
+                    StateId = table.Column<int>(type: "int", nullable: false),
+                    CityId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    MenuModuleId = table.Column<int>(type: "int", nullable: true),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
+                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Areas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Areas_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Areas_MenuModules_MenuModuleId",
+                        column: x => x.MenuModuleId,
+                        principalTable: "MenuModules",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Areas_StatusTypes_StatusTypeId",
+                        column: x => x.StatusTypeId,
+                        principalTable: "StatusTypes",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cities",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -629,26 +623,26 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_City", x => x.Id);
+                    table.PrimaryKey("PK_Cities", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_City_Language_LanguageId",
+                        name: "FK_Cities_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_City_MenuModule_MenuModuleId",
+                        name: "FK_Cities_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
-                        principalTable: "MenuModule",
+                        principalTable: "MenuModules",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_City_StatusType_StatusTypeId",
+                        name: "FK_Cities_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
-                        principalTable: "StatusType",
+                        principalTable: "StatusTypes",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "CityAudit",
+                name: "CityAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -679,17 +673,17 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CityAudit", x => x.Id);
+                    table.PrimaryKey("PK_CityAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CityAudit_City_CityId",
+                        name: "FK_CityAudits_Cities_CityId",
                         column: x => x.CityId,
-                        principalTable: "City",
+                        principalTable: "Cities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Country",
+                name: "Countries",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -710,26 +704,26 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Country", x => x.Id);
+                    table.PrimaryKey("PK_Countries", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Country_Language_LanguageId",
+                        name: "FK_Countries_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Country_MenuModule_MenuModuleId",
+                        name: "FK_Countries_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
-                        principalTable: "MenuModule",
+                        principalTable: "MenuModules",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Country_StatusType_StatusTypeId",
+                        name: "FK_Countries_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
-                        principalTable: "StatusType",
+                        principalTable: "StatusTypes",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "CountryAudit",
+                name: "CountryAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -763,17 +757,17 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CountryAudit", x => x.Id);
+                    table.PrimaryKey("PK_CountryAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CountryAudit_Country_CountryId",
+                        name: "FK_CountryAudits_Countries_CountryId",
                         column: x => x.CountryId,
-                        principalTable: "Country",
+                        principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "State",
+                name: "States",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -791,33 +785,33 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_State", x => x.Id);
+                    table.PrimaryKey("PK_States", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_State_Country_CountryId",
+                        name: "FK_States_Countries_CountryId",
                         column: x => x.CountryId,
-                        principalTable: "Country",
+                        principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_State_Language_LanguageId",
+                        name: "FK_States_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_State_MenuModule_MenuModuleId",
+                        name: "FK_States_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
-                        principalTable: "MenuModule",
+                        principalTable: "MenuModules",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_State_StatusType_StatusTypeId",
+                        name: "FK_States_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
-                        principalTable: "StatusType",
+                        principalTable: "StatusTypes",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "StateAudit",
+                name: "StateAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -848,17 +842,17 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StateAudit", x => x.Id);
+                    table.PrimaryKey("PK_StateAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StateAudit_State_StateId",
+                        name: "FK_StateAudits_States_StateId",
                         column: x => x.StateId,
-                        principalTable: "State",
+                        principalTable: "States",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tenant",
+                name: "Tenants",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -878,36 +872,36 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tenant", x => x.Id);
+                    table.PrimaryKey("PK_Tenants", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tenant_Country_CountryId",
+                        name: "FK_Tenants_Countries_CountryId",
                         column: x => x.CountryId,
-                        principalTable: "Country",
+                        principalTable: "Countries",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Tenant_Language_LanguageId",
+                        name: "FK_Tenants_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Tenant_MenuModule_MenuModuleId",
+                        name: "FK_Tenants_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
-                        principalTable: "MenuModule",
+                        principalTable: "MenuModules",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Tenant_State_StateId",
+                        name: "FK_Tenants_States_StateId",
                         column: x => x.StateId,
-                        principalTable: "State",
+                        principalTable: "States",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Tenant_StatusType_StatusTypeId",
+                        name: "FK_Tenants_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
-                        principalTable: "StatusType",
+                        principalTable: "StatusTypes",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Currency",
+                name: "Currencies",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -925,31 +919,31 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Currency", x => x.Id);
+                    table.PrimaryKey("PK_Currencies", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Currency_Language_LanguageId",
+                        name: "FK_Currencies_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Currency_MenuModule_MenuModuleId",
+                        name: "FK_Currencies_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
-                        principalTable: "MenuModule",
+                        principalTable: "MenuModules",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Currency_StatusType_StatusTypeId",
+                        name: "FK_Currencies_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
-                        principalTable: "StatusType",
+                        principalTable: "StatusTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Currency_Tenant_TenantId",
+                        name: "FK_Currencies_Tenants_TenantId",
                         column: x => x.TenantId,
-                        principalTable: "Tenant",
+                        principalTable: "Tenants",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Department",
+                name: "Departments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -965,31 +959,31 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Department", x => x.Id);
+                    table.PrimaryKey("PK_Departments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Department_Language_LanguageId",
+                        name: "FK_Departments_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Department_MenuModule_MenuModuleId",
+                        name: "FK_Departments_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
-                        principalTable: "MenuModule",
+                        principalTable: "MenuModules",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Department_StatusType_StatusTypeId",
+                        name: "FK_Departments_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
-                        principalTable: "StatusType",
+                        principalTable: "StatusTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Department_Tenant_TenantId",
+                        name: "FK_Departments_Tenants_TenantId",
                         column: x => x.TenantId,
-                        principalTable: "Tenant",
+                        principalTable: "Tenants",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Kitchen",
+                name: "Kitchens",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1006,31 +1000,31 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Kitchen", x => x.Id);
+                    table.PrimaryKey("PK_Kitchens", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Kitchen_Language_LanguageId",
+                        name: "FK_Kitchens_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Kitchen_MenuModule_MenuModuleId",
+                        name: "FK_Kitchens_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
-                        principalTable: "MenuModule",
+                        principalTable: "MenuModules",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Kitchen_StatusType_StatusTypeId",
+                        name: "FK_Kitchens_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
-                        principalTable: "StatusType",
+                        principalTable: "StatusTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Kitchen_Tenant_TenantId",
+                        name: "FK_Kitchens_Tenants_TenantId",
                         column: x => x.TenantId,
-                        principalTable: "Tenant",
+                        principalTable: "Tenants",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderType",
+                name: "OrderTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1046,31 +1040,31 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderType", x => x.Id);
+                    table.PrimaryKey("PK_OrderTypes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderType_Language_LanguageId",
+                        name: "FK_OrderTypes_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_OrderType_MenuModule_MenuModuleId",
+                        name: "FK_OrderTypes_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
-                        principalTable: "MenuModule",
+                        principalTable: "MenuModules",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_OrderType_StatusType_StatusTypeId",
+                        name: "FK_OrderTypes_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
-                        principalTable: "StatusType",
+                        principalTable: "StatusTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_OrderType_Tenant_TenantId",
+                        name: "FK_OrderTypes_Tenants_TenantId",
                         column: x => x.TenantId,
-                        principalTable: "Tenant",
+                        principalTable: "Tenants",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Rider",
+                name: "Riders",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1092,55 +1086,55 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rider", x => x.Id);
+                    table.PrimaryKey("PK_Riders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Rider_Area_AreaId",
+                        name: "FK_Riders_Areas_AreaId",
                         column: x => x.AreaId,
-                        principalTable: "Area",
+                        principalTable: "Areas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Rider_City_CityId",
+                        name: "FK_Riders_Cities_CityId",
                         column: x => x.CityId,
-                        principalTable: "City",
+                        principalTable: "Cities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Rider_Country_CountryId",
+                        name: "FK_Riders_Countries_CountryId",
                         column: x => x.CountryId,
-                        principalTable: "Country",
+                        principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Rider_Language_LanguageId",
+                        name: "FK_Riders_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Rider_MenuModule_MenuModuleId",
+                        name: "FK_Riders_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
-                        principalTable: "MenuModule",
+                        principalTable: "MenuModules",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Rider_State_StateId",
+                        name: "FK_Riders_States_StateId",
                         column: x => x.StateId,
-                        principalTable: "State",
+                        principalTable: "States",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Rider_StatusType_StatusTypeId",
+                        name: "FK_Riders_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
-                        principalTable: "StatusType",
+                        principalTable: "StatusTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Rider_Tenant_TenantId",
+                        name: "FK_Riders_Tenants_TenantId",
                         column: x => x.TenantId,
-                        principalTable: "Tenant",
+                        principalTable: "Tenants",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Role",
+                name: "Roles",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1155,31 +1149,31 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Role", x => x.Id);
+                    table.PrimaryKey("PK_Roles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Role_Language_LanguageId",
+                        name: "FK_Roles_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Role_MenuModule_MenuModuleId",
+                        name: "FK_Roles_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
-                        principalTable: "MenuModule",
+                        principalTable: "MenuModules",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Role_StatusType_StatusTypeId",
+                        name: "FK_Roles_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
-                        principalTable: "StatusType",
+                        principalTable: "StatusTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Role_Tenant_TenantId",
+                        name: "FK_Roles_Tenants_TenantId",
                         column: x => x.TenantId,
-                        principalTable: "Tenant",
+                        principalTable: "Tenants",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Table",
+                name: "Tables",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1196,31 +1190,31 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Table", x => x.Id);
+                    table.PrimaryKey("PK_Tables", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Table_Language_LanguageId",
+                        name: "FK_Tables_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Table_MenuModule_MenuModuleId",
+                        name: "FK_Tables_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
-                        principalTable: "MenuModule",
+                        principalTable: "MenuModules",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Table_StatusType_StatusTypeId",
+                        name: "FK_Tables_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
-                        principalTable: "StatusType",
+                        principalTable: "StatusTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Table_Tenant_TenantId",
+                        name: "FK_Tables_Tenants_TenantId",
                         column: x => x.TenantId,
-                        principalTable: "Tenant",
+                        principalTable: "Tenants",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "TenantAudit",
+                name: "TenantAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1255,16 +1249,16 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TenantAudit", x => x.Id);
+                    table.PrimaryKey("PK_TenantAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TenantAudit_Tenant_TenantId",
+                        name: "FK_TenantAudits_Tenants_TenantId",
                         column: x => x.TenantId,
-                        principalTable: "Tenant",
+                        principalTable: "Tenants",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -1285,31 +1279,31 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_User_Language_LanguageId",
+                        name: "FK_Users_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_User_MenuModule_MenuModuleId",
+                        name: "FK_Users_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
-                        principalTable: "MenuModule",
+                        principalTable: "MenuModules",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_User_StatusType_StatusTypeId",
+                        name: "FK_Users_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
-                        principalTable: "StatusType",
+                        principalTable: "StatusTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_User_Tenant_TenantId",
+                        name: "FK_Users_Tenants_TenantId",
                         column: x => x.TenantId,
-                        principalTable: "Tenant",
+                        principalTable: "Tenants",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "CurrencyAudit",
+                name: "CurrencyAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1340,17 +1334,17 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CurrencyAudit", x => x.Id);
+                    table.PrimaryKey("PK_CurrencyAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CurrencyAudit_Currency_CurrencyId",
+                        name: "FK_CurrencyAudits_Currencies_CurrencyId",
                         column: x => x.CurrencyId,
-                        principalTable: "Currency",
+                        principalTable: "Currencies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Supplier",
+                name: "Suppliers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1378,43 +1372,43 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Supplier", x => x.Id);
+                    table.PrimaryKey("PK_Suppliers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Supplier_Country_CountryId",
+                        name: "FK_Suppliers_Countries_CountryId",
                         column: x => x.CountryId,
-                        principalTable: "Country",
+                        principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Supplier_Currency_CurrencyId",
+                        name: "FK_Suppliers_Currencies_CurrencyId",
                         column: x => x.CurrencyId,
-                        principalTable: "Currency",
+                        principalTable: "Currencies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Supplier_Language_LanguageId",
+                        name: "FK_Suppliers_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Supplier_MenuModule_MenuModuleId",
+                        name: "FK_Suppliers_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
-                        principalTable: "MenuModule",
+                        principalTable: "MenuModules",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Supplier_StatusType_StatusTypeId",
+                        name: "FK_Suppliers_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
-                        principalTable: "StatusType",
+                        principalTable: "StatusTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Supplier_Tenant_TenantId",
+                        name: "FK_Suppliers_Tenants_TenantId",
                         column: x => x.TenantId,
-                        principalTable: "Tenant",
+                        principalTable: "Tenants",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "SupplierType",
+                name: "SupplierTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1436,44 +1430,44 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SupplierType", x => x.Id);
+                    table.PrimaryKey("PK_SupplierTypes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SupplierType_Country_CountryId",
+                        name: "FK_SupplierTypes_Countries_CountryId",
                         column: x => x.CountryId,
-                        principalTable: "Country",
+                        principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_SupplierType_Currency_CurrencyId",
+                        name: "FK_SupplierTypes_Currencies_CurrencyId",
                         column: x => x.CurrencyId,
-                        principalTable: "Currency",
+                        principalTable: "Currencies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_SupplierType_Language_LanguageId",
+                        name: "FK_SupplierTypes_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_SupplierType_MenuModule_MenuModuleId",
+                        name: "FK_SupplierTypes_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
-                        principalTable: "MenuModule",
+                        principalTable: "MenuModules",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_SupplierType_StatusType_StatusTypeId",
+                        name: "FK_SupplierTypes_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
-                        principalTable: "StatusType",
+                        principalTable: "StatusTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_SupplierType_Tenant_TenantId",
+                        name: "FK_SupplierTypes_Tenants_TenantId",
                         column: x => x.TenantId,
-                        principalTable: "Tenant",
+                        principalTable: "Tenants",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "DepartmentAudit",
+                name: "DepartmentAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1502,17 +1496,17 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DepartmentAudit", x => x.Id);
+                    table.PrimaryKey("PK_DepartmentAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DepartmentAudit_Department_DepartmentId",
+                        name: "FK_DepartmentAudits_Departments_DepartmentId",
                         column: x => x.DepartmentId,
-                        principalTable: "Department",
+                        principalTable: "Departments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Designation",
+                name: "Designations",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1529,37 +1523,37 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Designation", x => x.Id);
+                    table.PrimaryKey("PK_Designations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Designation_Department_DepartmentId",
+                        name: "FK_Designations_Departments_DepartmentId",
                         column: x => x.DepartmentId,
-                        principalTable: "Department",
+                        principalTable: "Departments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Designation_Language_LanguageId",
+                        name: "FK_Designations_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Designation_MenuModule_MenuModuleId",
+                        name: "FK_Designations_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
-                        principalTable: "MenuModule",
+                        principalTable: "MenuModules",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Designation_StatusType_StatusTypeId",
+                        name: "FK_Designations_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
-                        principalTable: "StatusType",
+                        principalTable: "StatusTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Designation_Tenant_TenantId",
+                        name: "FK_Designations_Tenants_TenantId",
                         column: x => x.TenantId,
-                        principalTable: "Tenant",
+                        principalTable: "Tenants",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Salesman",
+                name: "Salesmen",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1583,37 +1577,37 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Salesman", x => x.Id);
+                    table.PrimaryKey("PK_Salesmen", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Salesman_Department_DepartmentId",
+                        name: "FK_Salesmen_Departments_DepartmentId",
                         column: x => x.DepartmentId,
-                        principalTable: "Department",
+                        principalTable: "Departments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
-                        name: "FK_Salesman_Language_LanguageId",
+                        name: "FK_Salesmen_Languages_LanguageId",
                         column: x => x.LanguageId,
-                        principalTable: "Language",
+                        principalTable: "Languages",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Salesman_MenuModule_MenuModuleId",
+                        name: "FK_Salesmen_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
-                        principalTable: "MenuModule",
+                        principalTable: "MenuModules",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Salesman_StatusType_StatusTypeId",
+                        name: "FK_Salesmen_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
-                        principalTable: "StatusType",
+                        principalTable: "StatusTypes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Salesman_Tenant_TenantId",
+                        name: "FK_Salesmen_Tenants_TenantId",
                         column: x => x.TenantId,
-                        principalTable: "Tenant",
+                        principalTable: "Tenants",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "KitchenAudit",
+                name: "KitchenAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1643,17 +1637,17 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_KitchenAudit", x => x.Id);
+                    table.PrimaryKey("PK_KitchenAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_KitchenAudit_Kitchen_KitchenId",
+                        name: "FK_KitchenAudits_Kitchens_KitchenId",
                         column: x => x.KitchenId,
-                        principalTable: "Kitchen",
+                        principalTable: "Kitchens",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrderTypeAudit",
+                name: "OrderTypeAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1682,17 +1676,17 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderTypeAudit", x => x.Id);
+                    table.PrimaryKey("PK_OrderTypeAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderTypeAudit_OrderType_OrderTypeId",
+                        name: "FK_OrderTypeAudits_OrderTypes_OrderTypeId",
                         column: x => x.OrderTypeId,
-                        principalTable: "OrderType",
+                        principalTable: "OrderTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "RiderAudit",
+                name: "RiderAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1727,17 +1721,17 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RiderAudit", x => x.Id);
+                    table.PrimaryKey("PK_RiderAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RiderAudit_Rider_RiderId",
+                        name: "FK_RiderAudits_Riders_RiderId",
                         column: x => x.RiderId,
-                        principalTable: "Rider",
+                        principalTable: "Riders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "RoleAudit",
+                name: "RoleAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1765,17 +1759,17 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RoleAudit", x => x.Id);
+                    table.PrimaryKey("PK_RoleAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RoleAudit_Role_RoleId",
+                        name: "FK_RoleAudits_Roles_RoleId",
                         column: x => x.RoleId,
-                        principalTable: "Role",
+                        principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TableAudit",
+                name: "TableAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1805,17 +1799,17 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TableAudit", x => x.Id);
+                    table.PrimaryKey("PK_TableAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TableAudit_Table_TableId",
+                        name: "FK_TableAudits_Tables_TableId",
                         column: x => x.TableId,
-                        principalTable: "Table",
+                        principalTable: "Tables",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserAudit",
+                name: "UserAudits",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -1849,17 +1843,17 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserAudit", x => x.Id);
+                    table.PrimaryKey("PK_UserAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserAudit_User_UserId",
+                        name: "FK_UserAudits_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SupplierAudit",
+                name: "SupplierAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1900,17 +1894,17 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SupplierAudit", x => x.Id);
+                    table.PrimaryKey("PK_SupplierAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SupplierAudit_Supplier_SupplierId",
+                        name: "FK_SupplierAudits_Suppliers_SupplierId",
                         column: x => x.SupplierId,
-                        principalTable: "Supplier",
+                        principalTable: "Suppliers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SupplierTypeAudit",
+                name: "SupplierTypeAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1945,17 +1939,17 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SupplierTypeAudit", x => x.Id);
+                    table.PrimaryKey("PK_SupplierTypeAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SupplierTypeAudit_SupplierType_SupplierTypeId",
+                        name: "FK_SupplierTypeAudits_SupplierTypes_SupplierTypeId",
                         column: x => x.SupplierTypeId,
-                        principalTable: "SupplierType",
+                        principalTable: "SupplierTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "DesignationAudit",
+                name: "DesignationAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -1985,17 +1979,17 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DesignationAudit", x => x.Id);
+                    table.PrimaryKey("PK_DesignationAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DesignationAudit_Designation_DesignationId",
+                        name: "FK_DesignationAudits_Designations_DesignationId",
                         column: x => x.DesignationId,
-                        principalTable: "Designation",
+                        principalTable: "Designations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SalesmanAudit",
+                name: "SalesmanAudits",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -2032,689 +2026,697 @@ namespace RapidERP.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SalesmanAudit", x => x.Id);
+                    table.PrimaryKey("PK_SalesmanAudits", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SalesmanAudit_Salesman_SalesmanId",
+                        name: "FK_SalesmanAudits_Salesmen_SalesmanId",
                         column: x => x.SalesmanId,
-                        principalTable: "Salesman",
+                        principalTable: "Salesmen",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ActionType_LanguageId",
-                table: "ActionType",
-                column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ActionTypeAudit_ActionTypeId",
-                table: "ActionTypeAudit",
+                name: "IX_ActionTypeHistories_ActionTypeId",
+                table: "ActionTypeHistories",
                 column: "ActionTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ActionTypeAudit_LanguageId",
-                table: "ActionTypeAudit",
+                name: "IX_ActionTypeHistories_LanguageId",
+                table: "ActionTypeHistories",
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Area_CityId",
-                table: "Area",
-                column: "CityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Area_CountryId",
-                table: "Area",
-                column: "CountryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Area_LanguageId",
-                table: "Area",
+                name: "IX_ActionTypes_LanguageId",
+                table: "ActionTypes",
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Area_MenuModuleId",
-                table: "Area",
-                column: "MenuModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Area_StateId",
-                table: "Area",
-                column: "StateId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Area_StatusTypeId",
-                table: "Area",
-                column: "StatusTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Area_TenantId",
-                table: "Area",
-                column: "TenantId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AreaAudit_AreaId",
-                table: "AreaAudit",
+                name: "IX_AreaAudits_AreaId",
+                table: "AreaAudits",
                 column: "AreaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_City_CountryId",
-                table: "City",
-                column: "CountryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_City_LanguageId",
-                table: "City",
-                column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_City_MenuModuleId",
-                table: "City",
-                column: "MenuModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_City_StateId",
-                table: "City",
-                column: "StateId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_City_StatusTypeId",
-                table: "City",
-                column: "StatusTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_City_TenantId",
-                table: "City",
-                column: "TenantId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CityAudit_CityId",
-                table: "CityAudit",
+                name: "IX_Areas_CityId",
+                table: "Areas",
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Country_CurrencyId",
-                table: "Country",
-                column: "CurrencyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Country_LanguageId",
-                table: "Country",
-                column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Country_MenuModuleId",
-                table: "Country",
-                column: "MenuModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Country_StatusTypeId",
-                table: "Country",
-                column: "StatusTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CountryAudit_CountryId",
-                table: "CountryAudit",
+                name: "IX_Areas_CountryId",
+                table: "Areas",
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Currency_LanguageId",
-                table: "Currency",
+                name: "IX_Areas_LanguageId",
+                table: "Areas",
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Currency_MenuModuleId",
-                table: "Currency",
+                name: "IX_Areas_MenuModuleId",
+                table: "Areas",
                 column: "MenuModuleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Currency_StatusTypeId",
-                table: "Currency",
+                name: "IX_Areas_StateId",
+                table: "Areas",
+                column: "StateId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Areas_StatusTypeId",
+                table: "Areas",
                 column: "StatusTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Currency_TenantId",
-                table: "Currency",
+                name: "IX_Areas_TenantId",
+                table: "Areas",
                 column: "TenantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CurrencyAudit_CurrencyId",
-                table: "CurrencyAudit",
+                name: "IX_Cities_CountryId",
+                table: "Cities",
+                column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cities_LanguageId",
+                table: "Cities",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cities_MenuModuleId",
+                table: "Cities",
+                column: "MenuModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cities_StateId",
+                table: "Cities",
+                column: "StateId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cities_StatusTypeId",
+                table: "Cities",
+                column: "StatusTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cities_TenantId",
+                table: "Cities",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CityAudits_CityId",
+                table: "CityAudits",
+                column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Countries_CurrencyId",
+                table: "Countries",
                 column: "CurrencyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Department_LanguageId",
-                table: "Department",
+                name: "IX_Countries_LanguageId",
+                table: "Countries",
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Department_MenuModuleId",
-                table: "Department",
+                name: "IX_Countries_MenuModuleId",
+                table: "Countries",
                 column: "MenuModuleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Department_StatusTypeId",
-                table: "Department",
+                name: "IX_Countries_StatusTypeId",
+                table: "Countries",
                 column: "StatusTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Department_TenantId",
-                table: "Department",
-                column: "TenantId");
+                name: "IX_CountryAudits_CountryId",
+                table: "CountryAudits",
+                column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DepartmentAudit_DepartmentId",
-                table: "DepartmentAudit",
-                column: "DepartmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Designation_DepartmentId",
-                table: "Designation",
-                column: "DepartmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Designation_LanguageId",
-                table: "Designation",
+                name: "IX_Currencies_LanguageId",
+                table: "Currencies",
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Designation_MenuModuleId",
-                table: "Designation",
+                name: "IX_Currencies_MenuModuleId",
+                table: "Currencies",
                 column: "MenuModuleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Designation_StatusTypeId",
-                table: "Designation",
+                name: "IX_Currencies_StatusTypeId",
+                table: "Currencies",
                 column: "StatusTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Designation_TenantId",
-                table: "Designation",
+                name: "IX_Currencies_TenantId",
+                table: "Currencies",
                 column: "TenantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DesignationAudit_DesignationId",
-                table: "DesignationAudit",
+                name: "IX_CurrencyAudits_CurrencyId",
+                table: "CurrencyAudits",
+                column: "CurrencyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DepartmentAudits_DepartmentId",
+                table: "DepartmentAudits",
+                column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Departments_LanguageId",
+                table: "Departments",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Departments_MenuModuleId",
+                table: "Departments",
+                column: "MenuModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Departments_StatusTypeId",
+                table: "Departments",
+                column: "StatusTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Departments_TenantId",
+                table: "Departments",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DesignationAudits_DesignationId",
+                table: "DesignationAudits",
                 column: "DesignationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ExportType_LanguageId",
-                table: "ExportType",
-                column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ExportTypeAudit_ExportTypeId",
-                table: "ExportTypeAudit",
-                column: "ExportTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ExportTypeAudit_LanguageId",
-                table: "ExportTypeAudit",
-                column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Kitchen_LanguageId",
-                table: "Kitchen",
-                column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Kitchen_MenuModuleId",
-                table: "Kitchen",
-                column: "MenuModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Kitchen_StatusTypeId",
-                table: "Kitchen",
-                column: "StatusTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Kitchen_TenantId",
-                table: "Kitchen",
-                column: "TenantId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_KitchenAudit_KitchenId",
-                table: "KitchenAudit",
-                column: "KitchenId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_LanguageAudit_LanguageId",
-                table: "LanguageAudit",
-                column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MainModule_LanguageId",
-                table: "MainModule",
-                column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MainModuleAudit_MainModuleId",
-                table: "MainModuleAudit",
-                column: "MainModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MenuModule_LanguageId",
-                table: "MenuModule",
-                column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MenuModuleAudit_MenuModuleId",
-                table: "MenuModuleAudit",
-                column: "MenuModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MessageModule_LanguageId",
-                table: "MessageModule",
-                column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MessageModule_TextModuleId",
-                table: "MessageModule",
-                column: "TextModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MessageModuleAudit_MessageModuleId",
-                table: "MessageModuleAudit",
-                column: "MessageModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderType_LanguageId",
-                table: "OrderType",
-                column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderType_MenuModuleId",
-                table: "OrderType",
-                column: "MenuModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderType_StatusTypeId",
-                table: "OrderType",
-                column: "StatusTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderType_TenantId",
-                table: "OrderType",
-                column: "TenantId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_OrderTypeAudit_OrderTypeId",
-                table: "OrderTypeAudit",
-                column: "OrderTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rider_AreaId",
-                table: "Rider",
-                column: "AreaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rider_CityId",
-                table: "Rider",
-                column: "CityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rider_CountryId",
-                table: "Rider",
-                column: "CountryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rider_LanguageId",
-                table: "Rider",
-                column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rider_MenuModuleId",
-                table: "Rider",
-                column: "MenuModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rider_StateId",
-                table: "Rider",
-                column: "StateId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rider_StatusTypeId",
-                table: "Rider",
-                column: "StatusTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Rider_TenantId",
-                table: "Rider",
-                column: "TenantId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RiderAudit_RiderId",
-                table: "RiderAudit",
-                column: "RiderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Role_LanguageId",
-                table: "Role",
-                column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Role_MenuModuleId",
-                table: "Role",
-                column: "MenuModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Role_StatusTypeId",
-                table: "Role",
-                column: "StatusTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Role_TenantId",
-                table: "Role",
-                column: "TenantId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RoleAudit_RoleId",
-                table: "RoleAudit",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Salesman_DepartmentId",
-                table: "Salesman",
+                name: "IX_Designations_DepartmentId",
+                table: "Designations",
                 column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Salesman_LanguageId",
-                table: "Salesman",
+                name: "IX_Designations_LanguageId",
+                table: "Designations",
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Salesman_MenuModuleId",
-                table: "Salesman",
+                name: "IX_Designations_MenuModuleId",
+                table: "Designations",
                 column: "MenuModuleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Salesman_StatusTypeId",
-                table: "Salesman",
+                name: "IX_Designations_StatusTypeId",
+                table: "Designations",
                 column: "StatusTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Salesman_TenantId",
-                table: "Salesman",
+                name: "IX_Designations_TenantId",
+                table: "Designations",
                 column: "TenantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SalesmanAudit_SalesmanId",
-                table: "SalesmanAudit",
-                column: "SalesmanId");
+                name: "IX_ExportTypeAudits_ExportTypeId",
+                table: "ExportTypeAudits",
+                column: "ExportTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_State_CountryId",
-                table: "State",
-                column: "CountryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_State_LanguageId",
-                table: "State",
+                name: "IX_ExportTypeAudits_LanguageId",
+                table: "ExportTypeAudits",
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_State_MenuModuleId",
-                table: "State",
+                name: "IX_ExportTypes_LanguageId",
+                table: "ExportTypes",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_KitchenAudits_KitchenId",
+                table: "KitchenAudits",
+                column: "KitchenId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Kitchens_LanguageId",
+                table: "Kitchens",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Kitchens_MenuModuleId",
+                table: "Kitchens",
                 column: "MenuModuleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_State_StatusTypeId",
-                table: "State",
+                name: "IX_Kitchens_StatusTypeId",
+                table: "Kitchens",
                 column: "StatusTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StateAudit_StateId",
-                table: "StateAudit",
-                column: "StateId");
+                name: "IX_Kitchens_TenantId",
+                table: "Kitchens",
+                column: "TenantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StatusType_LanguageId",
-                table: "StatusType",
+                name: "IX_LanguageAudits_LanguageId",
+                table: "LanguageAudits",
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StatusTypeAudit_StatusTypeId",
-                table: "StatusTypeAudit",
-                column: "StatusTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Submodule_LanguageId",
-                table: "Submodule",
-                column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Submodule_MainModuleId",
-                table: "Submodule",
+                name: "IX_MainModuleAudits_MainModuleId",
+                table: "MainModuleAudits",
                 column: "MainModuleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SubmoduleAudit_SubmoduleId",
-                table: "SubmoduleAudit",
-                column: "SubmoduleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Supplier_CountryId",
-                table: "Supplier",
-                column: "CountryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Supplier_CurrencyId",
-                table: "Supplier",
-                column: "CurrencyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Supplier_LanguageId",
-                table: "Supplier",
+                name: "IX_MainModules_LanguageId",
+                table: "MainModules",
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Supplier_MenuModuleId",
-                table: "Supplier",
+                name: "IX_MenuModuleAudits_MenuModuleId",
+                table: "MenuModuleAudits",
                 column: "MenuModuleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Supplier_StatusTypeId",
-                table: "Supplier",
-                column: "StatusTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Supplier_TenantId",
-                table: "Supplier",
-                column: "TenantId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SupplierAudit_SupplierId",
-                table: "SupplierAudit",
-                column: "SupplierId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SupplierType_CountryId",
-                table: "SupplierType",
-                column: "CountryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SupplierType_CurrencyId",
-                table: "SupplierType",
-                column: "CurrencyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SupplierType_LanguageId",
-                table: "SupplierType",
+                name: "IX_MenuModules_LanguageId",
+                table: "MenuModules",
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SupplierType_MenuModuleId",
-                table: "SupplierType",
-                column: "MenuModuleId");
+                name: "IX_MessageModuleAudits_MessageModuleId",
+                table: "MessageModuleAudits",
+                column: "MessageModuleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SupplierType_StatusTypeId",
-                table: "SupplierType",
-                column: "StatusTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SupplierType_TenantId",
-                table: "SupplierType",
-                column: "TenantId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SupplierTypeAudit_SupplierTypeId",
-                table: "SupplierTypeAudit",
-                column: "SupplierTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Table_LanguageId",
-                table: "Table",
+                name: "IX_MessageModules_LanguageId",
+                table: "MessageModules",
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Table_MenuModuleId",
-                table: "Table",
-                column: "MenuModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Table_StatusTypeId",
-                table: "Table",
-                column: "StatusTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Table_TenantId",
-                table: "Table",
-                column: "TenantId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TableAudit_TableId",
-                table: "TableAudit",
-                column: "TableId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tenant_CountryId",
-                table: "Tenant",
-                column: "CountryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tenant_LanguageId",
-                table: "Tenant",
-                column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tenant_MenuModuleId",
-                table: "Tenant",
-                column: "MenuModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tenant_StateId",
-                table: "Tenant",
-                column: "StateId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tenant_StatusTypeId",
-                table: "Tenant",
-                column: "StatusTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TenantAudit_TenantId",
-                table: "TenantAudit",
-                column: "TenantId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TextModule_LanguageId",
-                table: "TextModule",
-                column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TextModule_MenuModuleId",
-                table: "TextModule",
-                column: "MenuModuleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TextModuleAudit_TextModuleId",
-                table: "TextModuleAudit",
+                name: "IX_MessageModules_TextModuleId",
+                table: "MessageModules",
                 column: "TextModuleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_User_LanguageId",
-                table: "User",
+                name: "IX_OrderTypeAudits_OrderTypeId",
+                table: "OrderTypeAudits",
+                column: "OrderTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderTypes_LanguageId",
+                table: "OrderTypes",
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_User_MenuModuleId",
-                table: "User",
+                name: "IX_OrderTypes_MenuModuleId",
+                table: "OrderTypes",
                 column: "MenuModuleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_User_StatusTypeId",
-                table: "User",
+                name: "IX_OrderTypes_StatusTypeId",
+                table: "OrderTypes",
                 column: "StatusTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_User_TenantId",
-                table: "User",
+                name: "IX_OrderTypes_TenantId",
+                table: "OrderTypes",
                 column: "TenantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserAudit_UserId",
-                table: "UserAudit",
+                name: "IX_RiderAudits_RiderId",
+                table: "RiderAudits",
+                column: "RiderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Riders_AreaId",
+                table: "Riders",
+                column: "AreaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Riders_CityId",
+                table: "Riders",
+                column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Riders_CountryId",
+                table: "Riders",
+                column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Riders_LanguageId",
+                table: "Riders",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Riders_MenuModuleId",
+                table: "Riders",
+                column: "MenuModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Riders_StateId",
+                table: "Riders",
+                column: "StateId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Riders_StatusTypeId",
+                table: "Riders",
+                column: "StatusTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Riders_TenantId",
+                table: "Riders",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RoleAudits_RoleId",
+                table: "RoleAudits",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Roles_LanguageId",
+                table: "Roles",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Roles_MenuModuleId",
+                table: "Roles",
+                column: "MenuModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Roles_StatusTypeId",
+                table: "Roles",
+                column: "StatusTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Roles_TenantId",
+                table: "Roles",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SalesmanAudits_SalesmanId",
+                table: "SalesmanAudits",
+                column: "SalesmanId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Salesmen_DepartmentId",
+                table: "Salesmen",
+                column: "DepartmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Salesmen_LanguageId",
+                table: "Salesmen",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Salesmen_MenuModuleId",
+                table: "Salesmen",
+                column: "MenuModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Salesmen_StatusTypeId",
+                table: "Salesmen",
+                column: "StatusTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Salesmen_TenantId",
+                table: "Salesmen",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StateAudits_StateId",
+                table: "StateAudits",
+                column: "StateId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_States_CountryId",
+                table: "States",
+                column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_States_LanguageId",
+                table: "States",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_States_MenuModuleId",
+                table: "States",
+                column: "MenuModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_States_StatusTypeId",
+                table: "States",
+                column: "StatusTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StatusTypeAudits_StatusTypeId",
+                table: "StatusTypeAudits",
+                column: "StatusTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StatusTypes_LanguageId",
+                table: "StatusTypes",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubmoduleAudits_SubmoduleId",
+                table: "SubmoduleAudits",
+                column: "SubmoduleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Submodules_LanguageId",
+                table: "Submodules",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Submodules_MainModuleId",
+                table: "Submodules",
+                column: "MainModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SupplierAudits_SupplierId",
+                table: "SupplierAudits",
+                column: "SupplierId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Suppliers_CountryId",
+                table: "Suppliers",
+                column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Suppliers_CurrencyId",
+                table: "Suppliers",
+                column: "CurrencyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Suppliers_LanguageId",
+                table: "Suppliers",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Suppliers_MenuModuleId",
+                table: "Suppliers",
+                column: "MenuModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Suppliers_StatusTypeId",
+                table: "Suppliers",
+                column: "StatusTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Suppliers_TenantId",
+                table: "Suppliers",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SupplierTypeAudits_SupplierTypeId",
+                table: "SupplierTypeAudits",
+                column: "SupplierTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SupplierTypes_CountryId",
+                table: "SupplierTypes",
+                column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SupplierTypes_CurrencyId",
+                table: "SupplierTypes",
+                column: "CurrencyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SupplierTypes_LanguageId",
+                table: "SupplierTypes",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SupplierTypes_MenuModuleId",
+                table: "SupplierTypes",
+                column: "MenuModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SupplierTypes_StatusTypeId",
+                table: "SupplierTypes",
+                column: "StatusTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SupplierTypes_TenantId",
+                table: "SupplierTypes",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TableAudits_TableId",
+                table: "TableAudits",
+                column: "TableId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tables_LanguageId",
+                table: "Tables",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tables_MenuModuleId",
+                table: "Tables",
+                column: "MenuModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tables_StatusTypeId",
+                table: "Tables",
+                column: "StatusTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tables_TenantId",
+                table: "Tables",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TenantAudits_TenantId",
+                table: "TenantAudits",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tenants_CountryId",
+                table: "Tenants",
+                column: "CountryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tenants_LanguageId",
+                table: "Tenants",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tenants_MenuModuleId",
+                table: "Tenants",
+                column: "MenuModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tenants_StateId",
+                table: "Tenants",
+                column: "StateId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tenants_StatusTypeId",
+                table: "Tenants",
+                column: "StatusTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TextModuleAudits_TextModuleId",
+                table: "TextModuleAudits",
+                column: "TextModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TextModules_LanguageId",
+                table: "TextModules",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TextModules_MenuModuleId",
+                table: "TextModules",
+                column: "MenuModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserAudits_UserId",
+                table: "UserAudits",
                 column: "UserId");
 
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_LanguageId",
+                table: "Users",
+                column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_MenuModuleId",
+                table: "Users",
+                column: "MenuModuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_StatusTypeId",
+                table: "Users",
+                column: "StatusTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_TenantId",
+                table: "Users",
+                column: "TenantId");
+
             migrationBuilder.AddForeignKey(
-                name: "FK_Area_City_CityId",
-                table: "Area",
+                name: "FK_AreaAudits_Areas_AreaId",
+                table: "AreaAudits",
+                column: "AreaId",
+                principalTable: "Areas",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.NoAction);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Areas_Cities_CityId",
+                table: "Areas",
                 column: "CityId",
-                principalTable: "City",
+                principalTable: "Cities",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.NoAction);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Area_Country_CountryId",
-                table: "Area",
+                name: "FK_Areas_Countries_CountryId",
+                table: "Areas",
                 column: "CountryId",
-                principalTable: "Country",
+                principalTable: "Countries",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.NoAction);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Area_State_StateId",
-                table: "Area",
+                name: "FK_Areas_States_StateId",
+                table: "Areas",
                 column: "StateId",
-                principalTable: "State",
+                principalTable: "States",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.NoAction);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Area_Tenant_TenantId",
-                table: "Area",
+                name: "FK_Areas_Tenants_TenantId",
+                table: "Areas",
                 column: "TenantId",
-                principalTable: "Tenant",
+                principalTable: "Tenants",
                 principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_City_Country_CountryId",
-                table: "City",
+                name: "FK_Cities_Countries_CountryId",
+                table: "Cities",
                 column: "CountryId",
-                principalTable: "Country",
+                principalTable: "Countries",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.NoAction);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_City_State_StateId",
-                table: "City",
+                name: "FK_Cities_States_StateId",
+                table: "Cities",
                 column: "StateId",
-                principalTable: "State",
+                principalTable: "States",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.NoAction);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_City_Tenant_TenantId",
-                table: "City",
+                name: "FK_Cities_Tenants_TenantId",
+                table: "Cities",
                 column: "TenantId",
-                principalTable: "Tenant",
+                principalTable: "Tenants",
                 principalColumn: "Id");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Country_Currency_CurrencyId",
-                table: "Country",
+                name: "FK_Countries_Currencies_CurrencyId",
+                table: "Countries",
                 column: "CurrencyId",
-                principalTable: "Currency",
+                principalTable: "Currencies",
                 principalColumn: "Id");
         }
 
@@ -2722,192 +2724,192 @@ namespace RapidERP.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Country_Language_LanguageId",
-                table: "Country");
+                name: "FK_Countries_Languages_LanguageId",
+                table: "Countries");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Currency_Language_LanguageId",
-                table: "Currency");
+                name: "FK_Currencies_Languages_LanguageId",
+                table: "Currencies");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_MenuModule_Language_LanguageId",
-                table: "MenuModule");
+                name: "FK_MenuModules_Languages_LanguageId",
+                table: "MenuModules");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_State_Language_LanguageId",
-                table: "State");
+                name: "FK_States_Languages_LanguageId",
+                table: "States");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_StatusType_Language_LanguageId",
-                table: "StatusType");
+                name: "FK_StatusTypes_Languages_LanguageId",
+                table: "StatusTypes");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Tenant_Language_LanguageId",
-                table: "Tenant");
+                name: "FK_Tenants_Languages_LanguageId",
+                table: "Tenants");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_State_Country_CountryId",
-                table: "State");
+                name: "FK_States_Countries_CountryId",
+                table: "States");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Tenant_Country_CountryId",
-                table: "Tenant");
+                name: "FK_Tenants_Countries_CountryId",
+                table: "Tenants");
 
             migrationBuilder.DropTable(
-                name: "ActionTypeAudit");
+                name: "ActionTypeHistories");
 
             migrationBuilder.DropTable(
-                name: "AreaAudit");
+                name: "AreaAudits");
 
             migrationBuilder.DropTable(
-                name: "CityAudit");
+                name: "CityAudits");
 
             migrationBuilder.DropTable(
-                name: "CountryAudit");
+                name: "CountryAudits");
 
             migrationBuilder.DropTable(
-                name: "CurrencyAudit");
+                name: "CurrencyAudits");
 
             migrationBuilder.DropTable(
-                name: "DepartmentAudit");
+                name: "DepartmentAudits");
 
             migrationBuilder.DropTable(
-                name: "DesignationAudit");
+                name: "DesignationAudits");
 
             migrationBuilder.DropTable(
-                name: "ExportTypeAudit");
+                name: "ExportTypeAudits");
 
             migrationBuilder.DropTable(
-                name: "KitchenAudit");
+                name: "KitchenAudits");
 
             migrationBuilder.DropTable(
-                name: "LanguageAudit");
+                name: "LanguageAudits");
 
             migrationBuilder.DropTable(
-                name: "MainModuleAudit");
+                name: "MainModuleAudits");
 
             migrationBuilder.DropTable(
-                name: "MenuModuleAudit");
+                name: "MenuModuleAudits");
 
             migrationBuilder.DropTable(
-                name: "MessageModuleAudit");
+                name: "MessageModuleAudits");
 
             migrationBuilder.DropTable(
-                name: "OrderTypeAudit");
+                name: "OrderTypeAudits");
 
             migrationBuilder.DropTable(
-                name: "RiderAudit");
+                name: "RiderAudits");
 
             migrationBuilder.DropTable(
-                name: "RoleAudit");
+                name: "RoleAudits");
 
             migrationBuilder.DropTable(
-                name: "SalesmanAudit");
+                name: "SalesmanAudits");
 
             migrationBuilder.DropTable(
-                name: "StateAudit");
+                name: "StateAudits");
 
             migrationBuilder.DropTable(
-                name: "StatusTypeAudit");
+                name: "StatusTypeAudits");
 
             migrationBuilder.DropTable(
-                name: "SubmoduleAudit");
+                name: "SubmoduleAudits");
 
             migrationBuilder.DropTable(
-                name: "SupplierAudit");
+                name: "SupplierAudits");
 
             migrationBuilder.DropTable(
-                name: "SupplierTypeAudit");
+                name: "SupplierTypeAudits");
 
             migrationBuilder.DropTable(
-                name: "TableAudit");
+                name: "TableAudits");
 
             migrationBuilder.DropTable(
-                name: "TenantAudit");
+                name: "TenantAudits");
 
             migrationBuilder.DropTable(
-                name: "TextModuleAudit");
+                name: "TextModuleAudits");
 
             migrationBuilder.DropTable(
-                name: "UserAudit");
+                name: "UserAudits");
 
             migrationBuilder.DropTable(
-                name: "ActionType");
+                name: "ActionTypes");
 
             migrationBuilder.DropTable(
-                name: "Designation");
+                name: "Designations");
 
             migrationBuilder.DropTable(
-                name: "ExportType");
+                name: "ExportTypes");
 
             migrationBuilder.DropTable(
-                name: "Kitchen");
+                name: "Kitchens");
 
             migrationBuilder.DropTable(
-                name: "MessageModule");
+                name: "MessageModules");
 
             migrationBuilder.DropTable(
-                name: "OrderType");
+                name: "OrderTypes");
 
             migrationBuilder.DropTable(
-                name: "Rider");
+                name: "Riders");
 
             migrationBuilder.DropTable(
-                name: "Role");
+                name: "Roles");
 
             migrationBuilder.DropTable(
-                name: "Salesman");
+                name: "Salesmen");
 
             migrationBuilder.DropTable(
-                name: "Submodule");
+                name: "Submodules");
 
             migrationBuilder.DropTable(
-                name: "Supplier");
+                name: "Suppliers");
 
             migrationBuilder.DropTable(
-                name: "SupplierType");
+                name: "SupplierTypes");
 
             migrationBuilder.DropTable(
-                name: "Table");
+                name: "Tables");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
 
             migrationBuilder.DropTable(
-                name: "TextModule");
+                name: "TextModules");
 
             migrationBuilder.DropTable(
-                name: "Area");
+                name: "Areas");
 
             migrationBuilder.DropTable(
-                name: "Department");
+                name: "Departments");
 
             migrationBuilder.DropTable(
-                name: "MainModule");
+                name: "MainModules");
 
             migrationBuilder.DropTable(
-                name: "City");
+                name: "Cities");
 
             migrationBuilder.DropTable(
-                name: "Language");
+                name: "Languages");
 
             migrationBuilder.DropTable(
-                name: "Country");
+                name: "Countries");
 
             migrationBuilder.DropTable(
-                name: "Currency");
+                name: "Currencies");
 
             migrationBuilder.DropTable(
-                name: "Tenant");
+                name: "Tenants");
 
             migrationBuilder.DropTable(
-                name: "State");
+                name: "States");
 
             migrationBuilder.DropTable(
-                name: "MenuModule");
+                name: "MenuModules");
 
             migrationBuilder.DropTable(
-                name: "StatusType");
+                name: "StatusTypes");
         }
     }
 }
