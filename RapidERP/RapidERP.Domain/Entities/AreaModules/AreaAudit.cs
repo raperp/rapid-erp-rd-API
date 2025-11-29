@@ -1,7 +1,7 @@
 ﻿using RapidERP.Domain.Entities.Shared;
 
 namespace RapidERP.Domain.Entities.AreaModules;
-public class AreaAudit : BaseAudit
+public class AreaAudit : BaseHistory
 {
     public Area Area { get; set; }
     public int AreaId { get; set; }

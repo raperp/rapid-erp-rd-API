@@ -2,7 +2,7 @@
 
 namespace RapidERP.Domain.Entities.TenantModels;
 
-public class TenantAudit : BaseAudit
+public class TenantAudit : BaseHistory
 {
     public Tenant Tenant { get; set; }
     //public int? TenantId { get; set; }

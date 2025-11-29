@@ -3,7 +3,7 @@ using RapidERP.Domain.Entities.Shared;
 
 namespace RapidERP.Domain.Entities.ActionTypeModels;
 
-public class ActionTypeAudit : BaseAudit 
+public class ActionTypeHistory : BaseHistory 
 {
     public ActionType ActionType { get; set; }
     public int? ActionTypeId { get; set; }

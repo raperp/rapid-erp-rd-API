@@ -1,7 +1,7 @@
 ﻿using RapidERP.Domain.Entities.Shared;
 
 namespace RapidERP.Domain.Entities.SupplierModels;
-public class SupplierAudit : BaseAudit
+public class SupplierAudit : BaseHistory
 {
     public Supplier Supplier { get; set; }
     public int SupplierId { get; set; }

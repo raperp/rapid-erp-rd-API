@@ -38,7 +38,7 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
     public DbSet<ExportTypeAudit> ExportTypeAudits { get; set; } 
 
     public DbSet<ActionType> ActionTypes { get; set; }
-    public DbSet<ActionTypeAudit> ActionTypeAudits { get; set; }
+    public DbSet<ActionTypeHistory> ActionTypeHistories { get; set; }
 
     public DbSet<StatusType> StatusTypes { get; set; }
     public DbSet<StatusTypeAudit> StatusTypeAudits { get; set; }

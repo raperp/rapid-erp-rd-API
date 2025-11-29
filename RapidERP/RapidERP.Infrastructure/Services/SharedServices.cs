@@ -96,9 +96,7 @@ public class SharedServices(RapidERPDbContext context) : IShared
 
             else
             {
-                ActionDTO actionDTO = new();
-                actionDTO.DeletedBy = (softDelete.IsDelete == true) ? softDelete.ActionBy : null;
-                actionDTO.DeletedAt = (softDelete.IsDelete == true) ? DateTime.Now : null;
+                 
 
                 //await context.Set<T>().Where(x => x.Id == softDelete.Id).ExecuteUpdateAsync(x => x
                 //.SetProperty(x => x.DeletedBy, actionDTO.DeletedBy)

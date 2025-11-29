@@ -37,7 +37,7 @@ public class RapidHRMDbContext(DbContextOptions<RapidHRMDbContext> options) : Db
     public DbSet<ExportTypeAudit> ExportTypeAudits { get; set; }
 
     public DbSet<ActionType> ActionTypes { get; set; }
-    public DbSet<ActionTypeAudit> ActionTypeAudits { get; set; }
+    public DbSet<ActionTypeHistory> ActionTypeAudits { get; set; }
 
     public DbSet<StatusType> StatusTypes { get; set; }
     public DbSet<StatusTypeAudit> StatusTypeAudits { get; set; }

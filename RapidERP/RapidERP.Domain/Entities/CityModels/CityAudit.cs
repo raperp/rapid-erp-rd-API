@@ -1,7 +1,7 @@
 ﻿using RapidERP.Domain.Entities.Shared;
 
 namespace RapidERP.Domain.Entities.CityModels;
-public class CityAudit : BaseAudit
+public class CityAudit : BaseHistory
 {
     public City City { get; set; }
     public int CityId { get; set; }
