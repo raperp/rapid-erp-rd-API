@@ -2,6 +2,7 @@
 using RapidERP.Application.Interfaces;
 using RapidERP.Application.Interfaces.Tenant;
 using RapidERP.Infrastructure.Services;
+using RapidERP.Infrastructure.Services.TenantServices;
 
 namespace RapidERP.Infrastructure.Extentions;
 

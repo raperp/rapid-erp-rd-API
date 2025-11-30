@@ -7,7 +7,7 @@ using RapidERP.Domain.Entities.TenantModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
-namespace RapidERP.Infrastructure.Services;
+namespace RapidERP.Infrastructure.Services.TenantServices;
 public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
 {
     RequestResponse requestResponse { get; set; }
