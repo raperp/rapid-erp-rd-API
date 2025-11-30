@@ -7,14 +7,14 @@ namespace RapidERP.Domain.Entities.Shared;
 
 public class BaseMaster : Master
 {
-    public MenuModule MenuModule { get; set; }
-    public int? MenuModuleId { get; set; }
     public Tenant Tenant { get; set; }
     public int? TenantId { get; set; }
-    public StatusType StatusType { get; set; }
-    public int? StatusTypeId { get; set; }
+    public MenuModule MenuModule { get; set; }
+    public int? MenuModuleId { get; set; }
     public Language Language { get; set; }
     public int? LanguageId { get; set; }
+    public StatusType StatusType { get; set; }
+    public int? StatusTypeId { get; set; }
     public bool IsDefault { get; set; }
     public bool IsDraft { get; set; }
     //public int? CreatedBy { get; set; }
