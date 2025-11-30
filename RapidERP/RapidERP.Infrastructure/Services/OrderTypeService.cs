@@ -330,7 +330,7 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
         return result;
     }
 
-    public Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public Task<dynamic> SoftDelete(int id)
     {
         throw new NotImplementedException();
     }

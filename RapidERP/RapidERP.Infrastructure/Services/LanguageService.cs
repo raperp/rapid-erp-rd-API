@@ -314,9 +314,9 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
         return result;
     }
 
-    public async Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public async Task<dynamic> SoftDelete(int id)
     {
-        var result = await shared.SoftDelete<Country>(softDelete);
+        var result = "Not Applicable";
         return result;
     }
 

@@ -78,11 +78,11 @@ public class SharedServices(RapidERPDbContext context) : IShared
         }
     }
 
-    public async Task<RequestResponse> SoftDelete<T>(DeleteDTO softDelete) where T : BaseMaster
+    public async Task<RequestResponse> SoftDelete<T>(int id) where T : BaseMaster
     {
         try
         {
-            var isExists = await context.Set<T>().AsNoTracking().AnyAsync(x => x.Id == softDelete.Id);
+            var isExists = await context.Set<T>().AsNoTracking().AnyAsync(x => x.Id == id);
 
             if (isExists == false)
             {
@@ -96,11 +96,11 @@ public class SharedServices(RapidERPDbContext context) : IShared
 
             else
             {
-                 
+                int statusTypeId = await context.StatusTypes.Where(x => x.Name == "Deleted")
+                    .AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
 
-                //await context.Set<T>().Where(x => x.Id == softDelete.Id).ExecuteUpdateAsync(x => x
-                //.SetProperty(x => x.DeletedBy, actionDTO.DeletedBy)
-                //.SetProperty(x => x.DeletedAt, actionDTO.DeletedAt));
+                await context.Set<T>().Where(x => x.Id == id).ExecuteUpdateAsync(x => x
+                .SetProperty(x => x.StatusTypeId, statusTypeId));
             }
 
             requestResponse = new()

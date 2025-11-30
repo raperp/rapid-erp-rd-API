@@ -1253,40 +1253,40 @@ namespace RapidERP.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ISO2Code")
                         .IsRequired()
                         .HasMaxLength(2)
-                        .HasColumnType("nvarchar(2)");
+                        .HasColumnType("nvarchar(2)")
+                        .HasColumnOrder(3);
 
                     b.Property<string>("ISO3Code")
                         .IsRequired()
                         .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)");
+                        .HasColumnType("nvarchar(3)")
+                        .HasColumnOrder(4);
 
                     b.Property<string>("ISONumeric")
                         .IsRequired()
                         .HasMaxLength(4)
-                        .HasColumnType("nvarchar(4)");
+                        .HasColumnType("nvarchar(4)")
+                        .HasColumnOrder(1);
 
                     b.Property<string>("IconURL")
                         .IsRequired()
                         .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<bool>("IsDefault")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDraft")
-                        .HasColumnType("bit");
+                        .HasColumnType("nvarchar(15)")
+                        .HasColumnOrder(5);
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnOrder(2);
 
                     b.HasKey("Id");
 
@@ -1297,67 +1297,91 @@ namespace RapidERP.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("ActionAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(15);
 
                     b.Property<int>("ActionBy")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(14);
 
                     b.Property<string>("Browser")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)")
+                        .HasColumnOrder(7);
 
                     b.Property<string>("DeviceIP")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)")
+                        .HasColumnOrder(9);
 
                     b.Property<string>("DeviceName")
+                        .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnOrder(11);
 
                     b.Property<string>("ISO2Code")
                         .IsRequired()
                         .HasMaxLength(2)
-                        .HasColumnType("nvarchar(2)");
+                        .HasColumnType("nvarchar(2)")
+                        .HasColumnOrder(4);
 
                     b.Property<string>("ISO3Code")
                         .IsRequired()
                         .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)");
+                        .HasColumnType("nvarchar(3)")
+                        .HasColumnOrder(5);
 
                     b.Property<string>("ISONumeric")
                         .IsRequired()
                         .HasMaxLength(4)
-                        .HasColumnType("nvarchar(4)");
+                        .HasColumnType("nvarchar(4)")
+                        .HasColumnOrder(2);
 
                     b.Property<string>("IconURL")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(6);
 
                     b.Property<int>("LanguageId")
-                        .HasColumnType("int");
+                        .HasMaxLength(40)
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
 
                     b.Property<decimal>("Latitude")
                         .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
+                        .HasColumnType("decimal(9,6)")
+                        .HasColumnOrder(12);
 
                     b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnOrder(8);
 
                     b.Property<string>("LocationURL")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(10);
 
                     b.Property<decimal>("Longitude")
                         .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
+                        .HasColumnType("decimal(9,6)")
+                        .HasColumnOrder(13);
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnOrder(3);
 
                     b.HasKey("Id");
 
@@ -3204,24 +3228,28 @@ namespace RapidERP.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
                         .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasColumnType("nvarchar(30)")
+                        .HasColumnOrder(15);
 
                     b.Property<string>("Contact")
-                        .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasColumnOrder(12);
 
                     b.Property<int?>("CountryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnOrder(16);
 
                     b.Property<int?>("LanguageId")
                         .HasColumnType("int");
@@ -3231,16 +3259,19 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Property<string>("Mobile")
                         .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasColumnType("nvarchar(15)")
+                        .HasColumnOrder(14);
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnOrder(11);
 
                     b.Property<string>("Phone")
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)")
+                        .HasColumnOrder(13);
 
                     b.Property<int?>("StateId")
                         .HasColumnType("int");
@@ -3250,7 +3281,8 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Property<string>("Website")
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnOrder(17);
 
                     b.HasKey("Id");
 
@@ -3267,111 +3299,307 @@ namespace RapidERP.Infrastructure.Migrations
                     b.ToTable("Tenants");
                 });
 
-            modelBuilder.Entity("RapidERP.Domain.Entities.TenantModels.TenantAudit", b =>
+            modelBuilder.Entity("RapidERP.Domain.Entities.TenantModels.TenantCalendar", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("ActionAt")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("CalendarId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(2);
 
-                    b.Property<int>("ActionBy")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ActionTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Address")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("Browser")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Contact")
-                        .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)");
-
-                    b.Property<int?>("CountryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DeviceIP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceName")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("ExportTo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ExportTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDefault")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDraft")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LocationURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
-
-                    b.Property<int?>("MenuModuleId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Mobile")
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("Phone")
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
-
-                    b.Property<string>("SourceURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("StateId")
-                        .HasColumnType("int");
+                    b.Property<int?>("DefaultCalendarId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(3);
 
                     b.Property<int?>("TenantId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Website")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
 
                     b.HasKey("Id");
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("TenantAudits");
+                    b.ToTable("TenantCalendars");
+                });
+
+            modelBuilder.Entity("RapidERP.Domain.Entities.TenantModels.TenantHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("ActionAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(37);
+
+                    b.Property<int>("ActionBy")
+                        .HasColumnType("int")
+                        .HasColumnOrder(36);
+
+                    b.Property<int?>("ActionTypeId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(7);
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasColumnOrder(15);
+
+                    b.Property<string>("Browser")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)")
+                        .HasColumnOrder(29);
+
+                    b.Property<int?>("CalendarId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(6);
+
+                    b.Property<string>("Contact")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasColumnOrder(12);
+
+                    b.Property<int?>("CountryId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(3);
+
+                    b.Property<int?>("DataLanguageId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(26);
+
+                    b.Property<int?>("DefaultCalendarId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(28);
+
+                    b.Property<int?>("DefaultLanguageId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(27);
+
+                    b.Property<string>("DeviceIP")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)")
+                        .HasColumnOrder(31);
+
+                    b.Property<string>("DeviceName")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnOrder(33);
+
+                    b.Property<string>("ERPPlan")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnOrder(20);
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnOrder(16);
+
+                    b.Property<DateTime?>("ExpiryAt")
+                        .HasMaxLength(20)
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(23);
+
+                    b.Property<string>("ExportTo")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(9);
+
+                    b.Property<int?>("ExportTypeId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(8);
+
+                    b.Property<int?>("InterfaceLanguageId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(25);
+
+                    b.Property<DateTime?>("IssueAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(21);
+
+                    b.Property<int?>("LanguageId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(5);
+
+                    b.Property<decimal>("Latitude")
+                        .HasPrecision(9, 6)
+                        .HasColumnType("decimal(9,6)")
+                        .HasColumnOrder(34);
+
+                    b.Property<string>("LicenseNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnOrder(18);
+
+                    b.Property<string>("LimitUsers")
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)")
+                        .HasColumnOrder(19);
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnOrder(30);
+
+                    b.Property<string>("LocationURL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(32);
+
+                    b.Property<decimal>("Longitude")
+                        .HasPrecision(9, 6)
+                        .HasColumnType("decimal(9,6)")
+                        .HasColumnOrder(35);
+
+                    b.Property<int?>("MenuModuleId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(2);
+
+                    b.Property<string>("Mobile")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)")
+                        .HasColumnOrder(14);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnOrder(11);
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)")
+                        .HasColumnOrder(13);
+
+                    b.Property<DateTime?>("ReminderAt")
+                        .HasMaxLength(20)
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(24);
+
+                    b.Property<string>("SourceURL")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnOrder(10);
+
+                    b.Property<int?>("StateId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(4);
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
+
+                    b.Property<string>("ValidityDays")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnOrder(22);
+
+                    b.Property<string>("Website")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnOrder(17);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("TenantHistories");
+                });
+
+            modelBuilder.Entity("RapidERP.Domain.Entities.TenantModels.TenantLanguage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DataLanguageId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(3);
+
+                    b.Property<int>("DefaultLanguageId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(4);
+
+                    b.Property<int>("InterfaceLanguageId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(2);
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("TenantLanguages");
+                });
+
+            modelBuilder.Entity("RapidERP.Domain.Entities.TenantModels.TenantLicense", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ERPPlan")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnOrder(4);
+
+                    b.Property<DateTime>("ExpiryAt")
+                        .HasMaxLength(20)
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(7);
+
+                    b.Property<DateTime>("IssueAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(5);
+
+                    b.Property<string>("LicenseNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnOrder(2);
+
+                    b.Property<string>("LimitUsers")
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)")
+                        .HasColumnOrder(3);
+
+                    b.Property<DateTime>("ReminderAt")
+                        .HasMaxLength(20)
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(8);
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
+
+                    b.Property<string>("ValidityDays")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnOrder(6);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("TenantLicenses");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.TextModuleModels.TextModule", b =>
@@ -4547,7 +4775,34 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Navigation("StatusType");
                 });
 
-            modelBuilder.Entity("RapidERP.Domain.Entities.TenantModels.TenantAudit", b =>
+            modelBuilder.Entity("RapidERP.Domain.Entities.TenantModels.TenantCalendar", b =>
+                {
+                    b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
+                        .WithMany()
+                        .HasForeignKey("TenantId");
+
+                    b.Navigation("Tenant");
+                });
+
+            modelBuilder.Entity("RapidERP.Domain.Entities.TenantModels.TenantHistory", b =>
+                {
+                    b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
+                        .WithMany()
+                        .HasForeignKey("TenantId");
+
+                    b.Navigation("Tenant");
+                });
+
+            modelBuilder.Entity("RapidERP.Domain.Entities.TenantModels.TenantLanguage", b =>
+                {
+                    b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
+                        .WithMany()
+                        .HasForeignKey("TenantId");
+
+                    b.Navigation("Tenant");
+                });
+
+            modelBuilder.Entity("RapidERP.Domain.Entities.TenantModels.TenantLicense", b =>
                 {
                     b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
                         .WithMany()

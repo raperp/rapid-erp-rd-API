@@ -366,9 +366,9 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
         return result;
     }
 
-    public async Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public async Task<dynamic> SoftDelete(int id)
     {
-        var result = await shared.SoftDelete<Country>(softDelete);
+        var result = await shared.SoftDelete<Country>(id);
         return result;
     }
 

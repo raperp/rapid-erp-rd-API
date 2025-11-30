@@ -333,9 +333,9 @@ public class MenuModuleService(RapidERPDbContext context, IShared shared) : IMen
         return result;
     }
 
-    public async Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public async Task<dynamic> SoftDelete(int id)
     {
-        var result = await shared.SoftDelete<MenuModule>(softDelete);
+        var result = "Not Applicable";
         return result;
     }
 

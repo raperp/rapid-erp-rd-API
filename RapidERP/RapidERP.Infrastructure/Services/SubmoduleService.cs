@@ -340,9 +340,9 @@ public class SubmoduleService(RapidERPDbContext context, IShared shared) : ISubm
         return result;
     }
 
-    public async Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public async Task<dynamic> SoftDelete(int id)
     {
-        var result = await shared.SoftDelete<Submodule>(softDelete);
+        var result = "Not Applicable";
         return result;
     }
 

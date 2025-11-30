@@ -52,9 +52,9 @@ public class MessageController(IMessageModule message) : ControllerBase
     }
 
     [HttpPut("Delete")]
-    public async Task<IActionResult> SoftDelete(DeleteDTO softDelete)
+    public async Task<IActionResult> SoftDelete(int id)
     {
-        var result = await message.SoftDelete(softDelete);
+        var result = await message.SoftDelete(id);
         return Ok(result);
     }
 }

@@ -260,9 +260,9 @@ public class TextModuleService(RapidERPDbContext context, IShared shared) : ITex
         return result;
     }
 
-    public async Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public async Task<dynamic> SoftDelete(int id)
     {
-        var result = await shared.SoftDelete<TextModule>(softDelete);
+        var result = "Not Applicable";
         return result;
     }
 

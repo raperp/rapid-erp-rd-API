@@ -52,9 +52,9 @@ public class LanguageController(ILanguage language) : ControllerBase
     }
 
     [HttpPut("Delete")]
-    public async Task<IActionResult> SoftDelete(DeleteDTO deleteDTO)
+    public async Task<IActionResult> SoftDelete(int id)
     {
-        var result = await language.SoftDelete(deleteDTO);
+        var result = await language.SoftDelete(id);
         return Ok(result);
     }
 

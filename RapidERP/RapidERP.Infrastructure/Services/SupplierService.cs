@@ -381,7 +381,7 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
         return result;
     }
 
-    public Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public Task<dynamic> SoftDelete(int id)
     {
         throw new NotImplementedException();
     }

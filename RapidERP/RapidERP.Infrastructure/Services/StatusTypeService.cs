@@ -326,9 +326,9 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
         return result;
     }
 
-    public async Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public async Task<dynamic> SoftDelete(int id)
     {
-        var result = await shared.SoftDelete<StatusType>(softDelete);
+        var result = "Not Applicable";
         return result;
     }
 

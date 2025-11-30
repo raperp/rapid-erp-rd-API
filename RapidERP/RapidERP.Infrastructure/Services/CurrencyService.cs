@@ -341,7 +341,7 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
         return result;
     }
 
-    public Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public Task<dynamic> SoftDelete(int id)
     {
         throw new NotImplementedException();
     }

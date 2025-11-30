@@ -76,7 +76,7 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
                 await context.Tenants.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                TenantAudit audit = new();
+                TenantHistory audit = new();
                 audit.Name = masterPOST.Name;
                 audit.Contact = masterPOST.Contact;
                 audit.Phone = masterPOST.Phone;
@@ -103,7 +103,7 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
                 audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.TenantAudits.AddAsync(audit);
+                await context.TenantHistories.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -147,7 +147,7 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.TenantAudits.AsNoTracking().AnyAsync(x => x.TenantId == id);
+            var isAuditExists = await context.TenantHistories.AsNoTracking().AnyAsync(x => x.TenantId == id);
 
             if (isAuditExists == false)
             {
@@ -161,7 +161,7 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
 
             else
             {
-                await context.TenantAudits.Where(x => x.TenantId == id).ExecuteDeleteAsync();
+                await context.TenantHistories.Where(x => x.TenantId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.Tenants.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -276,7 +276,7 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
     {
         try
         {
-            var data = (from ta in context.TenantAudits
+            var data = (from ta in context.TenantHistories
                         //join et in context.ExportTypes on ta.ExportTypeId equals et.Id
                         join at in context.ActionTypes on ta.ActionTypeId equals at.Id
                         //join st in context.StatusTypes on ta.StatusTypeId equals st.Id
@@ -355,7 +355,7 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
         return result;
     }
 
-    public Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public Task<dynamic> SoftDelete(int id)
     {
         throw new NotImplementedException();
     }
@@ -379,7 +379,7 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
                 .SetProperty(x => x.Website, masterPUT.Website)
                 .SetProperty(x => x.CountryId, masterPUT.CountryId));
 
-                TenantAudit audit = new();
+                TenantHistory audit = new();
                 audit.Name = masterPUT.Name;
                 audit.Contact = masterPUT.Contact;
                 audit.Phone = masterPUT.Phone;
@@ -406,7 +406,7 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
                 //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.TenantAudits.AddAsync(audit);
+                await context.TenantHistories.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

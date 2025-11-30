@@ -342,7 +342,7 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
         return result;
     }
 
-    public Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public Task<dynamic> SoftDelete(int id)
     {
         throw new NotImplementedException();
     }

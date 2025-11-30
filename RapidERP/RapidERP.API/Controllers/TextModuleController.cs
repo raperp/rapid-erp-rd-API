@@ -53,9 +53,9 @@ public class TextModuleController(ITextModule textModule) : ControllerBase
     }
 
     [HttpPut("Delete")]
-    public async Task<IActionResult> SoftDelete(DeleteDTO softDelete)
+    public async Task<IActionResult> SoftDelete(int id)
     {
-        var result = await textModule.SoftDelete(softDelete);
+        var result = await textModule.SoftDelete(id);
         return Ok(result);
     }
 }

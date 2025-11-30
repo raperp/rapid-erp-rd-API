@@ -52,9 +52,9 @@ public class MenuModuleController(IMenuModule menuModule) : ControllerBase
     }
 
     [HttpPut("Delete")]
-    public async Task<IActionResult> SoftDelete(DeleteDTO softDelete)
+    public async Task<IActionResult> SoftDelete(int id)
     {
-        var result = await menuModule.SoftDelete(softDelete);
+        var result = await menuModule.SoftDelete(id);
         return Ok(result);
     }
 

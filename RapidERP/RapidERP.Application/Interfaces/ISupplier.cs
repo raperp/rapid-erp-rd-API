@@ -1,5 +1,5 @@
-﻿using RapidERP.Application.DTOs.Shared;
-using RapidERP.Application.DTOs.SupplierDTOs;
+﻿using RapidERP.Application.DTOs.SupplierDTOs;
 
 namespace RapidERP.Application.Interfaces;
-public interface ISupplier : IBase<SupplierPOST, SupplierPUT, DeleteDTO> { }
+
+public interface ISupplier : IBase<SupplierPOST, SupplierPUT> { }

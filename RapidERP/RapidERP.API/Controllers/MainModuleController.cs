@@ -53,9 +53,9 @@ public class MainModuleController(IMainModule mainModule) : ControllerBase
     }
 
     [HttpPut("Delete")]
-    public async Task<IActionResult> SoftDelete(DeleteDTO softDelete)
+    public async Task<IActionResult> SoftDelete(int id)
     {
-        var result = await mainModule.SoftDelete(softDelete);
+        var result = await mainModule.SoftDelete(id);
         return Ok(result);
     }
 

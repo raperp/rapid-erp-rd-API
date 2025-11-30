@@ -335,7 +335,7 @@ namespace RapidERP.Infrastructure.Services
             return result;
         }
 
-        public Task<dynamic> SoftDelete(DeleteDTO softDelete)
+        public Task<dynamic> SoftDelete(int id)
         {
             throw new NotImplementedException();
         }

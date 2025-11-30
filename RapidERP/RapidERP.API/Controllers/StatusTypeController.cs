@@ -52,9 +52,9 @@ public class StatusTypeController(IStatusType statusType) : ControllerBase
     }
 
     [HttpPut("Delete")]
-    public async Task<IActionResult> SoftDelete(DeleteDTO softDelete)
+    public async Task<IActionResult> SoftDelete(int id)
     {
-        var result = await statusType.SoftDelete(softDelete);
+        var result = await statusType.SoftDelete(id);
         return Ok(result);
     }
 

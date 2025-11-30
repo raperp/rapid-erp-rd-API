@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RapidERP.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,12 +18,10 @@ namespace RapidERP.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ISONumeric = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     ISO2Code = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
                     ISO3Code = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
-                    IconURL = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
-                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
+                    IconURL = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -76,17 +74,17 @@ namespace RapidERP.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LanguageId = table.Column<int>(type: "int", nullable: false),
+                    LanguageId = table.Column<int>(type: "int", maxLength: 40, nullable: false),
                     ISONumeric = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     ISO2Code = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
                     ISO3Code = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
-                    IconURL = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    IconURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Browser = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    DeviceIP = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
@@ -857,15 +855,15 @@ namespace RapidERP.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CountryId = table.Column<int>(type: "int", nullable: true),
-                    StateId = table.Column<int>(type: "int", nullable: true),
-                    Contact = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    Contact = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
                     Mobile = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
                     Address = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Website = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    CountryId = table.Column<int>(type: "int", nullable: true),
+                    StateId = table.Column<int>(type: "int", nullable: true),
                     MenuModuleId = table.Column<int>(type: "int", nullable: true),
                     StatusTypeId = table.Column<int>(type: "int", nullable: true),
                     LanguageId = table.Column<int>(type: "int", nullable: true)
@@ -1214,44 +1212,120 @@ namespace RapidERP.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TenantAudits",
+                name: "TenantCalendars",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    CalendarId = table.Column<int>(type: "int", nullable: true),
+                    DefaultCalendarId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TenantCalendars", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TenantCalendars_Tenants_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "Tenants",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TenantHistories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    MenuModuleId = table.Column<int>(type: "int", nullable: true),
                     CountryId = table.Column<int>(type: "int", nullable: true),
                     StateId = table.Column<int>(type: "int", nullable: true),
-                    Contact = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: true),
+                    CalendarId = table.Column<int>(type: "int", nullable: true),
+                    ActionTypeId = table.Column<int>(type: "int", nullable: true),
+                    ExportTypeId = table.Column<int>(type: "int", nullable: true),
+                    ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    Contact = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
                     Mobile = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
                     Address = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Website = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    LicenseNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    LimitUsers = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: true),
+                    ERPPlan = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    IssueAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ValidityDays = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    ExpiryAt = table.Column<DateTime>(type: "datetime2", maxLength: 20, nullable: true),
+                    ReminderAt = table.Column<DateTime>(type: "datetime2", maxLength: 20, nullable: true),
+                    InterfaceLanguageId = table.Column<int>(type: "int", nullable: true),
+                    DataLanguageId = table.Column<int>(type: "int", nullable: true),
+                    DefaultLanguageId = table.Column<int>(type: "int", nullable: true),
+                    DefaultCalendarId = table.Column<int>(type: "int", nullable: true),
+                    Browser = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    DeviceIP = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
-                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TenantId = table.Column<int>(type: "int", nullable: true),
-                    MenuModuleId = table.Column<int>(type: "int", nullable: true),
-                    ActionTypeId = table.Column<int>(type: "int", nullable: true),
-                    LanguageId = table.Column<int>(type: "int", nullable: true),
-                    ExportTypeId = table.Column<int>(type: "int", nullable: true),
-                    ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
-                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
+                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TenantAudits", x => x.Id);
+                    table.PrimaryKey("PK_TenantHistories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TenantAudits_Tenants_TenantId",
+                        name: "FK_TenantHistories_Tenants_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "Tenants",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TenantLanguages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    InterfaceLanguageId = table.Column<int>(type: "int", nullable: false),
+                    DataLanguageId = table.Column<int>(type: "int", nullable: false),
+                    DefaultLanguageId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TenantLanguages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TenantLanguages_Tenants_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "Tenants",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TenantLicenses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TenantId = table.Column<int>(type: "int", nullable: true),
+                    LicenseNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    LimitUsers = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: true),
+                    ERPPlan = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    IssueAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ValidityDays = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    ExpiryAt = table.Column<DateTime>(type: "datetime2", maxLength: 20, nullable: false),
+                    ReminderAt = table.Column<DateTime>(type: "datetime2", maxLength: 20, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TenantLicenses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TenantLicenses_Tenants_TenantId",
                         column: x => x.TenantId,
                         principalTable: "Tenants",
                         principalColumn: "Id");
@@ -2581,8 +2655,23 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "TenantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TenantAudits_TenantId",
-                table: "TenantAudits",
+                name: "IX_TenantCalendars_TenantId",
+                table: "TenantCalendars",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TenantHistories_TenantId",
+                table: "TenantHistories",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TenantLanguages_TenantId",
+                table: "TenantLanguages",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TenantLicenses_TenantId",
+                table: "TenantLicenses",
                 column: "TenantId");
 
             migrationBuilder.CreateIndex(
@@ -2825,7 +2914,16 @@ namespace RapidERP.Infrastructure.Migrations
                 name: "TableAudits");
 
             migrationBuilder.DropTable(
-                name: "TenantAudits");
+                name: "TenantCalendars");
+
+            migrationBuilder.DropTable(
+                name: "TenantHistories");
+
+            migrationBuilder.DropTable(
+                name: "TenantLanguages");
+
+            migrationBuilder.DropTable(
+                name: "TenantLicenses");
 
             migrationBuilder.DropTable(
                 name: "TextModuleAudits");

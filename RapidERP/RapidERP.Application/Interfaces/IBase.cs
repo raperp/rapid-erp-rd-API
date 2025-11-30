@@ -1,7 +1,8 @@
 ﻿using RapidERP.Domain.Utilities;
 
 namespace RapidERP.Application.Interfaces;
-public interface IBase<POSTEntity, PUTEntity, DeleteEntity> where POSTEntity : class 
+
+public interface IBase<POSTEntity, PUTEntity> where POSTEntity : class 
 {
     Task<RequestResponse> GetAll(int skip, int take);
     Task<dynamic> GetSingle(int id);
@@ -10,5 +11,5 @@ public interface IBase<POSTEntity, PUTEntity, DeleteEntity> where POSTEntity : c
     Task<RequestResponse> CreateBulk(List<POSTEntity> masterPOSTs);
     Task<RequestResponse> Update(PUTEntity masterPUT);
     //Task<RequestResponse> Delete(int id);
-    Task<dynamic> SoftDelete(DeleteEntity softDelete);
+    Task<dynamic> SoftDelete(int id);
 }

@@ -343,7 +343,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
         return result;
     }
 
-    public Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public Task<dynamic> SoftDelete(int id)
     {
         throw new NotImplementedException();
     }

@@ -1,6 +1,5 @@
-﻿using RapidERP.Application.DTOs.Shared;
-using RapidERP.Application.DTOs.UserDTOs;
+﻿using RapidERP.Application.DTOs.UserDTOs;
 
 namespace RapidERP.Application.Interfaces;
 
-public interface IUser : IBase<UserPOST, UserPUT, DeleteDTO> { }
+public interface IUser : IBase<UserPOST, UserPUT> { }

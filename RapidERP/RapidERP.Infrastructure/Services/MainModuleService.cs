@@ -338,9 +338,9 @@ public class MainModuleService(RapidERPDbContext context, IShared shared) : IMai
         return result;
     }
 
-    public async Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public async Task<dynamic> SoftDelete(int id)
     {
-        var result = await shared.SoftDelete<MainModule>(softDelete);
+        var result = "Not Applicable";
         return result;
     }
 

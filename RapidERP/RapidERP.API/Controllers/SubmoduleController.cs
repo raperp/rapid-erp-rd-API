@@ -53,9 +53,9 @@ public class SubmoduleController(ISubmodule submodule) : ControllerBase
     }
 
     [HttpPut("Delete")]
-    public async Task<IActionResult> SoftDelete(DeleteDTO softDelete)
+    public async Task<IActionResult> SoftDelete(int id)
     {
-        var result = await submodule.SoftDelete(softDelete);
+        var result = await submodule.SoftDelete(id);
         return Ok(result);
     }
 

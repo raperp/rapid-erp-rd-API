@@ -52,12 +52,12 @@ public class ActionTypeController(IActionType actionType) : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut("Delete")]
-    public async Task<IActionResult> SoftDelete(DeleteDTO softDelete)
-    {
-        var result = await actionType.SoftDelete(softDelete);
-        return Ok(result);
-    }
+    //[HttpPut("Delete")]
+    //public async Task<IActionResult> SoftDelete(DeleteDTO softDelete)
+    //{
+    //    var result = await actionType.SoftDelete(softDelete);
+    //    return Ok(result);
+    //}
 
     //[HttpDelete("Delete")]
     //public async Task<IActionResult> Delete(int id)

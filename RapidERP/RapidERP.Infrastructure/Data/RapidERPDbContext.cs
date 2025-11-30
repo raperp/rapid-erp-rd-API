@@ -44,7 +44,10 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
     public DbSet<StatusTypeAudit> StatusTypeAudits { get; set; }
 
     public DbSet<Tenant> Tenants { get; set; }
-    public DbSet<TenantAudit> TenantAudits { get; set; }
+    public DbSet<TenantLicense> TenantLicenses { get; set; }
+    public DbSet<TenantLanguage> TenantLanguages { get; set; }
+    public DbSet<TenantCalendar> TenantCalendars { get; set; }
+    public DbSet<TenantHistory> TenantHistories { get; set; }
 
     public DbSet<Country> Countries { get; set; }
     public DbSet<CountryAudit> CountryAudits { get; set; }

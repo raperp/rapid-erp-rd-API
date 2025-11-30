@@ -316,9 +316,9 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
         return result;
     }
 
-    public async Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public async Task<dynamic> SoftDelete(int id)
     {
-        var result = await shared.SoftDelete<ExportType>(softDelete);
+        var result = "Not Applicable";
         return result;
     }
 

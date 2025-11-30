@@ -322,9 +322,9 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
         return result;
     }
 
-    public async Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public async Task<dynamic> SoftDelete(int id)
     {
-        var result = await shared.SoftDelete<ActionType>(softDelete);
+        var result = "Not Applicable";
         return result;
     }
 

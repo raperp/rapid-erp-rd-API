@@ -360,7 +360,7 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
         return result;
     }
 
-    public Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public Task<dynamic> SoftDelete(int id)
     {
         throw new NotImplementedException();
     }

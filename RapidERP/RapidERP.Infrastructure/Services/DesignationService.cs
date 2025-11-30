@@ -336,7 +336,7 @@ public class DesignationService(RapidERPDbContext context, IShared shared) : IDe
         return result;
     }
 
-    public Task<dynamic> SoftDelete(DeleteDTO softDelete)
+    public Task<dynamic> SoftDelete(int id)
     {
         throw new NotImplementedException();
     }
