@@ -2,6 +2,7 @@
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.DTOs.TenantDTOs;
 using RapidERP.Application.Interfaces;
+using RapidERP.Application.Interfaces.Tenant;
 using RapidERP.Domain.Entities.TenantModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RapidERP.Application.Interfaces;
+using RapidERP.Application.Interfaces.Tenant;
 using RapidERP.Infrastructure.Services;
 
 namespace RapidERP.Infrastructure.Extentions;

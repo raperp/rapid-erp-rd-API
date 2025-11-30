@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RapidERP.Application.DTOs.TenantDTOs;
-using RapidERP.Application.Interfaces;
+using RapidERP.Application.Interfaces.Tenant;
 
 namespace RapidERP.API.Controllers
 {

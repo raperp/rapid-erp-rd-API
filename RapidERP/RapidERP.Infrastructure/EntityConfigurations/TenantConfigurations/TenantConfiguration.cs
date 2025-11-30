@@ -10,13 +10,18 @@ public class TenantConfiguration : IEntityTypeConfiguration<Tenant>
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).HasColumnOrder(0);
-        builder.Property(x => x.Name).HasMaxLength(40).IsRequired().HasColumnOrder(11);
-        builder.Property(x => x.Contact).HasMaxLength(30).IsRequired(false).HasColumnOrder(12);
-        builder.Property(x => x.Phone).HasMaxLength(15).IsRequired(false).HasColumnOrder(13);
-        builder.Property(x => x.Mobile).HasMaxLength(15).IsRequired(false).HasColumnOrder(14);
-        builder.Property(x => x.Address).HasMaxLength(30).IsRequired(false).HasColumnOrder(15);
-        builder.Property(x => x.Email).HasMaxLength(20).IsRequired(false).HasColumnOrder(16);
-        builder.Property(x => x.Website).HasMaxLength(20).IsRequired(false).HasColumnOrder(17);
+        builder.Property(x => x.MenuModuleId).HasColumnOrder(1);
+        builder.Property(x => x.CountryId).HasColumnOrder(2);
+        builder.Property(x => x.StateId).HasColumnOrder(3);
+        builder.Property(x => x.StatusTypeId).HasColumnOrder(4);
+        builder.Property(x => x.LanguageId).HasColumnOrder(5);
+        builder.Property(x => x.Name).HasMaxLength(40).IsRequired().HasColumnOrder(6);
+        builder.Property(x => x.Contact).HasMaxLength(30).IsRequired().HasColumnOrder(7);
+        builder.Property(x => x.Phone).HasMaxLength(15).IsRequired().HasColumnOrder(8);
+        builder.Property(x => x.Mobile).HasMaxLength(15).IsRequired().HasColumnOrder(9);
+        builder.Property(x => x.Address).HasMaxLength(30).IsRequired().HasColumnOrder(10);
+        builder.Property(x => x.Email).HasMaxLength(20).IsRequired().HasColumnOrder(11);
+        builder.Property(x => x.Website).HasMaxLength(20).IsRequired().HasColumnOrder(12);
         builder.Ignore(x => x.IsDefault);
         builder.Ignore(x => x.IsDraft);
         builder.Ignore(x => x.Tenant);
