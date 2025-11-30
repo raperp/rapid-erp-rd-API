@@ -48,7 +48,7 @@ public class SharedServices(RapidERPDbContext context) : IShared
         return result;
     }
 
-    public async Task<RequestResponse> GetSingle<T>(int id) where T : BaseMaster
+    public async Task<RequestResponse> GetSingle<T>(int id) where T : Master
     {
         try
         {

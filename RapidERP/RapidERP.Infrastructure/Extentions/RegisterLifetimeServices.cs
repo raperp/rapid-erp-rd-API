@@ -17,10 +17,12 @@ public static class RegisterLifetimeServices
         services.AddScoped<ILanguage, LanguageService>();
         services.AddScoped<ICity, CityService>();
         services.AddScoped<ITenant, TenantService>();
+        services.AddScoped<ITenantLicense, TenantLicenseService>();
+        services.AddScoped<ITenantLanguage, TenantLanguageService>();
+        services.AddScoped<ITenantCalendar, TenantCalendarService>();
         services.AddScoped<ICurrency, CurrencyService>();
         services.AddScoped<ICountry, CountryService>();
         services.AddScoped<ILanguage, LanguageService>();
-        services.AddScoped<ITenant, TenantService>();
         services.AddScoped<IState, StateService>();
         services.AddScoped<IShared, SharedServices>();
         services.AddScoped<IDepartment, DepartmentService>();

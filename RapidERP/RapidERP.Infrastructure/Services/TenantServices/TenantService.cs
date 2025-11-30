@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.Shared;
-using RapidERP.Application.DTOs.TenantDTOs;
+using RapidERP.Application.DTOs.TenantDTOs.TenantDTOs;
 using RapidERP.Application.Interfaces;
 using RapidERP.Application.Interfaces.Tenant;
 using RapidERP.Domain.Entities.TenantModels;
@@ -8,6 +8,7 @@ using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services.TenantServices;
+
 public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
 {
     RequestResponse requestResponse { get; set; }
@@ -27,14 +28,6 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
                 requestResponse.StatusCode = result.FirstOrDefault().StatusCode;
                 requestResponse.Data = result.FirstOrDefault().Data;
             }
-
-            //requestResponse = new()
-            //{
-            //    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
-            //    IsSuccess = true,
-            //    Message = ResponseMessage.CreateSuccess,
-            //    Data = masterPOSTs
-            //};
 
             return requestResponse;
         }
@@ -62,6 +55,11 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
             if (isExists == false)
             {
                 Tenant masterData = new();
+                masterData.MenuModuleId = masterPOST.MenuModuleId;
+                masterData.CountryId = masterPOST.CountryId;
+                masterData.StateId = masterPOST.StateId;
+                masterData.StatusTypeId = masterPOST.StatusTypeId;
+                masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Name = masterPOST.Name;
                 masterData.Contact = masterPOST.Contact;
                 masterData.Phone = masterPOST.Phone;
@@ -69,15 +67,21 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
                 masterData.Address = masterPOST.Address;
                 masterData.Email = masterPOST.Email;
                 masterData.Website = masterPOST.Website;
-                masterData.CountryId = masterPOST.CountryId;
-                //masterData.StateId = masterPOST.StateId;
-                masterData.MenuModuleId = masterPOST.MenuId;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
 
                 await context.Tenants.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
                 TenantHistory audit = new();
+                audit.TenantId = masterData.Id;
+                audit.MenuModuleId = masterPOST.MenuModuleId;
+                audit.CountryId = masterPOST.CountryId;
+                audit.StateId = masterPOST.StateId;
+                audit.LanguageId = masterPOST.LanguageId;
+                audit.CalendarId = masterPOST.CalendarId;
+                audit.ActionTypeId = masterPOST.ActionTypeId;
+                audit.ExportTypeId = masterPOST.ExportTypeId;
+                audit.ExportTo = masterPOST.ExportTo;
+                audit.SourceURL = masterPOST.SourceURL;
                 audit.Name = masterPOST.Name;
                 audit.Contact = masterPOST.Contact;
                 audit.Phone = masterPOST.Phone;
@@ -85,20 +89,11 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
                 audit.Address = masterPOST.Address;
                 audit.Email = masterPOST.Email;
                 audit.Website = masterPOST.Website;
-                audit.CountryId = masterPOST.CountryId;
-                audit.StateId = masterPOST.StateId;
-                audit.TenantId = masterData.Id;
-                //audit.StatusTypeId = masterPOST.StatusTypeId;
-                audit.ActionTypeId = masterPOST.ActionTypeId;
-                audit.ExportTypeId = masterPOST.ExportTypeId;
-                audit.ExportTo = masterPOST.ExportTo;
-                audit.SourceURL = masterPOST.SourceURL;
-                //audit.IsDefault = masterPOST.IsDefault;
                 audit.Browser = masterPOST.Browser;
-                audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                audit.LocationURL = masterPOST.LocationURL;
+                audit.DeviceName = masterPOST.DeviceName;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
                 audit.ActionBy = masterPOST.ActionBy;
@@ -213,20 +208,26 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
             GetAllDTO result = new();
 
             var data = (from t in context.Tenants
+                        join mm in context.MenuModules on t.MenuModuleId equals mm.Id
+                        join c in context.Countries on t.CountryId equals c.Id
+                        join s in context.States on t.StateId equals s.Id
+                        join l in context.Languages on t.LanguageId equals l.Id
                         join st in context.StatusTypes on t.StatusTypeId equals st.Id
                         select new
                         {
                             t.Id,
+                            MenuModule = mm.Name,
+                            Country = c.Name,
+                            State = s.Name,
+                            Status = st.Name,
+                            Language = l.Name,
                             t.Name,
                             t.Contact,
                             t.Phone,
                             t.Mobile,
                             t.Address,
                             t.Email,
-                            t.Website,
-                            t.CountryId,
-                            //t.StateId,
-                            Status = st.Name
+                            t.Website
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -277,35 +278,42 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
     {
         try
         {
-            var data = (from ta in context.TenantHistories
-                        //join et in context.ExportTypes on ta.ExportTypeId equals et.Id
-                        join at in context.ActionTypes on ta.ActionTypeId equals at.Id
-                        //join st in context.StatusTypes on ta.StatusTypeId equals st.Id
+            var data = (from th in context.TenantHistories
+                        join t in context.Tenants on th.TenantId equals t.Id
+                        join mm in context.MenuModules on th.MenuModuleId equals mm.Id
+                        join c in context.Countries on th.CountryId equals c.Id
+                        join s in context.States on th.StateId equals s.Id
+                        join l in context.Languages on th.LanguageId equals l.Id
+                        join at in context.ActionTypes on th.ActionTypeId equals at.Id
+                        join et in context.ExportTypes on th.ExportTypeId equals et.Id
                         select new
                         {
-                            ta.Id,
-                            ta.Name,
-                            //ExportType = et.Name,
-                            ActionType = at.Name,
-                            //StatusType = st.Name,
-                            ta.ExportTo,
-                            ta.SourceURL,
-                            //ta.IsDefault,
-                            ta.Contact,
-                            ta.Phone,
-                            ta.Mobile,
-                            ta.Address,
-                            ta.Email,
-                            ta.Website,
-                            ta.Browser,
-                            ta.DeviceName,
-                            ta.Location,
-                            ta.DeviceIP,
-                            //ta.GoogleMapUrl,
-                            ta.Latitude,
-                            ta.Longitude,
-                            ta.ActionBy,
-                            ta.ActionAt
+                            th.Id,
+                            Tenant = t.Name,
+                            MenuModule = mm.Name,
+                            Country = c.Name,
+                            State = s.Name,
+                            Language = l.Name,
+                            Action = at.Name,
+                            ExportMedia = et.Name,
+                            th.ExportTo,
+                            th.SourceURL,
+                            th.Name,
+                            th.Contact,
+                            th.Phone,
+                            th.Mobile,
+                            th.Address,
+                            th.Email,
+                            th.Website,
+                            th.Browser,
+                            th.Location,
+                            th.DeviceIP,
+                            th.LocationURL,
+                            th.DeviceName,
+                            th.Latitude,
+                            th.Longitude,
+                            th.ActionBy,
+                            th.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -356,9 +364,10 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
         return result;
     }
 
-    public Task<dynamic> SoftDelete(int id)
+    public async Task<dynamic> SoftDelete(int id)
     {
-        throw new NotImplementedException();
+        var result = await shared.SoftDelete<Tenant>(id);
+        return result;
     }
 
     public async Task<RequestResponse> Update(TenantPUT masterPUT)
@@ -371,16 +380,30 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
             if (isExists == false)
             {
                 await context.Tenants.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
+                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                .SetProperty(x => x.CountryId, masterPUT.CountryId)
+                .SetProperty(x => x.StateId, masterPUT.StateId)
+                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Contact, masterPUT.Contact)
                 .SetProperty(x => x.Phone, masterPUT.Phone)
                 .SetProperty(x => x.Mobile, masterPUT.Mobile)
                 .SetProperty(x => x.Address, masterPUT.Address)
                 .SetProperty(x => x.Email, masterPUT.Email)
-                .SetProperty(x => x.Website, masterPUT.Website)
-                .SetProperty(x => x.CountryId, masterPUT.CountryId));
+                .SetProperty(x => x.Website, masterPUT.Website));
 
                 TenantHistory audit = new();
+                audit.TenantId = masterPUT.Id;
+                audit.MenuModuleId = masterPUT.MenuModuleId;
+                audit.CountryId = masterPUT.CountryId;
+                audit.StateId = masterPUT.StateId;
+                audit.LanguageId = masterPUT.LanguageId;
+                audit.CalendarId = masterPUT.CalendarId;
+                audit.ActionTypeId = masterPUT.ActionTypeId;
+                audit.ExportTypeId = masterPUT.ExportTypeId;
+                audit.ExportTo = masterPUT.ExportTo;
+                audit.SourceURL = masterPUT.SourceURL;
                 audit.Name = masterPUT.Name;
                 audit.Contact = masterPUT.Contact;
                 audit.Phone = masterPUT.Phone;
@@ -388,23 +411,14 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
                 audit.Address = masterPUT.Address;
                 audit.Email = masterPUT.Email;
                 audit.Website = masterPUT.Website;
-                audit.CountryId = masterPUT.CountryId;
-                audit.StateId = masterPUT.StateId;
-                audit.TenantId = masterPUT.Id;
-                //audit.StatusTypeId = masterPUT.StatusTypeId;
-                audit.ActionTypeId = masterPUT.ActionTypeId;
-                audit.ExportTypeId = masterPUT.ExportTypeId;
-                audit.ExportTo = masterPUT.ExportTo;
-                audit.SourceURL = masterPUT.SourceURL;
-                //audit.IsDefault = masterPUT.IsDefault;
                 audit.Browser = masterPUT.Browser;
-                audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                audit.LocationURL = masterPUT.LocationURL;
+                audit.DeviceName = masterPUT.DeviceName;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;
-                //audit.ActionBy = masterPUT.UpdatedBy;
+                audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.TenantHistories.AddAsync(audit);

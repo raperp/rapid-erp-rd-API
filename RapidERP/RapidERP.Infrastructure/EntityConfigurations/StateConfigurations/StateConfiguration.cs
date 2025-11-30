@@ -9,10 +9,16 @@ public class StateConfiguration : IEntityTypeConfiguration<State>
     public void Configure(EntityTypeBuilder<State> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.Name).HasMaxLength(40).IsRequired();
-        builder.Property(x => x.Code).HasMaxLength(4).IsRequired();
-        builder.Property(x => x.MenuId).IsRequired(false);
-        builder.Property(x => x.TenantId).IsRequired(false);
+        builder.Property(x => x.Id).HasColumnOrder(0);
+        builder.Property(x => x.MenuModuleId).HasColumnOrder(1);
+        builder.Property(x => x.CountryId).HasColumnOrder(2);
+        builder.Property(x => x.StatusTypeId).HasColumnOrder(3);
+        builder.Property(x => x.LanguageId).HasColumnOrder(4);
+        builder.Property(x => x.Code).HasMaxLength(4).IsRequired().HasColumnOrder(5);
+        builder.Property(x => x.Name).HasMaxLength(40).IsRequired().HasColumnOrder(6);
+        builder.Property(x => x.IsDefault).HasColumnOrder(7);
+        builder.Property(x => x.IsDraft).HasColumnOrder(8);
+        builder.Ignore(x => x.TenantId);
         builder.Ignore(x => x.Tenant);
 
         builder.HasMany(x => x.Tenants)

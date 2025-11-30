@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RapidERP.Application.DTOs.TenantDTOs;
+using RapidERP.Application.DTOs.TenantDTOs.TenantDTOs;
 using RapidERP.Application.Interfaces.Tenant;
 
-namespace RapidERP.API.Controllers
+namespace RapidERP.API.Controllers.TenantControllers
 {
     [Route("api/[controller]")]
     [ApiController]

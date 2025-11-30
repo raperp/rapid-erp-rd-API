@@ -1,4 +1,4 @@
-﻿using RapidERP.Application.DTOs.TenantDTOs;
+﻿using RapidERP.Application.DTOs.TenantDTOs.TenantDTOs;
 
 namespace RapidERP.Application.Interfaces.Tenant;
 

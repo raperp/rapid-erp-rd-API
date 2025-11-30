@@ -62,39 +62,39 @@ namespace RapidERP.Infrastructure.Services
                 if (isExists == false)
                 {
                     State masterData = new();
-                    masterData.Name = masterPOST.Name;
+                    masterData.MenuModuleId = masterPOST.MenuModuleId;
                     masterData.CountryId = masterPOST.CountryId;
-                    masterData.MenuId = masterPOST.MenuId;
                     masterData.StatusTypeId = masterPOST.StatusTypeId;
                     masterData.LanguageId = masterPOST.LanguageId;
                     masterData.Code = masterPOST.Code;
+                    masterData.Name = masterPOST.Name;
                     masterData.IsDefault = masterPOST.IsDefault;
+                    masterData.IsDraft = masterPOST.IsDraft;
 
                     await context.States.AddAsync(masterData);
                     await context.SaveChangesAsync();
 
                     StateAudit audit = new();
-                    audit.Name = masterPOST.Name;
-                    audit.CountryId = masterPOST.CountryId;
-                    audit.MenuId = masterPOST.MenuId;
                     audit.StateId = masterData.Id;
+                    audit.MenuModuleId = masterPOST.MenuModuleId;
+                    audit.CountryId = masterPOST.CountryId;
                     audit.LanguageId = masterPOST.LanguageId;
-                    audit.Code = masterPOST.Code;
-                    //audit.IsDefault = masterPOST.IsDefault;
-                    //audit.StatusTypeId = masterPOST.StatusTypeId;
                     audit.ActionTypeId = masterPOST.ActionTypeId;
                     audit.ExportTypeId = masterPOST.ExportTypeId;
                     audit.ExportTo = masterPOST.ExportTo;
                     audit.SourceURL = masterPOST.SourceURL;
-                    //audit.IsDefault = masterPOST.IsDefault;
-                    audit.Browser = masterPOST.Browser; 
-                    audit.DeviceName = masterPOST.DeviceName;
+                    audit.Code = masterPOST.Code;
+                    audit.Name = masterPOST.Name;
+                    audit.IsDefault = masterPOST.IsDefault;
+                    audit.IsDraft = masterPOST.IsDraft;
+                    audit.Browser = masterPOST.Browser;
                     audit.Location = masterPOST.Location;
                     audit.DeviceIP = masterPOST.DeviceIP;
-                    //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                    audit.LocationURL = masterPOST.LocationURL;
+                    audit.DeviceName = masterPOST.DeviceName;
                     audit.Latitude = masterPOST.Latitude;
                     audit.Longitude = masterPOST.Longitude;
-                    //audit.ActionBy = masterPOST.CreatedBy;
+                    audit.ActionBy = masterPOST.ActionBy;
                     audit.ActionAt = DateTime.Now;
 
                     await context.StateAudits.AddAsync(audit);
@@ -206,18 +206,22 @@ namespace RapidERP.Infrastructure.Services
                 GetAllDTO result = new();
 
                 var data = (from s in context.States
+                            join mm in context.MenuModules on s.CountryId equals mm.Id
                             join c in context.Countries on s.CountryId equals c.Id
-                            join l in context.Languages on s.LanguageId equals l.Id
                             join st in context.StatusTypes on s.StatusTypeId equals st.Id
+                            join l in context.Languages on s.LanguageId equals l.Id
+                            
                             select new
                             {
                                 s.Id,
+                                Menu = mm.Name,
+                                Country = c.Name,
+                                Status = st.Name,
+                                Language = l.Name,
                                 s.Name,
                                 s.Code,
-                                s.IsDefault,
-                                Country = c.Name,
-                                Language = l.Name,
-                                Status = st.Name
+                                s.IsDefault,  
+                                s.IsDraft  
                             }).AsNoTracking().AsQueryable();
 
                 if (skip == 0 || take == 0)
@@ -269,27 +273,32 @@ namespace RapidERP.Infrastructure.Services
             try
             {
                 var data = (from sa in context.StateAudits
+                            join s in context.States on sa.StateId equals s.Id
+                            join mm in context.MenuModules on sa.MenuModuleId equals mm.Id
                             join c in context.Countries on sa.CountryId equals c.Id
-                            //join et in context.ExportTypes on sa.ExportTypeId equals et.Id
                             join at in context.ActionTypes on sa.ActionTypeId equals at.Id
-                            //join st in context.StatusTypes on sa.StatusTypeId equals st.Id
+                            join l in context.Languages on sa.LanguageId equals l.Id
+                            join et in context.ExportTypes on sa.ExportTypeId equals et.Id
                             select new
                             {
                                 sa.Id,
+                                State = s.Name,
+                                MenuModule = mm.Name,
                                 Country = c.Name,
-                                sa.Name,
-                                //ExportType = et.Name,
+                                Language = l.Name,
                                 Action = at.Name,
-                                //Status = st.Name,
+                                ExportType = et.Name,
                                 sa.ExportTo,
                                 sa.SourceURL,
-                                //sa.IsDefault,
                                 sa.Code,
+                                sa.Name,
+                                sa.IsDefault,
+                                sa.IsDraft,
                                 sa.Browser,
-                                sa.DeviceName,
                                 sa.Location,
                                 sa.DeviceIP,
-                                //sa.GoogleMapUrl,
+                                sa.LocationURL,
+                                sa.DeviceName,
                                 sa.Latitude,
                                 sa.Longitude,
                                 sa.ActionBy,
@@ -344,9 +353,10 @@ namespace RapidERP.Infrastructure.Services
             return result;
         }
 
-        public Task<dynamic> SoftDelete(int id)
+        public async Task<dynamic> SoftDelete(int id)
         {
-            throw new NotImplementedException();
+            var result = await shared.SoftDelete<State>(id);
+            return result;
         }
 
         public async Task<RequestResponse> Update(StatePUT masterPUT)
@@ -359,36 +369,36 @@ namespace RapidERP.Infrastructure.Services
                 if (isExists == false)
                 {
                     await context.States.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                    .SetProperty(x => x.Name, masterPUT.Name)
+                    .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                     .SetProperty(x => x.CountryId, masterPUT.CountryId)
-                    .SetProperty(x => x.MenuId, masterPUT.MenuId)
-                    //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                    .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                     .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                     .SetProperty(x => x.Code, masterPUT.Code)
-                    .SetProperty(x => x.IsDefault, masterPUT.IsDefault));
+                    .SetProperty(x => x.Name, masterPUT.Name)
+                    .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
+                    .SetProperty(x => x.IsDraft, masterPUT.IsDraft));
 
                     StateAudit audit = new();
-                    audit.Name = masterPUT.Name;
-                    audit.CountryId = masterPUT.CountryId;
-                    audit.MenuId = masterPUT.MenuId;
                     audit.StateId = masterPUT.Id;
+                    audit.MenuModuleId = masterPUT.MenuModuleId;
+                    audit.CountryId = masterPUT.CountryId;
                     audit.LanguageId = masterPUT.LanguageId;
-                    audit.Code = masterPUT.Code;
-                    //audit.IsDefault = masterPUT.IsDefault;
-                    //audit.StatusTypeId = masterPUT.StatusTypeId;
                     audit.ActionTypeId = masterPUT.ActionTypeId;
                     audit.ExportTypeId = masterPUT.ExportTypeId;
                     audit.ExportTo = masterPUT.ExportTo;
                     audit.SourceURL = masterPUT.SourceURL;
-                    //audit.IsDefault = masterPUT.IsDefault;
+                    audit.Code = masterPUT.Code;
+                    audit.Name = masterPUT.Name;
+                    audit.IsDefault = masterPUT.IsDefault;
+                    audit.IsDraft = masterPUT.IsDraft;
                     audit.Browser = masterPUT.Browser;
-                    audit.DeviceName = masterPUT.DeviceName;
                     audit.Location = masterPUT.Location;
                     audit.DeviceIP = masterPUT.DeviceIP;
-                    //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                    audit.LocationURL = masterPUT.LocationURL;
+                    audit.DeviceName = masterPUT.DeviceName;
                     audit.Latitude = masterPUT.Latitude;
                     audit.Longitude = masterPUT.Longitude;
-                    //audit.ActionBy = masterPUT.UpdatedBy;
+                    audit.ActionBy = masterPUT.ActionBy;
                     audit.ActionAt = DateTime.Now;
 
                     await context.StateAudits.AddAsync(audit);

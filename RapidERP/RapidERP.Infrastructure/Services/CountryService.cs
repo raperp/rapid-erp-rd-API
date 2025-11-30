@@ -54,7 +54,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
             if (isExists == false)
             {
                 Country masterData = new();
-                masterData.MenuModuleId = masterPOST.MenuId;
+                masterData.MenuModuleId = masterPOST.MenuModuleId;
                 masterData.TenantId = masterPOST.TenantId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.LanguageId = masterPOST.LanguageId;
@@ -74,7 +74,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 CountryAudit audit = new();
                 audit.CountryId = masterData.Id;
                 audit.TenantId = masterPOST.TenantId;
-                audit.MenuModuleId = masterPOST.MenuId;
+                audit.MenuModuleId = masterPOST.MenuModuleId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 audit.LanguageId = masterPOST.LanguageId;
                 audit.CurrencyId = masterPOST.CurrencyId;
@@ -382,7 +382,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
             if (isExists == false)
             {
                 await context.Countries.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.MenuModuleId, masterPUT.MenuId)
+                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                 .SetProperty(x => x.TenantId, masterPUT.TenantId)
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
@@ -399,7 +399,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 CountryAudit audit = new();
                 audit.CountryId = masterPUT.Id;
                 audit.TenantId = masterPUT.TenantId;
-                audit.MenuModuleId = masterPUT.MenuId;
+                audit.MenuModuleId = masterPUT.MenuModuleId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
                 audit.LanguageId = masterPUT.LanguageId;
                 audit.CurrencyId = masterPUT.CurrencyId;
