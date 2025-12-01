@@ -1,17 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RapidERP.Application.DTOs.CurrencyDTOs;
+using RapidERP.Application.DTOs.CalendarDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
-using RapidERP.Domain.Entities.CurrencyModels;
+using RapidERP.Domain.Entities.CalendarModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
-public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurrency
+
+public class CalendarService(RapidERPDbContext context, IShared shared) : ICalendar
 {
     RequestResponse requestResponse { get; set; }
 
-    public async Task<RequestResponse> CreateBulk(List<CurrencyPOST> masterPOSTs)
+    public async Task<RequestResponse> CreateBulk(List<CalendarPOST> masterPOSTs)
     {
         try
         {
@@ -43,31 +44,31 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
         }
     }
 
-    public async Task<RequestResponse> CreateSingle(CurrencyPOST masterPOST)
+    public async Task<RequestResponse> CreateSingle(CalendarPOST masterPOST)
     {
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.Currencies.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
+            var isExists = await context.Calendars.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
 
             if (isExists == false)
             {
-                Currency masterData = new();
+                Calendar masterData = new();
                 masterData.TenantId = masterPOST.TenantId;
                 masterData.MenuModuleId = masterPOST.MenuModuleId;
                 masterData.LanguageId = masterPOST.LanguageId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.Code = masterPOST.Code;
                 masterData.Name = masterPOST.Name;
-                masterData.Icon = masterPOST.Icon;
-                masterData.IsDefault = masterPOST.IsDefault;
-                masterData.IsDraft = masterPOST.IsDraft;
+                masterData.StartDate = masterPOST.StartDate;
+                masterData.EndDate = masterPOST.EndDate;
+                masterData.TotalMonth = masterPOST.TotalMonth;
 
-                await context.Currencies.AddAsync(masterData);
+                await context.Calendars.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                CurrencyAudit audit = new();
-                audit.CurrencyId = masterData.Id;
+                CalendarHistory audit = new();
+                audit.CalendarId = masterData.Id;
                 audit.TenantId = masterPOST.TenantId;
                 audit.MenuModuleId = masterPOST.MenuModuleId;
                 audit.LanguageId = masterPOST.LanguageId;
@@ -77,9 +78,9 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
                 audit.SourceURL = masterPOST.SourceURL;
                 audit.Code = masterPOST.Code;
                 audit.Name = masterPOST.Name;
-                audit.IsDefault = masterPOST.IsDefault;
-                audit.IsDraft = masterPOST.IsDraft;
-                audit.Icon = masterPOST.Icon;
+                audit.StartDate = masterPOST.StartDate;
+                audit.EndDate = masterPOST.EndDate;
+                audit.TotalMonth = masterPOST.TotalMonth;
                 audit.Browser = masterPOST.Browser;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
@@ -90,7 +91,7 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
                 audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.CurrencyAudits.AddAsync(audit);
+                await context.CalendarHistories.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -129,81 +130,18 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
         }
     }
 
-    public async Task<RequestResponse> Delete(int id)
-    {
-        try
-        {
-            await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.CurrencyAudits.AsNoTracking().AnyAsync(x => x.CurrencyId == id);
-
-            if (isAuditExists == false)
-            {
-                requestResponse = new()
-                {
-                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
-                    IsSuccess = false,
-                    Message = ResponseMessage.NoRecordFound
-                };
-            }
-
-            else
-            {
-                await context.CurrencyAudits.Where(x => x.CurrencyId == id).ExecuteDeleteAsync();
-            }
-
-            var isExists = await context.Currencies.AsNoTracking().AnyAsync(x => x.Id == id);
-
-            if (isExists == false)
-            {
-                requestResponse = new()
-                {
-                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
-                    IsSuccess = false,
-                    Message = ResponseMessage.NoRecordFound
-                };
-            }
-
-            else
-            {
-                await context.Currencies.Where(x => x.Id == id).ExecuteDeleteAsync();
-                await transaction.CommitAsync();
-            }
-
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
-                IsSuccess = true,
-                Message = ResponseMessage.DeleteSuccess
-            };
-
-            return requestResponse;
-        }
-
-        catch (Exception ex)
-        {
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
-                IsSuccess = false,
-                Message = ex.Message
-            };
-
-            return requestResponse;
-        }
-    }
-
     public async Task<RequestResponse> GetAll(int skip, int take)
     {
         try
         {
             GetAllDTO result = new();
 
-            var data = (from c in context.Currencies
+            var data = (from c in context.Calendars
                         join t in context.Tenants on c.TenantId equals t.Id
                         join mm in context.MenuModules on c.MenuModuleId equals mm.Id
                         join l in context.Languages on c.LanguageId equals l.Id
                         join st in context.StatusTypes on c.StatusTypeId equals st.Id
-                        
+
                         select new
                         {
                             c.Id,
@@ -213,14 +151,14 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
                             Status = st.Name,
                             c.Code,
                             c.Name,
-                            c.Icon,
-                            c.IsDefault,
-                            c.IsDraft
+                            c.StartDate,
+                            c.EndDate,
+                            c.TotalMonth
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
             {
-                result.Count = await shared.GetCounts<Currency>();
+                result.Count = await shared.GetCounts<Calendar>();
                 result.Data = await data.ToListAsync();
 
                 requestResponse = new()
@@ -234,7 +172,7 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
 
             else
             {
-                result.Count = await shared.GetCounts<Currency>();
+                result.Count = await shared.GetCounts<Calendar>();
                 result.Data = await data.Skip(skip).Take(take).ToListAsync();
 
                 requestResponse = new()
@@ -266,8 +204,8 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
     {
         try
         {
-            var data = (from ca in context.CurrencyAudits
-                        join c in context.Currencies on ca.CurrencyId equals c.Id
+            var data = (from ca in context.CalendarHistories
+                        join c in context.Calendars on ca.CalendarId equals c.Id
                         join t in context.Tenants on ca.TenantId equals t.Id
                         join mm in context.MenuModules on ca.MenuModuleId equals mm.Id
                         join l in context.Languages on ca.LanguageId equals l.Id
@@ -286,9 +224,9 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
                             ca.SourceURL,
                             ca.Code,
                             ca.Name,
-                            ca.IsDefault,
-                            ca.IsDraft,
-                            ca.Icon,
+                            ca.StartDate,
+                            ca.EndDate,
+                            ca.TotalMonth,
                             ca.Browser,
                             ca.Location,
                             ca.DeviceIP,
@@ -344,38 +282,38 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
 
     public async Task<dynamic> GetSingle(int id)
     {
-        var result = await shared.GetSingle<Currency>(id);
+        var result = await shared.GetSingle<Calendar>(id);
         return result;
     }
 
     public async Task<dynamic> SoftDelete(int id)
     {
-        var result = await shared.SoftDelete<Currency>(id);
+        var result = await shared.SoftDelete<Calendar>(id);
         return result;
     }
 
-    public async Task<RequestResponse> Update(CurrencyPUT masterPUT)
+    public async Task<RequestResponse> Update(CalendarPUT masterPUT)
     {
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.Currencies.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
+            var isExists = await context.Calendars.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
 
             if (isExists == false)
             {
-                await context.Currencies.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
+                await context.Calendars.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.TenantId, masterPUT.TenantId)
                 .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.Code, masterPUT.Code)
                 .SetProperty(x => x.Name, masterPUT.Name)
-                .SetProperty(x => x.Icon, masterPUT.Icon)
-                .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
-                .SetProperty(x => x.IsDraft, masterPUT.IsDraft));
+                .SetProperty(x => x.StartDate, masterPUT.StartDate)
+                .SetProperty(x => x.EndDate, masterPUT.EndDate)
+                .SetProperty(x => x.TotalMonth, masterPUT.TotalMonth));
 
-                CurrencyAudit audit = new();
-                audit.CurrencyId = masterPUT.Id;
+                CalendarHistory audit = new();
+                audit.CalendarId = masterPUT.Id;
                 audit.TenantId = masterPUT.TenantId;
                 audit.MenuModuleId = masterPUT.MenuModuleId;
                 audit.LanguageId = masterPUT.LanguageId;
@@ -385,9 +323,9 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
                 audit.SourceURL = masterPUT.SourceURL;
                 audit.Code = masterPUT.Code;
                 audit.Name = masterPUT.Name;
-                audit.IsDefault = masterPUT.IsDefault;
-                audit.IsDraft = masterPUT.IsDraft;
-                audit.Icon = masterPUT.Icon;
+                audit.StartDate = masterPUT.StartDate;
+                audit.EndDate = masterPUT.EndDate;
+                audit.TotalMonth = masterPUT.TotalMonth;
                 audit.Browser = masterPUT.Browser;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
@@ -398,7 +336,7 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
                 audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.CurrencyAudits.AddAsync(audit);
+                await context.CalendarHistories.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Domain.Entities.ActionTypeModels;
 using RapidERP.Domain.Entities.AreaModules;
+using RapidERP.Domain.Entities.CalendarModels;
 using RapidERP.Domain.Entities.CityModels;
 using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Entities.CurrencyModels;
@@ -17,6 +18,7 @@ using RapidERP.Domain.Entities.RiderModels;
 using RapidERP.Domain.Entities.RoleModules;
 using RapidERP.Domain.Entities.SalesmanModels;
 using RapidERP.Domain.Entities.SateModules;
+using RapidERP.Domain.Entities.SolutionModels;
 using RapidERP.Domain.Entities.StatusTypeModels;
 using RapidERP.Domain.Entities.SubmoduleModels;
 using RapidERP.Domain.Entities.SupplierModels;
@@ -111,6 +113,12 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
 
     public DbSet<MessageModule> MessageModules { get; set; }
     public DbSet<MessageModuleAudit> MessageModuleAudits { get; set; }
+
+    public DbSet<Calendar> Calendars { get; set; }
+    public DbSet<CalendarHistory> CalendarHistories { get; set; }
+
+    public DbSet<Solution> Solutions { get; set; }
+    public DbSet<SolutionHistory> SolutionHistory { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

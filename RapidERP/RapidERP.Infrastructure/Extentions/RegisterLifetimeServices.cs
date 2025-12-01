@@ -39,6 +39,8 @@ public static class RegisterLifetimeServices
         services.AddScoped<IRole, RoleService>();
         services.AddScoped<ITextModule, TextModuleService>();
         services.AddScoped<IMessageModule, MessageModuleService>();
+        services.AddScoped<ICalendar, CalendarService>();
+        services.AddScoped<ISolution, SolutionService>();
 
         return services;
     }
