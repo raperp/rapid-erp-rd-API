@@ -4,7 +4,7 @@ using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Entities.Shared;
 
 namespace RapidERP.Domain.Entities.SupplierTypeModels;
-public class SupplierTypeAudit : BaseHistory
+public class SupplierTypeHistory : BaseHistory
 {
     public SupplierType SupplierType { get; set; }
     public int SupplierTypeId { get; set; }

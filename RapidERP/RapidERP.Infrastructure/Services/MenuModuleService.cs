@@ -65,7 +65,7 @@ public class MenuModuleService(RapidERPDbContext context, IShared shared) : IMen
                 await context.MenuModules.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                MenuModuleAudit audit = new();
+                MenuModuleHistory audit = new();
                 audit.MenuModuleId = masterData.Id;
                 audit.SubmoduleId = masterPOST.SubmoduleId;
                 audit.LanguageId = masterPOST.LanguageId;
@@ -361,7 +361,7 @@ public class MenuModuleService(RapidERPDbContext context, IShared shared) : IMen
                 .SetProperty(x => x.IconURL, masterPUT.IconURL)
                 .SetProperty(x => x.SetSerial, masterPUT.SetSerial));
 
-                MenuModuleAudit audit = new();
+                MenuModuleHistory audit = new();
                 audit.MenuModuleId = masterPUT.Id;
                 audit.SubmoduleId = masterPUT.SubmoduleId;
                 audit.LanguageId = masterPUT.LanguageId;

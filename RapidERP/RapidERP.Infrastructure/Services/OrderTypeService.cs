@@ -69,7 +69,7 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
                 await context.OrderTypes.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                OrderTypeAudit audit = new();
+                OrderTypeHistory audit = new();
                 audit.Name = masterPOST.Name;
                 audit.Description = masterPOST.Description;
                 audit.OrderTypeId = masterData.Id;
@@ -348,7 +348,7 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description));
 
-                OrderTypeAudit audit = new();
+                OrderTypeHistory audit = new();
                 audit.Name = masterPUT.Name;
                 audit.Description = masterPUT.Description;
                 audit.OrderTypeId = masterPUT.Id;

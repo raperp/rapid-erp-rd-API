@@ -70,7 +70,7 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
                 await context.StatusTypes.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                StatusTypeAudit audit = new();
+                StatusTypeHistory audit = new();
                 audit.StatusTypeId = masterData.Id;
                 audit.LanguageId = masterPOST.LanguageId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
@@ -352,7 +352,7 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description));
 
-                StatusTypeAudit audit = new();
+                StatusTypeHistory audit = new();
                 audit.StatusTypeId = masterPUT.Id;
                 audit.LanguageId = masterPUT.LanguageId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;

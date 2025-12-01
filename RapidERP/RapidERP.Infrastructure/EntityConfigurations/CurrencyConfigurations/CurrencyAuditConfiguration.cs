@@ -4,9 +4,9 @@ using RapidERP.Domain.Entities.CurrencyModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.CurrencyConfigurations;
 
-public class CurrencyAuditConfiguration : IEntityTypeConfiguration<CurrencyAudit>
+public class CurrencyAuditConfiguration : IEntityTypeConfiguration<CurrencyHistory>
 {
-    public void Configure(EntityTypeBuilder<CurrencyAudit> builder)
+    public void Configure(EntityTypeBuilder<CurrencyHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).HasColumnOrder(0);

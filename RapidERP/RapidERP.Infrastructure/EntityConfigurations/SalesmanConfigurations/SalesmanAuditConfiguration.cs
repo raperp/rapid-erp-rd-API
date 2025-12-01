@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RapidERP.Domain.Entities.SalesmanModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.SalesmanConfigurations;
-public class SalesmanAuditConfiguration : IEntityTypeConfiguration<SalesmanAudit>
+public class SalesmanAuditConfiguration : IEntityTypeConfiguration<SalesmanHistory>
 {
-    public void Configure(EntityTypeBuilder<SalesmanAudit> builder)
+    public void Configure(EntityTypeBuilder<SalesmanHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(40).IsRequired();

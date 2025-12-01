@@ -61,7 +61,7 @@ public class MessageModuleService(RapidERPDbContext context, IShared shared) : I
                 await context.MessageModules.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                MessageModuleAudit audit = new();
+                MessageModuleHistory audit = new();
                 audit.MessageModuleId = masterData.Id;
                 audit.TextModuleId = masterPOST.TextModuleId;
                 audit.LanguageId = masterPOST.LanguageId;
@@ -284,7 +284,7 @@ public class MessageModuleService(RapidERPDbContext context, IShared shared) : I
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Name, masterPUT.Name));
 
-                MessageModuleAudit audit = new();
+                MessageModuleHistory audit = new();
                 audit.MessageModuleId = masterPUT.Id;
                 audit.TextModuleId = masterPUT.TextModuleId;
                 audit.LanguageId = masterPUT.LanguageId;

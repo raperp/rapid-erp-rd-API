@@ -2,7 +2,7 @@
 
 namespace RapidERP.Domain.Entities.SateModules;
 
-public class StateAudit : BaseHistory
+public class StateHistory : BaseHistory
 {
     public State State { get; set; }
     public int StateId { get; set; }

@@ -70,7 +70,7 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
                 await context.ExportTypes.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                ExportTypeAudit audit = new();
+                ExportTypeHistory audit = new();
                 audit.ExportTypeId = masterData.Id;
                 audit.LanguageId = masterPOST.LanguageId;
                 audit.Name = masterData.Name;
@@ -342,7 +342,7 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description));
 
-                ExportTypeAudit audit = new();
+                ExportTypeHistory audit = new();
                 audit.ExportTypeId = masterPUT.Id;
                 audit.LanguageId = masterPUT.LanguageId;
                 audit.Name = masterPUT.Name;

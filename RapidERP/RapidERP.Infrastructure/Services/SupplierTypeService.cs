@@ -75,7 +75,7 @@ public class SupplierTypeService(RapidERPDbContext context, IShared shared) : IS
                 await context.SupplierTypes.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                SupplierTypeAudit audit = new();
+                SupplierTypeHistory audit = new();
                 audit.Name = masterPOST.Name;
                 audit.VATNumber = masterPOST.VATNumber;
                 audit.Website = masterPOST.Website;
@@ -376,7 +376,7 @@ public class SupplierTypeService(RapidERPDbContext context, IShared shared) : IS
                 .SetProperty(x => x.CurrencyId, masterPUT.CurrencyId)
                 .SetProperty(x => x.CountryId, masterPUT.CountryId));
 
-                SupplierTypeAudit audit = new();
+                SupplierTypeHistory audit = new();
                 audit.Name = masterPUT.Name;
                 audit.VATNumber = masterPUT.VATNumber;
                 audit.Website = masterPUT.Website;

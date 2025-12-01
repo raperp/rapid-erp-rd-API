@@ -4,9 +4,9 @@ using RapidERP.Domain.Entities.MenuModuleModels;
 
 namespace RapidERP.Infrastructure.EntityConfigurations.MenuModuleConfigurations;
 
-public class MenuModuleAuditConfiguration : IEntityTypeConfiguration<MenuModuleAudit>
+public class MenuModuleAuditConfiguration : IEntityTypeConfiguration<MenuModuleHistory>
 {
-    public void Configure(EntityTypeBuilder<MenuModuleAudit> builder)
+    public void Configure(EntityTypeBuilder<MenuModuleHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(20).IsRequired();

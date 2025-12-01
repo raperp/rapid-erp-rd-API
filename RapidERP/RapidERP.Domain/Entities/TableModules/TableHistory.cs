@@ -2,7 +2,7 @@
 
 namespace RapidERP.Domain.Entities.TableModules;
 
-public class TableAudit : BaseHistory
+public class TableHistory : BaseHistory
 {
     public Table Table { get; set; }
     public int TableId { get; set; }

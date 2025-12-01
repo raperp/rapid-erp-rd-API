@@ -4,9 +4,9 @@ using RapidERP.Domain.Entities.OrderTypeModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.OrderTypeConfigurations;
 
-public class OrderTypeAuditConfiguration : IEntityTypeConfiguration<OrderTypeAudit>
+public class OrderTypeAuditConfiguration : IEntityTypeConfiguration<OrderTypeHistory>
 {
-    public void Configure(EntityTypeBuilder<OrderTypeAudit> builder)
+    public void Configure(EntityTypeBuilder<OrderTypeHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(15).IsRequired();

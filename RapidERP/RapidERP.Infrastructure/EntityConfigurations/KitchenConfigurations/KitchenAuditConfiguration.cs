@@ -4,9 +4,9 @@ using RapidERP.Domain.Entities.KitchenModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.KitchenConfigurations;
 
-public class KitchenAuditConfiguration : IEntityTypeConfiguration<KitchenAudit>
+public class KitchenAuditConfiguration : IEntityTypeConfiguration<KitchenHistory>
 {
-    public void Configure(EntityTypeBuilder<KitchenAudit> builder)
+    public void Configure(EntityTypeBuilder<KitchenHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(15).IsRequired();

@@ -71,7 +71,7 @@ namespace RapidERP.Infrastructure.Services
                     await context.Kitchens.AddAsync(masterData);
                     await context.SaveChangesAsync();
 
-                    KitchenAudit audit = new();
+                    KitchenHistory audit = new();
                     audit.Name = masterPOST.Name;
                     audit.Description = masterPOST.Description;
                     audit.PrinterId = masterPOST.PrinterId;
@@ -354,7 +354,7 @@ namespace RapidERP.Infrastructure.Services
                     .SetProperty(x => x.Description, masterPUT.Description)
                     .SetProperty(x => x.PrinterId, masterPUT.PrinterId));
 
-                    KitchenAudit audit = new();
+                    KitchenHistory audit = new();
                     audit.Name = masterPUT.Name;
                     audit.Description = masterPUT.Description;
                     audit.PrinterId = masterPUT.PrinterId;

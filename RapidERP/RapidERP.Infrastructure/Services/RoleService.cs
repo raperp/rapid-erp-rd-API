@@ -69,7 +69,7 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
                 await context.Roles.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                RoleAudit audit = new();
+                RoleHistory audit = new();
                 audit.Name = masterPOST.Name;
                 audit.RoleId = masterData.Id;
                 //audit.StatusTypeId = masterPOST.StatusTypeId;
@@ -344,7 +344,7 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
                 await context.Roles.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name));
 
-                RoleAudit audit = new();
+                RoleHistory audit = new();
                 audit.Name = masterPUT.Name;
                 audit.RoleId = masterPUT.Id;
                 //audit.StatusTypeId = masterPUT.StatusTypeId;

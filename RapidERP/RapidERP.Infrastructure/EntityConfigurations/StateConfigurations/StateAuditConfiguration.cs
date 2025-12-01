@@ -4,9 +4,9 @@ using RapidERP.Domain.Entities.SateModules;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.StateConfigurations
 {
-    public class StateAuditConfiguration : IEntityTypeConfiguration<StateAudit>
+    public class StateAuditConfiguration : IEntityTypeConfiguration<StateHistory>
     {
-        public void Configure(EntityTypeBuilder<StateAudit> builder)
+        public void Configure(EntityTypeBuilder<StateHistory> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnOrder(0);

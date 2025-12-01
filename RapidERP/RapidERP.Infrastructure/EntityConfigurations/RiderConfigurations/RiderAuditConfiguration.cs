@@ -4,9 +4,9 @@ using RapidERP.Domain.Entities.RiderModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.RiderConfigurations;
 
-public class RiderAuditConfiguration : IEntityTypeConfiguration<RiderAudit>
+public class RiderAuditConfiguration : IEntityTypeConfiguration<RiderHistory>
 {
-    public void Configure(EntityTypeBuilder<RiderAudit> builder)
+    public void Configure(EntityTypeBuilder<RiderHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(20).IsRequired(false);

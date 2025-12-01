@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RapidERP.Domain.Entities.SupplierTypeModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.SupplierTypeConfigurations;
-public class SupplierTypeAuditConfiguration : IEntityTypeConfiguration<SupplierTypeAudit>
+public class SupplierTypeAuditConfiguration : IEntityTypeConfiguration<SupplierTypeHistory>
 {
-    public void Configure(EntityTypeBuilder<SupplierTypeAudit> builder)
+    public void Configure(EntityTypeBuilder<SupplierTypeHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(40).IsRequired();

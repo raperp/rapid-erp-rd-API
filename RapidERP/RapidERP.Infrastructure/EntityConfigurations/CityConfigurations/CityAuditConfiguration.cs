@@ -4,9 +4,9 @@ using RapidERP.Domain.Entities.CityModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.CityConfigurations
 {
-    public class CityAuditConfiguration : IEntityTypeConfiguration<CityAudit>
+    public class CityAuditConfiguration : IEntityTypeConfiguration<CityHistory>
     {
-        public void Configure(EntityTypeBuilder<CityAudit> builder)
+        public void Configure(EntityTypeBuilder<CityHistory> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Name).HasMaxLength(40).IsRequired();

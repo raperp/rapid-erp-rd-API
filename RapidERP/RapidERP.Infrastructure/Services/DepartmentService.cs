@@ -68,7 +68,7 @@ public class DepartmentService(RapidERPDbContext context, IShared shared) : IDep
                 await context.Departments.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                DepartmentAudit audit = new();
+                DepartmentHistory audit = new();
                 audit.Name = masterData.Name;
                 audit.Description = masterPOST.Description;
                 audit.DepartmentId = masterData.Id;
@@ -348,7 +348,7 @@ public class DepartmentService(RapidERPDbContext context, IShared shared) : IDep
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description));
 
-                DepartmentAudit audit = new();
+                DepartmentHistory audit = new();
                 audit.Name = masterPUT.Name;
                 audit.Description = masterPUT.Description;
                 audit.DepartmentId = masterPUT.Id;

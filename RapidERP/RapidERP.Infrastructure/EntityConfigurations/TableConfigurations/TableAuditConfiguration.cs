@@ -4,9 +4,9 @@ using RapidERP.Domain.Entities.TableModules;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.TableConfigurations;
 
-public class TableAuditConfiguration : IEntityTypeConfiguration<TableAudit>
+public class TableAuditConfiguration : IEntityTypeConfiguration<TableHistory>
 {
-    public void Configure(EntityTypeBuilder<TableAudit> builder)
+    public void Configure(EntityTypeBuilder<TableHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(5).IsRequired();

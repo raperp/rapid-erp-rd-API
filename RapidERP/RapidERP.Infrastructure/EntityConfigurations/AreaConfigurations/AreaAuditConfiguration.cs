@@ -4,9 +4,9 @@ using RapidERP.Domain.Entities.AreaModules;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.AreaConfigurations
 {
-    public class AreaAuditConfiguration : IEntityTypeConfiguration<AreaAudit>
+    public class AreaAuditConfiguration : IEntityTypeConfiguration<AreaHistory>
     {
-        public void Configure(EntityTypeBuilder<AreaAudit> builder)
+        public void Configure(EntityTypeBuilder<AreaHistory> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Name).HasMaxLength(40).IsRequired();

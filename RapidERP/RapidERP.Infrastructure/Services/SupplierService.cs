@@ -82,7 +82,7 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                 await context.Suppliers.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                SupplierAudit audit = new();
+                SupplierHistory audit = new();
                 audit.Name = masterPOST.Name;
                 audit.CountryId = masterPOST.CountryId;
                 audit.PaymentTermsId = masterPOST.PaymentTermsId;
@@ -411,7 +411,7 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                 .SetProperty(x => x.Email, masterPUT.Email)
                 .SetProperty(x => x.Website, masterPUT.Website));
 
-                SupplierAudit audit = new();
+                SupplierHistory audit = new();
                 audit.Name = masterPUT.Name;
                 audit.CountryId = masterPUT.CountryId;
                 audit.PaymentTermsId = masterPUT.PaymentTermsId;

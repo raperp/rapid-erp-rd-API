@@ -72,7 +72,7 @@ public class MainModuleService(RapidERPDbContext context, IShared shared) : IMai
                 await context.MainModules.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                MainModuleAudit audit = new();
+                MainModuleHistory audit = new();
                 audit.MainModuleId = masterData.Id;
                 audit.LanguageId = masterPOST.LanguageId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
@@ -366,7 +366,7 @@ public class MainModuleService(RapidERPDbContext context, IShared shared) : IMai
                 .SetProperty(x => x.IconURL, masterPUT.IconURL)
                 .SetProperty(x => x.SetSerial, masterPUT.SetSerial));
 
-                MainModuleAudit audit = new();
+                MainModuleHistory audit = new();
                 audit.MainModuleId = masterPUT.Id;
                 audit.LanguageId = masterPUT.LanguageId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;

@@ -61,7 +61,7 @@ public class TextModuleService(RapidERPDbContext context, IShared shared) : ITex
                 await context.TextModules.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                TextModuleAudit audit = new();
+                TextModuleHistory audit = new();
                 audit.TextModuleId = masterData.Id;
                 audit.MenuModuleId = masterPOST.MenuModuleId;
                 audit.LanguageId = masterPOST.LanguageId;
@@ -286,7 +286,7 @@ public class TextModuleService(RapidERPDbContext context, IShared shared) : ITex
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Name, masterPUT.Name));
 
-                TextModuleAudit audit = new();
+                TextModuleHistory audit = new();
                 audit.TextModuleId = masterPUT.Id;
                 audit.MenuModuleId = masterPUT.MenuModuleId;
                 audit.LanguageId = masterPUT.LanguageId;

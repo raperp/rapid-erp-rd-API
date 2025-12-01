@@ -2,7 +2,7 @@
 
 namespace RapidERP.Domain.Entities.MenuModuleModels;
 
-public class MenuModuleAudit : BaseHistory
+public class MenuModuleHistory : BaseHistory
 {
     public MenuModule MenuModule { get; set; }
     public int? MenuModuleId { get; set; }

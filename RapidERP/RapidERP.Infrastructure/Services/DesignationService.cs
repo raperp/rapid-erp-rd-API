@@ -69,7 +69,7 @@ public class DesignationService(RapidERPDbContext context, IShared shared) : IDe
                 await context.Designations.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                DesignationAudit audit = new();
+                DesignationHistory audit = new();
                 audit.Name = masterData.Name;
                 audit.Description = masterPOST.Description;
                 audit.DesignationId = masterData.Id;
@@ -355,7 +355,7 @@ public class DesignationService(RapidERPDbContext context, IShared shared) : IDe
                 .SetProperty(x => x.Description, masterPUT.Description)
                 .SetProperty(x => x.DepartmentId, masterPUT.DepartmentId));
 
-                DesignationAudit audit = new();
+                DesignationHistory audit = new();
                 audit.Name = masterPUT.Name;
                 audit.Description = masterPUT.Description;
                 audit.DesignationId = masterPUT.Id;

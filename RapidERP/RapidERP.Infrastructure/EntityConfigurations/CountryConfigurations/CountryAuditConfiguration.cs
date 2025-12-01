@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RapidERP.Domain.Entities.CountryModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.CountryConfigurations;
-public class CountryAuditConfiguration : IEntityTypeConfiguration<CountryAudit>
+public class CountryAuditConfiguration : IEntityTypeConfiguration<CountryHistory>
 {
-    public void Configure(EntityTypeBuilder<CountryAudit> builder)
+    public void Configure(EntityTypeBuilder<CountryHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(40).IsRequired();

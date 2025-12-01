@@ -4,9 +4,9 @@ using RapidERP.Domain.Entities.UserModels;
 
 namespace RapidERP.Infrastructure.EntityConfigurations.UserConfigurations;
 
-public class UserAuditConfiguration : IEntityTypeConfiguration<UserAudit>
+public class UserAuditConfiguration : IEntityTypeConfiguration<UserHistory>
 {
-    public void Configure(EntityTypeBuilder<UserAudit> builder)
+    public void Configure(EntityTypeBuilder<UserHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(40).IsRequired();

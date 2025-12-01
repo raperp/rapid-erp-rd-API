@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RapidERP.Domain.Entities.DesignationModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.DesignationConfigurations;
-public class DesignationAuditConfiguration : IEntityTypeConfiguration<DesignationAudit>
+public class DesignationAuditConfiguration : IEntityTypeConfiguration<DesignationHistory>
 {
-    public void Configure(EntityTypeBuilder<DesignationAudit> builder)
+    public void Configure(EntityTypeBuilder<DesignationHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(100).IsRequired();

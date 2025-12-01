@@ -4,9 +4,9 @@ using RapidERP.Domain.Entities.SubmoduleModels;
 
 namespace RapidERP.Infrastructure.EntityConfigurations.SubmoduleConfigurations
 {
-    public class SubmoduleAuditConfiguration : IEntityTypeConfiguration<SubmoduleAudit>
+    public class SubmoduleAuditConfiguration : IEntityTypeConfiguration<SubmoduleHistory>
     {
-        public void Configure(EntityTypeBuilder<SubmoduleAudit> builder)
+        public void Configure(EntityTypeBuilder<SubmoduleHistory> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Name).HasMaxLength(20).IsRequired();

@@ -34,16 +34,16 @@ namespace RapidERP.Infrastructure.Data;
 public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : DbContext(options)
 {
     public DbSet<Language> Languages { get; set; }
-    public DbSet<LanguageAudit> LanguageAudits { get; set; } 
+    public DbSet<LanguageHistory> LanguageAudits { get; set; } 
 
     public DbSet<ExportType> ExportTypes { get; set; }
-    public DbSet<ExportTypeAudit> ExportTypeAudits { get; set; } 
+    public DbSet<ExportTypeHistory> ExportTypeAudits { get; set; } 
 
     public DbSet<ActionType> ActionTypes { get; set; }
     public DbSet<ActionTypeHistory> ActionTypeHistories { get; set; }
 
     public DbSet<StatusType> StatusTypes { get; set; }
-    public DbSet<StatusTypeAudit> StatusTypeAudits { get; set; }
+    public DbSet<StatusTypeHistory> StatusTypeAudits { get; set; }
 
     public DbSet<Tenant> Tenants { get; set; }
     public DbSet<TenantLicense> TenantLicenses { get; set; }
@@ -52,67 +52,67 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
     public DbSet<TenantHistory> TenantHistories { get; set; }
 
     public DbSet<Country> Countries { get; set; }
-    public DbSet<CountryAudit> CountryAudits { get; set; }
+    public DbSet<CountryHistory> CountryAudits { get; set; }
 
     public DbSet<State> States { get; set; }
-    public DbSet<StateAudit> StateAudits { get; set; }
+    public DbSet<StateHistory> StateAudits { get; set; }
 
     public DbSet<Currency> Currencies { get; set; }
-    public DbSet<CurrencyAudit> CurrencyAudits { get; set; }
+    public DbSet<CurrencyHistory> CurrencyAudits { get; set; }
 
     public DbSet<City> Cities { get; set; }
-    public DbSet<CityAudit> CityAudits { get; set; }
+    public DbSet<CityHistory> CityAudits { get; set; }
 
     public DbSet<Area> Areas { get; set; }
-    public DbSet<AreaAudit> AreaAudits { get; set; }
+    public DbSet<AreaHistory> AreaAudits { get; set; }
 
     public DbSet<Department> Departments { get; set; }
-    public DbSet<DepartmentAudit> DepartmentAudits { get; set; }
+    public DbSet<DepartmentHistory> DepartmentAudits { get; set; }
 
     public DbSet<Designation> Designations { get; set; }
-    public DbSet<DesignationAudit> DesignationAudits { get; set; }
+    public DbSet<DesignationHistory> DesignationAudits { get; set; }
 
     public DbSet<Salesman> Salesmen { get; set; }
-    public DbSet<SalesmanAudit> SalesmanAudits { get; set; }
+    public DbSet<SalesmanHistory> SalesmanAudits { get; set; }
 
     public DbSet<SupplierType> SupplierTypes { get; set; }
-    public DbSet<SupplierTypeAudit> SupplierTypeAudits { get; set; }
+    public DbSet<SupplierTypeHistory> SupplierTypeAudits { get; set; }
 
     public DbSet<Supplier> Suppliers { get; set; }
-    public DbSet<SupplierAudit> SupplierAudits { get; set; }
+    public DbSet<SupplierHistory> SupplierAudits { get; set; }
 
     public DbSet<OrderType> OrderTypes { get; set; }
-    public DbSet<OrderTypeAudit> OrderTypeAudits { get; set; }
+    public DbSet<OrderTypeHistory> OrderTypeAudits { get; set; }
 
     public DbSet<Rider> Riders { get; set; }
-    public DbSet<RiderAudit> RiderAudits { get; set; }
+    public DbSet<RiderHistory> RiderAudits { get; set; }
 
     public DbSet<Table> Tables { get; set; }
-    public DbSet<TableAudit> TableAudits { get; set; }
+    public DbSet<TableHistory> TableAudits { get; set; }
 
     public DbSet<Kitchen> Kitchens { get; set; }
-    public DbSet<KitchenAudit> KitchenAudits { get; set; }
+    public DbSet<KitchenHistory> KitchenAudits { get; set; }
 
     public DbSet<MainModule> MainModules { get; set; }
-    public DbSet<MainModuleAudit> MainModuleAudits { get; set; }
+    public DbSet<MainModuleHistory> MainModuleAudits { get; set; }
 
     public DbSet<Submodule> Submodules { get; set; }
-    public DbSet<SubmoduleAudit> SubmoduleAudits { get; set; }
+    public DbSet<SubmoduleHistory> SubmoduleAudits { get; set; }
 
     public DbSet<MenuModule> MenuModules { get; set; }
-    public DbSet<MenuModuleAudit> MenuModuleAudits { get; set; }
+    public DbSet<MenuModuleHistory> MenuModuleAudits { get; set; }
 
     public DbSet<User> Users { get; set; }
-    public DbSet<UserAudit> UserAudits { get; set; }
+    public DbSet<UserHistory> UserAudits { get; set; }
 
     public DbSet<Role> Roles { get; set; }
-    public DbSet<RoleAudit> RoleAudits { get; set; }
+    public DbSet<RoleHistory> RoleAudits { get; set; }
 
     public DbSet<TextModule> TextModules { get; set; }
-    public DbSet<TextModuleAudit> TextModuleAudits { get; set; }
+    public DbSet<TextModuleHistory> TextModuleAudits { get; set; }
 
     public DbSet<MessageModule> MessageModules { get; set; }
-    public DbSet<MessageModuleAudit> MessageModuleAudits { get; set; }
+    public DbSet<MessageModuleHistory> MessageModuleAudits { get; set; }
 
     public DbSet<Calendar> Calendars { get; set; }
     public DbSet<CalendarHistory> CalendarHistories { get; set; }

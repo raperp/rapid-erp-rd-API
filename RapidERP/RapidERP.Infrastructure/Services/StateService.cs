@@ -74,7 +74,7 @@ namespace RapidERP.Infrastructure.Services
                     await context.States.AddAsync(masterData);
                     await context.SaveChangesAsync();
 
-                    StateAudit audit = new();
+                    StateHistory audit = new();
                     audit.StateId = masterData.Id;
                     audit.MenuModuleId = masterPOST.MenuModuleId;
                     audit.CountryId = masterPOST.CountryId;
@@ -378,7 +378,7 @@ namespace RapidERP.Infrastructure.Services
                     .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
                     .SetProperty(x => x.IsDraft, masterPUT.IsDraft));
 
-                    StateAudit audit = new();
+                    StateHistory audit = new();
                     audit.StateId = masterPUT.Id;
                     audit.MenuModuleId = masterPUT.MenuModuleId;
                     audit.CountryId = masterPUT.CountryId;

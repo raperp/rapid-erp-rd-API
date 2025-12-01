@@ -4,9 +4,9 @@ using RapidERP.Domain.Entities.StatusTypeModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.StatusTypeConfigurations;
 
-public class StatysTypeAuditConfiguration : IEntityTypeConfiguration<StatusTypeAudit>
+public class StatysTypeAuditConfiguration : IEntityTypeConfiguration<StatusTypeHistory>
 {
-    public void Configure(EntityTypeBuilder<StatusTypeAudit> builder)
+    public void Configure(EntityTypeBuilder<StatusTypeHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).HasColumnOrder(0);

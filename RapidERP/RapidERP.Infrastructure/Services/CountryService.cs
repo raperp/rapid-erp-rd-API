@@ -71,7 +71,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 await context.Countries.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                CountryAudit audit = new();
+                CountryHistory audit = new();
                 audit.CountryId = masterData.Id;
                 audit.TenantId = masterPOST.TenantId;
                 audit.MenuModuleId = masterPOST.MenuModuleId;
@@ -396,7 +396,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 .SetProperty(x => x.ISO3Code, masterPUT.ISO3Code)
                 .SetProperty(x => x.FlagURL, masterPUT.FlagURL));
 
-                CountryAudit audit = new();
+                CountryHistory audit = new();
                 audit.CountryId = masterPUT.Id;
                 audit.TenantId = masterPUT.TenantId;
                 audit.MenuModuleId = masterPUT.MenuModuleId;

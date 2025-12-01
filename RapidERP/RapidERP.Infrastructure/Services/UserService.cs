@@ -73,7 +73,7 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
                 await context.Users.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                UserAudit audit = new();
+                UserHistory audit = new();
                 audit.Name = masterPOST.Name;
                 audit.UserName = masterPOST.UserName;
                 audit.Email = masterPOST.Email;
@@ -368,7 +368,7 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
                 .SetProperty(x => x.Address, masterPUT.Address)
                 .SetProperty(x => x.Password, masterPUT.Password));
 
-                UserAudit audit = new();
+                UserHistory audit = new();
                 audit.Name = masterPUT.Name;
                 audit.UserName = masterPUT.UserName;
                 audit.Email = masterPUT.Email;

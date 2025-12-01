@@ -70,7 +70,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                 await context.Areas.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                AreaAudit audit = new();
+                AreaHistory audit = new();
                 audit.Name = masterPOST.Name;
                 audit.Code = masterPOST.Code;
                 audit.CountryId = masterPOST.CountryId;
@@ -364,7 +364,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                 .SetProperty(x => x.CityId, masterPUT.CityId)
                 .SetProperty(x => x.Code, masterPUT.Code));
 
-                AreaAudit audit = new();
+                AreaHistory audit = new();
                 audit.Name = masterPUT.Name;
                 audit.Code = masterPUT.Code;
                 audit.CountryId = masterPUT.CountryId;

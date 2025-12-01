@@ -66,7 +66,7 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
                 await context.Currencies.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                CurrencyAudit audit = new();
+                CurrencyHistory audit = new();
                 audit.CurrencyId = masterData.Id;
                 audit.TenantId = masterPOST.TenantId;
                 audit.MenuModuleId = masterPOST.MenuModuleId;
@@ -374,7 +374,7 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
                 .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
                 .SetProperty(x => x.IsDraft, masterPUT.IsDraft));
 
-                CurrencyAudit audit = new();
+                CurrencyHistory audit = new();
                 audit.CurrencyId = masterPUT.Id;
                 audit.TenantId = masterPUT.TenantId;
                 audit.MenuModuleId = masterPUT.MenuModuleId;

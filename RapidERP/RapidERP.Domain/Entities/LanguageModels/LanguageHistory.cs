@@ -2,7 +2,7 @@
 
 namespace RapidERP.Domain.Entities.LanguageModels;
 
-public class LanguageAudit : BaseHistory
+public class LanguageHistory : BaseHistory
 {
     public Language Language { get; set; }
     public int LanguageId { get; set; }

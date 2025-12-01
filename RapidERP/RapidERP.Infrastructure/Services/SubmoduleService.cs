@@ -73,7 +73,7 @@ public class SubmoduleService(RapidERPDbContext context, IShared shared) : ISubm
                 await context.Submodules.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                SubmoduleAudit audit = new();
+                SubmoduleHistory audit = new();
                 audit.SubmoduleId = masterData.Id;
                 audit.MainModuleId = masterPOST.MainModuleId;
                 audit.LanguageId = masterPOST.LanguageId;
@@ -368,7 +368,7 @@ public class SubmoduleService(RapidERPDbContext context, IShared shared) : ISubm
                 .SetProperty(x => x.IconURL, masterPUT.IconURL)
                 .SetProperty(x => x.SetSerial, masterPUT.SetSerial));
 
-                SubmoduleAudit audit = new();
+                SubmoduleHistory audit = new();
                 audit.SubmoduleId = masterPUT.Id;
                 audit.MainModuleId = masterPUT.MainModuleId;
                 audit.LanguageId = masterPUT.LanguageId;

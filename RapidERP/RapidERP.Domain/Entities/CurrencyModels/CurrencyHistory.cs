@@ -2,7 +2,7 @@
 
 namespace RapidERP.Domain.Entities.CurrencyModels;
 
-public class CurrencyAudit : BaseHistory
+public class CurrencyHistory : BaseHistory
 {
     public Currency Currency { get; set; }
     public int CurrencyId { get; set; } 

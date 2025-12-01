@@ -76,7 +76,7 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
                 await context.Riders.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                RiderAudit audit = new();
+                RiderHistory audit = new();
                 audit.Name = masterPOST.Name;
                 audit.Email = masterPOST.Email;
                 audit.MobileNumber = masterPOST.MobileNumber;
@@ -388,7 +388,7 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
                 .SetProperty(x => x.CityId, masterPUT.CityId)
                 .SetProperty(x => x.AreaId, masterPUT.AreaId));
 
-                RiderAudit audit = new();
+                RiderHistory audit = new();
                 audit.Name = masterPUT.Name;
                 audit.Email = masterPUT.Email;
                 audit.MobileNumber = masterPUT.MobileNumber;

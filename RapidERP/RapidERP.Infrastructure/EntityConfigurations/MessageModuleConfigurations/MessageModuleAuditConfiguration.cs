@@ -4,9 +4,9 @@ using RapidERP.Domain.Entities.MessageModuleModels;
 
 namespace RapidERP.Infrastructure.EntityConfigurations.MessageModuleConfigurations;
 
-public class MessageModuleAuditConfiguration : IEntityTypeConfiguration<MessageModuleAudit>
+public class MessageModuleAuditConfiguration : IEntityTypeConfiguration<MessageModuleHistory>
 {
-    public void Configure(EntityTypeBuilder<MessageModuleAudit> builder)
+    public void Configure(EntityTypeBuilder<MessageModuleHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(20).IsRequired();

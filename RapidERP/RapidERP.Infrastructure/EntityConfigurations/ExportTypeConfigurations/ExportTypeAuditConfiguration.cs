@@ -4,9 +4,9 @@ using RapidERP.Domain.Entities.ExportTypeModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.ExportTypeConfigurations;
 
-public class ExportTypeAuditConfiguration : IEntityTypeConfiguration<ExportTypeAudit>
+public class ExportTypeAuditConfiguration : IEntityTypeConfiguration<ExportTypeHistory>
 {
-    public void Configure(EntityTypeBuilder<ExportTypeAudit> builder)
+    public void Configure(EntityTypeBuilder<ExportTypeHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).HasColumnOrder(0);

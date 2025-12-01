@@ -72,7 +72,7 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
                 await context.Tables.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                TableAudit audit = new();
+                TableHistory audit = new();
                 audit.Name = masterPOST.Name;
                 audit.Description = masterPOST.Description;
                 audit.TotalPersons = masterPOST.TotalPersons;
@@ -355,7 +355,7 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
                 .SetProperty(x => x.Description, masterPUT.Description)
                 .SetProperty(x => x.TotalPersons, masterPUT.TotalPersons));
 
-                TableAudit audit = new();
+                TableHistory audit = new();
                 audit.Name = masterPUT.Name;
                 audit.Description = masterPUT.Description;
                 audit.TotalPersons = masterPUT.TotalPersons;

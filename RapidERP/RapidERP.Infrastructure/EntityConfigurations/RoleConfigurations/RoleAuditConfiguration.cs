@@ -4,9 +4,9 @@ using RapidERP.Domain.Entities.RoleModules;
 
 namespace RapidERP.Infrastructure.EntityConfigurations.RoleConfigurations;
 
-public class RoleAuditConfiguration : IEntityTypeConfiguration<RoleAudit>
+public class RoleAuditConfiguration : IEntityTypeConfiguration<RoleHistory>
 {
-    public void Configure(EntityTypeBuilder<RoleAudit> builder)
+    public void Configure(EntityTypeBuilder<RoleHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(40).IsRequired();

@@ -70,7 +70,7 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
                 await context.Cities.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                CityAudit audit = new();
+                CityHistory audit = new();
                 audit.Name = masterPOST.Name;
                 audit.Code = masterPOST.Code;
                 audit.CountryId = masterPOST.CountryId;
@@ -362,7 +362,7 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
                 .SetProperty(x => x.StateId, masterPUT.StateId)
                 .SetProperty(x => x.Code, masterPUT.Code));
 
-                CityAudit audit = new();
+                CityHistory audit = new();
                 audit.Name = masterPUT.Name;
                 audit.Code = masterPUT.Code;
                 audit.CountryId = masterPUT.CountryId;

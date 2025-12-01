@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RapidERP.Domain.Entities.DepartmentModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.DepartmentConfigurations;
-public class DepartmentAuditConfiguration : IEntityTypeConfiguration<DepartmentAudit>
+public class DepartmentAuditConfiguration : IEntityTypeConfiguration<DepartmentHistory>
 {
-    public void Configure(EntityTypeBuilder<DepartmentAudit> builder)
+    public void Configure(EntityTypeBuilder<DepartmentHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(40).IsRequired();

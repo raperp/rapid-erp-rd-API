@@ -76,7 +76,7 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                 await context.Salesmen.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                SalesmanAudit audit = new();
+                SalesmanHistory audit = new();
                 audit.Name = masterPOST.Name;
                 audit.Code = masterPOST.Code;
                 audit.Commission = masterPOST.Commission;
@@ -386,7 +386,7 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                 .SetProperty(x => x.Email, masterPUT.Email)
                 .SetProperty(x => x.Description, masterPUT.Description));
 
-                SalesmanAudit audit = new();
+                SalesmanHistory audit = new();
                 audit.Name = masterPUT.Name;
                 audit.Code = masterPUT.Code;
                 audit.Commission = masterPUT.Commission;

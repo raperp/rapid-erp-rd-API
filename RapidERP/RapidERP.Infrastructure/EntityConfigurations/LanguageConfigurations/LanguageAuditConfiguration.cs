@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RapidERP.Domain.Entities.LanguageModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.LanguageConfigurations;
-public class LanguageAuditConfiguration : IEntityTypeConfiguration<LanguageAudit>
+public class LanguageAuditConfiguration : IEntityTypeConfiguration<LanguageHistory>
 {
-    public void Configure(EntityTypeBuilder<LanguageAudit> builder)
+    public void Configure(EntityTypeBuilder<LanguageHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).HasColumnOrder(0);

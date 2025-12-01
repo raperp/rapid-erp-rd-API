@@ -64,7 +64,7 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
                 await context.Languages.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                LanguageAudit audit = new();
+                LanguageHistory audit = new();
                 audit.LanguageId = masterData.Id;
                 audit.ISONumeric = masterPOST.ISONumeric;
                 audit.Name = masterPOST.Name;
@@ -336,7 +336,7 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
                 .SetProperty(x => x.ISO3Code, masterPUT.ISO3Code)
                 .SetProperty(x => x.IconURL, masterPUT.IconURL));
 
-                LanguageAudit audit = new();
+                LanguageHistory audit = new();
                 audit.LanguageId = masterPUT.Id;
                 audit.ISONumeric = masterPUT.ISONumeric;
                 audit.Name = masterPUT.Name;

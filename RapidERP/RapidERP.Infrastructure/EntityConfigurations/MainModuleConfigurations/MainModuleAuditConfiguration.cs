@@ -4,9 +4,9 @@ using RapidERP.Domain.Entities.MainModuleModels;
 
 namespace RapidERP.Infrastructure.EntityConfigurations.MainModuleConfigurations;
 
-public class MainModuleAuditConfiguration : IEntityTypeConfiguration<MainModuleAudit>
+public class MainModuleAuditConfiguration : IEntityTypeConfiguration<MainModuleHistory>
 {
-    public void Configure(EntityTypeBuilder<MainModuleAudit> builder)
+    public void Configure(EntityTypeBuilder<MainModuleHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(30).IsRequired();
