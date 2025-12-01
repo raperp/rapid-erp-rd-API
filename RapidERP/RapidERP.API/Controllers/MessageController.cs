@@ -26,7 +26,7 @@ public class MessageController(IMessageModule message) : ControllerBase
     [HttpGet("GetAllAudits")]
     public async Task<IActionResult> GetAllAudits(int skip, int take)
     {
-        var result = await message.GetAllAudits(skip, take);
+        var result = await message.GetHistory(skip, take);
         return Ok(result);
     }
 

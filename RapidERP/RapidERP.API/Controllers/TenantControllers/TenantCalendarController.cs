@@ -25,7 +25,7 @@ public class TenantCalendarController(ITenantCalendar tenantCalendar) : Controll
     [HttpGet("GetAllAudits")]
     public async Task<IActionResult> GetAllAudits(int skip, int take)
     {
-        var result = await tenantCalendar.GetAllAudits(skip, take);
+        var result = await tenantCalendar.GetHistory(skip, take);
         return Ok(result);
     }
 

@@ -180,7 +180,7 @@ public class MessageModuleService(RapidERPDbContext context, IShared shared) : I
         }
     }
 
-    public async Task<RequestResponse> GetAllAudits(int skip, int take)
+    public async Task<RequestResponse> GetHistory(int skip, int take)
     {
         try
         {

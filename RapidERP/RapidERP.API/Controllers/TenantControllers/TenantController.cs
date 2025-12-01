@@ -25,7 +25,7 @@ namespace RapidERP.API.Controllers.TenantControllers
         [HttpGet("GetAllAudits")]
         public async Task<IActionResult> GetAllAudits(int skip, int take)
         {
-            var result = await tenant.GetAllAudits(skip, take);
+            var result = await tenant.GetHistory(skip, take);
             return Ok(result);
         }
 

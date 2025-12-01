@@ -26,7 +26,7 @@ public class MenuModuleController(IMenuModule menuModule) : ControllerBase
     [HttpGet("GetAllAudits")]
     public async Task<IActionResult> GetAllAudits(int skip, int take)
     {
-        var result = await menuModule.GetAllAudits(skip, take);
+        var result = await menuModule.GetHistory(skip, take);
         return Ok(result);
     }
 

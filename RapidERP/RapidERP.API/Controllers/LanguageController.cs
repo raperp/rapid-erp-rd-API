@@ -26,7 +26,7 @@ public class LanguageController(ILanguage language) : ControllerBase
     [HttpGet("GetAllAudits")]
     public async Task<IActionResult> GetAllAudits(int skip, int take)
     {
-        var result = await language.GetAllAudits(skip, take);
+        var result = await language.GetHistory(skip, take);
         return Ok(result);
     }
 

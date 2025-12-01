@@ -247,7 +247,7 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
         }
     }
 
-    public async Task<RequestResponse> GetAllAudits(int skip, int take)
+    public async Task<RequestResponse> GetHistory(int skip, int take)
     {
         try
         {

@@ -262,7 +262,7 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
         }
     }
 
-    public async Task<RequestResponse> GetAllAudits(int skip, int take)
+    public async Task<RequestResponse> GetHistory(int skip, int take)
     {
         try
         {

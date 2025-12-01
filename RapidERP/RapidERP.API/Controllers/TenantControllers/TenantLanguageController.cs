@@ -26,7 +26,7 @@ public class TenantLanguageController(ITenantLanguage tenantLanguage) : Controll
     [HttpGet("GetAllAudits")]
     public async Task<IActionResult> GetAllAudits(int skip, int take)
     {
-        var result = await tenantLanguage.GetAllAudits(skip, take);
+        var result = await tenantLanguage.GetHistory(skip, take);
         return Ok(result);
     }
 

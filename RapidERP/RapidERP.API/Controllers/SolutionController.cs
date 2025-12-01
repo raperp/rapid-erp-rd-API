@@ -25,7 +25,7 @@ public class SolutionController(ISolution solution) : ControllerBase
     [HttpGet("GetAllAudits")]
     public async Task<IActionResult> GetAllAudits(int skip, int take)
     {
-        var result = await solution.GetAllAudits(skip, take);
+        var result = await solution.GetHistory(skip, take);
         return Ok(result);
     }
 

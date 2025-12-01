@@ -268,7 +268,7 @@ public class SupplierTypeService(RapidERPDbContext context, IShared shared) : IS
         }
     }
 
-    public async Task<RequestResponse> GetAllAudits(int skip, int take)
+    public async Task<RequestResponse> GetHistory(int skip, int take)
     {
         try
         {

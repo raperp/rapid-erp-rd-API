@@ -25,7 +25,7 @@ public class CalendarController(ICalendar calendar) : ControllerBase
     [HttpGet("GetAllAudits")]
     public async Task<IActionResult> GetAllAudits(int skip, int take)
     {
-        var result = await calendar.GetAllAudits(skip, take);
+        var result = await calendar.GetHistory(skip, take);
         return Ok(result);
     }
 

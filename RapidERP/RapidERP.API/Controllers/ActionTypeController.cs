@@ -27,7 +27,7 @@ public class ActionTypeController(IActionType actionType) : ControllerBase
     [HttpGet("GetAllAudits")]
     public async Task<IActionResult> GetAllAudits(int skip, int take)
     {
-        var result = await actionType.GetAllAudits(skip, take);
+        var result = await actionType.GetHistory(skip, take);
         return Ok(result);
     }
 

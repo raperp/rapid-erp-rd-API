@@ -200,7 +200,7 @@ public class CalendarService(RapidERPDbContext context, IShared shared) : ICalen
         }
     }
 
-    public async Task<RequestResponse> GetAllAudits(int skip, int take)
+    public async Task<RequestResponse> GetHistory(int skip, int take)
     {
         try
         {

@@ -245,7 +245,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
         }
     }
 
-    public async Task<RequestResponse> GetAllAudits(int skip, int take)
+    public async Task<RequestResponse> GetHistory(int skip, int take)
     {
         try
         {

@@ -240,7 +240,7 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
         }
     }
 
-    public async Task<RequestResponse> GetAllAudits(int skip, int take)
+    public async Task<RequestResponse> GetHistory(int skip, int take)
     {
         try
         {

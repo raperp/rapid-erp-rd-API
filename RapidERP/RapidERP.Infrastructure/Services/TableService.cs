@@ -256,7 +256,7 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
         }
     }
 
-    public async Task<RequestResponse> GetAllAudits(int skip, int take)
+    public async Task<RequestResponse> GetHistory(int skip, int take)
     {
         try
         {

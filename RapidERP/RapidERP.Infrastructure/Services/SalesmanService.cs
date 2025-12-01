@@ -272,7 +272,7 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
         }
     }
 
-    public async Task<RequestResponse> GetAllAudits(int skip, int take)
+    public async Task<RequestResponse> GetHistory(int skip, int take)
     {
         try
         {

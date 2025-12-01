@@ -25,7 +25,7 @@ public class TenantLicenseController(ITenantLicense tenantLicense) : ControllerB
     [HttpGet("GetAllAudits")]
     public async Task<IActionResult> GetAllAudits(int skip, int take)
     {
-        var result = await tenantLicense.GetAllAudits(skip, take);
+        var result = await tenantLicense.GetHistory(skip, take);
         return Ok(result);
     }
 

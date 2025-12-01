@@ -27,7 +27,7 @@ public class SubmoduleController(ISubmodule submodule) : ControllerBase
     [HttpGet("GetAllAudits")]
     public async Task<IActionResult> GetAllAudits(int skip, int take)
     {
-        var result = await submodule.GetAllAudits(skip, take);
+        var result = await submodule.GetHistory(skip, take);
         return Ok(result);
     }
 
