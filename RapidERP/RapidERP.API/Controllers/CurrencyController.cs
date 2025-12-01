@@ -22,8 +22,8 @@ public class CurrencyController(ICurrency currency) : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("GetAllAudits")]
-    public async Task<IActionResult> GetAllAudits(int skip, int take)
+    [HttpGet("GetHistory")]
+    public async Task<IActionResult> GetHistory(int skip, int take)
     {
         var result = await currency.GetHistory(skip, take);
         return Ok(result);

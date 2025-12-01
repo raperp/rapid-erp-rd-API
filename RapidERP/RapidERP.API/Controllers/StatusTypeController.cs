@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.DTOs.StatusTypeDTOs;
 using RapidERP.Application.Interfaces;
 
@@ -23,8 +22,8 @@ public class StatusTypeController(IStatusType statusType) : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("GetAllAudits")]
-    public async Task<IActionResult> GetAllAudits(int skip, int take)
+    [HttpGet("GetHistory")]
+    public async Task<IActionResult> GetHistory(int skip, int take)
     {
         var result = await statusType.GetHistory(skip, take);
         return Ok(result);

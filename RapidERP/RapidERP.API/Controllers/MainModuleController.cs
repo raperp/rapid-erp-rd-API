@@ -24,8 +24,8 @@ public class MainModuleController(IMainModule mainModule) : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("GetAllAudits")]
-    public async Task<IActionResult> GetAllAudits(int skip, int take)
+    [HttpGet("GetHistory")]
+    public async Task<IActionResult> GetHistory(int skip, int take)
     {
         var result = await mainModule.GetHistory(skip, take);
         return Ok(result);

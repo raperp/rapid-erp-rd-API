@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RapidERP.Application.DTOs.CountryDTOs;
-using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.DTOs.TextModuleDTOs;
 using RapidERP.Application.Interfaces;
 
@@ -24,8 +22,8 @@ public class TextModuleController(ITextModule textModule) : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("GetAllAudits")]
-    public async Task<IActionResult> GetAllAudits(int skip, int take)
+    [HttpGet("GetHistory")]
+    public async Task<IActionResult> GetHistory(int skip, int take)
     {
         var result = await textModule.GetHistory(skip, take);
         return Ok(result);

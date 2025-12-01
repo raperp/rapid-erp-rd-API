@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RapidERP.Application.DTOs.MessageModuleDTOs;
-using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
 
 namespace RapidERP.API.Controllers;
@@ -23,8 +22,8 @@ public class MessageController(IMessageModule message) : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("GetAllAudits")]
-    public async Task<IActionResult> GetAllAudits(int skip, int take)
+    [HttpGet("GetHistory")]
+    public async Task<IActionResult> GetHistory(int skip, int take)
     {
         var result = await message.GetHistory(skip, take);
         return Ok(result);

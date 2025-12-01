@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.DTOs.SubmoduleDTOs;
 using RapidERP.Application.Interfaces;
-using RapidERP.Domain.Entities.CountryModels;
 
 namespace RapidERP.API.Controllers;
 
@@ -24,8 +22,8 @@ public class SubmoduleController(ISubmodule submodule) : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("GetAllAudits")]
-    public async Task<IActionResult> GetAllAudits(int skip, int take)
+    [HttpGet("GetHistory")]
+    public async Task<IActionResult> GetHistory(int skip, int take)
     {
         var result = await submodule.GetHistory(skip, take);
         return Ok(result);

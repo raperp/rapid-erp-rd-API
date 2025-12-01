@@ -23,8 +23,8 @@ public class LanguageController(ILanguage language) : ControllerBase
         return Ok(result);
     }
 
-    [HttpGet("GetAllAudits")]
-    public async Task<IActionResult> GetAllAudits(int skip, int take)
+    [HttpGet("GetHistory")]
+    public async Task<IActionResult> GetHistory(int skip, int take)
     {
         var result = await language.GetHistory(skip, take);
         return Ok(result);
