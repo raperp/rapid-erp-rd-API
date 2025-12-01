@@ -8,8 +8,10 @@ public class ActionTypeConfiguration : IEntityTypeConfiguration<ActionType>
     public void Configure(EntityTypeBuilder<ActionType> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.Name).HasMaxLength(5).IsRequired();
-        builder.Property(x => x.Description).HasMaxLength(100).IsRequired(false);
+        builder.Property(x => x.Id).HasColumnOrder(0);
+        builder.Property(x => x.LanguageId).HasColumnOrder(1);
+        builder.Property(x => x.Name).HasMaxLength(10).IsRequired().HasColumnOrder(2);
+        builder.Property(x => x.Description).HasMaxLength(100).IsRequired(false).HasColumnOrder(3);
         builder.Ignore(x => x.MenuModule);
         builder.Ignore(x => x.MenuModuleId);
         builder.Ignore(x => x.Tenant);

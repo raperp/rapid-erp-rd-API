@@ -9,22 +9,22 @@ public class LanguageAuditConfiguration : IEntityTypeConfiguration<LanguageAudit
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).HasColumnOrder(0);
-        builder.Property(x => x.LanguageId).HasColumnOrder(1).HasMaxLength(40).IsRequired();
-        builder.Property(x => x.ISONumeric).HasColumnOrder(2).HasMaxLength(4).IsRequired();
-        builder.Property(x => x.Name).HasColumnOrder(3).HasMaxLength(40).IsRequired();
-        builder.Property(x => x.ISO2Code).HasColumnOrder(4).HasMaxLength(2).IsRequired();
-        builder.Property(x => x.ISO3Code).HasColumnOrder(5).HasMaxLength(3).IsRequired();
-        builder.Property(x => x.IconURL).HasColumnOrder(6).IsRequired();
-        builder.Property(x => x.Browser).HasColumnOrder(7).HasMaxLength(15).IsRequired();
-        builder.Property(x => x.Location).HasColumnOrder(8).HasMaxLength(40).IsRequired();
-        builder.Property(x => x.DeviceIP).HasColumnOrder(9).HasMaxLength(15).IsRequired();
-        builder.Property(x => x.LocationURL).HasColumnOrder(10).IsRequired();
-        builder.Property(x => x.DeviceName).HasColumnOrder(11).HasMaxLength(10).IsRequired();
-        builder.Property(x => x.Latitude).HasColumnOrder(12).HasPrecision(9, 6);
-        builder.Property(x => x.Longitude).HasColumnOrder(13).HasPrecision(9, 6);
+        builder.Property(x => x.LanguageId).HasMaxLength(40).IsRequired().HasColumnOrder(1);
+        builder.Property(x => x.ISONumeric).HasMaxLength(4).IsRequired().HasColumnOrder(2);
+        builder.Property(x => x.Name).HasMaxLength(40).IsRequired().HasColumnOrder(3);
+        builder.Property(x => x.ISO2Code).HasMaxLength(2).IsRequired().HasColumnOrder(4);
+        builder.Property(x => x.ISO3Code).HasMaxLength(3).IsRequired().HasColumnOrder(5);
+        builder.Property(x => x.IconURL).IsRequired().HasColumnOrder(6);
+        builder.Property(x => x.Browser).HasMaxLength(15).IsRequired().HasColumnOrder(7);
+        builder.Property(x => x.Location).HasMaxLength(40).IsRequired().HasColumnOrder(8);
+        builder.Property(x => x.DeviceIP).HasMaxLength(15).IsRequired().HasColumnOrder(9);
+        builder.Property(x => x.LocationURL).IsRequired().HasColumnOrder(10);
+        builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired().HasColumnOrder(11);
+        builder.Property(x => x.Latitude).HasPrecision(9, 6).HasColumnOrder(12);
+        builder.Property(x => x.Longitude).HasPrecision(9, 6).HasColumnOrder(13);
         builder.Property(x => x.ActionBy).HasColumnOrder(14);
         builder.Property(x => x.ActionAt).HasColumnOrder(15);
-       
+
         builder.Ignore(x => x.IsDefault);
         builder.Ignore(x => x.IsDraft);
         builder.Ignore(x => x.TenantId);
