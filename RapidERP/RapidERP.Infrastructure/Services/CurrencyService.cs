@@ -61,38 +61,41 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
             if (isExists == false)
             {
                 Currency masterData = new();
-                masterData.Name = masterPOST.Name;
-                //masterData.MenuId = masterPOST.MenuId;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
+                masterData.TenantId = masterPOST.TenantId;
+                masterData.MenuModuleId = masterPOST.MenuModuleId;
                 masterData.LanguageId = masterPOST.LanguageId;
+                masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.Code = masterPOST.Code;
+                masterData.Name = masterPOST.Name;
                 masterData.Icon = masterPOST.Icon;
                 masterData.IsDefault = masterPOST.IsDefault;
+                masterData.IsDraft = masterPOST.IsDraft;
 
                 await context.Currencies.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
                 CurrencyAudit audit = new();
-                audit.Name = masterPOST.Name;
-                //audit.MenuId = masterPOST.MenuId;
                 audit.CurrencyId = masterData.Id;
+                audit.TenantId = masterPOST.TenantId;
+                audit.MenuModuleId = masterPOST.MenuModuleId;
                 audit.LanguageId = masterPOST.LanguageId;
-                audit.Code = masterPOST.Code;
-                //audit.IsDefault = masterPOST.IsDefault;
-                //audit.StatusTypeId = masterPOST.StatusTypeId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 audit.ExportTypeId = masterPOST.ExportTypeId;
                 audit.ExportTo = masterPOST.ExportTo;
                 audit.SourceURL = masterPOST.SourceURL;
-                //audit.IsDefault = masterPOST.IsDefault;
+                audit.Code = masterPOST.Code;
+                audit.Name = masterPOST.Name;
+                audit.IsDefault = masterPOST.IsDefault;
+                audit.IsDraft = masterPOST.IsDraft;
+                audit.Icon = masterPOST.Icon;
                 audit.Browser = masterPOST.Browser;
-                audit.DeviceName = masterPOST.DeviceName;
                 audit.Location = masterPOST.Location;
                 audit.DeviceIP = masterPOST.DeviceIP;
-                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                audit.LocationURL = masterPOST.LocationURL;
+                audit.DeviceName = masterPOST.DeviceName;
                 audit.Latitude = masterPOST.Latitude;
                 audit.Longitude = masterPOST.Longitude;
-                //audit.ActionBy = masterPOST.CreatedBy;
+                audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.CurrencyAudits.AddAsync(audit);
@@ -204,17 +207,23 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
             GetAllDTO result = new();
 
             var data = (from c in context.Currencies
+                        join t in context.Tenants on c.TenantId equals t.Id
+                        join mm in context.MenuModules on c.MenuModuleId equals mm.Id
                         join l in context.Languages on c.LanguageId equals l.Id
                         join st in context.StatusTypes on c.StatusTypeId equals st.Id
+                        
                         select new
                         {
                             c.Id,
-                            c.Name,
-                            c.Code,
-                            c.IsDefault,
-                            Country = c.Name,
+                            Tenant = t.Name,
+                            MenuModule = mm.Name,
                             Language = l.Name,
-                            Status = st.Name
+                            Status = st.Name,
+                            c.Code,
+                            c.Name,
+                            c.Icon,
+                            c.IsDefault,
+                            c.IsDraft
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -267,26 +276,32 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
         {
             var data = (from ca in context.CurrencyAudits
                         join c in context.Currencies on ca.CurrencyId equals c.Id
-                        //join et in context.ExportTypes on ca.ExportTypeId equals et.Id
+                        join t in context.Tenants on ca.TenantId equals t.Id
+                        join mm in context.MenuModules on ca.MenuModuleId equals mm.Id
+                        join l in context.Languages on ca.LanguageId equals l.Id
                         join at in context.ActionTypes on ca.ActionTypeId equals at.Id
-                        //join st in context.StatusTypes on ca.StatusTypeId equals st.Id
+                        join et in context.ExportTypes on ca.ExportTypeId equals et.Id
                         select new
                         {
                             ca.Id,
                             Currency = c.Name,
-                            ca.Name,
-                            //ExportType = et.Name,
+                            Tenant = t.Name,
+                            MenuModule = mm.Name,
+                            Language = l.Name,
                             Action = at.Name,
-                            //Status = st.Name,
+                            ExportType = et.Name,
                             ca.ExportTo,
                             ca.SourceURL,
-                            //ca.IsDefault,
                             ca.Code,
+                            ca.Name,
+                            ca.IsDefault,
+                            ca.IsDraft,
+                            ca.Icon,
                             ca.Browser,
-                            ca.DeviceName,
                             ca.Location,
                             ca.DeviceIP,
-                            //ca.GoogleMapUrl,
+                            ca.LocationURL,
+                            ca.DeviceName,
                             ca.Latitude,
                             ca.Longitude,
                             ca.ActionBy,
@@ -341,9 +356,10 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
         return result;
     }
 
-    public Task<dynamic> SoftDelete(int id)
+    public async Task<dynamic> SoftDelete(int id)
     {
-        throw new NotImplementedException();
+        var result = await shared.SoftDelete<Currency>(id);
+        return result;
     }
 
     public async Task<RequestResponse> Update(CurrencyPUT masterPUT)
@@ -356,34 +372,38 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
             if (isExists == false)
             {
                 await context.Currencies.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.Name, masterPUT.Name)
-                //.SetProperty(x => x.MenuId, masterPUT.MenuId)
-                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                .SetProperty(x => x.TenantId, masterPUT.TenantId)
+                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.Code, masterPUT.Code)
-                .SetProperty(x => x.IsDefault, masterPUT.IsDefault));
+                .SetProperty(x => x.Name, masterPUT.Name)
+                .SetProperty(x => x.Icon, masterPUT.Icon)
+                .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
+                .SetProperty(x => x.IsDraft, masterPUT.IsDraft));
 
                 CurrencyAudit audit = new();
-                audit.Name = masterPUT.Name;
-                //audit.MenuId = masterPUT.MenuId;
                 audit.CurrencyId = masterPUT.Id;
+                audit.TenantId = masterPUT.TenantId;
+                audit.MenuModuleId = masterPUT.MenuModuleId;
                 audit.LanguageId = masterPUT.LanguageId;
-                audit.Code = masterPUT.Code;
-                //audit.IsDefault = masterPUT.IsDefault;
-                //audit.StatusTypeId = masterPUT.StatusTypeId;
                 audit.ActionTypeId = masterPUT.ActionTypeId;
                 audit.ExportTypeId = masterPUT.ExportTypeId;
                 audit.ExportTo = masterPUT.ExportTo;
                 audit.SourceURL = masterPUT.SourceURL;
-                //audit.IsDefault = masterPUT.IsDefault;
+                audit.Code = masterPUT.Code;
+                audit.Name = masterPUT.Name;
+                audit.IsDefault = masterPUT.IsDefault;
+                audit.IsDraft = masterPUT.IsDraft;
+                audit.Icon = masterPUT.Icon;
                 audit.Browser = masterPUT.Browser;
-                audit.DeviceName = masterPUT.DeviceName;
                 audit.Location = masterPUT.Location;
                 audit.DeviceIP = masterPUT.DeviceIP;
-                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                audit.LocationURL = masterPUT.LocationURL;
+                audit.DeviceName = masterPUT.DeviceName;
                 audit.Latitude = masterPUT.Latitude;
                 audit.Longitude = masterPUT.Longitude;
-                //audit.ActionBy = masterPUT.UpdatedBy;
+                audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
                 await context.CurrencyAudits.AddAsync(audit);
