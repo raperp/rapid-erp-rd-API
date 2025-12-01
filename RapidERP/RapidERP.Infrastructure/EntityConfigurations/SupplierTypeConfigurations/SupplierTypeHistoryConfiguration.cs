@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RapidERP.Domain.Entities.SupplierTypeModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.SupplierTypeConfigurations;
-public class SupplierTypeAuditConfiguration : IEntityTypeConfiguration<SupplierTypeHistory>
+public class SupplierTypeHistoryConfiguration : IEntityTypeConfiguration<SupplierTypeHistory>
 {
     public void Configure(EntityTypeBuilder<SupplierTypeHistory> builder)
     {

@@ -4,7 +4,7 @@ using RapidERP.Domain.Entities.UserModels;
 
 namespace RapidERP.Infrastructure.EntityConfigurations.UserConfigurations;
 
-public class UserAuditConfiguration : IEntityTypeConfiguration<UserHistory>
+public class UserHistoryConfiguration : IEntityTypeConfiguration<UserHistory>
 {
     public void Configure(EntityTypeBuilder<UserHistory> builder)
     {

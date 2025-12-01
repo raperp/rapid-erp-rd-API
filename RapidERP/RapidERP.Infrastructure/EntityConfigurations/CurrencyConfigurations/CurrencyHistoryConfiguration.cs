@@ -4,7 +4,7 @@ using RapidERP.Domain.Entities.CurrencyModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.CurrencyConfigurations;
 
-public class CurrencyAuditConfiguration : IEntityTypeConfiguration<CurrencyHistory>
+public class CurrencyHistoryConfiguration : IEntityTypeConfiguration<CurrencyHistory>
 {
     public void Configure(EntityTypeBuilder<CurrencyHistory> builder)
     {

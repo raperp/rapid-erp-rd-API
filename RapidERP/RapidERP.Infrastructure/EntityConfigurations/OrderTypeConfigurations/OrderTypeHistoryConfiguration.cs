@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RapidERP.Domain.Entities.TableModules;
+using RapidERP.Domain.Entities.OrderTypeModels;
 
-namespace RapidERP.Infrastructure.EntityConfiguration.TableConfigurations;
+namespace RapidERP.Infrastructure.EntityConfiguration.OrderTypeConfigurations;
 
-public class TableAuditConfiguration : IEntityTypeConfiguration<TableHistory>
+public class OrderTypeHistoryConfiguration : IEntityTypeConfiguration<OrderTypeHistory>
 {
-    public void Configure(EntityTypeBuilder<TableHistory> builder)
+    public void Configure(EntityTypeBuilder<OrderTypeHistory> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.Name).HasMaxLength(5).IsRequired();
+        builder.Property(x => x.Name).HasMaxLength(15).IsRequired();
         builder.Property(x => x.Description).HasMaxLength(100).IsRequired(false);
         builder.Property(x => x.Latitude).HasPrecision(9, 6);
         builder.Property(x => x.Longitude).HasPrecision(9, 6);

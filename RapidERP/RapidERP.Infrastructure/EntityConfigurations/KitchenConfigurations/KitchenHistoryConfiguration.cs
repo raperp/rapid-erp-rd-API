@@ -1,16 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RapidERP.Domain.Entities.OrderTypeModels;
+using RapidERP.Domain.Entities.KitchenModels;
 
-namespace RapidERP.Infrastructure.EntityConfiguration.OrderTypeConfigurations;
+namespace RapidERP.Infrastructure.EntityConfiguration.KitchenConfigurations;
 
-public class OrderTypeAuditConfiguration : IEntityTypeConfiguration<OrderTypeHistory>
+public class KitchenHistoryConfiguration : IEntityTypeConfiguration<KitchenHistory>
 {
-    public void Configure(EntityTypeBuilder<OrderTypeHistory> builder)
+    public void Configure(EntityTypeBuilder<KitchenHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(15).IsRequired();
         builder.Property(x => x.Description).HasMaxLength(100).IsRequired(false);
+        builder.Property(x => x.PrinterId).IsRequired(false);
         builder.Property(x => x.Latitude).HasPrecision(9, 6);
         builder.Property(x => x.Longitude).HasPrecision(9, 6);
         builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired(false);

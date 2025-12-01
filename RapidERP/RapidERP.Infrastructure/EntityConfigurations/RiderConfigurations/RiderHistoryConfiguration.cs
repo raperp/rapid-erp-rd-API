@@ -4,7 +4,7 @@ using RapidERP.Domain.Entities.RiderModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.RiderConfigurations;
 
-public class RiderAuditConfiguration : IEntityTypeConfiguration<RiderHistory>
+public class RiderHistoryConfiguration : IEntityTypeConfiguration<RiderHistory>
 {
     public void Configure(EntityTypeBuilder<RiderHistory> builder)
     {

@@ -4,7 +4,7 @@ using RapidERP.Domain.Entities.SubmoduleModels;
 
 namespace RapidERP.Infrastructure.EntityConfigurations.SubmoduleConfigurations
 {
-    public class SubmoduleAuditConfiguration : IEntityTypeConfiguration<SubmoduleHistory>
+    public class SubmoduleHistoryConfiguration : IEntityTypeConfiguration<SubmoduleHistory>
     {
         public void Configure(EntityTypeBuilder<SubmoduleHistory> builder)
         {

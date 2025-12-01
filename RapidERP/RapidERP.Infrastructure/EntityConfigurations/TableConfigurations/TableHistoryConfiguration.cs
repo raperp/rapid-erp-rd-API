@@ -1,15 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RapidERP.Domain.Entities.DepartmentModels;
+using RapidERP.Domain.Entities.TableModules;
 
-namespace RapidERP.Infrastructure.EntityConfiguration.DepartmentConfigurations;
-public class DepartmentAuditConfiguration : IEntityTypeConfiguration<DepartmentHistory>
+namespace RapidERP.Infrastructure.EntityConfiguration.TableConfigurations;
+
+public class TableHistoryConfiguration : IEntityTypeConfiguration<TableHistory>
 {
-    public void Configure(EntityTypeBuilder<DepartmentHistory> builder)
+    public void Configure(EntityTypeBuilder<TableHistory> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.Name).HasMaxLength(40).IsRequired();
-        builder.Property(x => x.Description).HasMaxLength(3).IsRequired();
+        builder.Property(x => x.Name).HasMaxLength(5).IsRequired();
+        builder.Property(x => x.Description).HasMaxLength(100).IsRequired(false);
         builder.Property(x => x.Latitude).HasPrecision(9, 6);
         builder.Property(x => x.Longitude).HasPrecision(9, 6);
         builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired(false);

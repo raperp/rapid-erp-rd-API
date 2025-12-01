@@ -4,7 +4,7 @@ using RapidERP.Domain.Entities.StatusTypeModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.StatusTypeConfigurations;
 
-public class StatysTypeAuditConfiguration : IEntityTypeConfiguration<StatusTypeHistory>
+public class StatysTypeHistoryConfiguration : IEntityTypeConfiguration<StatusTypeHistory>
 {
     public void Configure(EntityTypeBuilder<StatusTypeHistory> builder)
     {

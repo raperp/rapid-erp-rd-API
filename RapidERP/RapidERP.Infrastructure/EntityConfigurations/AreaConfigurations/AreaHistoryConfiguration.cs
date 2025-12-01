@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RapidERP.Domain.Entities.CityModels;
+using RapidERP.Domain.Entities.AreaModules;
 
-namespace RapidERP.Infrastructure.EntityConfiguration.CityConfigurations
+namespace RapidERP.Infrastructure.EntityConfiguration.AreaConfigurations
 {
-    public class CityAuditConfiguration : IEntityTypeConfiguration<CityHistory>
+    public class AreaHistoryConfiguration : IEntityTypeConfiguration<AreaHistory>
     {
-        public void Configure(EntityTypeBuilder<CityHistory> builder)
+        public void Configure(EntityTypeBuilder<AreaHistory> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Name).HasMaxLength(40).IsRequired();
@@ -19,6 +19,7 @@ namespace RapidERP.Infrastructure.EntityConfiguration.CityConfigurations
             builder.Property(x => x.ExportTo).IsRequired(false);
             builder.Property(x => x.StateId).IsRequired(false);
             builder.Property(x => x.CountryId).IsRequired(false);
+            builder.Property(x => x.CityId).IsRequired(false);
         }
     }
 }

@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RapidERP.Domain.Entities.TextModuleModels;
+using RapidERP.Domain.Entities.MessageModuleModels;
 
-namespace RapidERP.Infrastructure.EntityConfigurations.TextModuleConfigurations;
+namespace RapidERP.Infrastructure.EntityConfigurations.MessageModuleConfigurations;
 
-public class TextModuleAuditConfiguration : IEntityTypeConfiguration<TextModuleHistory>
+public class MessageModuleHistoryConfiguration : IEntityTypeConfiguration<MessageModuleHistory>
 {
-    public void Configure(EntityTypeBuilder<TextModuleHistory> builder)
+    public void Configure(EntityTypeBuilder<MessageModuleHistory> builder)
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(20).IsRequired();
@@ -14,6 +14,7 @@ public class TextModuleAuditConfiguration : IEntityTypeConfiguration<TextModuleH
         builder.Property(x => x.Longitude).HasPrecision(9, 6);
         builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired(false);
         builder.Ignore(x => x.TenantId);
+        builder.Ignore(x => x.MenuModuleId);
         builder.Ignore(x => x.IsDefault);
         builder.Ignore(x => x.IsDraft);
     }

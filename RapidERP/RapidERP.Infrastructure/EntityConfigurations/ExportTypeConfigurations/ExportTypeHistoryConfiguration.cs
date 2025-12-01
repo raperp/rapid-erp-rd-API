@@ -4,7 +4,7 @@ using RapidERP.Domain.Entities.ExportTypeModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.ExportTypeConfigurations;
 
-public class ExportTypeAuditConfiguration : IEntityTypeConfiguration<ExportTypeHistory>
+public class ExportTypeHistoryConfiguration : IEntityTypeConfiguration<ExportTypeHistory>
 {
     public void Configure(EntityTypeBuilder<ExportTypeHistory> builder)
     {

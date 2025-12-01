@@ -4,7 +4,7 @@ using RapidERP.Domain.Entities.ActionTypeModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.ActionTypeConfigurations;
 
-public class ActionTypeAuditConfiguration : IEntityTypeConfiguration<ActionTypeHistory>
+public class ActionTypeHistoryConfiguration : IEntityTypeConfiguration<ActionTypeHistory>
 {
     public void Configure(EntityTypeBuilder<ActionTypeHistory> builder)
     {

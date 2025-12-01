@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RapidERP.Domain.Entities.SalesmanModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.SalesmanConfigurations;
-public class SalesmanAuditConfiguration : IEntityTypeConfiguration<SalesmanHistory>
+public class SalesmanHistoryConfiguration : IEntityTypeConfiguration<SalesmanHistory>
 {
     public void Configure(EntityTypeBuilder<SalesmanHistory> builder)
     {

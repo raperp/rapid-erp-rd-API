@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RapidERP.Domain.Entities.LanguageModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.LanguageConfigurations;
-public class LanguageAuditConfiguration : IEntityTypeConfiguration<LanguageHistory>
+public class LanguageHistoryConfiguration : IEntityTypeConfiguration<LanguageHistory>
 {
     public void Configure(EntityTypeBuilder<LanguageHistory> builder)
     {

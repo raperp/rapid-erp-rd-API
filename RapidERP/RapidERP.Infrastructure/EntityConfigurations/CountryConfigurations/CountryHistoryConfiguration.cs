@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RapidERP.Domain.Entities.CountryModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.CountryConfigurations;
-public class CountryAuditConfiguration : IEntityTypeConfiguration<CountryHistory>
+public class CountryHistoryConfiguration : IEntityTypeConfiguration<CountryHistory>
 {
     public void Configure(EntityTypeBuilder<CountryHistory> builder)
     {

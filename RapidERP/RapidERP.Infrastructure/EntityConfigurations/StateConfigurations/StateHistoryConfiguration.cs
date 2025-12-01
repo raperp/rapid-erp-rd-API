@@ -4,7 +4,7 @@ using RapidERP.Domain.Entities.SateModules;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.StateConfigurations
 {
-    public class StateAuditConfiguration : IEntityTypeConfiguration<StateHistory>
+    public class StateHistoryConfiguration : IEntityTypeConfiguration<StateHistory>
     {
         public void Configure(EntityTypeBuilder<StateHistory> builder)
         {

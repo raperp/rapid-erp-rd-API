@@ -4,7 +4,7 @@ using RapidERP.Domain.Entities.RoleModules;
 
 namespace RapidERP.Infrastructure.EntityConfigurations.RoleConfigurations;
 
-public class RoleAuditConfiguration : IEntityTypeConfiguration<RoleHistory>
+public class RoleHistoryConfiguration : IEntityTypeConfiguration<RoleHistory>
 {
     public void Configure(EntityTypeBuilder<RoleHistory> builder)
     {

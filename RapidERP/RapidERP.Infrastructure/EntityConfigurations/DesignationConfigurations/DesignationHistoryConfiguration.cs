@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RapidERP.Domain.Entities.DesignationModels;
 
 namespace RapidERP.Infrastructure.EntityConfiguration.DesignationConfigurations;
-public class DesignationAuditConfiguration : IEntityTypeConfiguration<DesignationHistory>
+public class DesignationHistoryConfiguration : IEntityTypeConfiguration<DesignationHistory>
 {
     public void Configure(EntityTypeBuilder<DesignationHistory> builder)
     {
