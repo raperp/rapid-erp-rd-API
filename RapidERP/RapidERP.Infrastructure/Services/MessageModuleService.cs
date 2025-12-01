@@ -61,26 +61,26 @@ public class MessageModuleService(RapidERPDbContext context, IShared shared) : I
                 await context.MessageModules.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                MessageModuleHistory audit = new();
-                audit.MessageModuleId = masterData.Id;
-                audit.TextModuleId = masterPOST.TextModuleId;
-                audit.LanguageId = masterPOST.LanguageId;
-                audit.ActionTypeId = masterPOST.ActionTypeId;
-                audit.ExportTypeId = masterPOST.ExportTypeId;
-                audit.ExportTo = masterPOST.ExportTo;
-                audit.SourceURL = masterPOST.SourceURL;
-                audit.Name = masterPOST.Name;
-                audit.Browser = masterPOST.Browser;
-                audit.Location = masterPOST.Location;
-                audit.DeviceIP = masterPOST.DeviceIP;
-                audit.LocationURL = masterPOST.LocationURL;
-                audit.DeviceName = masterPOST.DeviceName;
-                audit.Latitude = masterPOST.Latitude;
-                audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.ActionBy;
-                audit.ActionAt = DateTime.Now;
+                MessageModuleHistory history = new();
+                history.MessageModuleId = masterData.Id;
+                history.TextModuleId = masterPOST.TextModuleId;
+                history.LanguageId = masterPOST.LanguageId;
+                history.ActionTypeId = masterPOST.ActionTypeId;
+                history.ExportTypeId = masterPOST.ExportTypeId;
+                history.ExportTo = masterPOST.ExportTo;
+                history.SourceURL = masterPOST.SourceURL;
+                history.Name = masterPOST.Name;
+                history.Browser = masterPOST.Browser;
+                history.Location = masterPOST.Location;
+                history.DeviceIP = masterPOST.DeviceIP;
+                history.LocationURL = masterPOST.LocationURL;
+                history.DeviceName = masterPOST.DeviceName;
+                history.Latitude = masterPOST.Latitude;
+                history.Longitude = masterPOST.Longitude;
+                history.ActionBy = masterPOST.ActionBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.MessageModuleHistory.AddAsync(audit);
+                await context.MessageModuleHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -284,26 +284,26 @@ public class MessageModuleService(RapidERPDbContext context, IShared shared) : I
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Name, masterPUT.Name));
 
-                MessageModuleHistory audit = new();
-                audit.MessageModuleId = masterPUT.Id;
-                audit.TextModuleId = masterPUT.TextModuleId;
-                audit.LanguageId = masterPUT.LanguageId;
-                audit.ActionTypeId = masterPUT.ActionTypeId;
-                audit.ExportTypeId = masterPUT.ExportTypeId;
-                audit.ExportTo = masterPUT.ExportTo;
-                audit.SourceURL = masterPUT.SourceURL;
-                audit.Name = masterPUT.Name;
-                audit.Browser = masterPUT.Browser;
-                audit.Location = masterPUT.Location;
-                audit.DeviceIP = masterPUT.DeviceIP;
-                audit.LocationURL = masterPUT.LocationURL;
-                audit.DeviceName = masterPUT.DeviceName;
-                audit.Latitude = masterPUT.Latitude;
-                audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.ActionBy;
-                audit.ActionAt = DateTime.Now;
+                MessageModuleHistory history = new();
+                history.MessageModuleId = masterPUT.Id;
+                history.TextModuleId = masterPUT.TextModuleId;
+                history.LanguageId = masterPUT.LanguageId;
+                history.ActionTypeId = masterPUT.ActionTypeId;
+                history.ExportTypeId = masterPUT.ExportTypeId;
+                history.ExportTo = masterPUT.ExportTo;
+                history.SourceURL = masterPUT.SourceURL;
+                history.Name = masterPUT.Name;
+                history.Browser = masterPUT.Browser;
+                history.Location = masterPUT.Location;
+                history.DeviceIP = masterPUT.DeviceIP;
+                history.LocationURL = masterPUT.LocationURL;
+                history.DeviceName = masterPUT.DeviceName;
+                history.Latitude = masterPUT.Latitude;
+                history.Longitude = masterPUT.Longitude;
+                history.ActionBy = masterPUT.ActionBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.MessageModuleHistory.AddAsync(audit);
+                await context.MessageModuleHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

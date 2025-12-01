@@ -71,35 +71,35 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 await context.Countries.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                CountryHistory audit = new();
-                audit.CountryId = masterData.Id;
-                audit.TenantId = masterPOST.TenantId;
-                audit.MenuModuleId = masterPOST.MenuModuleId;
-                audit.ActionTypeId = masterPOST.ActionTypeId;
-                audit.LanguageId = masterPOST.LanguageId;
-                audit.CurrencyId = masterPOST.CurrencyId;
-                audit.ExportTypeId = masterPOST.ExportTypeId;
-                audit.ExportTo = masterPOST.ExportTo;
-                audit.SourceURL = masterPOST.SourceURL;
-                audit.DialCode = masterPOST.DialCode;
-                audit.Name = masterPOST.Name;
-                audit.IsDefault = masterPOST.IsDefault;
-                audit.IsDraft = masterPOST.IsDraft;
-                audit.ISONumeric = masterPOST.ISONumeric;
-                audit.ISO2Code = masterPOST.ISO2Code;
-                audit.ISO3Code = masterPOST.ISO3Code;
-                audit.FlagURL = masterPOST.FlagURL;
-                audit.Browser = masterPOST.Browser;
-                audit.Location = masterPOST.Location;
-                audit.DeviceIP = masterPOST.DeviceIP;
-                audit.LocationURL = masterPOST.LocationURL;
-                audit.DeviceName = masterPOST.DeviceName;
-                audit.Latitude = masterPOST.Latitude;
-                audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.ActionBy;
-                audit.ActionAt = DateTime.Now;
+                CountryHistory history = new();
+                history.CountryId = masterData.Id;
+                history.TenantId = masterPOST.TenantId;
+                history.MenuModuleId = masterPOST.MenuModuleId;
+                history.ActionTypeId = masterPOST.ActionTypeId;
+                history.LanguageId = masterPOST.LanguageId;
+                history.CurrencyId = masterPOST.CurrencyId;
+                history.ExportTypeId = masterPOST.ExportTypeId;
+                history.ExportTo = masterPOST.ExportTo;
+                history.SourceURL = masterPOST.SourceURL;
+                history.DialCode = masterPOST.DialCode;
+                history.Name = masterPOST.Name;
+                history.IsDefault = masterPOST.IsDefault;
+                history.IsDraft = masterPOST.IsDraft;
+                history.ISONumeric = masterPOST.ISONumeric;
+                history.ISO2Code = masterPOST.ISO2Code;
+                history.ISO3Code = masterPOST.ISO3Code;
+                history.FlagURL = masterPOST.FlagURL;
+                history.Browser = masterPOST.Browser;
+                history.Location = masterPOST.Location;
+                history.DeviceIP = masterPOST.DeviceIP;
+                history.LocationURL = masterPOST.LocationURL;
+                history.DeviceName = masterPOST.DeviceName;
+                history.Latitude = masterPOST.Latitude;
+                history.Longitude = masterPOST.Longitude;
+                history.ActionBy = masterPOST.ActionBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.CountryHistory.AddAsync(audit);
+                await context.CountryHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -143,9 +143,9 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.CountryHistory.AsNoTracking().AnyAsync(x => x.CountryId == id);
+            var ishistoryExists = await context.CountryHistory.AsNoTracking().AnyAsync(x => x.CountryId == id);
 
-            if (isAuditExists == false)
+            if (ishistoryExists == false)
             {
                 requestResponse = new()
                 {
@@ -396,35 +396,35 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 .SetProperty(x => x.ISO3Code, masterPUT.ISO3Code)
                 .SetProperty(x => x.FlagURL, masterPUT.FlagURL));
 
-                CountryHistory audit = new();
-                audit.CountryId = masterPUT.Id;
-                audit.TenantId = masterPUT.TenantId;
-                audit.MenuModuleId = masterPUT.MenuModuleId;
-                audit.ActionTypeId = masterPUT.ActionTypeId;
-                audit.LanguageId = masterPUT.LanguageId;
-                audit.CurrencyId = masterPUT.CurrencyId;
-                audit.ExportTypeId = masterPUT.ExportTypeId;
-                audit.ExportTo = masterPUT.ExportTo;
-                audit.SourceURL = masterPUT.SourceURL;
-                audit.DialCode = masterPUT.DialCode;
-                audit.Name = masterPUT.Name;
-                audit.IsDefault = masterPUT.IsDefault;
-                audit.IsDraft = masterPUT.IsDraft;
-                audit.ISONumeric = masterPUT.ISONumeric;
-                audit.ISO2Code = masterPUT.ISO2Code;
-                audit.ISO3Code = masterPUT.ISO3Code;
-                audit.FlagURL = masterPUT.FlagURL;
-                audit.Browser = masterPUT.Browser;
-                audit.Location = masterPUT.Location;
-                audit.DeviceIP = masterPUT.DeviceIP;
-                audit.LocationURL = masterPUT.LocationURL;
-                audit.DeviceName = masterPUT.DeviceName;
-                audit.Latitude = masterPUT.Latitude;
-                audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.ActionBy;
-                audit.ActionAt = DateTime.Now;
+                CountryHistory history = new();
+                history.CountryId = masterPUT.Id;
+                history.TenantId = masterPUT.TenantId;
+                history.MenuModuleId = masterPUT.MenuModuleId;
+                history.ActionTypeId = masterPUT.ActionTypeId;
+                history.LanguageId = masterPUT.LanguageId;
+                history.CurrencyId = masterPUT.CurrencyId;
+                history.ExportTypeId = masterPUT.ExportTypeId;
+                history.ExportTo = masterPUT.ExportTo;
+                history.SourceURL = masterPUT.SourceURL;
+                history.DialCode = masterPUT.DialCode;
+                history.Name = masterPUT.Name;
+                history.IsDefault = masterPUT.IsDefault;
+                history.IsDraft = masterPUT.IsDraft;
+                history.ISONumeric = masterPUT.ISONumeric;
+                history.ISO2Code = masterPUT.ISO2Code;
+                history.ISO3Code = masterPUT.ISO3Code;
+                history.FlagURL = masterPUT.FlagURL;
+                history.Browser = masterPUT.Browser;
+                history.Location = masterPUT.Location;
+                history.DeviceIP = masterPUT.DeviceIP;
+                history.LocationURL = masterPUT.LocationURL;
+                history.DeviceName = masterPUT.DeviceName;
+                history.Latitude = masterPUT.Latitude;
+                history.Longitude = masterPUT.Longitude;
+                history.ActionBy = masterPUT.ActionBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.CountryHistory.AddAsync(audit);
+                await context.CountryHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

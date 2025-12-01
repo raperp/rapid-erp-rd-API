@@ -68,27 +68,27 @@ public class DepartmentService(RapidERPDbContext context, IShared shared) : IDep
                 await context.Departments.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                DepartmentHistory audit = new();
-                audit.Name = masterData.Name;
-                audit.Description = masterPOST.Description;
-                audit.DepartmentId = masterData.Id;
-                //audit.StatusTypeId = masterPOST.StatusTypeId;
-                audit.ActionTypeId = masterPOST.ActionTypeId;
-                audit.ExportTypeId = masterPOST.ExportTypeId;
-                audit.ExportTo = masterPOST.ExportTo;
-                audit.SourceURL = masterPOST.SourceURL;
-                //audit.IsDefault = masterPOST.IsDefault;
-                audit.Browser = masterPOST.Browser;
-                audit.DeviceName = masterPOST.DeviceName;
-                audit.Location = masterPOST.Location;
-                audit.DeviceIP = masterPOST.DeviceIP;
-                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
-                audit.Latitude = masterPOST.Latitude;
-                audit.Longitude = masterPOST.Longitude;
-                //audit.ActionBy = masterPOST.CreatedBy;
-                audit.ActionAt = DateTime.Now;
+                DepartmentHistory history = new();
+                history.Name = masterData.Name;
+                history.Description = masterPOST.Description;
+                history.DepartmentId = masterData.Id;
+                //history.StatusTypeId = masterPOST.StatusTypeId;
+                history.ActionTypeId = masterPOST.ActionTypeId;
+                history.ExportTypeId = masterPOST.ExportTypeId;
+                history.ExportTo = masterPOST.ExportTo;
+                history.SourceURL = masterPOST.SourceURL;
+                //history.IsDefault = masterPOST.IsDefault;
+                history.Browser = masterPOST.Browser;
+                history.DeviceName = masterPOST.DeviceName;
+                history.Location = masterPOST.Location;
+                history.DeviceIP = masterPOST.DeviceIP;
+                //history.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                history.Latitude = masterPOST.Latitude;
+                history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.CreatedBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.DepartmentHistory.AddAsync(audit);
+                await context.DepartmentHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -132,9 +132,9 @@ public class DepartmentService(RapidERPDbContext context, IShared shared) : IDep
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.DepartmentHistory.AsNoTracking().AnyAsync(x => x.DepartmentId == id);
+            var ishistoryExists = await context.DepartmentHistory.AsNoTracking().AnyAsync(x => x.DepartmentId == id);
 
-            if (isAuditExists == false)
+            if (ishistoryExists == false)
             {
                 requestResponse = new()
                 {
@@ -348,27 +348,27 @@ public class DepartmentService(RapidERPDbContext context, IShared shared) : IDep
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description));
 
-                DepartmentHistory audit = new();
-                audit.Name = masterPUT.Name;
-                audit.Description = masterPUT.Description;
-                audit.DepartmentId = masterPUT.Id;
-                //audit.StatusTypeId = masterPUT.StatusTypeId;
-                audit.ActionTypeId = masterPUT.ActionTypeId;
-                audit.ExportTypeId = masterPUT.ExportTypeId;
-                audit.ExportTo = masterPUT.ExportTo;
-                audit.SourceURL = masterPUT.SourceURL;
-                //audit.IsDefault = masterPUT.IsDefault;
-                audit.Browser = masterPUT.Browser;
-                audit.DeviceName = masterPUT.DeviceName;
-                audit.Location = masterPUT.Location;
-                audit.DeviceIP = masterPUT.DeviceIP;
-                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
-                audit.Latitude = masterPUT.Latitude;
-                audit.Longitude = masterPUT.Longitude;
-                //audit.ActionBy = masterPUT.UpdatedBy;
-                audit.ActionAt = DateTime.Now;
+                DepartmentHistory history = new();
+                history.Name = masterPUT.Name;
+                history.Description = masterPUT.Description;
+                history.DepartmentId = masterPUT.Id;
+                //history.StatusTypeId = masterPUT.StatusTypeId;
+                history.ActionTypeId = masterPUT.ActionTypeId;
+                history.ExportTypeId = masterPUT.ExportTypeId;
+                history.ExportTo = masterPUT.ExportTo;
+                history.SourceURL = masterPUT.SourceURL;
+                //history.IsDefault = masterPUT.IsDefault;
+                history.Browser = masterPUT.Browser;
+                history.DeviceName = masterPUT.DeviceName;
+                history.Location = masterPUT.Location;
+                history.DeviceIP = masterPUT.DeviceIP;
+                //history.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                history.Latitude = masterPUT.Latitude;
+                history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.UpdatedBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.DepartmentHistory.AddAsync(audit);
+                await context.DepartmentHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

@@ -66,31 +66,31 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
                 await context.Currencies.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                CurrencyHistory audit = new();
-                audit.CurrencyId = masterData.Id;
-                audit.TenantId = masterPOST.TenantId;
-                audit.MenuModuleId = masterPOST.MenuModuleId;
-                audit.LanguageId = masterPOST.LanguageId;
-                audit.ActionTypeId = masterPOST.ActionTypeId;
-                audit.ExportTypeId = masterPOST.ExportTypeId;
-                audit.ExportTo = masterPOST.ExportTo;
-                audit.SourceURL = masterPOST.SourceURL;
-                audit.Code = masterPOST.Code;
-                audit.Name = masterPOST.Name;
-                audit.IsDefault = masterPOST.IsDefault;
-                audit.IsDraft = masterPOST.IsDraft;
-                audit.Icon = masterPOST.Icon;
-                audit.Browser = masterPOST.Browser;
-                audit.Location = masterPOST.Location;
-                audit.DeviceIP = masterPOST.DeviceIP;
-                audit.LocationURL = masterPOST.LocationURL;
-                audit.DeviceName = masterPOST.DeviceName;
-                audit.Latitude = masterPOST.Latitude;
-                audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.ActionBy;
-                audit.ActionAt = DateTime.Now;
+                CurrencyHistory history = new();
+                history.CurrencyId = masterData.Id;
+                history.TenantId = masterPOST.TenantId;
+                history.MenuModuleId = masterPOST.MenuModuleId;
+                history.LanguageId = masterPOST.LanguageId;
+                history.ActionTypeId = masterPOST.ActionTypeId;
+                history.ExportTypeId = masterPOST.ExportTypeId;
+                history.ExportTo = masterPOST.ExportTo;
+                history.SourceURL = masterPOST.SourceURL;
+                history.Code = masterPOST.Code;
+                history.Name = masterPOST.Name;
+                history.IsDefault = masterPOST.IsDefault;
+                history.IsDraft = masterPOST.IsDraft;
+                history.Icon = masterPOST.Icon;
+                history.Browser = masterPOST.Browser;
+                history.Location = masterPOST.Location;
+                history.DeviceIP = masterPOST.DeviceIP;
+                history.LocationURL = masterPOST.LocationURL;
+                history.DeviceName = masterPOST.DeviceName;
+                history.Latitude = masterPOST.Latitude;
+                history.Longitude = masterPOST.Longitude;
+                history.ActionBy = masterPOST.ActionBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.CurrencyHistory.AddAsync(audit);
+                await context.CurrencyHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -134,9 +134,9 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.CurrencyHistory.AsNoTracking().AnyAsync(x => x.CurrencyId == id);
+            var ishistoryExists = await context.CurrencyHistory.AsNoTracking().AnyAsync(x => x.CurrencyId == id);
 
-            if (isAuditExists == false)
+            if (ishistoryExists == false)
             {
                 requestResponse = new()
                 {
@@ -374,31 +374,31 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
                 .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
                 .SetProperty(x => x.IsDraft, masterPUT.IsDraft));
 
-                CurrencyHistory audit = new();
-                audit.CurrencyId = masterPUT.Id;
-                audit.TenantId = masterPUT.TenantId;
-                audit.MenuModuleId = masterPUT.MenuModuleId;
-                audit.LanguageId = masterPUT.LanguageId;
-                audit.ActionTypeId = masterPUT.ActionTypeId;
-                audit.ExportTypeId = masterPUT.ExportTypeId;
-                audit.ExportTo = masterPUT.ExportTo;
-                audit.SourceURL = masterPUT.SourceURL;
-                audit.Code = masterPUT.Code;
-                audit.Name = masterPUT.Name;
-                audit.IsDefault = masterPUT.IsDefault;
-                audit.IsDraft = masterPUT.IsDraft;
-                audit.Icon = masterPUT.Icon;
-                audit.Browser = masterPUT.Browser;
-                audit.Location = masterPUT.Location;
-                audit.DeviceIP = masterPUT.DeviceIP;
-                audit.LocationURL = masterPUT.LocationURL;
-                audit.DeviceName = masterPUT.DeviceName;
-                audit.Latitude = masterPUT.Latitude;
-                audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.ActionBy;
-                audit.ActionAt = DateTime.Now;
+                CurrencyHistory history = new();
+                history.CurrencyId = masterPUT.Id;
+                history.TenantId = masterPUT.TenantId;
+                history.MenuModuleId = masterPUT.MenuModuleId;
+                history.LanguageId = masterPUT.LanguageId;
+                history.ActionTypeId = masterPUT.ActionTypeId;
+                history.ExportTypeId = masterPUT.ExportTypeId;
+                history.ExportTo = masterPUT.ExportTo;
+                history.SourceURL = masterPUT.SourceURL;
+                history.Code = masterPUT.Code;
+                history.Name = masterPUT.Name;
+                history.IsDefault = masterPUT.IsDefault;
+                history.IsDraft = masterPUT.IsDraft;
+                history.Icon = masterPUT.Icon;
+                history.Browser = masterPUT.Browser;
+                history.Location = masterPUT.Location;
+                history.DeviceIP = masterPUT.DeviceIP;
+                history.LocationURL = masterPUT.LocationURL;
+                history.DeviceName = masterPUT.DeviceName;
+                history.Latitude = masterPUT.Latitude;
+                history.Longitude = masterPUT.Longitude;
+                history.ActionBy = masterPUT.ActionBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.CurrencyHistory.AddAsync(audit);
+                await context.CurrencyHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

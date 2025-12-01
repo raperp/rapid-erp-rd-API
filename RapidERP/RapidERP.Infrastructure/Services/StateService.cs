@@ -74,30 +74,30 @@ namespace RapidERP.Infrastructure.Services
                     await context.States.AddAsync(masterData);
                     await context.SaveChangesAsync();
 
-                    StateHistory audit = new();
-                    audit.StateId = masterData.Id;
-                    audit.MenuModuleId = masterPOST.MenuModuleId;
-                    audit.CountryId = masterPOST.CountryId;
-                    audit.LanguageId = masterPOST.LanguageId;
-                    audit.ActionTypeId = masterPOST.ActionTypeId;
-                    audit.ExportTypeId = masterPOST.ExportTypeId;
-                    audit.ExportTo = masterPOST.ExportTo;
-                    audit.SourceURL = masterPOST.SourceURL;
-                    audit.Code = masterPOST.Code;
-                    audit.Name = masterPOST.Name;
-                    audit.IsDefault = masterPOST.IsDefault;
-                    audit.IsDraft = masterPOST.IsDraft;
-                    audit.Browser = masterPOST.Browser;
-                    audit.Location = masterPOST.Location;
-                    audit.DeviceIP = masterPOST.DeviceIP;
-                    audit.LocationURL = masterPOST.LocationURL;
-                    audit.DeviceName = masterPOST.DeviceName;
-                    audit.Latitude = masterPOST.Latitude;
-                    audit.Longitude = masterPOST.Longitude;
-                    audit.ActionBy = masterPOST.ActionBy;
-                    audit.ActionAt = DateTime.Now;
+                    StateHistory history = new();
+                    history.StateId = masterData.Id;
+                    history.MenuModuleId = masterPOST.MenuModuleId;
+                    history.CountryId = masterPOST.CountryId;
+                    history.LanguageId = masterPOST.LanguageId;
+                    history.ActionTypeId = masterPOST.ActionTypeId;
+                    history.ExportTypeId = masterPOST.ExportTypeId;
+                    history.ExportTo = masterPOST.ExportTo;
+                    history.SourceURL = masterPOST.SourceURL;
+                    history.Code = masterPOST.Code;
+                    history.Name = masterPOST.Name;
+                    history.IsDefault = masterPOST.IsDefault;
+                    history.IsDraft = masterPOST.IsDraft;
+                    history.Browser = masterPOST.Browser;
+                    history.Location = masterPOST.Location;
+                    history.DeviceIP = masterPOST.DeviceIP;
+                    history.LocationURL = masterPOST.LocationURL;
+                    history.DeviceName = masterPOST.DeviceName;
+                    history.Latitude = masterPOST.Latitude;
+                    history.Longitude = masterPOST.Longitude;
+                    history.ActionBy = masterPOST.ActionBy;
+                    history.ActionAt = DateTime.Now;
 
-                    await context.StateHistory.AddAsync(audit);
+                    await context.StateHistory.AddAsync(history);
                     await context.SaveChangesAsync();
                     await transaction.CommitAsync();
 
@@ -141,9 +141,9 @@ namespace RapidERP.Infrastructure.Services
             try
             {
                 await using var transaction = await context.Database.BeginTransactionAsync();
-                var isAuditExists = await context.StateHistory.AsNoTracking().AnyAsync(x => x.StateId == id);
+                var ishistoryExists = await context.StateHistory.AsNoTracking().AnyAsync(x => x.StateId == id);
 
-                if (isAuditExists == false)
+                if (ishistoryExists == false)
                 {
                     requestResponse = new()
                     {
@@ -378,30 +378,30 @@ namespace RapidERP.Infrastructure.Services
                     .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
                     .SetProperty(x => x.IsDraft, masterPUT.IsDraft));
 
-                    StateHistory audit = new();
-                    audit.StateId = masterPUT.Id;
-                    audit.MenuModuleId = masterPUT.MenuModuleId;
-                    audit.CountryId = masterPUT.CountryId;
-                    audit.LanguageId = masterPUT.LanguageId;
-                    audit.ActionTypeId = masterPUT.ActionTypeId;
-                    audit.ExportTypeId = masterPUT.ExportTypeId;
-                    audit.ExportTo = masterPUT.ExportTo;
-                    audit.SourceURL = masterPUT.SourceURL;
-                    audit.Code = masterPUT.Code;
-                    audit.Name = masterPUT.Name;
-                    audit.IsDefault = masterPUT.IsDefault;
-                    audit.IsDraft = masterPUT.IsDraft;
-                    audit.Browser = masterPUT.Browser;
-                    audit.Location = masterPUT.Location;
-                    audit.DeviceIP = masterPUT.DeviceIP;
-                    audit.LocationURL = masterPUT.LocationURL;
-                    audit.DeviceName = masterPUT.DeviceName;
-                    audit.Latitude = masterPUT.Latitude;
-                    audit.Longitude = masterPUT.Longitude;
-                    audit.ActionBy = masterPUT.ActionBy;
-                    audit.ActionAt = DateTime.Now;
+                    StateHistory history = new();
+                    history.StateId = masterPUT.Id;
+                    history.MenuModuleId = masterPUT.MenuModuleId;
+                    history.CountryId = masterPUT.CountryId;
+                    history.LanguageId = masterPUT.LanguageId;
+                    history.ActionTypeId = masterPUT.ActionTypeId;
+                    history.ExportTypeId = masterPUT.ExportTypeId;
+                    history.ExportTo = masterPUT.ExportTo;
+                    history.SourceURL = masterPUT.SourceURL;
+                    history.Code = masterPUT.Code;
+                    history.Name = masterPUT.Name;
+                    history.IsDefault = masterPUT.IsDefault;
+                    history.IsDraft = masterPUT.IsDraft;
+                    history.Browser = masterPUT.Browser;
+                    history.Location = masterPUT.Location;
+                    history.DeviceIP = masterPUT.DeviceIP;
+                    history.LocationURL = masterPUT.LocationURL;
+                    history.DeviceName = masterPUT.DeviceName;
+                    history.Latitude = masterPUT.Latitude;
+                    history.Longitude = masterPUT.Longitude;
+                    history.ActionBy = masterPUT.ActionBy;
+                    history.ActionAt = DateTime.Now;
 
-                    await context.StateHistory.AddAsync(audit);
+                    await context.StateHistory.AddAsync(history);
                     await context.SaveChangesAsync();
                     await transaction.CommitAsync();
 

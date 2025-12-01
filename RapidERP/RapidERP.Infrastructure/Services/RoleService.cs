@@ -2,7 +2,6 @@
 using RapidERP.Application.DTOs.RoleDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
-using RapidERP.Domain.Entities.OrderTypeModels;
 using RapidERP.Domain.Entities.RoleModules;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
@@ -69,26 +68,26 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
                 await context.Roles.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                RoleHistory audit = new();
-                audit.Name = masterPOST.Name;
-                audit.RoleId = masterData.Id;
-                //audit.StatusTypeId = masterPOST.StatusTypeId;
-                audit.ActionTypeId = masterPOST.ActionTypeId;
-                audit.ExportTypeId = masterPOST.ExportTypeId;
-                audit.ExportTo = masterPOST.ExportTo;
-                audit.SourceURL = masterPOST.SourceURL;
-                //audit.IsDefault = masterPOST.IsDefault;
-                audit.Browser = masterPOST.Browser;
-                audit.DeviceName = masterPOST.DeviceName;
-                audit.Location = masterPOST.Location;
-                audit.DeviceIP = masterPOST.DeviceIP;
-                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
-                audit.Latitude = masterPOST.Latitude;
-                audit.Longitude = masterPOST.Longitude;
-                //audit.ActionBy = masterPOST.CreatedBy;
-                audit.ActionAt = DateTime.Now;
+                RoleHistory history = new();
+                history.Name = masterPOST.Name;
+                history.RoleId = masterData.Id;
+                //history.StatusTypeId = masterPOST.StatusTypeId;
+                history.ActionTypeId = masterPOST.ActionTypeId;
+                history.ExportTypeId = masterPOST.ExportTypeId;
+                history.ExportTo = masterPOST.ExportTo;
+                history.SourceURL = masterPOST.SourceURL;
+                //history.IsDefault = masterPOST.IsDefault;
+                history.Browser = masterPOST.Browser;
+                history.DeviceName = masterPOST.DeviceName;
+                history.Location = masterPOST.Location;
+                history.DeviceIP = masterPOST.DeviceIP;
+                //history.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                history.Latitude = masterPOST.Latitude;
+                history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.CreatedBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.RoleHistory.AddAsync(audit);
+                await context.RoleHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -132,9 +131,9 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.RoleHistory.AsNoTracking().AnyAsync(x => x.RoleId == id);
+            var ishistoryExists = await context.RoleHistory.AsNoTracking().AnyAsync(x => x.RoleId == id);
 
-            if (isAuditExists == false)
+            if (ishistoryExists == false)
             {
                 requestResponse = new()
                 {
@@ -344,26 +343,26 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
                 await context.Roles.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name));
 
-                RoleHistory audit = new();
-                audit.Name = masterPUT.Name;
-                audit.RoleId = masterPUT.Id;
-                //audit.StatusTypeId = masterPUT.StatusTypeId;
-                audit.ActionTypeId = masterPUT.ActionTypeId;
-                audit.ExportTypeId = masterPUT.ExportTypeId;
-                audit.ExportTo = masterPUT.ExportTo;
-                audit.SourceURL = masterPUT.SourceURL;
-                //audit.IsDefault = masterPUT.IsDefault;
-                audit.Browser = masterPUT.Browser;
-                audit.DeviceName = masterPUT.DeviceName;
-                audit.Location = masterPUT.Location;
-                audit.DeviceIP = masterPUT.DeviceIP;
-                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
-                audit.Latitude = masterPUT.Latitude;
-                audit.Longitude = masterPUT.Longitude;
-                //audit.ActionBy = masterPUT.UpdatedBy;
-                audit.ActionAt = DateTime.Now;
+                RoleHistory history = new();
+                history.Name = masterPUT.Name;
+                history.RoleId = masterPUT.Id;
+                //history.StatusTypeId = masterPUT.StatusTypeId;
+                history.ActionTypeId = masterPUT.ActionTypeId;
+                history.ExportTypeId = masterPUT.ExportTypeId;
+                history.ExportTo = masterPUT.ExportTo;
+                history.SourceURL = masterPUT.SourceURL;
+                //history.IsDefault = masterPUT.IsDefault;
+                history.Browser = masterPUT.Browser;
+                history.DeviceName = masterPUT.DeviceName;
+                history.Location = masterPUT.Location;
+                history.DeviceIP = masterPUT.DeviceIP;
+                //history.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                history.Latitude = masterPUT.Latitude;
+                history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.UpdatedBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.RoleHistory.AddAsync(audit);
+                await context.RoleHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

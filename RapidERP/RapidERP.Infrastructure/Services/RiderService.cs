@@ -2,7 +2,6 @@
 using RapidERP.Application.DTOs.RiderDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
-using RapidERP.Domain.Entities.AreaModules;
 using RapidERP.Domain.Entities.RiderModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
@@ -76,33 +75,33 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
                 await context.Riders.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                RiderHistory audit = new();
-                audit.Name = masterPOST.Name;
-                audit.Email = masterPOST.Email;
-                audit.MobileNumber = masterPOST.MobileNumber;
-                audit.Description = masterPOST.Description;
-                audit.RiderId = masterData.Id;
-                audit.CountryId = masterPOST.CountryId;
-                audit.StateId = masterPOST.StateId;
-                audit.AreaId = masterPOST.AreaId;
-                audit.CityId = masterPOST.CityId;
-                //audit.StatusTypeId = masterPOST.StatusTypeId;
-                audit.ActionTypeId = masterPOST.ActionTypeId;
-                audit.ExportTypeId = masterPOST.ExportTypeId;
-                audit.ExportTo = masterPOST.ExportTo;
-                audit.SourceURL = masterPOST.SourceURL;
-                //audit.IsDefault = masterPOST.IsDefault;
-                audit.Browser = masterPOST.Browser;
-                audit.DeviceName = masterPOST.DeviceName;
-                audit.Location = masterPOST.Location;
-                audit.DeviceIP = masterPOST.DeviceIP;
-                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
-                audit.Latitude = masterPOST.Latitude;
-                audit.Longitude = masterPOST.Longitude;
-                //audit.ActionBy = masterPOST.CreatedBy;
-                audit.ActionAt = DateTime.Now;
+                RiderHistory history = new();
+                history.Name = masterPOST.Name;
+                history.Email = masterPOST.Email;
+                history.MobileNumber = masterPOST.MobileNumber;
+                history.Description = masterPOST.Description;
+                history.RiderId = masterData.Id;
+                history.CountryId = masterPOST.CountryId;
+                history.StateId = masterPOST.StateId;
+                history.AreaId = masterPOST.AreaId;
+                history.CityId = masterPOST.CityId;
+                //history.StatusTypeId = masterPOST.StatusTypeId;
+                history.ActionTypeId = masterPOST.ActionTypeId;
+                history.ExportTypeId = masterPOST.ExportTypeId;
+                history.ExportTo = masterPOST.ExportTo;
+                history.SourceURL = masterPOST.SourceURL;
+                //history.IsDefault = masterPOST.IsDefault;
+                history.Browser = masterPOST.Browser;
+                history.DeviceName = masterPOST.DeviceName;
+                history.Location = masterPOST.Location;
+                history.DeviceIP = masterPOST.DeviceIP;
+                //history.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                history.Latitude = masterPOST.Latitude;
+                history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.CreatedBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.RiderHistory.AddAsync(audit);
+                await context.RiderHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -146,9 +145,9 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.RiderHistory.AsNoTracking().AnyAsync(x => x.RiderId == id);
+            var ishistoryExists = await context.RiderHistory.AsNoTracking().AnyAsync(x => x.RiderId == id);
 
-            if (isAuditExists == false)
+            if (ishistoryExists == false)
             {
                 requestResponse = new()
                 {
@@ -388,33 +387,33 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
                 .SetProperty(x => x.CityId, masterPUT.CityId)
                 .SetProperty(x => x.AreaId, masterPUT.AreaId));
 
-                RiderHistory audit = new();
-                audit.Name = masterPUT.Name;
-                audit.Email = masterPUT.Email;
-                audit.MobileNumber = masterPUT.MobileNumber;
-                audit.Description = masterPUT.Description;
-                audit.RiderId = masterPUT.Id;
-                audit.CountryId = masterPUT.CountryId;
-                audit.StateId = masterPUT.StateId;
-                audit.AreaId = masterPUT.AreaId;
-                audit.CityId = masterPUT.CityId;
-                //audit.StatusTypeId = masterPUT.StatusTypeId;
-                audit.ActionTypeId = masterPUT.ActionTypeId;
-                audit.ExportTypeId = masterPUT.ExportTypeId;
-                audit.ExportTo = masterPUT.ExportTo;
-                audit.SourceURL = masterPUT.SourceURL;
-                //audit.IsDefault = masterPUT.IsDefault;
-                audit.Browser = masterPUT.Browser;
-                audit.DeviceName = masterPUT.DeviceName;
-                audit.Location = masterPUT.Location;
-                audit.DeviceIP = masterPUT.DeviceIP;
-                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
-                audit.Latitude = masterPUT.Latitude;
-                audit.Longitude = masterPUT.Longitude;
-                //audit.ActionBy = masterPUT.UpdatedBy;
-                audit.ActionAt = DateTime.Now;
+                RiderHistory history = new();
+                history.Name = masterPUT.Name;
+                history.Email = masterPUT.Email;
+                history.MobileNumber = masterPUT.MobileNumber;
+                history.Description = masterPUT.Description;
+                history.RiderId = masterPUT.Id;
+                history.CountryId = masterPUT.CountryId;
+                history.StateId = masterPUT.StateId;
+                history.AreaId = masterPUT.AreaId;
+                history.CityId = masterPUT.CityId;
+                //history.StatusTypeId = masterPUT.StatusTypeId;
+                history.ActionTypeId = masterPUT.ActionTypeId;
+                history.ExportTypeId = masterPUT.ExportTypeId;
+                history.ExportTo = masterPUT.ExportTo;
+                history.SourceURL = masterPUT.SourceURL;
+                //history.IsDefault = masterPUT.IsDefault;
+                history.Browser = masterPUT.Browser;
+                history.DeviceName = masterPUT.DeviceName;
+                history.Location = masterPUT.Location;
+                history.DeviceIP = masterPUT.DeviceIP;
+                //history.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                history.Latitude = masterPUT.Latitude;
+                history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.UpdatedBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.RiderHistory.AddAsync(audit);
+                await context.RiderHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

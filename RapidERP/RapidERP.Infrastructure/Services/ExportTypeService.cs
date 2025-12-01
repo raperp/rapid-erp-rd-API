@@ -1,9 +1,7 @@
-﻿using Azure;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.ExportTypeDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
-using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Entities.ExportTypeModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
@@ -70,22 +68,22 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
                 await context.ExportTypes.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                ExportTypeHistory audit = new();
-                audit.ExportTypeId = masterData.Id;
-                audit.LanguageId = masterPOST.LanguageId;
-                audit.Name = masterData.Name;
-                audit.Description = masterPOST.Description;
-                audit.Browser = masterPOST.Browser;
-                audit.Location = masterPOST.Location;
-                audit.DeviceIP = masterPOST.DeviceIP;
-                audit.LocationURL = masterPOST.LocationURL;
-                audit.DeviceName = masterPOST.DeviceName;
-                audit.Latitude = masterPOST.Latitude;
-                audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.ActionBy;
-                audit.ActionAt = DateTime.Now;
+                ExportTypeHistory history = new();
+                history.ExportTypeId = masterData.Id;
+                history.LanguageId = masterPOST.LanguageId;
+                history.Name = masterData.Name;
+                history.Description = masterPOST.Description;
+                history.Browser = masterPOST.Browser;
+                history.Location = masterPOST.Location;
+                history.DeviceIP = masterPOST.DeviceIP;
+                history.LocationURL = masterPOST.LocationURL;
+                history.DeviceName = masterPOST.DeviceName;
+                history.Latitude = masterPOST.Latitude;
+                history.Longitude = masterPOST.Longitude;
+                history.ActionBy = masterPOST.ActionBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.ExportTypeHistory.AddAsync(audit);
+                await context.ExportTypeHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -129,9 +127,9 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.ExportTypeHistory.AsNoTracking().AnyAsync(x => x.ExportTypeId == id);
+            var ishistoryExists = await context.ExportTypeHistory.AsNoTracking().AnyAsync(x => x.ExportTypeId == id);
 
-            if (isAuditExists == false)
+            if (ishistoryExists == false)
             {
                 requestResponse = new()
                 {
@@ -342,22 +340,22 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description));
 
-                ExportTypeHistory audit = new();
-                audit.ExportTypeId = masterPUT.Id;
-                audit.LanguageId = masterPUT.LanguageId;
-                audit.Name = masterPUT.Name;
-                audit.Description = masterPUT.Description;
-                audit.Browser = masterPUT.Browser;
-                audit.Location = masterPUT.Location;
-                audit.DeviceIP = masterPUT.DeviceIP;
-                audit.LocationURL = masterPUT.LocationURL;
-                audit.DeviceName = masterPUT.DeviceName;
-                audit.Latitude = masterPUT.Latitude;
-                audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.ActionBy;
-                audit.ActionAt = DateTime.Now;
+                ExportTypeHistory history = new();
+                history.ExportTypeId = masterPUT.Id;
+                history.LanguageId = masterPUT.LanguageId;
+                history.Name = masterPUT.Name;
+                history.Description = masterPUT.Description;
+                history.Browser = masterPUT.Browser;
+                history.Location = masterPUT.Location;
+                history.DeviceIP = masterPUT.DeviceIP;
+                history.LocationURL = masterPUT.LocationURL;
+                history.DeviceName = masterPUT.DeviceName;
+                history.Latitude = masterPUT.Latitude;
+                history.Longitude = masterPUT.Longitude;
+                history.ActionBy = masterPUT.ActionBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.ExportTypeHistory.AddAsync(audit);
+                await context.ExportTypeHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

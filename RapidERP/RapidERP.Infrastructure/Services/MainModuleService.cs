@@ -2,7 +2,6 @@
 using RapidERP.Application.DTOs.MainModuleDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
-using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Entities.MainModuleModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
@@ -72,28 +71,28 @@ public class MainModuleService(RapidERPDbContext context, IShared shared) : IMai
                 await context.MainModules.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                MainModuleHistory audit = new();
-                audit.MainModuleId = masterData.Id;
-                audit.LanguageId = masterPOST.LanguageId;
-                audit.ActionTypeId = masterPOST.ActionTypeId;
-                audit.ExportTypeId = masterPOST.ExportTypeId;
-                audit.ExportTo = masterPOST.ExportTo;
-                audit.SourceURL = masterPOST.SourceURL;
-                audit.Name = masterPOST.Name;
-                audit.Prefix = masterPOST.Prefix;
-                audit.IconURL = masterPOST.IconURL;
-                audit.SetSerial = masterPOST.SetSerial;
-                audit.Browser = masterPOST.Browser;
-                audit.Location = masterPOST.Location;
-                audit.DeviceIP = masterPOST.DeviceIP;
-                audit.LocationURL = masterPOST.LocationURL;
-                audit.DeviceName = masterPOST.DeviceName;
-                audit.Latitude = masterPOST.Latitude;
-                audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.ActionBy;
-                audit.ActionAt = DateTime.Now;
+                MainModuleHistory history = new();
+                history.MainModuleId = masterData.Id;
+                history.LanguageId = masterPOST.LanguageId;
+                history.ActionTypeId = masterPOST.ActionTypeId;
+                history.ExportTypeId = masterPOST.ExportTypeId;
+                history.ExportTo = masterPOST.ExportTo;
+                history.SourceURL = masterPOST.SourceURL;
+                history.Name = masterPOST.Name;
+                history.Prefix = masterPOST.Prefix;
+                history.IconURL = masterPOST.IconURL;
+                history.SetSerial = masterPOST.SetSerial;
+                history.Browser = masterPOST.Browser;
+                history.Location = masterPOST.Location;
+                history.DeviceIP = masterPOST.DeviceIP;
+                history.LocationURL = masterPOST.LocationURL;
+                history.DeviceName = masterPOST.DeviceName;
+                history.Latitude = masterPOST.Latitude;
+                history.Longitude = masterPOST.Longitude;
+                history.ActionBy = masterPOST.ActionBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.MainModuleHistory.AddAsync(audit);
+                await context.MainModuleHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -137,9 +136,9 @@ public class MainModuleService(RapidERPDbContext context, IShared shared) : IMai
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.MainModuleHistory.AsNoTracking().AnyAsync(x => x.MainModuleId == id);
+            var ishistoryExists = await context.MainModuleHistory.AsNoTracking().AnyAsync(x => x.MainModuleId == id);
 
-            if (isAuditExists == false)
+            if (ishistoryExists == false)
             {
                 requestResponse = new()
                 {
@@ -366,28 +365,28 @@ public class MainModuleService(RapidERPDbContext context, IShared shared) : IMai
                 .SetProperty(x => x.IconURL, masterPUT.IconURL)
                 .SetProperty(x => x.SetSerial, masterPUT.SetSerial));
 
-                MainModuleHistory audit = new();
-                audit.MainModuleId = masterPUT.Id;
-                audit.LanguageId = masterPUT.LanguageId;
-                audit.ActionTypeId = masterPUT.ActionTypeId;
-                audit.ExportTypeId = masterPUT.ExportTypeId;
-                audit.ExportTo = masterPUT.ExportTo;
-                audit.SourceURL = masterPUT.SourceURL;
-                audit.Name = masterPUT.Name;
-                audit.Prefix = masterPUT.Prefix;
-                audit.IconURL = masterPUT.IconURL;
-                audit.SetSerial = masterPUT.SetSerial;
-                audit.Browser = masterPUT.Browser;
-                audit.Location = masterPUT.Location;
-                audit.DeviceIP = masterPUT.DeviceIP;
-                audit.LocationURL = masterPUT.LocationURL;
-                audit.DeviceName = masterPUT.DeviceName;
-                audit.Latitude = masterPUT.Latitude;
-                audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.ActionBy;
-                audit.ActionAt = DateTime.Now;
+                MainModuleHistory history = new();
+                history.MainModuleId = masterPUT.Id;
+                history.LanguageId = masterPUT.LanguageId;
+                history.ActionTypeId = masterPUT.ActionTypeId;
+                history.ExportTypeId = masterPUT.ExportTypeId;
+                history.ExportTo = masterPUT.ExportTo;
+                history.SourceURL = masterPUT.SourceURL;
+                history.Name = masterPUT.Name;
+                history.Prefix = masterPUT.Prefix;
+                history.IconURL = masterPUT.IconURL;
+                history.SetSerial = masterPUT.SetSerial;
+                history.Browser = masterPUT.Browser;
+                history.Location = masterPUT.Location;
+                history.DeviceIP = masterPUT.DeviceIP;
+                history.LocationURL = masterPUT.LocationURL;
+                history.DeviceName = masterPUT.DeviceName;
+                history.Latitude = masterPUT.Latitude;
+                history.Longitude = masterPUT.Longitude;
+                history.ActionBy = masterPUT.ActionBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.MainModuleHistory.AddAsync(audit);
+                await context.MainModuleHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

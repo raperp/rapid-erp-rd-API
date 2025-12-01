@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.LanguageDTOs;
-using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
-using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
@@ -64,24 +62,24 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
                 await context.Languages.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                LanguageHistory audit = new();
-                audit.LanguageId = masterData.Id;
-                audit.ISONumeric = masterPOST.ISONumeric;
-                audit.Name = masterPOST.Name;
-                audit.ISO2Code = masterPOST.ISO2Code;
-                audit.ISO3Code = masterPOST.ISO3Code;
-                audit.IconURL = masterPOST.IconURL;
-                audit.Browser = masterPOST.Browser;
-                audit.Location = masterPOST.Location;
-                audit.DeviceIP = masterPOST.DeviceIP;
-                audit.LocationURL = masterPOST.LocationURL;
-                audit.DeviceName = masterPOST.DeviceName;
-                audit.Latitude = masterPOST.Latitude;
-                audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.ActionBy;
-                audit.ActionAt = DateTime.Now;
+                LanguageHistory history = new();
+                history.LanguageId = masterData.Id;
+                history.ISONumeric = masterPOST.ISONumeric;
+                history.Name = masterPOST.Name;
+                history.ISO2Code = masterPOST.ISO2Code;
+                history.ISO3Code = masterPOST.ISO3Code;
+                history.IconURL = masterPOST.IconURL;
+                history.Browser = masterPOST.Browser;
+                history.Location = masterPOST.Location;
+                history.DeviceIP = masterPOST.DeviceIP;
+                history.LocationURL = masterPOST.LocationURL;
+                history.DeviceName = masterPOST.DeviceName;
+                history.Latitude = masterPOST.Latitude;
+                history.Longitude = masterPOST.Longitude;
+                history.ActionBy = masterPOST.ActionBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.LanguageHistory.AddAsync(audit);
+                await context.LanguageHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -125,9 +123,9 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.LanguageHistory.AsNoTracking().AnyAsync(x => x.LanguageId == id);
+            var ishistoryExists = await context.LanguageHistory.AsNoTracking().AnyAsync(x => x.LanguageId == id);
 
-            if (isAuditExists == false)
+            if (ishistoryExists == false)
             {
                 requestResponse = new()
                 {
@@ -336,24 +334,24 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
                 .SetProperty(x => x.ISO3Code, masterPUT.ISO3Code)
                 .SetProperty(x => x.IconURL, masterPUT.IconURL));
 
-                LanguageHistory audit = new();
-                audit.LanguageId = masterPUT.Id;
-                audit.ISONumeric = masterPUT.ISONumeric;
-                audit.Name = masterPUT.Name;
-                audit.ISO2Code = masterPUT.ISO2Code;
-                audit.ISO3Code = masterPUT.ISO3Code;
-                audit.IconURL = masterPUT.IconURL;
-                audit.Browser = masterPUT.Browser;
-                audit.Location = masterPUT.Location;
-                audit.DeviceIP = masterPUT.DeviceIP;
-                audit.LocationURL = masterPUT.LocationURL;
-                audit.DeviceName = masterPUT.DeviceName;
-                audit.Latitude = masterPUT.Latitude;
-                audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.ActionBy;
-                audit.ActionAt = DateTime.Now;
+                LanguageHistory history = new();
+                history.LanguageId = masterPUT.Id;
+                history.ISONumeric = masterPUT.ISONumeric;
+                history.Name = masterPUT.Name;
+                history.ISO2Code = masterPUT.ISO2Code;
+                history.ISO3Code = masterPUT.ISO3Code;
+                history.IconURL = masterPUT.IconURL;
+                history.Browser = masterPUT.Browser;
+                history.Location = masterPUT.Location;
+                history.DeviceIP = masterPUT.DeviceIP;
+                history.LocationURL = masterPUT.LocationURL;
+                history.DeviceName = masterPUT.DeviceName;
+                history.Latitude = masterPUT.Latitude;
+                history.Longitude = masterPUT.Longitude;
+                history.ActionBy = masterPUT.ActionBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.LanguageHistory.AddAsync(audit);
+                await context.LanguageHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

@@ -71,35 +71,35 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
                 await context.Tenants.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                TenantHistory audit = new();
-                audit.TenantId = masterData.Id;
-                audit.MenuModuleId = masterPOST.MenuModuleId;
-                audit.CountryId = masterPOST.CountryId;
-                audit.StateId = masterPOST.StateId;
-                audit.LanguageId = masterPOST.LanguageId;
-                audit.CalendarId = masterPOST.CalendarId;
-                audit.ActionTypeId = masterPOST.ActionTypeId;
-                audit.ExportTypeId = masterPOST.ExportTypeId;
-                audit.ExportTo = masterPOST.ExportTo;
-                audit.SourceURL = masterPOST.SourceURL;
-                audit.Name = masterPOST.Name;
-                audit.Contact = masterPOST.Contact;
-                audit.Phone = masterPOST.Phone;
-                audit.Mobile = masterPOST.Mobile;
-                audit.Address = masterPOST.Address;
-                audit.Email = masterPOST.Email;
-                audit.Website = masterPOST.Website;
-                audit.Browser = masterPOST.Browser;
-                audit.Location = masterPOST.Location;
-                audit.DeviceIP = masterPOST.DeviceIP;
-                audit.LocationURL = masterPOST.LocationURL;
-                audit.DeviceName = masterPOST.DeviceName;
-                audit.Latitude = masterPOST.Latitude;
-                audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.ActionBy;
-                audit.ActionAt = DateTime.Now;
+                TenantHistory history = new();
+                history.TenantId = masterData.Id;
+                history.MenuModuleId = masterPOST.MenuModuleId;
+                history.CountryId = masterPOST.CountryId;
+                history.StateId = masterPOST.StateId;
+                history.LanguageId = masterPOST.LanguageId;
+                history.CalendarId = masterPOST.CalendarId;
+                history.ActionTypeId = masterPOST.ActionTypeId;
+                history.ExportTypeId = masterPOST.ExportTypeId;
+                history.ExportTo = masterPOST.ExportTo;
+                history.SourceURL = masterPOST.SourceURL;
+                history.Name = masterPOST.Name;
+                history.Contact = masterPOST.Contact;
+                history.Phone = masterPOST.Phone;
+                history.Mobile = masterPOST.Mobile;
+                history.Address = masterPOST.Address;
+                history.Email = masterPOST.Email;
+                history.Website = masterPOST.Website;
+                history.Browser = masterPOST.Browser;
+                history.Location = masterPOST.Location;
+                history.DeviceIP = masterPOST.DeviceIP;
+                history.LocationURL = masterPOST.LocationURL;
+                history.DeviceName = masterPOST.DeviceName;
+                history.Latitude = masterPOST.Latitude;
+                history.Longitude = masterPOST.Longitude;
+                history.ActionBy = masterPOST.ActionBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.TenantHistory.AddAsync(audit);
+                await context.TenantHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -143,9 +143,9 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.TenantHistory.AsNoTracking().AnyAsync(x => x.TenantId == id);
+            var ishistoryExists = await context.TenantHistory.AsNoTracking().AnyAsync(x => x.TenantId == id);
 
-            if (isAuditExists == false)
+            if (ishistoryExists == false)
             {
                 requestResponse = new()
                 {
@@ -393,35 +393,35 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
                 .SetProperty(x => x.Email, masterPUT.Email)
                 .SetProperty(x => x.Website, masterPUT.Website));
 
-                TenantHistory audit = new();
-                audit.TenantId = masterPUT.Id;
-                audit.MenuModuleId = masterPUT.MenuModuleId;
-                audit.CountryId = masterPUT.CountryId;
-                audit.StateId = masterPUT.StateId;
-                audit.LanguageId = masterPUT.LanguageId;
-                audit.CalendarId = masterPUT.CalendarId;
-                audit.ActionTypeId = masterPUT.ActionTypeId;
-                audit.ExportTypeId = masterPUT.ExportTypeId;
-                audit.ExportTo = masterPUT.ExportTo;
-                audit.SourceURL = masterPUT.SourceURL;
-                audit.Name = masterPUT.Name;
-                audit.Contact = masterPUT.Contact;
-                audit.Phone = masterPUT.Phone;
-                audit.Mobile = masterPUT.Mobile;
-                audit.Address = masterPUT.Address;
-                audit.Email = masterPUT.Email;
-                audit.Website = masterPUT.Website;
-                audit.Browser = masterPUT.Browser;
-                audit.Location = masterPUT.Location;
-                audit.DeviceIP = masterPUT.DeviceIP;
-                audit.LocationURL = masterPUT.LocationURL;
-                audit.DeviceName = masterPUT.DeviceName;
-                audit.Latitude = masterPUT.Latitude;
-                audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.ActionBy;
-                audit.ActionAt = DateTime.Now;
+                TenantHistory history = new();
+                history.TenantId = masterPUT.Id;
+                history.MenuModuleId = masterPUT.MenuModuleId;
+                history.CountryId = masterPUT.CountryId;
+                history.StateId = masterPUT.StateId;
+                history.LanguageId = masterPUT.LanguageId;
+                history.CalendarId = masterPUT.CalendarId;
+                history.ActionTypeId = masterPUT.ActionTypeId;
+                history.ExportTypeId = masterPUT.ExportTypeId;
+                history.ExportTo = masterPUT.ExportTo;
+                history.SourceURL = masterPUT.SourceURL;
+                history.Name = masterPUT.Name;
+                history.Contact = masterPUT.Contact;
+                history.Phone = masterPUT.Phone;
+                history.Mobile = masterPUT.Mobile;
+                history.Address = masterPUT.Address;
+                history.Email = masterPUT.Email;
+                history.Website = masterPUT.Website;
+                history.Browser = masterPUT.Browser;
+                history.Location = masterPUT.Location;
+                history.DeviceIP = masterPUT.DeviceIP;
+                history.LocationURL = masterPUT.LocationURL;
+                history.DeviceName = masterPUT.DeviceName;
+                history.Latitude = masterPUT.Latitude;
+                history.Longitude = masterPUT.Longitude;
+                history.ActionBy = masterPUT.ActionBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.TenantHistory.AddAsync(audit);
+                await context.TenantHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

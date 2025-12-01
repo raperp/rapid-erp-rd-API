@@ -76,34 +76,34 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                 await context.Salesmen.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                SalesmanHistory audit = new();
-                audit.Name = masterPOST.Name;
-                audit.Code = masterPOST.Code;
-                audit.Commission = masterPOST.Commission;
-                audit.Territory = masterPOST.Territory;
-                audit.Experience = masterPOST.Experience;
-                audit.DepartmentId = masterPOST.DepartmentId;
-                audit.ManagerId = masterPOST.ManagerId;
-                audit.Phone = masterPOST.Phone;
-                audit.Email = masterPOST.Email;
-                audit.Description = masterPOST.Description;
-                //audit.StatusTypeId = masterPOST.StatusTypeId;
-                audit.ActionTypeId = masterPOST.ActionTypeId;
-                audit.ExportTypeId = masterPOST.ExportTypeId;
-                audit.ExportTo = masterPOST.ExportTo;
-                audit.SourceURL = masterPOST.SourceURL;
-                //audit.IsDefault = masterPOST.IsDefault;
-                audit.Browser = masterPOST.Browser;
-                audit.DeviceName = masterPOST.DeviceName;
-                audit.Location = masterPOST.Location;
-                audit.DeviceIP = masterPOST.DeviceIP;
-                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
-                audit.Latitude = masterPOST.Latitude;
-                audit.Longitude = masterPOST.Longitude;
-                //audit.ActionBy = masterPOST.CreatedBy;
-                audit.ActionAt = DateTime.Now;
+                SalesmanHistory history = new();
+                history.Name = masterPOST.Name;
+                history.Code = masterPOST.Code;
+                history.Commission = masterPOST.Commission;
+                history.Territory = masterPOST.Territory;
+                history.Experience = masterPOST.Experience;
+                history.DepartmentId = masterPOST.DepartmentId;
+                history.ManagerId = masterPOST.ManagerId;
+                history.Phone = masterPOST.Phone;
+                history.Email = masterPOST.Email;
+                history.Description = masterPOST.Description;
+                //history.StatusTypeId = masterPOST.StatusTypeId;
+                history.ActionTypeId = masterPOST.ActionTypeId;
+                history.ExportTypeId = masterPOST.ExportTypeId;
+                history.ExportTo = masterPOST.ExportTo;
+                history.SourceURL = masterPOST.SourceURL;
+                //history.IsDefault = masterPOST.IsDefault;
+                history.Browser = masterPOST.Browser;
+                history.DeviceName = masterPOST.DeviceName;
+                history.Location = masterPOST.Location;
+                history.DeviceIP = masterPOST.DeviceIP;
+                //history.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                history.Latitude = masterPOST.Latitude;
+                history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.CreatedBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.SalesmanHistory.AddAsync(audit);
+                await context.SalesmanHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -147,9 +147,9 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.SalesmanHistory.AsNoTracking().AnyAsync(x => x.SalesmanId == id);
+            var ishistoryExists = await context.SalesmanHistory.AsNoTracking().AnyAsync(x => x.SalesmanId == id);
 
-            if (isAuditExists == false)
+            if (ishistoryExists == false)
             {
                 requestResponse = new()
                 {
@@ -386,34 +386,34 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                 .SetProperty(x => x.Email, masterPUT.Email)
                 .SetProperty(x => x.Description, masterPUT.Description));
 
-                SalesmanHistory audit = new();
-                audit.Name = masterPUT.Name;
-                audit.Code = masterPUT.Code;
-                audit.Commission = masterPUT.Commission;
-                audit.Territory = masterPUT.Territory;
-                audit.Experience = masterPUT.Experience;
-                audit.DepartmentId = masterPUT.DepartmentId;
-                audit.ManagerId = masterPUT.ManagerId;
-                audit.Phone = masterPUT.Phone;
-                audit.Email = masterPUT.Email;
-                audit.Description = masterPUT.Description;
-                //audit.StatusTypeId = masterPUT.StatusTypeId;
-                audit.ActionTypeId = masterPUT.ActionTypeId;
-                audit.ExportTypeId = masterPUT.ExportTypeId;
-                audit.ExportTo = masterPUT.ExportTo;
-                audit.SourceURL = masterPUT.SourceURL;
-                //audit.IsDefault = masterPUT.IsDefault;
-                audit.Browser = masterPUT.Browser;
-                audit.DeviceName = masterPUT.DeviceName;
-                audit.Location = masterPUT.Location;
-                audit.DeviceIP = masterPUT.DeviceIP;
-                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
-                audit.Latitude = masterPUT.Latitude;
-                audit.Longitude = masterPUT.Longitude;
-                //audit.ActionBy = masterPUT.UpdatedBy;
-                audit.ActionAt = DateTime.Now;
+                SalesmanHistory history = new();
+                history.Name = masterPUT.Name;
+                history.Code = masterPUT.Code;
+                history.Commission = masterPUT.Commission;
+                history.Territory = masterPUT.Territory;
+                history.Experience = masterPUT.Experience;
+                history.DepartmentId = masterPUT.DepartmentId;
+                history.ManagerId = masterPUT.ManagerId;
+                history.Phone = masterPUT.Phone;
+                history.Email = masterPUT.Email;
+                history.Description = masterPUT.Description;
+                //history.StatusTypeId = masterPUT.StatusTypeId;
+                history.ActionTypeId = masterPUT.ActionTypeId;
+                history.ExportTypeId = masterPUT.ExportTypeId;
+                history.ExportTo = masterPUT.ExportTo;
+                history.SourceURL = masterPUT.SourceURL;
+                //history.IsDefault = masterPUT.IsDefault;
+                history.Browser = masterPUT.Browser;
+                history.DeviceName = masterPUT.DeviceName;
+                history.Location = masterPUT.Location;
+                history.DeviceIP = masterPUT.DeviceIP;
+                //history.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                history.Latitude = masterPUT.Latitude;
+                history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.UpdatedBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.SalesmanHistory.AddAsync(audit);
+                await context.SalesmanHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

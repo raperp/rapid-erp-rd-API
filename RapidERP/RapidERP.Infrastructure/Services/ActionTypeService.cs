@@ -69,25 +69,25 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                 await context.ActionTypes.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                ActionTypeHistory audit = new();
-                audit.ActionTypeId = masterData.Id;
-                audit.LanguageId = masterPOST.LanguageId;
-                audit.ExportTypeId = masterPOST.ExportTypeId;
-                audit.ExportTo = masterPOST.ExportTo;
-                audit.SourceURL = masterPOST.SourceURL;
-                audit.Name = masterPOST.Name;
-                audit.Description = masterPOST.Description;
-                audit.Browser = masterPOST.Browser;
-                audit.Location = masterPOST.Location;
-                audit.DeviceIP = masterPOST.DeviceIP;
-                audit.LocationURL = masterPOST.LocationURL;
-                audit.DeviceName = masterPOST.DeviceName;
-                audit.Latitude = masterPOST.Latitude;
-                audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.ActionBy;
-                audit.ActionAt = DateTime.Now;
+                ActionTypeHistory history = new();
+                history.ActionTypeId = masterData.Id;
+                history.LanguageId = masterPOST.LanguageId;
+                history.ExportTypeId = masterPOST.ExportTypeId;
+                history.ExportTo = masterPOST.ExportTo;
+                history.SourceURL = masterPOST.SourceURL;
+                history.Name = masterPOST.Name;
+                history.Description = masterPOST.Description;
+                history.Browser = masterPOST.Browser;
+                history.Location = masterPOST.Location;
+                history.DeviceIP = masterPOST.DeviceIP;
+                history.LocationURL = masterPOST.LocationURL;
+                history.DeviceName = masterPOST.DeviceName;
+                history.Latitude = masterPOST.Latitude;
+                history.Longitude = masterPOST.Longitude;
+                history.ActionBy = masterPOST.ActionBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.ActionTypeHistory.AddAsync(audit);
+                await context.ActionTypeHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -131,9 +131,9 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.ActionTypeHistory.AsNoTracking().AnyAsync(x => x.ActionTypeId == id);
+            var ishistoryExists = await context.ActionTypeHistory.AsNoTracking().AnyAsync(x => x.ActionTypeId == id);
 
-            if (isAuditExists == false)
+            if (ishistoryExists == false)
             {
                 requestResponse = new()
                 {
@@ -348,25 +348,25 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description));
 
-                ActionTypeHistory audit = new();
-                audit.ActionTypeId = masterPUT.Id;
-                audit.LanguageId = masterPUT.LanguageId;
-                audit.ExportTypeId = masterPUT.ExportTypeId;
-                audit.ExportTo = masterPUT.ExportTo;
-                audit.SourceURL = masterPUT.SourceURL;
-                audit.Name = masterPUT.Name;
-                audit.Description = masterPUT.Description;
-                audit.Browser = masterPUT.Browser;
-                audit.Location = masterPUT.Location;
-                audit.DeviceIP = masterPUT.DeviceIP;
-                audit.LocationURL = masterPUT.LocationURL;
-                audit.DeviceName = masterPUT.DeviceName;
-                audit.Latitude = masterPUT.Latitude;
-                audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.ActionBy;
-                audit.ActionAt = DateTime.Now;
+                ActionTypeHistory history = new();
+                history.ActionTypeId = masterPUT.Id;
+                history.LanguageId = masterPUT.LanguageId;
+                history.ExportTypeId = masterPUT.ExportTypeId;
+                history.ExportTo = masterPUT.ExportTo;
+                history.SourceURL = masterPUT.SourceURL;
+                history.Name = masterPUT.Name;
+                history.Description = masterPUT.Description;
+                history.Browser = masterPUT.Browser;
+                history.Location = masterPUT.Location;
+                history.DeviceIP = masterPUT.DeviceIP;
+                history.LocationURL = masterPUT.LocationURL;
+                history.DeviceName = masterPUT.DeviceName;
+                history.Latitude = masterPUT.Latitude;
+                history.Longitude = masterPUT.Longitude;
+                history.ActionBy = masterPUT.ActionBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.ActionTypeHistory.AddAsync(audit);
+                await context.ActionTypeHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

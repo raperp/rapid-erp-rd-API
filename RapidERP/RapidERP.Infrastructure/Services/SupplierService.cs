@@ -82,39 +82,39 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                 await context.Suppliers.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                SupplierHistory audit = new();
-                audit.Name = masterPOST.Name;
-                audit.CountryId = masterPOST.CountryId;
-                audit.PaymentTermsId = masterPOST.PaymentTermsId;
-                audit.PaymentTypeId = masterPOST.PaymentTypeId;
-                audit.DueDays = masterPOST.DueDays;
-                audit.DepositTypeId = masterPOST.DepositTypeId;
-                audit.PaymentTypeId = masterPOST.PaymentTypeId;
-                audit.DepositAmount = masterPOST.DepositAmount;
-                audit.CurrencyId = masterPOST.CurrencyId;
-                audit.ExchangeRate = masterPOST.ExchangeRate;
-                audit.LocalAmount = masterPOST.LocalAmount;
-                audit.ContactPersonName = masterPOST.ContactPersonName;
-                audit.Mobile = masterPOST.Mobile;
-                audit.Email = masterPOST.Email;
-                audit.Website = masterPOST.Website;
-                //audit.StatusTypeId = masterPOST.StatusTypeId;
-                audit.ActionTypeId = masterPOST.ActionTypeId;
-                audit.ExportTypeId = masterPOST.ExportTypeId;
-                audit.ExportTo = masterPOST.ExportTo;
-                audit.SourceURL = masterPOST.SourceURL;
-                //audit.IsDefault = masterPOST.IsDefault;
-                audit.Browser = masterPOST.Browser;
-                audit.DeviceName = masterPOST.DeviceName;
-                audit.Location = masterPOST.Location;
-                audit.DeviceIP = masterPOST.DeviceIP;
-                //audit.GoogleMapUrl = masterPOST.GoogleMapUrl;
-                audit.Latitude = masterPOST.Latitude;
-                audit.Longitude = masterPOST.Longitude;
-                //audit.ActionBy = masterPOST.CreatedBy;
-                audit.ActionAt = DateTime.Now;
+                SupplierHistory history = new();
+                history.Name = masterPOST.Name;
+                history.CountryId = masterPOST.CountryId;
+                history.PaymentTermsId = masterPOST.PaymentTermsId;
+                history.PaymentTypeId = masterPOST.PaymentTypeId;
+                history.DueDays = masterPOST.DueDays;
+                history.DepositTypeId = masterPOST.DepositTypeId;
+                history.PaymentTypeId = masterPOST.PaymentTypeId;
+                history.DepositAmount = masterPOST.DepositAmount;
+                history.CurrencyId = masterPOST.CurrencyId;
+                history.ExchangeRate = masterPOST.ExchangeRate;
+                history.LocalAmount = masterPOST.LocalAmount;
+                history.ContactPersonName = masterPOST.ContactPersonName;
+                history.Mobile = masterPOST.Mobile;
+                history.Email = masterPOST.Email;
+                history.Website = masterPOST.Website;
+                //history.StatusTypeId = masterPOST.StatusTypeId;
+                history.ActionTypeId = masterPOST.ActionTypeId;
+                history.ExportTypeId = masterPOST.ExportTypeId;
+                history.ExportTo = masterPOST.ExportTo;
+                history.SourceURL = masterPOST.SourceURL;
+                //history.IsDefault = masterPOST.IsDefault;
+                history.Browser = masterPOST.Browser;
+                history.DeviceName = masterPOST.DeviceName;
+                history.Location = masterPOST.Location;
+                history.DeviceIP = masterPOST.DeviceIP;
+                //history.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                history.Latitude = masterPOST.Latitude;
+                history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.CreatedBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.SupplierHistory.AddAsync(audit);
+                await context.SupplierHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -158,9 +158,9 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.SupplierHistory.AsNoTracking().AnyAsync(x => x.SupplierId == id);
+            var ishistoryExists = await context.SupplierHistory.AsNoTracking().AnyAsync(x => x.SupplierId == id);
 
-            if (isAuditExists == false)
+            if (ishistoryExists == false)
             {
                 requestResponse = new()
                 {
@@ -411,39 +411,39 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                 .SetProperty(x => x.Email, masterPUT.Email)
                 .SetProperty(x => x.Website, masterPUT.Website));
 
-                SupplierHistory audit = new();
-                audit.Name = masterPUT.Name;
-                audit.CountryId = masterPUT.CountryId;
-                audit.PaymentTermsId = masterPUT.PaymentTermsId;
-                audit.PaymentTypeId = masterPUT.PaymentTypeId;
-                audit.DueDays = masterPUT.DueDays;
-                audit.DepositTypeId = masterPUT.DepositTypeId;
-                audit.PaymentTypeId = masterPUT.PaymentTypeId;
-                audit.DepositAmount = masterPUT.DepositAmount;
-                audit.CurrencyId = masterPUT.CurrencyId;
-                audit.ExchangeRate = masterPUT.ExchangeRate;
-                audit.LocalAmount = masterPUT.LocalAmount;
-                audit.ContactPersonName = masterPUT.ContactPersonName;
-                audit.Mobile = masterPUT.Mobile;
-                audit.Email = masterPUT.Email;
-                audit.Website = masterPUT.Website;
-                //audit.StatusTypeId = masterPUT.StatusTypeId;
-                audit.ActionTypeId = masterPUT.ActionTypeId;
-                audit.ExportTypeId = masterPUT.ExportTypeId;
-                audit.ExportTo = masterPUT.ExportTo;
-                audit.SourceURL = masterPUT.SourceURL;
-                //audit.IsDefault = masterPUT.IsDefault;
-                audit.Browser = masterPUT.Browser;
-                audit.DeviceName = masterPUT.DeviceName;
-                audit.Location = masterPUT.Location;
-                audit.DeviceIP = masterPUT.DeviceIP;
-                //audit.GoogleMapUrl = masterPUT.GoogleMapUrl;
-                audit.Latitude = masterPUT.Latitude;
-                audit.Longitude = masterPUT.Longitude;
-                //audit.ActionBy = masterPUT.UpdatedBy;
-                audit.ActionAt = DateTime.Now;
+                SupplierHistory history = new();
+                history.Name = masterPUT.Name;
+                history.CountryId = masterPUT.CountryId;
+                history.PaymentTermsId = masterPUT.PaymentTermsId;
+                history.PaymentTypeId = masterPUT.PaymentTypeId;
+                history.DueDays = masterPUT.DueDays;
+                history.DepositTypeId = masterPUT.DepositTypeId;
+                history.PaymentTypeId = masterPUT.PaymentTypeId;
+                history.DepositAmount = masterPUT.DepositAmount;
+                history.CurrencyId = masterPUT.CurrencyId;
+                history.ExchangeRate = masterPUT.ExchangeRate;
+                history.LocalAmount = masterPUT.LocalAmount;
+                history.ContactPersonName = masterPUT.ContactPersonName;
+                history.Mobile = masterPUT.Mobile;
+                history.Email = masterPUT.Email;
+                history.Website = masterPUT.Website;
+                //history.StatusTypeId = masterPUT.StatusTypeId;
+                history.ActionTypeId = masterPUT.ActionTypeId;
+                history.ExportTypeId = masterPUT.ExportTypeId;
+                history.ExportTo = masterPUT.ExportTo;
+                history.SourceURL = masterPUT.SourceURL;
+                //history.IsDefault = masterPUT.IsDefault;
+                history.Browser = masterPUT.Browser;
+                history.DeviceName = masterPUT.DeviceName;
+                history.Location = masterPUT.Location;
+                history.DeviceIP = masterPUT.DeviceIP;
+                //history.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                history.Latitude = masterPUT.Latitude;
+                history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.UpdatedBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.SupplierHistory.AddAsync(audit);
+                await context.SupplierHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

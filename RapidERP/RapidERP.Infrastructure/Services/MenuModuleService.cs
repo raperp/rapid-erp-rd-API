@@ -65,28 +65,28 @@ public class MenuModuleService(RapidERPDbContext context, IShared shared) : IMen
                 await context.MenuModules.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                MenuModuleHistory audit = new();
-                audit.MenuModuleId = masterData.Id;
-                audit.SubmoduleId = masterPOST.SubmoduleId;
-                audit.LanguageId = masterPOST.LanguageId;
-                audit.ActionTypeId = masterPOST.ActionTypeId;
-                audit.ExportTypeId = masterPOST.ExportTypeId;
-                audit.ExportTo = masterPOST.ExportTo;
-                audit.SourceURL = masterPOST.SourceURL;
-                audit.Name = masterPOST.Name;
-                audit.IconURL = masterPOST.IconURL;
-                audit.SetSerial = masterPOST.SetSerial;
-                audit.Browser = masterPOST.Browser;
-                audit.Location = masterPOST.Location;
-                audit.DeviceIP = masterPOST.DeviceIP;
-                audit.LocationURL = masterPOST.LocationURL;
-                audit.DeviceName = masterPOST.DeviceName;
-                audit.Latitude = masterPOST.Latitude;
-                audit.Longitude = masterPOST.Longitude;
-                audit.ActionBy = masterPOST.ActionBy;
-                audit.ActionAt = DateTime.Now;
+                MenuModuleHistory history = new();
+                history.MenuModuleId = masterData.Id;
+                history.SubmoduleId = masterPOST.SubmoduleId;
+                history.LanguageId = masterPOST.LanguageId;
+                history.ActionTypeId = masterPOST.ActionTypeId;
+                history.ExportTypeId = masterPOST.ExportTypeId;
+                history.ExportTo = masterPOST.ExportTo;
+                history.SourceURL = masterPOST.SourceURL;
+                history.Name = masterPOST.Name;
+                history.IconURL = masterPOST.IconURL;
+                history.SetSerial = masterPOST.SetSerial;
+                history.Browser = masterPOST.Browser;
+                history.Location = masterPOST.Location;
+                history.DeviceIP = masterPOST.DeviceIP;
+                history.LocationURL = masterPOST.LocationURL;
+                history.DeviceName = masterPOST.DeviceName;
+                history.Latitude = masterPOST.Latitude;
+                history.Longitude = masterPOST.Longitude;
+                history.ActionBy = masterPOST.ActionBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.MenuModuleHistory.AddAsync(audit);
+                await context.MenuModuleHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -130,9 +130,9 @@ public class MenuModuleService(RapidERPDbContext context, IShared shared) : IMen
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.MenuModuleHistory.AsNoTracking().AnyAsync(x => x.MenuModuleId == id);
+            var ishistoryExists = await context.MenuModuleHistory.AsNoTracking().AnyAsync(x => x.MenuModuleId == id);
 
-            if (isAuditExists == false)
+            if (ishistoryExists == false)
             {
                 requestResponse = new()
                 {
@@ -361,28 +361,28 @@ public class MenuModuleService(RapidERPDbContext context, IShared shared) : IMen
                 .SetProperty(x => x.IconURL, masterPUT.IconURL)
                 .SetProperty(x => x.SetSerial, masterPUT.SetSerial));
 
-                MenuModuleHistory audit = new();
-                audit.MenuModuleId = masterPUT.Id;
-                audit.SubmoduleId = masterPUT.SubmoduleId;
-                audit.LanguageId = masterPUT.LanguageId;
-                audit.ActionTypeId = masterPUT.ActionTypeId;
-                audit.ExportTypeId = masterPUT.ExportTypeId;
-                audit.ExportTo = masterPUT.ExportTo;
-                audit.SourceURL = masterPUT.SourceURL;
-                audit.Name = masterPUT.Name;
-                audit.IconURL = masterPUT.IconURL;
-                audit.SetSerial = masterPUT.SetSerial;
-                audit.Browser = masterPUT.Browser;
-                audit.Location = masterPUT.Location;
-                audit.DeviceIP = masterPUT.DeviceIP;
-                audit.LocationURL = masterPUT.LocationURL;
-                audit.DeviceName = masterPUT.DeviceName;
-                audit.Latitude = masterPUT.Latitude;
-                audit.Longitude = masterPUT.Longitude;
-                audit.ActionBy = masterPUT.ActionBy;
-                audit.ActionAt = DateTime.Now;
+                MenuModuleHistory history = new();
+                history.MenuModuleId = masterPUT.Id;
+                history.SubmoduleId = masterPUT.SubmoduleId;
+                history.LanguageId = masterPUT.LanguageId;
+                history.ActionTypeId = masterPUT.ActionTypeId;
+                history.ExportTypeId = masterPUT.ExportTypeId;
+                history.ExportTo = masterPUT.ExportTo;
+                history.SourceURL = masterPUT.SourceURL;
+                history.Name = masterPUT.Name;
+                history.IconURL = masterPUT.IconURL;
+                history.SetSerial = masterPUT.SetSerial;
+                history.Browser = masterPUT.Browser;
+                history.Location = masterPUT.Location;
+                history.DeviceIP = masterPUT.DeviceIP;
+                history.LocationURL = masterPUT.LocationURL;
+                history.DeviceName = masterPUT.DeviceName;
+                history.Latitude = masterPUT.Latitude;
+                history.Longitude = masterPUT.Longitude;
+                history.ActionBy = masterPUT.ActionBy;
+                history.ActionAt = DateTime.Now;
 
-                await context.MenuModuleHistory.AddAsync(audit);
+                await context.MenuModuleHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
