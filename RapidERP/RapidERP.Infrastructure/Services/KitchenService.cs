@@ -92,7 +92,7 @@ namespace RapidERP.Infrastructure.Services
                     //audit.ActionBy = masterPOST.CreatedBy;
                     audit.ActionAt = DateTime.Now;
 
-                    await context.KitchenAudits.AddAsync(audit);
+                    await context.KitchenHistory.AddAsync(audit);
                     await context.SaveChangesAsync();
                     await transaction.CommitAsync();
 
@@ -136,7 +136,7 @@ namespace RapidERP.Infrastructure.Services
             try
             {
                 await using var transaction = await context.Database.BeginTransactionAsync();
-                var isAuditExists = await context.KitchenAudits.AsNoTracking().AnyAsync(x => x.KitchenId == id);
+                var isAuditExists = await context.KitchenHistory.AsNoTracking().AnyAsync(x => x.KitchenId == id);
 
                 if (isAuditExists == false)
                 {
@@ -150,7 +150,7 @@ namespace RapidERP.Infrastructure.Services
 
                 else
                 {
-                    await context.KitchenAudits.Where(x => x.KitchenId == id).ExecuteDeleteAsync();
+                    await context.KitchenHistory.Where(x => x.KitchenId == id).ExecuteDeleteAsync();
                 }
 
                 var isExists = await context.Kitchens.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -259,7 +259,7 @@ namespace RapidERP.Infrastructure.Services
         {
             try
             {
-                var data = (from ka in context.KitchenAudits
+                var data = (from ka in context.KitchenHistory
                             join k in context.Kitchens on ka.KitchenId equals k.Id
                             join at in context.ActionTypes on ka.ActionTypeId equals at.Id
                             //join st in context.StatusTypes on ka.StatusTypeId equals st.Id
@@ -375,7 +375,7 @@ namespace RapidERP.Infrastructure.Services
                     //audit.ActionBy = masterPUT.UpdatedBy;
                     audit.ActionAt = DateTime.Now;
 
-                    await context.KitchenAudits.AddAsync(audit);
+                    await context.KitchenHistory.AddAsync(audit);
                     await context.SaveChangesAsync();
                     await transaction.CommitAsync();
 

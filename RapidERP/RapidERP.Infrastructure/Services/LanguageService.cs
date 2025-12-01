@@ -81,7 +81,7 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
                 audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.LanguageAudits.AddAsync(audit);
+                await context.LanguageHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -125,7 +125,7 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.LanguageAudits.AsNoTracking().AnyAsync(x => x.LanguageId == id);
+            var isAuditExists = await context.LanguageHistory.AsNoTracking().AnyAsync(x => x.LanguageId == id);
 
             if (isAuditExists == false)
             {
@@ -139,7 +139,7 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
 
             else
             {
-                await context.LanguageAudits.Where(x => x.LanguageId == id).ExecuteDeleteAsync();
+                await context.LanguageHistory.Where(x => x.LanguageId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.Languages.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -244,7 +244,7 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
     {
         try
         {
-            var data = (from la in context.LanguageAudits
+            var data = (from la in context.LanguageHistory
                         join l in context.Languages on la.LanguageId equals l.Id
                         select new
                         {
@@ -353,7 +353,7 @@ public class LanguageService(RapidERPDbContext context, IShared shared) : ILangu
                 audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.LanguageAudits.AddAsync(audit);
+                await context.LanguageHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

@@ -114,7 +114,7 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                 //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.SupplierAudits.AddAsync(audit);
+                await context.SupplierHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -158,7 +158,7 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.SupplierAudits.AsNoTracking().AnyAsync(x => x.SupplierId == id);
+            var isAuditExists = await context.SupplierHistory.AsNoTracking().AnyAsync(x => x.SupplierId == id);
 
             if (isAuditExists == false)
             {
@@ -172,7 +172,7 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
 
             else
             {
-                await context.SupplierAudits.Where(x => x.SupplierId == id).ExecuteDeleteAsync();
+                await context.SupplierHistory.Where(x => x.SupplierId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.Tenants.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -294,7 +294,7 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
     {
         try
         {
-            var data = (from sa in context.SupplierAudits
+            var data = (from sa in context.SupplierHistory
                         join s in context.Suppliers on sa.SupplierId equals s.Id
                         join co in context.Countries on sa.CountryId equals co.Id
                         join cu in context.Currencies on sa.CurrencyId equals cu.Id
@@ -443,7 +443,7 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                 //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.SupplierAudits.AddAsync(audit);
+                await context.SupplierHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

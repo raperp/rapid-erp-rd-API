@@ -102,7 +102,7 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
                 //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.RiderAudits.AddAsync(audit);
+                await context.RiderHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -146,7 +146,7 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.RiderAudits.AsNoTracking().AnyAsync(x => x.RiderId == id);
+            var isAuditExists = await context.RiderHistory.AsNoTracking().AnyAsync(x => x.RiderId == id);
 
             if (isAuditExists == false)
             {
@@ -160,7 +160,7 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
 
             else
             {
-                await context.RiderAudits.Where(x => x.RiderId == id).ExecuteDeleteAsync();
+                await context.RiderHistory.Where(x => x.RiderId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.Riders.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -278,7 +278,7 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
     {
         try
         {
-            var data = (from ra in context.RiderAudits
+            var data = (from ra in context.RiderHistory
                         join r in context.Riders on ra.RiderId equals r.Id
                         join c in context.Countries on ra.CountryId equals c.Id
                         join sta in context.States on ra.StateId equals sta.Id
@@ -414,7 +414,7 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
                 //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.RiderAudits.AddAsync(audit);
+                await context.RiderHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

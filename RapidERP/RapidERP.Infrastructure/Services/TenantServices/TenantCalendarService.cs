@@ -84,7 +84,7 @@ public class TenantCalendarService(RapidERPDbContext context, IShared shared) : 
                 audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.TenantHistories.AddAsync(audit);
+                await context.TenantHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -184,7 +184,7 @@ public class TenantCalendarService(RapidERPDbContext context, IShared shared) : 
     {
         try
         {
-            var data = (from th in context.TenantHistories
+            var data = (from th in context.TenantHistory
                         join t in context.Tenants on th.TenantId equals t.Id
                         join mm in context.MenuModules on th.MenuModuleId equals mm.Id
                         join c in context.Countries on th.CountryId equals c.Id
@@ -305,7 +305,7 @@ public class TenantCalendarService(RapidERPDbContext context, IShared shared) : 
             audit.ActionBy = masterPUT.ActionBy;
             audit.ActionAt = DateTime.Now;
 
-            await context.TenantHistories.AddAsync(audit);
+            await context.TenantHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

@@ -88,7 +88,7 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
                 //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.RoleAudits.AddAsync(audit);
+                await context.RoleHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -132,7 +132,7 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.RoleAudits.AsNoTracking().AnyAsync(x => x.RoleId == id);
+            var isAuditExists = await context.RoleHistory.AsNoTracking().AnyAsync(x => x.RoleId == id);
 
             if (isAuditExists == false)
             {
@@ -146,7 +146,7 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
 
             else
             {
-                await context.RoleAudits.Where(x => x.RoleId == id).ExecuteDeleteAsync();
+                await context.RoleHistory.Where(x => x.RoleId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.Roles.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -253,7 +253,7 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
     {
         try
         {
-            var data = (from ra in context.RoleAudits
+            var data = (from ra in context.RoleHistory
                         join r in context.Roles on ra.RoleId equals r.Id
                         join at in context.ActionTypes on ra.ActionTypeId equals at.Id
                         //join st in context.StatusTypes on ra.StatusTypeId equals st.Id
@@ -363,7 +363,7 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
                 //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.RoleAudits.AddAsync(audit);
+                await context.RoleHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

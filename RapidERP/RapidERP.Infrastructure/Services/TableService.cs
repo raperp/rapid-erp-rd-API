@@ -93,7 +93,7 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
                 //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.TableAudits.AddAsync(audit);
+                await context.TableHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -137,7 +137,7 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.TableAudits.AsNoTracking().AnyAsync(x => x.TableId == id);
+            var isAuditExists = await context.TableHistory.AsNoTracking().AnyAsync(x => x.TableId == id);
 
             if (isAuditExists == false)
             {
@@ -151,7 +151,7 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
 
             else
             {
-                await context.TableAudits.Where(x => x.TableId == id).ExecuteDeleteAsync();
+                await context.TableHistory.Where(x => x.TableId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.Tables.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -260,7 +260,7 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
     {
         try
         {
-            var data = (from ta in context.TableAudits
+            var data = (from ta in context.TableHistory
                         join t in context.Tables on ta.TableId equals t.Id
                         join at in context.ActionTypes on ta.ActionTypeId equals at.Id
                         //join st in context.StatusTypes on ta.StatusTypeId equals st.Id
@@ -376,7 +376,7 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
                 //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.TableAudits.AddAsync(audit);
+                await context.TableHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

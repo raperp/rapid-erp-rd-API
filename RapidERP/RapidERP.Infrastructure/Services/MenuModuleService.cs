@@ -86,7 +86,7 @@ public class MenuModuleService(RapidERPDbContext context, IShared shared) : IMen
                 audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.MenuModuleAudits.AddAsync(audit);
+                await context.MenuModuleHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -130,7 +130,7 @@ public class MenuModuleService(RapidERPDbContext context, IShared shared) : IMen
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.MenuModuleAudits.AsNoTracking().AnyAsync(x => x.MenuModuleId == id);
+            var isAuditExists = await context.MenuModuleHistory.AsNoTracking().AnyAsync(x => x.MenuModuleId == id);
 
             if (isAuditExists == false)
             {
@@ -144,7 +144,7 @@ public class MenuModuleService(RapidERPDbContext context, IShared shared) : IMen
 
             else
             {
-                await context.MenuModuleAudits.Where(x => x.MenuModuleId == id).ExecuteDeleteAsync();
+                await context.MenuModuleHistory.Where(x => x.MenuModuleId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.MenuModules.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -255,7 +255,7 @@ public class MenuModuleService(RapidERPDbContext context, IShared shared) : IMen
     {
         try
         {
-            var data = (from mma in context.MenuModuleAudits
+            var data = (from mma in context.MenuModuleHistory
                         join mm in context.MenuModules on mma.MenuModuleId equals mm.Id
                         join at in context.ActionTypes on mma.ActionTypeId equals at.Id
                         join sm in context.Submodules on mma.SubmoduleId equals sm.Id
@@ -382,7 +382,7 @@ public class MenuModuleService(RapidERPDbContext context, IShared shared) : IMen
                 audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.MenuModuleAudits.AddAsync(audit);
+                await context.MenuModuleHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

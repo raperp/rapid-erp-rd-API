@@ -99,7 +99,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.CountryAudits.AddAsync(audit);
+                await context.CountryHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -143,7 +143,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.CountryAudits.AsNoTracking().AnyAsync(x => x.CountryId == id);
+            var isAuditExists = await context.CountryHistory.AsNoTracking().AnyAsync(x => x.CountryId == id);
 
             if (isAuditExists == false)
             {
@@ -157,7 +157,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
 
             else
             {
-                await context.CountryAudits.Where(x => x.CountryId == id).ExecuteDeleteAsync();
+                await context.CountryHistory.Where(x => x.CountryId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -279,7 +279,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
     {
         try
         {
-            var data = (from ca in context.CountryAudits
+            var data = (from ca in context.CountryHistory
                         join c in context.Countries on ca.CountryId equals c.Id
                         join et in context.ExportTypes on ca.ExportTypeId equals et.Id
                         join at in context.ActionTypes on ca.ActionTypeId equals at.Id
@@ -424,7 +424,7 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                 audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.CountryAudits.AddAsync(audit);
+                await context.CountryHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

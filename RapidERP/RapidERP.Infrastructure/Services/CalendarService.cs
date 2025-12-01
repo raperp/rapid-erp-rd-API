@@ -91,7 +91,7 @@ public class CalendarService(RapidERPDbContext context, IShared shared) : ICalen
                 audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.CalendarHistories.AddAsync(audit);
+                await context.CalendarHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -204,7 +204,7 @@ public class CalendarService(RapidERPDbContext context, IShared shared) : ICalen
     {
         try
         {
-            var data = (from ca in context.CalendarHistories
+            var data = (from ca in context.CalendarHistory
                         join c in context.Calendars on ca.CalendarId equals c.Id
                         join t in context.Tenants on ca.TenantId equals t.Id
                         join mm in context.MenuModules on ca.MenuModuleId equals mm.Id
@@ -336,7 +336,7 @@ public class CalendarService(RapidERPDbContext context, IShared shared) : ICalen
                 audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.CalendarHistories.AddAsync(audit);
+                await context.CalendarHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

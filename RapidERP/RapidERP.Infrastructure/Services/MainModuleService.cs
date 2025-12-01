@@ -93,7 +93,7 @@ public class MainModuleService(RapidERPDbContext context, IShared shared) : IMai
                 audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.MainModuleAudits.AddAsync(audit);
+                await context.MainModuleHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -137,7 +137,7 @@ public class MainModuleService(RapidERPDbContext context, IShared shared) : IMai
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.MainModuleAudits.AsNoTracking().AnyAsync(x => x.MainModuleId == id);
+            var isAuditExists = await context.MainModuleHistory.AsNoTracking().AnyAsync(x => x.MainModuleId == id);
 
             if (isAuditExists == false)
             {
@@ -151,7 +151,7 @@ public class MainModuleService(RapidERPDbContext context, IShared shared) : IMai
 
             else
             {
-                await context.MainModuleAudits.Where(x => x.MainModuleId == id).ExecuteDeleteAsync();
+                await context.MainModuleHistory.Where(x => x.MainModuleId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.MainModules.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -261,7 +261,7 @@ public class MainModuleService(RapidERPDbContext context, IShared shared) : IMai
     {
         try
         {
-            var data = (from mma in context.MainModuleAudits
+            var data = (from mma in context.MainModuleHistory
                         join mm in context.MainModules on mma.MainModuleId equals mm.Id
                         join l in context.Languages on mma.LanguageId equals l.Id
                         join at in context.ActionTypes on mma.ActionTypeId equals at.Id
@@ -387,7 +387,7 @@ public class MainModuleService(RapidERPDbContext context, IShared shared) : IMai
                 audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.MainModuleAudits.AddAsync(audit);
+                await context.MainModuleHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

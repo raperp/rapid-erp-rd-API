@@ -92,7 +92,7 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
                 //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.CityAudits.AddAsync(audit);
+                await context.CityHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -136,7 +136,7 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.CityAudits.AsNoTracking().AnyAsync(x => x.CityId == id);
+            var isAuditExists = await context.CityHistory.AsNoTracking().AnyAsync(x => x.CityId == id);
 
             if (isAuditExists == false)
             {
@@ -150,7 +150,7 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
 
             else
             {
-                await context.CityAudits.Where(x => x.CityId == id).ExecuteDeleteAsync();
+                await context.CityHistory.Where(x => x.CityId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.Cities.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -262,7 +262,7 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
     {
         try
         {
-            var data = (from ca in context.CountryAudits
+            var data = (from ca in context.CountryHistory
                         join c in context.Countries on ca.CountryId equals c.Id
                         //join et in context.ExportTypes on ca.ExportTypeId equals et.Id
                         join at in context.ActionTypes on ca.ActionTypeId equals at.Id
@@ -384,7 +384,7 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
                 //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.CityAudits.AddAsync(audit);
+                await context.CityHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

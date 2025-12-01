@@ -80,7 +80,7 @@ public class MessageModuleService(RapidERPDbContext context, IShared shared) : I
                 audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.MessageModuleAudits.AddAsync(audit);
+                await context.MessageModuleHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -184,7 +184,7 @@ public class MessageModuleService(RapidERPDbContext context, IShared shared) : I
     {
         try
         {
-            var data = (from mma in context.MessageModuleAudits
+            var data = (from mma in context.MessageModuleHistory
                         join mm in context.MessageModules on mma.MessageModuleId equals mm.Id
                         join at in context.ActionTypes on mma.ActionTypeId equals at.Id
                         join l in context.Languages on mma.LanguageId equals l.Id
@@ -303,7 +303,7 @@ public class MessageModuleService(RapidERPDbContext context, IShared shared) : I
                 audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.MessageModuleAudits.AddAsync(audit);
+                await context.MessageModuleHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

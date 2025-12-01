@@ -85,7 +85,7 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
                 audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.ExportTypeAudits.AddAsync(audit);
+                await context.ExportTypeHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -129,7 +129,7 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.ExportTypeAudits.AsNoTracking().AnyAsync(x => x.ExportTypeId == id);
+            var isAuditExists = await context.ExportTypeHistory.AsNoTracking().AnyAsync(x => x.ExportTypeId == id);
 
             if (isAuditExists == false)
             {
@@ -143,7 +143,7 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
 
             else
             {
-                await context.ExportTypeAudits.Where(x => x.ExportTypeId == id).ExecuteDeleteAsync();
+                await context.ExportTypeHistory.Where(x => x.ExportTypeId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.ExportTypes.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -247,7 +247,7 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
     {
         try
         {
-            var data = (from eta in context.ExportTypeAudits
+            var data = (from eta in context.ExportTypeHistory
                         join et in context.ExportTypes on eta.ExportTypeId equals et.Id
                         join l in context.Languages on eta.LanguageId equals l.Id
                         select new
@@ -357,7 +357,7 @@ public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExp
                 audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.ExportTypeAudits.AddAsync(audit);
+                await context.ExportTypeHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

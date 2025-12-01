@@ -80,7 +80,7 @@ public class TextModuleService(RapidERPDbContext context, IShared shared) : ITex
                 audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.TextModuleAudits.AddAsync(audit);
+                await context.TextModuleHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -184,7 +184,7 @@ public class TextModuleService(RapidERPDbContext context, IShared shared) : ITex
     {
         try
         {
-            var data = (from tma in context.TextModuleAudits
+            var data = (from tma in context.TextModuleHistory
                         join tm in context.TextModules on tma.TextModuleId equals tm.Id
                         join mm in context.MenuModules on tma.MenuModuleId equals mm.Id
                         join at in context.ActionTypes on tma.ActionTypeId equals at.Id
@@ -305,7 +305,7 @@ public class TextModuleService(RapidERPDbContext context, IShared shared) : ITex
                 audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.TextModuleAudits.AddAsync(audit);
+                await context.TextModuleHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

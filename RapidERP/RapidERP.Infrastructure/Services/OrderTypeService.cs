@@ -89,7 +89,7 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
                 //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.OrderTypeAudits.AddAsync(audit);
+                await context.OrderTypeHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -133,7 +133,7 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.OrderTypeAudits.AsNoTracking().AnyAsync(x => x.OrderTypeId == id);
+            var isAuditExists = await context.OrderTypeHistory.AsNoTracking().AnyAsync(x => x.OrderTypeId == id);
 
             if (isAuditExists == false)
             {
@@ -147,7 +147,7 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
 
             else
             {
-                await context.OrderTypeAudits.Where(x => x.OrderTypeId == id).ExecuteDeleteAsync();
+                await context.OrderTypeHistory.Where(x => x.OrderTypeId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.OrderTypes.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -255,7 +255,7 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
     {
         try
         {
-            var data = (from ota in context.OrderTypeAudits
+            var data = (from ota in context.OrderTypeHistory
                         join ot in context.OrderTypes on ota.OrderTypeId equals ot.Id
                         join at in context.ActionTypes on ota.ActionTypeId equals at.Id
                         //join st in context.StatusTypes on ota.StatusTypeId equals st.Id
@@ -368,7 +368,7 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
                 //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.OrderTypeAudits.AddAsync(audit);
+                await context.OrderTypeHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

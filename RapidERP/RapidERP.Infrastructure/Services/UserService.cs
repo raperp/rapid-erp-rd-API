@@ -97,7 +97,7 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
                 //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.UserAudits.AddAsync(audit);
+                await context.UserHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -141,7 +141,7 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.UserAudits.AsNoTracking().AnyAsync(x => x.UserId == id);
+            var isAuditExists = await context.UserHistory.AsNoTracking().AnyAsync(x => x.UserId == id);
 
             if (isAuditExists == false)
             {
@@ -155,7 +155,7 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
 
             else
             {
-                await context.UserAudits.Where(x => x.UserId == id).ExecuteDeleteAsync();
+                await context.UserHistory.Where(x => x.UserId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.Users.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -267,7 +267,7 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
     {
         try
         {
-            var data = (from ua in context.UserAudits
+            var data = (from ua in context.UserHistory
                         join u in context.Users on ua.UserId equals u.Id
                         //join et in context.ExportTypes on aa.ExportTypeId equals et.Id
                         join at in context.ActionTypes on ua.ActionTypeId equals at.Id
@@ -392,7 +392,7 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
                 //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.UserAudits.AddAsync(audit);
+                await context.UserHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

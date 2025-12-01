@@ -93,7 +93,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                 //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.AreaAudits.AddAsync(audit);
+                await context.AreaHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -137,7 +137,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.AreaAudits.AsNoTracking().AnyAsync(x => x.AreaId == id);
+            var isAuditExists = await context.AreaHistory.AsNoTracking().AnyAsync(x => x.AreaId == id);
 
             if (isAuditExists == false)
             {
@@ -151,7 +151,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
 
             else
             {
-                await context.AreaAudits.Where(x => x.AreaId == id).ExecuteDeleteAsync();
+                await context.AreaHistory.Where(x => x.AreaId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.Areas.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -264,7 +264,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
     {
         try
         {
-            var data = (from aa in context.AreaAudits
+            var data = (from aa in context.AreaHistory
                         join c in context.Countries on aa.CountryId equals c.Id
                         join sta in context.States on aa.StateId equals sta.Id
                         join cit in context.Cities on aa.CityId equals cit.Id
@@ -387,7 +387,7 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                 //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.AreaAudits.AddAsync(audit);
+                await context.AreaHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

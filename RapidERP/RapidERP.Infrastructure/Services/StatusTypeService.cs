@@ -89,7 +89,7 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
                 audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.StatusTypeAudits.AddAsync(audit);
+                await context.StatusTypeHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -251,7 +251,7 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
     {
         try
         {
-            var data = (from sta in context.StatusTypeAudits
+            var data = (from sta in context.StatusTypeHistory
                         join st in context.StatusTypes on sta.StatusTypeId equals st.Id
                         join at in context.ActionTypes on sta.ActionTypeId equals at.Id
                         join l in context.Languages on sta.LanguageId equals l.Id
@@ -371,7 +371,7 @@ public class StatusTypeService(RapidERPDbContext context, IShared shared) : ISta
                 audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.StatusTypeAudits.AddAsync(audit);
+                await context.StatusTypeHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

@@ -94,7 +94,7 @@ public class SubmoduleService(RapidERPDbContext context, IShared shared) : ISubm
                 audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.SubmoduleAudits.AddAsync(audit);
+                await context.SubmoduleHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -138,7 +138,7 @@ public class SubmoduleService(RapidERPDbContext context, IShared shared) : ISubm
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.SubmoduleAudits.AsNoTracking().AnyAsync(x => x.SubmoduleId == id);
+            var isAuditExists = await context.SubmoduleHistory.AsNoTracking().AnyAsync(x => x.SubmoduleId == id);
 
             if (isAuditExists == false)
             {
@@ -152,7 +152,7 @@ public class SubmoduleService(RapidERPDbContext context, IShared shared) : ISubm
 
             else
             {
-                await context.SubmoduleAudits.Where(x => x.SubmoduleId == id).ExecuteDeleteAsync();
+                await context.SubmoduleHistory.Where(x => x.SubmoduleId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.Submodules.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -263,7 +263,7 @@ public class SubmoduleService(RapidERPDbContext context, IShared shared) : ISubm
     {
         try
         {
-            var data = (from sa in context.SubmoduleAudits
+            var data = (from sa in context.SubmoduleHistory
                         join s in context.Submodules on sa.SubmoduleId equals s.Id
                         join mm in context.MainModules on sa.MainModuleId equals mm.Id
                         join at in context.ActionTypes on sa.ActionTypeId equals at.Id
@@ -389,7 +389,7 @@ public class SubmoduleService(RapidERPDbContext context, IShared shared) : ISubm
                 audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.SubmoduleAudits.AddAsync(audit);
+                await context.SubmoduleHistory.AddAsync(audit);
                 await transaction.CommitAsync();
 
                 requestResponse = new()

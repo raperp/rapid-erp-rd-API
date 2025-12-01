@@ -88,7 +88,7 @@ public class DepartmentService(RapidERPDbContext context, IShared shared) : IDep
                 //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.DepartmentAudits.AddAsync(audit);
+                await context.DepartmentHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -132,7 +132,7 @@ public class DepartmentService(RapidERPDbContext context, IShared shared) : IDep
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.DepartmentAudits.AsNoTracking().AnyAsync(x => x.DepartmentId == id);
+            var isAuditExists = await context.DepartmentHistory.AsNoTracking().AnyAsync(x => x.DepartmentId == id);
 
             if (isAuditExists == false)
             {
@@ -146,7 +146,7 @@ public class DepartmentService(RapidERPDbContext context, IShared shared) : IDep
 
             else
             {
-                await context.DepartmentAudits.Where(x => x.DepartmentId == id).ExecuteDeleteAsync();
+                await context.DepartmentHistory.Where(x => x.DepartmentId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.Departments.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -254,7 +254,7 @@ public class DepartmentService(RapidERPDbContext context, IShared shared) : IDep
     {
         try
         {
-            var data = (from da in context.DepartmentAudits
+            var data = (from da in context.DepartmentHistory
                         join d in context.Departments on da.DepartmentId equals d.Id
                         //join et in context.ExportTypes on da.ExportTypeId equals et.Id
                         join at in context.ActionTypes on da.ActionTypeId equals at.Id
@@ -368,7 +368,7 @@ public class DepartmentService(RapidERPDbContext context, IShared shared) : IDep
                 //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.DepartmentAudits.AddAsync(audit);
+                await context.DepartmentHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

@@ -87,7 +87,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                 audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.ActionTypeHistories.AddAsync(audit);
+                await context.ActionTypeHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -131,7 +131,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.ActionTypeHistories.AsNoTracking().AnyAsync(x => x.ActionTypeId == id);
+            var isAuditExists = await context.ActionTypeHistory.AsNoTracking().AnyAsync(x => x.ActionTypeId == id);
 
             if (isAuditExists == false)
             {
@@ -145,7 +145,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
 
             else
             {
-                await context.ActionTypeHistories.Where(x => x.ActionTypeId == id).ExecuteDeleteAsync();
+                await context.ActionTypeHistory.Where(x => x.ActionTypeId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.ActionTypes.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -249,7 +249,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
     {
         try
         {
-            var data = (from ath in context.ActionTypeHistories
+            var data = (from ath in context.ActionTypeHistory
                         join at in context.ActionTypes on ath.ActionTypeId equals at.Id
                         join l in context.Languages on ath.LanguageId equals l.Id
                         join et in context.ExportTypes on ath.ExportTypeId equals et.Id
@@ -366,7 +366,7 @@ public class ActionTypeService(RapidERPDbContext context, IShared shared) : IAct
                 audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.ActionTypeHistories.AddAsync(audit);
+                await context.ActionTypeHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

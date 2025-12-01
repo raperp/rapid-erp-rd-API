@@ -103,7 +103,7 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                 //audit.ActionBy = masterPOST.CreatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.SalesmanAudits.AddAsync(audit);
+                await context.SalesmanHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -147,7 +147,7 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.SalesmanAudits.AsNoTracking().AnyAsync(x => x.SalesmanId == id);
+            var isAuditExists = await context.SalesmanHistory.AsNoTracking().AnyAsync(x => x.SalesmanId == id);
 
             if (isAuditExists == false)
             {
@@ -161,7 +161,7 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
 
             else
             {
-                await context.SalesmanAudits.Where(x => x.SalesmanId == id).ExecuteDeleteAsync();
+                await context.SalesmanHistory.Where(x => x.SalesmanId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.Salesmen.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -276,7 +276,7 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
     {
         try
         {
-            var data = (from sa in context.SalesmanAudits
+            var data = (from sa in context.SalesmanHistory
                         join s in context.Salesmen on sa.SalesmanId equals s.Id
                         join d in context.Departments on sa.DepartmentId equals d.Id
                         join at in context.ActionTypes on sa.ActionTypeId equals at.Id
@@ -413,7 +413,7 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                 //audit.ActionBy = masterPUT.UpdatedBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.SalesmanAudits.AddAsync(audit);
+                await context.SalesmanHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

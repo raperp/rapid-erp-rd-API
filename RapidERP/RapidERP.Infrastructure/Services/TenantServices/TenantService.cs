@@ -99,7 +99,7 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
                 audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.TenantHistories.AddAsync(audit);
+                await context.TenantHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -143,7 +143,7 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.TenantHistories.AsNoTracking().AnyAsync(x => x.TenantId == id);
+            var isAuditExists = await context.TenantHistory.AsNoTracking().AnyAsync(x => x.TenantId == id);
 
             if (isAuditExists == false)
             {
@@ -157,7 +157,7 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
 
             else
             {
-                await context.TenantHistories.Where(x => x.TenantId == id).ExecuteDeleteAsync();
+                await context.TenantHistory.Where(x => x.TenantId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.Tenants.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -278,7 +278,7 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
     {
         try
         {
-            var data = (from th in context.TenantHistories
+            var data = (from th in context.TenantHistory
                         join t in context.Tenants on th.TenantId equals t.Id
                         join mm in context.MenuModules on th.MenuModuleId equals mm.Id
                         join c in context.Countries on th.CountryId equals c.Id
@@ -421,7 +421,7 @@ public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
                 audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.TenantHistories.AddAsync(audit);
+                await context.TenantHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

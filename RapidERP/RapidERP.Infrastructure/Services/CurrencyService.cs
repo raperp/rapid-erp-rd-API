@@ -90,7 +90,7 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
                 audit.ActionBy = masterPOST.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.CurrencyAudits.AddAsync(audit);
+                await context.CurrencyHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -134,7 +134,7 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isAuditExists = await context.CurrencyAudits.AsNoTracking().AnyAsync(x => x.CurrencyId == id);
+            var isAuditExists = await context.CurrencyHistory.AsNoTracking().AnyAsync(x => x.CurrencyId == id);
 
             if (isAuditExists == false)
             {
@@ -148,7 +148,7 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
 
             else
             {
-                await context.CurrencyAudits.Where(x => x.CurrencyId == id).ExecuteDeleteAsync();
+                await context.CurrencyHistory.Where(x => x.CurrencyId == id).ExecuteDeleteAsync();
             }
 
             var isExists = await context.Currencies.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -266,7 +266,7 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
     {
         try
         {
-            var data = (from ca in context.CurrencyAudits
+            var data = (from ca in context.CurrencyHistory
                         join c in context.Currencies on ca.CurrencyId equals c.Id
                         join t in context.Tenants on ca.TenantId equals t.Id
                         join mm in context.MenuModules on ca.MenuModuleId equals mm.Id
@@ -398,7 +398,7 @@ public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurre
                 audit.ActionBy = masterPUT.ActionBy;
                 audit.ActionAt = DateTime.Now;
 
-                await context.CurrencyAudits.AddAsync(audit);
+                await context.CurrencyHistory.AddAsync(audit);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

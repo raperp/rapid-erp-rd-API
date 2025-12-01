@@ -97,7 +97,7 @@ namespace RapidERP.Infrastructure.Services
                     audit.ActionBy = masterPOST.ActionBy;
                     audit.ActionAt = DateTime.Now;
 
-                    await context.StateAudits.AddAsync(audit);
+                    await context.StateHistory.AddAsync(audit);
                     await context.SaveChangesAsync();
                     await transaction.CommitAsync();
 
@@ -141,7 +141,7 @@ namespace RapidERP.Infrastructure.Services
             try
             {
                 await using var transaction = await context.Database.BeginTransactionAsync();
-                var isAuditExists = await context.StateAudits.AsNoTracking().AnyAsync(x => x.StateId == id);
+                var isAuditExists = await context.StateHistory.AsNoTracking().AnyAsync(x => x.StateId == id);
 
                 if (isAuditExists == false)
                 {
@@ -155,7 +155,7 @@ namespace RapidERP.Infrastructure.Services
 
                 else
                 {
-                    await context.StateAudits.Where(x => x.StateId == id).ExecuteDeleteAsync();
+                    await context.StateHistory.Where(x => x.StateId == id).ExecuteDeleteAsync();
                 }
 
                 var isExists = await context.States.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -272,7 +272,7 @@ namespace RapidERP.Infrastructure.Services
         {
             try
             {
-                var data = (from sa in context.StateAudits
+                var data = (from sa in context.StateHistory
                             join s in context.States on sa.StateId equals s.Id
                             join mm in context.MenuModules on sa.MenuModuleId equals mm.Id
                             join c in context.Countries on sa.CountryId equals c.Id
@@ -401,7 +401,7 @@ namespace RapidERP.Infrastructure.Services
                     audit.ActionBy = masterPUT.ActionBy;
                     audit.ActionAt = DateTime.Now;
 
-                    await context.StateAudits.AddAsync(audit);
+                    await context.StateHistory.AddAsync(audit);
                     await context.SaveChangesAsync();
                     await transaction.CommitAsync();
 
