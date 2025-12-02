@@ -26,6 +26,7 @@ using RapidERP.Domain.Entities.SupplierTypeModels;
 using RapidERP.Domain.Entities.TableModules;
 using RapidERP.Domain.Entities.TenantModels;
 using RapidERP.Domain.Entities.TextModuleModels;
+using RapidERP.Domain.Entities.UserIPWhitelistModels;
 using RapidERP.Domain.Entities.UserModels;
 using Table = RapidERP.Domain.Entities.TableModules.Table;
 
@@ -119,6 +120,9 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
 
     public DbSet<Solution> Solutions { get; set; }
     public DbSet<SolutionHistory> SolutionHistory { get; set; }
+
+    public DbSet<UserIPWhitelist> UserIPWhitelists { get; set; }
+    public DbSet<UserIPWhitelistHistory> UserIPWhitelistHistory { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

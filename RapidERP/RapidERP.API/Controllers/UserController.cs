@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RapidERP.Application.DTOs.UserDTOs;
 using RapidERP.Application.Interfaces;
+using RapidERP.Domain.Entities.UserIPWhitelistModels;
 
 namespace RapidERP.API.Controllers
 {
@@ -47,6 +48,13 @@ namespace RapidERP.API.Controllers
         public async Task<IActionResult> Update(UserPUT masterPUT)
         {
             var result = await user.Update(masterPUT);
+            return Ok(result);
+        }
+        
+        [HttpPut("Delete")]
+        public async Task<IActionResult> SoftDelete(int id)
+        {
+            var result = await user.SoftDelete(id);
             return Ok(result);
         }
 

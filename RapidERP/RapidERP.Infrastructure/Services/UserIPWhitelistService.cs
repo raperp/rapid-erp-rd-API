@@ -1,18 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RapidERP.Application.DTOs.RoleDTOs;
 using RapidERP.Application.DTOs.Shared;
+using RapidERP.Application.DTOs.UserIPWhitelistDTOs;
 using RapidERP.Application.Interfaces;
-using RapidERP.Domain.Entities.RoleModules;
+using RapidERP.Domain.Entities.UserIPWhitelistModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class RoleService(RapidERPDbContext context, IShared shared) : IRole
+public class UserIPWhitelistService(RapidERPDbContext context, IShared shared) : IUserIPWhitelist
 {
     RequestResponse requestResponse { get; set; }
 
-    public async Task<RequestResponse> CreateBulk(List<RolePOST> masterPOSTs)
+    public async Task<RequestResponse> CreateBulk(List<UserIPWhitelistPOST> masterPOSTs)
     {
         try
         {
@@ -44,27 +44,29 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
         }
     }
 
-    public async Task<RequestResponse> CreateSingle(RolePOST masterPOST)
+    public async Task<RequestResponse> CreateSingle(UserIPWhitelistPOST masterPOST)
     {
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.Roles.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
+            var isExists = await context.UserIPWhitelists.AsNoTracking().AnyAsync(x => x.UserId == masterPOST.UserId || x.IPAddress == masterPOST.IPAddress);
 
             if (isExists == false)
             {
-                Role masterData = new();
-                masterData.Name = masterPOST.Name;
+                UserIPWhitelist masterData = new();
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
+                masterData.UserId = masterPOST.UserId;
+                masterData.IPAddress = masterPOST.IPAddress;
 
-                await context.Roles.AddAsync(masterData);
+                await context.UserIPWhitelists.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
-                RoleHistory history = new();
-                history.RoleId = masterData.Id;
+                UserIPWhitelistHistory history = new();
+                history.UserIPWhitelistId = masterData.Id;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
-                history.Name = masterPOST.Name;
+                history.UserId = masterPOST.UserId;
+                history.IPAddress = masterPOST.IPAddress;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
                 history.Browser = masterPOST.Browser;
@@ -76,10 +78,8 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
                 history.Longitude = masterPOST.Longitude;
                 history.ActionBy = masterPOST.ActionBy;
                 history.ActionAt = DateTime.Now;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
-
-                await context.RoleHistory.AddAsync(history);
+                
+                await context.UserIPWhitelistHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
@@ -98,7 +98,7 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
                 {
                     StatusCode = $"{HTTPStatusCode.Conflict} {HTTPStatusCode.StatusCode409}",
                     IsSuccess = false,
-                    Message = $"{ResponseMessage.RecordExists} {masterPOST.Name}"
+                    Message = $"{ResponseMessage.RecordExists} {masterPOST.IPAddress}"
                 };
             }
 
@@ -118,87 +118,26 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
         }
     }
 
-    public async Task<RequestResponse> Delete(int id)
-    {
-        try
-        {
-            await using var transaction = await context.Database.BeginTransactionAsync();
-            var ishistoryExists = await context.RoleHistory.AsNoTracking().AnyAsync(x => x.RoleId == id);
-
-            if (ishistoryExists == false)
-            {
-                requestResponse = new()
-                {
-                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
-                    IsSuccess = false,
-                    Message = ResponseMessage.NoRecordFound
-                };
-            }
-
-            else
-            {
-                await context.RoleHistory.Where(x => x.RoleId == id).ExecuteDeleteAsync();
-            }
-
-            var isExists = await context.Roles.AsNoTracking().AnyAsync(x => x.Id == id);
-
-            if (isExists == false)
-            {
-                requestResponse = new()
-                {
-                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
-                    IsSuccess = false,
-                    Message = ResponseMessage.NoRecordFound
-                };
-            }
-
-            else
-            {
-                await context.Roles.Where(x => x.Id == id).ExecuteDeleteAsync();
-                await transaction.CommitAsync();
-            }
-
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
-                IsSuccess = true,
-                Message = ResponseMessage.DeleteSuccess
-            };
-
-            return requestResponse;
-        }
-
-        catch (Exception ex)
-        {
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
-                IsSuccess = false,
-                Message = ex.Message
-            };
-
-            return requestResponse;
-        }
-    }
-
     public async Task<RequestResponse> GetAll(int skip, int take)
     {
         try
         {
             GetAllDTO result = new();
 
-            var data = (from r in context.Roles
-                        join st in context.StatusTypes on r.StatusTypeId equals st.Id
+            var data = (from uiw in context.UserIPWhitelists
+                        join u in context.Users on uiw.UserId equals u.Id
+                        join st in context.StatusTypes on uiw.StatusTypeId equals st.Id
                         select new
                         {
-                            r.Id,
-                            r.Name,
+                            uiw.Id,
+                            User = u.Name,
+                            uiw.IPAddress,
                             Status = st.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
             {
-                result.Count = await shared.GetCounts<Role>();
+                result.Count = await shared.GetCounts<UserIPWhitelist>();
                 result.Data = await data.ToListAsync();
 
                 requestResponse = new()
@@ -212,7 +151,7 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
 
             else
             {
-                result.Count = await shared.GetCounts<Role>();
+                result.Count = await shared.GetCounts<UserIPWhitelist>();
                 result.Data = await data.Skip(skip).Take(take).ToListAsync();
 
                 requestResponse = new()
@@ -244,28 +183,30 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
     {
         try
         {
-            var data = (from rh in context.RoleHistory
-                        join r in context.Roles on rh.RoleId equals r.Id
-                        join at in context.ActionTypes on rh.ActionTypeId equals at.Id
-                        join et in context.ExportTypes on rh.ExportTypeId equals et.Id
+            var data = (from uiwh in context.UserIPWhitelistHistory
+                        join uiw in context.UserIPWhitelists on uiwh.UserId equals uiw.Id
+                        join u in context.Users on uiwh.UserId equals u.Id
+                        join et in context.ExportTypes on uiwh.ExportTypeId equals et.Id
+                        join at in context.ActionTypes on uiwh.ActionTypeId equals at.Id
                         select new
                         {
-                            rh.Id,
-                            Role = r.Name,
-                            rh.Name,
+                            uiwh.Id,
+                            User = u.Name,
+                            IP = uiw.IPAddress,
                             ExportType = et.Name,
-                            Action = at.Name,
-                            rh.ExportTo,
-                            rh.SourceURL,
-                            rh.Browser,
-                            rh.Location,
-                            rh.DeviceIP,
-                            rh.LocationURL,
-                            rh.DeviceName,
-                            rh.Latitude,
-                            rh.Longitude,
-                            rh.ActionBy,
-                            rh.ActionAt
+                            ActionType = at.Name,
+                            uiwh.IPAddress,
+                            uiwh.ExportTo,
+                            uiwh.SourceURL,
+                            uiwh.Browser,
+                            uiwh.Location,
+                            uiwh.DeviceIP,
+                            uiwh.LocationURL,
+                            uiwh.DeviceName,
+                            uiwh.Latitude,
+                            uiwh.Longitude,
+                            uiwh.ActionBy,
+                            uiwh.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -312,33 +253,36 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
 
     public async Task<dynamic> GetSingle(int id)
     {
-        var result = await shared.GetSingle<Role>(id);
+        var result = await shared.GetSingle<UserIPWhitelist>(id);
         return result;
     }
 
-    public Task<dynamic> SoftDelete(int id)
+    public async Task<dynamic> SoftDelete(int id)
     {
-        throw new NotImplementedException();
+        var result = await shared.SoftDelete<UserIPWhitelist>(id);
+        return result;
     }
 
-    public async Task<RequestResponse> Update(RolePUT masterPUT)
+    public async Task<RequestResponse> Update(UserIPWhitelistPUT masterPUT)
     {
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.Roles.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
+            var isExists = await context.UserIPWhitelists.AsNoTracking().AnyAsync(x => x.IPAddress == masterPUT.IPAddress && x.Id != masterPUT.Id);
 
             if (isExists == false)
             {
-                await context.Roles.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                .SetProperty(x => x.Name, masterPUT.Name));
+                await context.UserIPWhitelists.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
+                 .SetProperty(x => x.UserId, masterPUT.UserId)
+                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                 .SetProperty(x => x.IPAddress, masterPUT.IPAddress));
 
-                RoleHistory history = new();
-                history.RoleId = masterPUT.Id;
+                UserIPWhitelistHistory history = new();
+                history.UserIPWhitelistId = masterPUT.Id;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
-                history.Name = masterPUT.Name;
+                history.UserId = masterPUT.UserId;
+                history.IPAddress = masterPUT.IPAddress;
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;
                 history.Browser = masterPUT.Browser;
@@ -350,10 +294,8 @@ public class RoleService(RapidERPDbContext context, IShared shared) : IRole
                 history.Longitude = masterPUT.Longitude;
                 history.ActionBy = masterPUT.ActionBy;
                 history.ActionAt = DateTime.Now;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
 
-                await context.RoleHistory.AddAsync(history);
+                await context.UserIPWhitelistHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 

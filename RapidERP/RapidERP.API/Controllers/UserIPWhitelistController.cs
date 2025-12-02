@@ -1,0 +1,59 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using RapidERP.Application.DTOs.UserIPWhitelistDTOs;
+using RapidERP.Application.Interfaces;
+
+namespace RapidERP.API.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class UserIPWhitelistController(IUserIPWhitelist userIPWhitelist) : ControllerBase
+{
+    [HttpGet("GetAll")]
+    public async Task<IActionResult> GetAll(int skip, int take)
+    {
+        var result = await userIPWhitelist.GetAll(skip, take);
+        return Ok(result);
+    }
+
+    [HttpGet("GetSingle")]
+    public async Task<IActionResult> GetSingle(int id)
+    {
+        var result = await userIPWhitelist.GetSingle(id);
+        return Ok(result);
+    }
+
+    [HttpGet("GetHistory")]
+    public async Task<IActionResult> GetHistory(int skip, int take)
+    {
+        var result = await userIPWhitelist.GetHistory(skip, take);
+        return Ok(result);
+    }
+
+    [HttpPost("CreateSingle")]
+    public async Task<IActionResult> CreateSingle(UserIPWhitelistPOST masterPOST)
+    {
+        var result = await userIPWhitelist.CreateSingle(masterPOST);
+        return Ok(result);
+    }
+
+    [HttpPost("CreateBulk")]
+    public async Task<IActionResult> CreateBulk(List<UserIPWhitelistPOST> masterPOSTs)
+    {
+        var result = await userIPWhitelist.CreateBulk(masterPOSTs);
+        return Ok(result);
+    }
+
+    [HttpPut("Update")]
+    public async Task<IActionResult> Update(UserIPWhitelistPUT masterPUT)
+    {
+        var result = await userIPWhitelist.Update(masterPUT);
+        return Ok(result);
+    }
+
+    [HttpPut("Delete")]
+    public async Task<IActionResult> SoftDelete(int id)
+    {
+        var result = await userIPWhitelist.SoftDelete(id);
+        return Ok(result);
+    }
+}

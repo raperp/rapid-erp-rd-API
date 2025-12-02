@@ -28,14 +28,6 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
                 requestResponse.Data = result.FirstOrDefault().Data;
             }
 
-            //requestResponse = new()
-            //{
-            //    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
-            //    IsSuccess = true,
-            //    Message = ResponseMessage.CreateSuccess,
-            //    Data = masterPOSTs
-            //};
-
             return requestResponse;
         }
 
@@ -62,40 +54,40 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
             if (isExists == false)
             {
                 User masterData = new();
-                masterData.Name = masterPOST.Name;
-                masterData.UserName = masterPOST.UserName;
-                masterData.Email = masterPOST.Email;
-                masterData.Mobile = masterPOST.Mobile;
-                masterData.Address = masterPOST.Address;
-                masterData.Password = masterPOST.Password;
+                masterData.RoleId = masterPOST.RoleId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-
+                masterData.Name = masterPOST.Name;
+                masterData.Address = masterPOST.Address;
+                masterData.Mobile = masterPOST.Mobile;
+                masterData.Email = masterPOST.Email;
+                masterData.UserName = masterPOST.UserName;
+                masterData.Password = masterPOST.Password;
+                
                 await context.Users.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
                 UserHistory history = new();
-                history.Name = masterPOST.Name;
-                history.UserName = masterPOST.UserName;
-                history.Email = masterPOST.Email;
-                history.Mobile = masterPOST.Mobile;
-                history.Address = masterPOST.Address;
-                history.Password = masterPOST.Password;
-                history.UserId = masterData.Id;
-                //history.StatusTypeId = masterPOST.StatusTypeId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
-                //history.IsDefault = masterPOST.IsDefault;
+                history.UserId = masterData.Id;
+                history.RoleId = masterPOST.RoleId;
+                history.Name = masterPOST.Name;
+                history.Address = masterPOST.Address;
+                history.Mobile = masterPOST.Mobile;
+                history.Email = masterPOST.Email;
+                history.UserName = masterPOST.UserName;
+                history.Password = masterPOST.Password;
                 history.Browser = masterPOST.Browser;
-                history.DeviceName = masterPOST.DeviceName;
                 history.Location = masterPOST.Location;
                 history.DeviceIP = masterPOST.DeviceIP;
-                //history.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                history.LocationURL = masterPOST.LocationURL;
+                history.DeviceName = masterPOST.DeviceName;
                 history.Latitude = masterPOST.Latitude;
                 history.Longitude = masterPOST.Longitude;
-                //history.ActionBy = masterPOST.CreatedBy;
+                history.ActionBy = masterPOST.ActionBy;
                 history.ActionAt = DateTime.Now;
+                history.ExportTo = masterPOST.ExportTo;
+                history.SourceURL = masterPOST.SourceURL;
 
                 await context.UserHistory.AddAsync(history);
                 await context.SaveChangesAsync();
@@ -116,7 +108,7 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
                 {
                     StatusCode = $"{HTTPStatusCode.Conflict} {HTTPStatusCode.StatusCode409}",
                     IsSuccess = false,
-                    Message = $"{ResponseMessage.RecordExists} {masterPOST.Name}"
+                    //Message = $"{ResponseMessage.RecordExists} {masterPOST.Name}"
                 };
             }
 
@@ -206,6 +198,7 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
             GetAllDTO result = new();
 
             var data = (from u in context.Users
+                        join r in context.Roles on u.RoleId equals r.Id
                         join st in context.StatusTypes on u.StatusTypeId equals st.Id
                         select new
                         {
@@ -214,9 +207,9 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
                             u.UserName,
                             u.Email,
                             u.Mobile,
-                            u.OTP,
-                            StatusType = st.Name,
-                            Status = st.Name
+                            u.Address,
+                            Status = st.Name,
+                            Role = r.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -267,35 +260,34 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
     {
         try
         {
-            var data = (from ua in context.UserHistory
-                        join u in context.Users on ua.UserId equals u.Id
-                        //join et in context.ExportTypes on aa.ExportTypeId equals et.Id
-                        join at in context.ActionTypes on ua.ActionTypeId equals at.Id
-                        //join st in context.StatusTypes on ua.StatusTypeId equals st.Id
+            var data = (from uh in context.UserHistory
+                        join u in context.Users on uh.UserId equals u.Id
+                        join et in context.ExportTypes on uh.ExportTypeId equals et.Id
+                        join at in context.ActionTypes on uh.ActionTypeId equals at.Id
+                        join r in context.Roles on uh.RoleId equals r.Id
                         select new
                         {
-                            ua.Id,
+                            uh.Id,
                             User = u.Name,
-                            ua.Name,
-                            ua.UserName,
-                            ua.Email,
-                            ua.Mobile,
-                            ua.Address,
-                            //ExportType = et.Name,
+                            ExportType = et.Name,
                             ActionType = at.Name,
-                            //StatusType = st.Name,
-                            ua.ExportTo,
-                            ua.SourceURL,
-                            //ua.IsDefault,
-                            ua.Browser,
-                            ua.DeviceName,
-                            ua.Location,
-                            ua.DeviceIP,
-                            //ua.GoogleMapUrl,
-                            ua.Latitude,
-                            ua.Longitude,
-                            ua.ActionBy,
-                            ua.ActionAt
+                            Role = r.Name,
+                            uh.Name,
+                            uh.UserName,
+                            uh.Email,
+                            uh.Mobile,
+                            uh.Address,
+                            uh.ExportTo,
+                            uh.SourceURL,
+                            uh.Browser,
+                            uh.Location,
+                            uh.DeviceIP,
+                            uh.LocationURL,
+                            uh.DeviceName,
+                            uh.Latitude,
+                            uh.Longitude,
+                            uh.ActionBy,
+                            uh.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -346,9 +338,10 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
         return result;
     }
 
-    public Task<dynamic> SoftDelete(int id)
+    public async Task<dynamic> SoftDelete(int id)
     {
-        throw new NotImplementedException();
+        var result = await shared.SoftDelete<User>(id);
+        return result;
     }
 
     public async Task<RequestResponse> Update(UserPUT masterPUT)
@@ -361,36 +354,37 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
             if (isExists == false)
             {
                 await context.Users.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.Name, masterPUT.Name)
-                .SetProperty(x => x.UserName, masterPUT.UserName)
-                .SetProperty(x => x.Email, masterPUT.Email)
-                .SetProperty(x => x.Mobile, masterPUT.Mobile)
-                .SetProperty(x => x.Address, masterPUT.Address)
-                .SetProperty(x => x.Password, masterPUT.Password));
+                 .SetProperty(x => x.RoleId, masterPUT.RoleId)
+                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                 .SetProperty(x => x.Name, masterPUT.Name)
+                 .SetProperty(x => x.Address, masterPUT.Address)
+                 .SetProperty(x => x.Mobile, masterPUT.Mobile)
+                 .SetProperty(x => x.Email, masterPUT.Email)
+                 .SetProperty(x => x.UserName, masterPUT.UserName)
+                 .SetProperty(x => x.Password, masterPUT.Password));
 
                 UserHistory history = new();
-                history.Name = masterPUT.Name;
-                history.UserName = masterPUT.UserName;
-                history.Email = masterPUT.Email;
-                history.Mobile = masterPUT.Mobile;
-                history.Address = masterPUT.Address;
-                history.Password = masterPUT.Password;
-                history.UserId = masterPUT.Id;
-                //history.StatusTypeId = masterPUT.StatusTypeId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
-                //history.IsDefault = masterPUT.IsDefault;
+                history.UserId = masterPUT.Id;
+                history.RoleId = masterPUT.RoleId;
+                history.Name = masterPUT.Name;
+                history.Address = masterPUT.Address;
+                history.Mobile = masterPUT.Mobile;
+                history.Email = masterPUT.Email;
+                history.UserName = masterPUT.UserName;
+                history.Password = masterPUT.Password;
                 history.Browser = masterPUT.Browser;
-                history.DeviceName = masterPUT.DeviceName;
                 history.Location = masterPUT.Location;
                 history.DeviceIP = masterPUT.DeviceIP;
-                //history.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                history.LocationURL = masterPUT.LocationURL;
+                history.DeviceName = masterPUT.DeviceName;
                 history.Latitude = masterPUT.Latitude;
                 history.Longitude = masterPUT.Longitude;
-                //history.ActionBy = masterPUT.UpdatedBy;
+                history.ActionBy = masterPUT.ActionBy;
                 history.ActionAt = DateTime.Now;
+                history.ExportTo = masterPUT.ExportTo;
+                history.SourceURL = masterPUT.SourceURL;
 
                 await context.UserHistory.AddAsync(history);
                 await context.SaveChangesAsync();
@@ -416,7 +410,7 @@ public class UserService(RapidERPDbContext context, IShared shared) : IUser
             }
 
             return requestResponse;
-        }
+    }
 
         catch
         {

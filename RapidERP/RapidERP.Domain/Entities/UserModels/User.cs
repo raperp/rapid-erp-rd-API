@@ -1,10 +1,12 @@
-﻿using RapidERP.Domain.Entities.Shared;
+﻿using RapidERP.Domain.Entities.RoleModules;
+using RapidERP.Domain.Entities.Shared;
 
 namespace RapidERP.Domain.Entities.UserModels;
 
 public class User : BaseMaster
 {
-    public long Id { get; set; }
+    public Role Role { get; set; }
+    public int? RoleId { get; set; }
     public string UserName { get; set; }
     public string Email { get; set; }
     public string Mobile { get; set; }
