@@ -1226,17 +1226,11 @@ namespace RapidERP.Infrastructure.Migrations
                     Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
                     TenantId = table.Column<int>(type: "int", nullable: true),
                     MenuModuleId = table.Column<int>(type: "int", nullable: true),
-                    LanguageId = table.Column<int>(type: "int", nullable: true),
                     StatusTypeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Kitchens", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Kitchens_Languages_LanguageId",
-                        column: x => x.LanguageId,
-                        principalTable: "Languages",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Kitchens_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
@@ -1310,10 +1304,7 @@ namespace RapidERP.Infrastructure.Migrations
                     Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     TenantId = table.Column<int>(type: "int", nullable: true),
                     MenuModuleId = table.Column<int>(type: "int", nullable: true),
-                    LanguageId = table.Column<int>(type: "int", nullable: true),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
-                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
-                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1336,11 +1327,6 @@ namespace RapidERP.Infrastructure.Migrations
                         principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
-                    table.ForeignKey(
-                        name: "FK_Riders_Languages_LanguageId",
-                        column: x => x.LanguageId,
-                        principalTable: "Languages",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Riders_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
@@ -1415,19 +1401,11 @@ namespace RapidERP.Infrastructure.Migrations
                     Name = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
                     TenantId = table.Column<int>(type: "int", nullable: true),
                     MenuModuleId = table.Column<int>(type: "int", nullable: true),
-                    LanguageId = table.Column<int>(type: "int", nullable: true),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
-                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
-                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tables", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Tables_Languages_LanguageId",
-                        column: x => x.LanguageId,
-                        principalTable: "Languages",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Tables_MenuModules_MenuModuleId",
                         column: x => x.MenuModuleId,
@@ -1890,7 +1868,6 @@ namespace RapidERP.Infrastructure.Migrations
                     TenantId = table.Column<int>(type: "int", nullable: true),
                     MenuModuleId = table.Column<int>(type: "int", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: true),
-                    LanguageId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -1960,11 +1937,11 @@ namespace RapidERP.Infrastructure.Migrations
                     CityId = table.Column<int>(type: "int", nullable: true),
                     AreaId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Browser = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    DeviceIP = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
@@ -1972,12 +1949,9 @@ namespace RapidERP.Infrastructure.Migrations
                     TenantId = table.Column<int>(type: "int", nullable: true),
                     MenuModuleId = table.Column<int>(type: "int", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: true),
-                    LanguageId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
-                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2032,30 +2006,27 @@ namespace RapidERP.Infrastructure.Migrations
                 name: "TableHistory",
                 columns: table => new
                 {
+                    Browser = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    DeviceIP = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
+                    Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
+                    ActionBy = table.Column<int>(type: "int", nullable: false),
+                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TableId = table.Column<int>(type: "int", nullable: false),
                     TotalPersons = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Name = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
-                    Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
-                    Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
-                    Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
-                    ActionBy = table.Column<int>(type: "int", nullable: false),
-                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TenantId = table.Column<int>(type: "int", nullable: true),
                     MenuModuleId = table.Column<int>(type: "int", nullable: true),
                     ActionTypeId = table.Column<int>(type: "int", nullable: true),
-                    LanguageId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
-                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2482,11 +2453,6 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "KitchenId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Kitchens_LanguageId",
-                table: "Kitchens",
-                column: "LanguageId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Kitchens_MenuModuleId",
                 table: "Kitchens",
                 column: "MenuModuleId");
@@ -2585,11 +2551,6 @@ namespace RapidERP.Infrastructure.Migrations
                 name: "IX_Riders_CountryId",
                 table: "Riders",
                 column: "CountryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Riders_LanguageId",
-                table: "Riders",
-                column: "LanguageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Riders_MenuModuleId",
@@ -2800,11 +2761,6 @@ namespace RapidERP.Infrastructure.Migrations
                 name: "IX_TableHistory_TableId",
                 table: "TableHistory",
                 column: "TableId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tables_LanguageId",
-                table: "Tables",
-                column: "LanguageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tables_MenuModuleId",
