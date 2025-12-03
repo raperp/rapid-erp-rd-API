@@ -13,5 +13,10 @@ public class RiderConfiguration : IEntityTypeConfiguration<Rider>
         builder.Property(x => x.Description).HasMaxLength(100).IsRequired(false);
         builder.Property(x => x.Email).HasMaxLength(15).IsRequired(false);
         builder.Property(x => x.MobileNumber).HasMaxLength(15).IsRequired(false);
+        builder.Ignore(x => x.IsDefault);
+        builder.Ignore(x => x.IsDraft);
+        builder.Ignore(x => x.IsDraft);
+        builder.Ignore(x => x.Language);
+        builder.Ignore(x => x.LanguageId);
     }
 }

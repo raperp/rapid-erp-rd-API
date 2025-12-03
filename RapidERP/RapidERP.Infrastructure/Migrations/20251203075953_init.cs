@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace RapidERP.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -407,27 +407,6 @@ namespace RapidERP.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserIPWhitelist",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    IPAddress = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserIPWhitelist", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserIPWhitelist_StatusTypes_StatusTypeId",
-                        column: x => x.StatusTypeId,
-                        principalTable: "StatusTypes",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SubmoduleHistory",
                 columns: table => new
                 {
@@ -543,8 +522,7 @@ namespace RapidERP.Infrastructure.Migrations
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
-                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LanguageId = table.Column<int>(type: "int", nullable: true)
+                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -585,41 +563,6 @@ namespace RapidERP.Infrastructure.Migrations
                         name: "FK_Users_StatusTypes_StatusTypeId",
                         column: x => x.StatusTypeId,
                         principalTable: "StatusTypes",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserIPWhitelistHistory",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserIPWhitelistId = table.Column<int>(type: "int", nullable: true),
-                    ActionTypeId = table.Column<int>(type: "int", nullable: true),
-                    ExportTypeId = table.Column<int>(type: "int", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    IPAddress = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
-                    ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Browser = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
-                    DeviceIP = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
-                    Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
-                    ActionBy = table.Column<int>(type: "int", nullable: false),
-                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LanguageId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserIPWhitelistHistory", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserIPWhitelistHistory_UserIPWhitelist_UserIPWhitelistId",
-                        column: x => x.UserIPWhitelistId,
-                        principalTable: "UserIPWhitelist",
                         principalColumn: "Id");
                 });
 
@@ -695,6 +638,65 @@ namespace RapidERP.Infrastructure.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserIPWhitelists",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    IPAddress = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserIPWhitelists", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserIPWhitelists_StatusTypes_StatusTypeId",
+                        column: x => x.StatusTypeId,
+                        principalTable: "StatusTypes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_UserIPWhitelists_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserIPWhitelistHistory",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserIPWhitelistId = table.Column<int>(type: "int", nullable: true),
+                    ActionTypeId = table.Column<int>(type: "int", nullable: true),
+                    ExportTypeId = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    IPAddress = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
+                    ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Browser = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    DeviceIP = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
+                    Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
+                    ActionBy = table.Column<int>(type: "int", nullable: false),
+                    ActionAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserIPWhitelistHistory", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserIPWhitelistHistory_UserIPWhitelists_UserIPWhitelistId",
+                        column: x => x.UserIPWhitelistId,
+                        principalTable: "UserIPWhitelists",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -1225,9 +1227,7 @@ namespace RapidERP.Infrastructure.Migrations
                     TenantId = table.Column<int>(type: "int", nullable: true),
                     MenuModuleId = table.Column<int>(type: "int", nullable: true),
                     LanguageId = table.Column<int>(type: "int", nullable: true),
-                    StatusTypeId = table.Column<int>(type: "int", nullable: true),
-                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
-                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
+                    StatusTypeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1878,11 +1878,11 @@ namespace RapidERP.Infrastructure.Migrations
                     PrinterId = table.Column<int>(type: "int", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    Browser = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceIP = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    Browser = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    DeviceIP = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    LocationURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DeviceName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Latitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(9,6)", precision: 9, scale: 6, nullable: false),
                     ActionBy = table.Column<int>(type: "int", nullable: false),
@@ -1893,9 +1893,7 @@ namespace RapidERP.Infrastructure.Migrations
                     LanguageId = table.Column<int>(type: "int", nullable: true),
                     ExportTypeId = table.Column<int>(type: "int", nullable: true),
                     ExportTo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDefault = table.Column<bool>(type: "bit", nullable: false),
-                    IsDraft = table.Column<bool>(type: "bit", nullable: false)
+                    SourceURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2889,14 +2887,19 @@ namespace RapidERP.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserIPWhitelist_StatusTypeId",
-                table: "UserIPWhitelist",
-                column: "StatusTypeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_UserIPWhitelistHistory_UserIPWhitelistId",
                 table: "UserIPWhitelistHistory",
                 column: "UserIPWhitelistId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserIPWhitelists_StatusTypeId",
+                table: "UserIPWhitelists",
+                column: "StatusTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserIPWhitelists_UserId",
+                table: "UserIPWhitelists",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleId",
@@ -3166,10 +3169,7 @@ namespace RapidERP.Infrastructure.Migrations
                 name: "Tables");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "UserIPWhitelist");
+                name: "UserIPWhitelists");
 
             migrationBuilder.DropTable(
                 name: "TextModules");
@@ -3184,10 +3184,13 @@ namespace RapidERP.Infrastructure.Migrations
                 name: "MainModules");
 
             migrationBuilder.DropTable(
-                name: "Roles");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Cities");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Languages");

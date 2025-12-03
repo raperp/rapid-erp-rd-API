@@ -28,14 +28,6 @@ namespace RapidERP.Infrastructure.Services
                     requestResponse.Data = result.FirstOrDefault().Data;
                 }
 
-                //requestResponse = new()
-                //{
-                //    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
-                //    IsSuccess = true,
-                //    Message = ResponseMessage.CreateSuccess,
-                //    Data = masterPOSTs
-                //};
-
                 return requestResponse;
             }
 
@@ -66,6 +58,8 @@ namespace RapidERP.Infrastructure.Services
                     masterData.Description = masterPOST.Description;
                     masterData.PrinterId = masterPOST.PrinterId;
                     masterData.StatusTypeId = masterPOST.StatusTypeId;
+                    masterData.TenantId = masterPOST.TenantId;
+                    masterData.MenuModuleId = masterPOST.MenuModuleId;
 
                     await context.Kitchens.AddAsync(masterData);
                     await context.SaveChangesAsync();
@@ -75,20 +69,20 @@ namespace RapidERP.Infrastructure.Services
                     history.Description = masterPOST.Description;
                     history.PrinterId = masterPOST.PrinterId;
                     history.KitchenId = masterData.Id;
-                    //history.StatusTypeId = masterPOST.StatusTypeId;
+                    history.TenantId = masterPOST.TenantId;
+                    history.MenuModuleId = masterPOST.MenuModuleId;
                     history.ActionTypeId = masterPOST.ActionTypeId;
                     history.ExportTypeId = masterPOST.ExportTypeId;
                     history.ExportTo = masterPOST.ExportTo;
                     history.SourceURL = masterPOST.SourceURL;
-                    //history.IsDefault = masterPOST.IsDefault;
                     history.Browser = masterPOST.Browser;
-                    history.DeviceName = masterPOST.DeviceName;
                     history.Location = masterPOST.Location;
                     history.DeviceIP = masterPOST.DeviceIP;
-                    //history.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                    history.LocationURL = masterPOST.LocationURL;
+                    history.DeviceName = masterPOST.DeviceName;
                     history.Latitude = masterPOST.Latitude;
                     history.Longitude = masterPOST.Longitude;
-                    //history.ActionBy = masterPOST.CreatedBy;
+                    history.ActionBy = masterPOST.ActionBy;
                     history.ActionAt = DateTime.Now;
 
                     await context.KitchenHistory.AddAsync(history);
@@ -261,7 +255,7 @@ namespace RapidERP.Infrastructure.Services
                 var data = (from ka in context.KitchenHistory
                             join k in context.Kitchens on ka.KitchenId equals k.Id
                             join at in context.ActionTypes on ka.ActionTypeId equals at.Id
-                            //join st in context.StatusTypes on ka.StatusTypeId equals st.Id
+                            join et in context.ExportTypes on ka.ExportTypeId equals et.Id
                             select new
                             {
                                 ka.Id,
@@ -269,17 +263,15 @@ namespace RapidERP.Infrastructure.Services
                                 ka.Name,
                                 ka.Description,
                                 ka.PrinterId,
-                                //ExportType = et.Name,
+                                ExportType = et.Name,
                                 ActionType = at.Name,
-                                //StatusType = st.Name,
                                 ka.ExportTo,
                                 ka.SourceURL,
-                                //ka.IsDefault,
                                 ka.Browser,
-                                ka.DeviceName,
                                 ka.Location,
                                 ka.DeviceIP,
-                                //ka.GoogleMapUrl,
+                                ka.LocationURL,
+                                ka.DeviceName,
                                 ka.Latitude,
                                 ka.Longitude,
                                 ka.ActionBy,
@@ -334,9 +326,10 @@ namespace RapidERP.Infrastructure.Services
             return result;
         }
 
-        public Task<dynamic> SoftDelete(int id)
+        public async Task<dynamic> SoftDelete(int id)
         {
-            throw new NotImplementedException();
+            var result = await shared.SoftDelete<Kitchen>(id);
+            return result;
         }
 
         public async Task<RequestResponse> Update(KitchenPUT masterPUT)
@@ -351,6 +344,9 @@ namespace RapidERP.Infrastructure.Services
                     await context.Kitchens.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                     .SetProperty(x => x.Name, masterPUT.Name)
                     .SetProperty(x => x.Description, masterPUT.Description)
+                    .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                    .SetProperty(x => x.TenantId, masterPUT.TenantId)
+                    .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                     .SetProperty(x => x.PrinterId, masterPUT.PrinterId));
 
                     KitchenHistory history = new();
@@ -358,20 +354,20 @@ namespace RapidERP.Infrastructure.Services
                     history.Description = masterPUT.Description;
                     history.PrinterId = masterPUT.PrinterId;
                     history.KitchenId = masterPUT.Id;
-                    //history.StatusTypeId = masterPUT.StatusTypeId;
+                    history.TenantId = masterPUT.TenantId;
+                    history.MenuModuleId = masterPUT.MenuModuleId;
                     history.ActionTypeId = masterPUT.ActionTypeId;
                     history.ExportTypeId = masterPUT.ExportTypeId;
                     history.ExportTo = masterPUT.ExportTo;
                     history.SourceURL = masterPUT.SourceURL;
-                    //history.IsDefault = masterPUT.IsDefault;
                     history.Browser = masterPUT.Browser;
-                    history.DeviceName = masterPUT.DeviceName;
                     history.Location = masterPUT.Location;
                     history.DeviceIP = masterPUT.DeviceIP;
-                    //history.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                    history.LocationURL = masterPUT.LocationURL;
+                    history.DeviceName = masterPUT.DeviceName;
                     history.Latitude = masterPUT.Latitude;
                     history.Longitude = masterPUT.Longitude;
-                    //history.ActionBy = masterPUT.UpdatedBy;
+                    history.ActionBy = masterPUT.ActionBy;
                     history.ActionAt = DateTime.Now;
 
                     await context.KitchenHistory.AddAsync(history);

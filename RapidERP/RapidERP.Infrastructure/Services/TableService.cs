@@ -29,14 +29,6 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
                 requestResponse.Data = result.FirstOrDefault().Data;
             }
 
-            //requestResponse = new()
-            //{
-            //    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
-            //    IsSuccess = true,
-            //    Message = ResponseMessage.CreateSuccess,
-            //    Data = masterPOSTs
-            //};
-
             return requestResponse;
         }
 
@@ -67,6 +59,8 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
                 masterData.Description = masterPOST.Description;
                 masterData.TotalPersons = masterPOST.TotalPersons;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
+                masterData.TenantId = masterPOST.TenantId;
+                masterData.MenuModuleId = masterPOST.MenuModuleId;
 
                 await context.Tables.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -76,20 +70,20 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
                 history.Description = masterPOST.Description;
                 history.TotalPersons = masterPOST.TotalPersons;
                 history.TableId = masterData.Id;
-                //history.StatusTypeId = masterPOST.StatusTypeId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
+                history.TenantId = masterPOST.TenantId;
+                history.MenuModuleId = masterPOST.MenuModuleId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
-                //history.IsDefault = masterPOST.IsDefault;
                 history.Browser = masterPOST.Browser;
-                history.DeviceName = masterPOST.DeviceName;
                 history.Location = masterPOST.Location;
                 history.DeviceIP = masterPOST.DeviceIP;
-                //history.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                history.LocationURL = masterPOST.LocationURL;
+                history.DeviceName = masterPOST.DeviceName;
                 history.Latitude = masterPOST.Latitude;
                 history.Longitude = masterPOST.Longitude;
-                //history.ActionBy = masterPOST.CreatedBy;
+                history.ActionBy = masterPOST.ActionBy;
                 history.ActionAt = DateTime.Now;
 
                 await context.TableHistory.AddAsync(history);
@@ -262,7 +256,9 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
             var data = (from ta in context.TableHistory
                         join t in context.Tables on ta.TableId equals t.Id
                         join at in context.ActionTypes on ta.ActionTypeId equals at.Id
-                        //join st in context.StatusTypes on ta.StatusTypeId equals st.Id
+                        join et in context.ExportTypes on ta.ExportTypeId equals et.Id
+                        join mm in context.MenuModules on ta.MenuModuleId equals mm.Id
+                        join tt in context.Tenants on ta.TenantId equals tt.Id
                         select new
                         {
                             ta.Id,
@@ -270,17 +266,17 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
                             ta.Description,
                             ta.TotalPersons,
                             Table = t.Name,
-                            //ExportType = et.Name,
-                            ActionType = at.Name,
-                            //StatusType = st.Name,
+                            ExportType = et.Name,
+                            Action = at.Name,
+                            MemuModule = mm.Name,
+                            Tenant = tt.Name,
                             ta.ExportTo,
                             ta.SourceURL,
-                            //ta.IsDefault,
                             ta.Browser,
-                            ta.DeviceName,
                             ta.Location,
                             ta.DeviceIP,
-                            //ta.GoogleMapUrl,
+                            ta.LocationURL,
+                            ta.DeviceName,
                             ta.Latitude,
                             ta.Longitude,
                             ta.ActionBy,
@@ -335,9 +331,10 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
         return result;
     }
 
-    public Task<dynamic> SoftDelete(int id)
+    public async Task<dynamic> SoftDelete(int id)
     {
-        throw new NotImplementedException();
+        var result = await shared.SoftDelete<Table>(id);
+        return result;
     }
 
     public async Task<RequestResponse> Update(TablePUT masterPUT)
@@ -351,6 +348,9 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
             {
                 await context.Tables.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
+                .SetProperty(x => x.TenantId, masterPUT.TenantId)
+                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.Description, masterPUT.Description)
                 .SetProperty(x => x.TotalPersons, masterPUT.TotalPersons));
 
@@ -359,20 +359,20 @@ public class TableService(RapidERPDbContext context, IShared shared) : ITable
                 history.Description = masterPUT.Description;
                 history.TotalPersons = masterPUT.TotalPersons;
                 history.TableId = masterPUT.Id;
-                //history.StatusTypeId = masterPUT.StatusTypeId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
+                history.TenantId = masterPUT.TenantId;
+                history.MenuModuleId = masterPUT.MenuModuleId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;
-                //history.IsDefault = masterPUT.IsDefault;
                 history.Browser = masterPUT.Browser;
-                history.DeviceName = masterPUT.DeviceName;
                 history.Location = masterPUT.Location;
                 history.DeviceIP = masterPUT.DeviceIP;
-                //history.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                history.LocationURL = masterPUT.LocationURL;
+                history.DeviceName = masterPUT.DeviceName;
                 history.Latitude = masterPUT.Latitude;
                 history.Longitude = masterPUT.Longitude;
-                //history.ActionBy = masterPUT.UpdatedBy;
+                history.ActionBy = masterPUT.ActionBy;
                 history.ActionAt = DateTime.Now;
 
                 await context.TableHistory.AddAsync(history);

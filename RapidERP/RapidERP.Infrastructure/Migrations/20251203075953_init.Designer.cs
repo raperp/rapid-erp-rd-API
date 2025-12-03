@@ -12,8 +12,8 @@ using RapidERP.Infrastructure.Data;
 namespace RapidERP.Infrastructure.Migrations
 {
     [DbContext(typeof(RapidERPDbContext))]
-    [Migration("20251202193954_UserIPWhitelistRename")]
-    partial class UserIPWhitelistRename
+    [Migration("20251203075953_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1391,12 +1391,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<bool>("IsDefault")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDraft")
-                        .HasColumnType("bit");
-
                     b.Property<int?>("LanguageId")
                         .HasColumnType("int");
 
@@ -1448,16 +1442,21 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Browser")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("Description")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("DeviceIP")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("DeviceName")
+                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
@@ -1466,12 +1465,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Property<int?>("ExportTypeId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsDefault")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDraft")
-                        .HasColumnType("bit");
 
                     b.Property<int>("KitchenId")
                         .HasColumnType("int");
@@ -1484,9 +1477,12 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("decimal(9,6)");
 
                     b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
 
                     b.Property<string>("LocationURL")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Longitude")
@@ -2366,9 +2362,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ExportTypeId")
                         .HasColumnType("int")
                         .HasColumnOrder(3);
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
 
                     b.Property<decimal>("Latitude")
                         .HasPrecision(9, 6)
@@ -4219,9 +4212,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(15)")
                         .HasColumnOrder(3);
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("StatusTypeId")
                         .HasColumnType("int")
                         .HasColumnOrder(1);
@@ -4233,6 +4223,8 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("StatusTypeId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserIPWhitelists");
                 });
@@ -4289,9 +4281,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(15)")
                         .HasColumnOrder(5);
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Latitude")
                         .HasPrecision(9, 6)
                         .HasColumnType("decimal(9,6)")
@@ -4312,9 +4301,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasPrecision(9, 6)
                         .HasColumnType("decimal(9,6)")
                         .HasColumnOrder(14);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SourceURL")
                         .HasColumnType("nvarchar(max)")
@@ -5532,7 +5518,15 @@ namespace RapidERP.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("StatusTypeId");
 
+                    b.HasOne("RapidERP.Domain.Entities.UserModels.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("StatusType");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.UserIPWhitelistModels.UserIPWhitelistHistory", b =>

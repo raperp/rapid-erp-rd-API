@@ -28,14 +28,6 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
                 requestResponse.Data = result.FirstOrDefault().Data;
             }
 
-            //requestResponse = new()
-            //{
-            //    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
-            //    IsSuccess = true,
-            //    Message = ResponseMessage.CreateSuccess,
-            //    Data = masterPOSTs
-            //};
-
             return requestResponse;
         }
 
@@ -71,6 +63,8 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
                 masterData.AreaId = masterPOST.AreaId;
                 masterData.CityId = masterPOST.CityId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
+                masterData.TenantId = masterPOST.TenantId;
+                masterData.MenuModuleId = masterPOST.MenuModuleId;
 
                 await context.Riders.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -85,20 +79,20 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
                 history.StateId = masterPOST.StateId;
                 history.AreaId = masterPOST.AreaId;
                 history.CityId = masterPOST.CityId;
-                //history.StatusTypeId = masterPOST.StatusTypeId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
+                history.TenantId = masterPOST.TenantId;
+                history.MenuModuleId = masterPOST.MenuModuleId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
-                //history.IsDefault = masterPOST.IsDefault;
                 history.Browser = masterPOST.Browser;
-                history.DeviceName = masterPOST.DeviceName;
                 history.Location = masterPOST.Location;
                 history.DeviceIP = masterPOST.DeviceIP;
-                //history.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                history.LocationURL = masterPOST.LocationURL;
+                history.DeviceName = masterPOST.DeviceName;
                 history.Latitude = masterPOST.Latitude;
                 history.Longitude = masterPOST.Longitude;
-                //history.ActionBy = masterPOST.CreatedBy;
+                history.ActionBy = masterPOST.ActionBy;
                 history.ActionAt = DateTime.Now;
 
                 await context.RiderHistory.AddAsync(history);
@@ -277,42 +271,42 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
     {
         try
         {
-            var data = (from ra in context.RiderHistory
-                        join r in context.Riders on ra.RiderId equals r.Id
-                        join c in context.Countries on ra.CountryId equals c.Id
-                        join sta in context.States on ra.StateId equals sta.Id
-                        join cit in context.Cities on ra.CityId equals cit.Id
-                        join a in context.Areas on ra.AreaId equals a.Id
-                        //join et in context.ExportTypes on aa.ExportTypeId equals et.Id
-                        join at in context.ActionTypes on ra.ActionTypeId equals at.Id
-                        //join st in context.StatusTypes on ra.StatusTypeId equals st.Id
+            var data = (from rh in context.RiderHistory
+                        join r in context.Riders on rh.RiderId equals r.Id
+                        join c in context.Countries on rh.CountryId equals c.Id
+                        join sta in context.States on rh.StateId equals sta.Id
+                        join cit in context.Cities on rh.CityId equals cit.Id
+                        join a in context.Areas on rh.AreaId equals a.Id
+                        join et in context.ExportTypes on rh.ExportTypeId equals et.Id
+                        join at in context.ActionTypes on rh.ActionTypeId equals at.Id
+                        join t in context.Tenants on rh.TenantId equals t.Id
+                        join mm in context.MenuModules on rh.MenuModuleId equals mm.Id
                         select new
                         {
-                            ra.Id,
+                            rh.Id,
                             Rider = r.Name,
-                            ra.Name,
-                            ra.Email,
-                            ra.MobileNumber,
-                            ra.Description,
+                            rh.Name,
+                            rh.Email,
+                            rh.MobileNumber,
+                            rh.Description,
                             Country = c.Name,
                             State = sta.Name,
                             City = cit.Name,
                             Area = a.Name,
-                            //ExportType = et.Name,
+                            MenuModule = mm.Name,
+                            ExportType = et.Name,
                             ActionType = at.Name,
-                            //StatusType = st.Name,
-                            ra.ExportTo,
-                            ra.SourceURL,
-                            //ra.IsDefault,
-                            ra.Browser,
-                            ra.DeviceName,
-                            ra.Location,
-                            ra.DeviceIP,
-                            //ra.GoogleMapUrl,
-                            ra.Latitude,
-                            ra.Longitude,
-                            ra.ActionBy,
-                            ra.ActionAt
+                            rh.ExportTo,
+                            rh.SourceURL,
+                            rh.Browser,
+                            rh.Location,
+                            rh.DeviceIP,
+                            rh.LocationURL,
+                            rh.DeviceName,
+                            rh.Latitude,
+                            rh.Longitude,
+                            rh.ActionBy,
+                            rh.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -363,9 +357,10 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
         return result;
     }
 
-    public Task<dynamic> SoftDelete(int id)
+    public async Task<dynamic> SoftDelete(int id)
     {
-        throw new NotImplementedException();
+        var result = await shared.SoftDelete<Rider>(id);
+        return result;
     }
 
     public async Task<RequestResponse> Update(RiderPUT masterPUT)
@@ -384,6 +379,9 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
                 .SetProperty(x => x.Description, masterPUT.Description)
                 .SetProperty(x => x.CountryId, masterPUT.CountryId)
                 .SetProperty(x => x.StateId, masterPUT.StateId)
+                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                .SetProperty(x => x.TenantId, masterPUT.TenantId)
+                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                 .SetProperty(x => x.CityId, masterPUT.CityId)
                 .SetProperty(x => x.AreaId, masterPUT.AreaId));
 
@@ -397,20 +395,20 @@ public class RiderService(RapidERPDbContext context, IShared shared) : IRider
                 history.StateId = masterPUT.StateId;
                 history.AreaId = masterPUT.AreaId;
                 history.CityId = masterPUT.CityId;
-                //history.StatusTypeId = masterPUT.StatusTypeId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
+                history.TenantId = masterPUT.TenantId;
+                history.MenuModuleId = masterPUT.MenuModuleId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;
-                //history.IsDefault = masterPUT.IsDefault;
                 history.Browser = masterPUT.Browser;
-                history.DeviceName = masterPUT.DeviceName;
                 history.Location = masterPUT.Location;
                 history.DeviceIP = masterPUT.DeviceIP;
-                //history.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                history.LocationURL = masterPUT.LocationURL;
+                history.DeviceName = masterPUT.DeviceName;
                 history.Latitude = masterPUT.Latitude;
                 history.Longitude = masterPUT.Longitude;
-                //history.ActionBy = masterPUT.UpdatedBy;
+                history.ActionBy = masterPUT.ActionBy;
                 history.ActionAt = DateTime.Now;
 
                 await context.RiderHistory.AddAsync(history);
