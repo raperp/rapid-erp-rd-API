@@ -28,14 +28,6 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
                 requestResponse.Data = result.FirstOrDefault().Data;
             }
 
-            //requestResponse = new()
-            //{
-            //    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
-            //    IsSuccess = true,
-            //    Message = ResponseMessage.CreateSuccess,
-            //    Data = masterPOSTs
-            //};
-
             return requestResponse;
         }
 
@@ -65,28 +57,37 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
                 masterData.Name = masterPOST.Name;
                 masterData.Description = masterPOST.Description;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
+                masterData.MenuModuleId = masterPOST.MenuModuleId;
+                masterData.TenantId = masterPOST.TenantId;
+                masterData.StatusTypeId = masterPOST.StatusTypeId;
+                masterData.LanguageId = masterPOST.LanguageId;
+                masterData.IsDefault = masterPOST.IsDefault;
+                masterData.IsDraft = masterPOST.IsDraft;
 
                 await context.OrderTypes.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
                 OrderTypeHistory history = new();
+                history.OrderTypeId = masterData.Id;
                 history.Name = masterPOST.Name;
                 history.Description = masterPOST.Description;
-                history.OrderTypeId = masterData.Id;
-                //history.StatusTypeId = masterPOST.StatusTypeId;
+                history.TenantId = masterPOST.TenantId;
+                history.MenuModuleId = masterPOST.MenuModuleId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
+                history.LanguageId = masterPOST.LanguageId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
-                //history.IsDefault = masterPOST.IsDefault;
+                history.IsDefault = masterPOST.IsDefault;
+                history.IsDraft = masterPOST.IsDraft;
                 history.Browser = masterPOST.Browser;
-                history.DeviceName = masterPOST.DeviceName;
                 history.Location = masterPOST.Location;
                 history.DeviceIP = masterPOST.DeviceIP;
-                //history.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                history.LocationURL = masterPOST.LocationURL;
+                history.DeviceName = masterPOST.DeviceName;
                 history.Latitude = masterPOST.Latitude;
                 history.Longitude = masterPOST.Longitude;
-                //history.ActionBy = masterPOST.CreatedBy;
+                history.ActionBy = masterPOST.ActionBy;
                 history.ActionAt = DateTime.Now;
 
                 await context.OrderTypeHistory.AddAsync(history);
@@ -199,12 +200,18 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
 
             var data = (from ot in context.OrderTypes
                         join st in context.StatusTypes on ot.StatusTypeId equals st.Id
+                        join t in context.Tenants on ot.TenantId equals t.Id
+                        join l in context.Languages on ot.LanguageId equals l.Id
+                        join mm in context.MenuModules on ot.MenuModuleId equals mm.Id
                         select new
                         {
                             ot.Id,
                             ot.Name,
                             ot.Description,
-                            Status = st.Name
+                            MenuModule = mm.Name,
+                            Tanent = t.Name,
+                            Language = l.Name,
+                            Status = st.Name,
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -255,31 +262,37 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
     {
         try
         {
-            var data = (from ota in context.OrderTypeHistory
-                        join ot in context.OrderTypes on ota.OrderTypeId equals ot.Id
-                        join at in context.ActionTypes on ota.ActionTypeId equals at.Id
-                        //join st in context.StatusTypes on ota.StatusTypeId equals st.Id
+            var data = (from oth in context.OrderTypeHistory
+                        join ot in context.OrderTypes on oth.OrderTypeId equals ot.Id
+                        join et in context.ExportTypes on oth.ExportTypeId equals et.Id
+                        join at in context.ActionTypes on oth.ActionTypeId equals at.Id
+                        join t in context.Tenants on oth.TenantId equals t.Id
+                        join l in context.Languages on oth.LanguageId equals l.Id
+                        join mm in context.MenuModules on oth.MenuModuleId equals mm.Id
                         select new
                         {
-                            ota.Id,
-                            ota.Name,
-                            ota.Description,
+                            oth.Id,
+                            oth.Name,
+                            oth.Description,
                             OrderType = ot.Name,
-                            //ExportType = et.Name,
-                            ActionType = at.Name,
-                            //StatusType = st.Name,
-                            ota.ExportTo,
-                            ota.SourceURL,
-                            //ota.IsDefault,
-                            ota.Browser,
-                            ota.DeviceName,
-                            ota.Location,
-                            ota.DeviceIP,
-                            //ota.GoogleMapUrl,
-                            ota.Latitude,
-                            ota.Longitude,
-                            ota.ActionBy,
-                            ota.ActionAt
+                            Tanent = t.Name,
+                            MenuModule = mm.Name,
+                            Action = at.Name,
+                            Language = l.Name,
+                            ExportType = et.Name,
+                            oth.ExportTo,
+                            oth.SourceURL,
+                            oth.IsDefault,
+                            oth.IsDraft,
+                            oth.Browser,
+                            oth.Location,
+                            oth.DeviceIP,
+                            oth.LocationURL,
+                            oth.DeviceName,
+                            oth.Latitude,
+                            oth.Longitude,
+                            oth.ActionBy,
+                            oth.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -330,9 +343,10 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
         return result;
     }
 
-    public Task<dynamic> SoftDelete(int id)
+    public async Task<dynamic> SoftDelete(int id)
     {
-        throw new NotImplementedException();
+        var result = await shared.SoftDelete<OrderType>(id);
+        return result;
     }
 
     public async Task<RequestResponse> Update(OrderTypePUT masterPUT)
@@ -346,26 +360,35 @@ public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrde
             {
                 await context.OrderTypes.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
-                .SetProperty(x => x.Description, masterPUT.Description));
+                .SetProperty(x => x.Description, masterPUT.Description)
+                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                .SetProperty(x => x.TenantId, masterPUT.TenantId)
+                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
+                .SetProperty(x => x.IsDraft, masterPUT.IsDraft));
 
                 OrderTypeHistory history = new();
+                history.OrderTypeId = masterPUT.Id;
                 history.Name = masterPUT.Name;
                 history.Description = masterPUT.Description;
-                history.OrderTypeId = masterPUT.Id;
-                //history.StatusTypeId = masterPUT.StatusTypeId;
+                history.TenantId = masterPUT.TenantId;
+                history.MenuModuleId = masterPUT.MenuModuleId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
+                history.LanguageId = masterPUT.LanguageId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;
-                //history.IsDefault = masterPUT.IsDefault;
+                history.IsDefault = masterPUT.IsDefault;
+                history.IsDraft = masterPUT.IsDraft;
                 history.Browser = masterPUT.Browser;
-                history.DeviceName = masterPUT.DeviceName;
                 history.Location = masterPUT.Location;
                 history.DeviceIP = masterPUT.DeviceIP;
-                //history.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                history.LocationURL = masterPUT.LocationURL;
+                history.DeviceName = masterPUT.DeviceName;
                 history.Latitude = masterPUT.Latitude;
                 history.Longitude = masterPUT.Longitude;
-                //history.ActionBy = masterPUT.UpdatedBy;
+                history.ActionBy = masterPUT.ActionBy;
                 history.ActionAt = DateTime.Now;
 
                 await context.OrderTypeHistory.AddAsync(history);

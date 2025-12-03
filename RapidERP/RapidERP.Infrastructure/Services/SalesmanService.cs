@@ -27,14 +27,6 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                 requestResponse.Data = result.FirstOrDefault().Data;
             }
 
-            //requestResponse = new()
-            //{
-            //    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
-            //    IsSuccess = true,
-            //    Message = ResponseMessage.CreateSuccess,
-            //    Data = masterPOSTs
-            //};
-
             return requestResponse;
         }
 
@@ -64,7 +56,6 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                 masterData.Name = masterPOST.Name;
                 masterData.Code = masterPOST.Code;
                 masterData.Commission = masterPOST.Commission;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.Territory = masterPOST.Territory;
                 masterData.Experience = masterPOST.Experience;
                 masterData.DepartmentId = masterPOST.DepartmentId;
@@ -72,11 +63,16 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                 masterData.Phone = masterPOST.Phone;
                 masterData.Email = masterPOST.Email;
                 masterData.Description = masterPOST.Description;
+                masterData.MenuModuleId = masterPOST.MenuModuleId;
+                masterData.TenantId = masterPOST.TenantId;
+                masterData.StatusTypeId = masterPOST.StatusTypeId;
+                masterData.LanguageId = masterPOST.LanguageId;
 
                 await context.Salesmen.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
                 SalesmanHistory history = new();
+                history.SalesmanId = masterData.Id;
                 history.Name = masterPOST.Name;
                 history.Code = masterPOST.Code;
                 history.Commission = masterPOST.Commission;
@@ -87,20 +83,23 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                 history.Phone = masterPOST.Phone;
                 history.Email = masterPOST.Email;
                 history.Description = masterPOST.Description;
-                //history.StatusTypeId = masterPOST.StatusTypeId;
+                history.TenantId = masterPOST.TenantId;
+                history.MenuModuleId = masterPOST.MenuModuleId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
+                history.LanguageId = masterPOST.LanguageId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
-                //history.IsDefault = masterPOST.IsDefault;
+                history.IsDefault = masterPOST.IsDefault;
+                history.IsDraft = masterPOST.IsDraft;
                 history.Browser = masterPOST.Browser;
-                history.DeviceName = masterPOST.DeviceName;
                 history.Location = masterPOST.Location;
                 history.DeviceIP = masterPOST.DeviceIP;
-                //history.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                history.LocationURL = masterPOST.LocationURL;
+                history.DeviceName = masterPOST.DeviceName;
                 history.Latitude = masterPOST.Latitude;
                 history.Longitude = masterPOST.Longitude;
-                //history.ActionBy = masterPOST.CreatedBy;
+                history.ActionBy = masterPOST.ActionBy;
                 history.ActionAt = DateTime.Now;
 
                 await context.SalesmanHistory.AddAsync(history);
@@ -214,6 +213,9 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
             var data = (from s in context.Salesmen
                         join st in context.StatusTypes on s.StatusTypeId equals st.Id
                         join d in context.Departments on s.DepartmentId equals d.Id
+                        join t in context.Tenants on s.TenantId equals t.Id
+                        join l in context.Languages on s.LanguageId equals l.Id
+                        join mm in context.MenuModules on s.MenuModuleId equals mm.Id
                         select new
                         {
                             s.Id,
@@ -225,7 +227,10 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                             s.Territory,
                             s.Experience,
                             Department = d.Name,
-                            Status = st.Name
+                            MenuModule = mm.Name,
+                            Tanent = t.Name,
+                            Language = l.Name,
+                            Status = st.Name,
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -276,40 +281,45 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
     {
         try
         {
-            var data = (from sa in context.SalesmanHistory
-                        join s in context.Salesmen on sa.SalesmanId equals s.Id
-                        join d in context.Departments on sa.DepartmentId equals d.Id
-                        join at in context.ActionTypes on sa.ActionTypeId equals at.Id
-                        //join st in context.StatusTypes on sa.StatusTypeId equals st.Id
+            var data = (from sh in context.SalesmanHistory
+                        join s in context.Salesmen on sh.SalesmanId equals s.Id
+                        join d in context.Departments on sh.DepartmentId equals d.Id
+                        join et in context.ExportTypes on sh.ExportTypeId equals et.Id
+                        join at in context.ActionTypes on sh.ActionTypeId equals at.Id
+                        join t in context.Tenants on sh.TenantId equals t.Id
+                        join l in context.Languages on sh.LanguageId equals l.Id
+                        join mm in context.MenuModules on sh.MenuModuleId equals mm.Id
                         select new
                         {
-                            sa.Id,
-                            sa.Name,
-                            sa.Code,
-                            sa.Commission,
-                            sa.Territory,
-                            sa.Experience,
+                            sh.Id,
+                            Salesman = s.Name,
+                            sh.Name,
+                            sh.Code,
+                            sh.Commission,
+                            sh.Territory,
+                            sh.Experience,
                             Department = d.Name,
-                            sa.Phone,
-                            sa.Email,
-                            sa.Description,
-                            //State = st.Name,
+                            sh.Phone,
+                            sh.Email,
+                            sh.Description,
+                            Tanent = t.Name,
+                            MenuModule = mm.Name,
                             Action = at.Name,
-                            //ExportType = et.Name,
-                            ActionType = at.Name,
-                            //StatusType = st.Name,
-                            sa.ExportTo,
-                            sa.SourceURL,
-                            //sa.IsDefault,
-                            sa.Browser,
-                            sa.DeviceName,
-                            sa.Location,
-                            sa.DeviceIP,
-                            //sa.GoogleMapUrl,
-                            sa.Latitude,
-                            sa.Longitude,
-                            sa.ActionBy,
-                            sa.ActionAt
+                            Language = l.Name,
+                            ExportType = et.Name,
+                            sh.ExportTo,
+                            sh.SourceURL,
+                            sh.IsDefault,
+                            sh.IsDraft,
+                            sh.Browser,
+                            sh.Location,
+                            sh.DeviceIP,
+                            sh.LocationURL,
+                            sh.DeviceName,
+                            sh.Latitude,
+                            sh.Longitude,
+                            sh.ActionBy,
+                            sh.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -360,9 +370,10 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
         return result;
     }
 
-    public Task<dynamic> SoftDelete(int id)
+    public async Task<dynamic> SoftDelete(int id)
     {
-        throw new NotImplementedException();
+        var result = await shared.SoftDelete<Salesman>(id);
+        return result;
     }
 
     public async Task<RequestResponse> Update(SalesmanPUT masterPUT)
@@ -384,9 +395,14 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                 .SetProperty(x => x.ManagerId, masterPUT.ManagerId)
                 .SetProperty(x => x.Phone, masterPUT.Phone)
                 .SetProperty(x => x.Email, masterPUT.Email)
-                .SetProperty(x => x.Description, masterPUT.Description));
+                .SetProperty(x => x.Description, masterPUT.Description)
+                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                .SetProperty(x => x.TenantId, masterPUT.TenantId)
+                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                .SetProperty(x => x.LanguageId, masterPUT.LanguageId));
 
                 SalesmanHistory history = new();
+                history.SalesmanId = masterPUT.Id;
                 history.Name = masterPUT.Name;
                 history.Code = masterPUT.Code;
                 history.Commission = masterPUT.Commission;
@@ -397,20 +413,23 @@ public class SalesmanService(RapidERPDbContext context, IShared shared) : ISales
                 history.Phone = masterPUT.Phone;
                 history.Email = masterPUT.Email;
                 history.Description = masterPUT.Description;
-                //history.StatusTypeId = masterPUT.StatusTypeId;
+                history.TenantId = masterPUT.TenantId;
+                history.MenuModuleId = masterPUT.MenuModuleId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
+                history.LanguageId = masterPUT.LanguageId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;
-                //history.IsDefault = masterPUT.IsDefault;
+                history.IsDefault = masterPUT.IsDefault;
+                history.IsDraft = masterPUT.IsDraft;
                 history.Browser = masterPUT.Browser;
-                history.DeviceName = masterPUT.DeviceName;
                 history.Location = masterPUT.Location;
                 history.DeviceIP = masterPUT.DeviceIP;
-                //history.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                history.LocationURL = masterPUT.LocationURL;
+                history.DeviceName = masterPUT.DeviceName;
                 history.Latitude = masterPUT.Latitude;
                 history.Longitude = masterPUT.Longitude;
-                //history.ActionBy = masterPUT.UpdatedBy;
+                history.ActionBy = masterPUT.ActionBy;
                 history.ActionAt = DateTime.Now;
 
                 await context.SalesmanHistory.AddAsync(history);

@@ -28,14 +28,6 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                 requestResponse.Data = result.FirstOrDefault().Data;
             }
 
-            //requestResponse = new()
-            //{
-            //    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
-            //    IsSuccess = true,
-            //    Message = ResponseMessage.CreateSuccess,
-            //    Data = masterPOSTs
-            //};
-
             return requestResponse;
         }
 
@@ -77,12 +69,16 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                 masterData.Mobile = masterPOST.Mobile;
                 masterData.Email = masterPOST.Email;
                 masterData.Website = masterPOST.Website;
+                masterData.MenuModuleId = masterPOST.MenuModuleId;
+                masterData.TenantId = masterPOST.TenantId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
+                masterData.LanguageId = masterPOST.LanguageId;
 
                 await context.Suppliers.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
                 SupplierHistory history = new();
+                history.SupplierId = masterData.Id;
                 history.Name = masterPOST.Name;
                 history.CountryId = masterPOST.CountryId;
                 history.PaymentTermsId = masterPOST.PaymentTermsId;
@@ -98,20 +94,23 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                 history.Mobile = masterPOST.Mobile;
                 history.Email = masterPOST.Email;
                 history.Website = masterPOST.Website;
-                //history.StatusTypeId = masterPOST.StatusTypeId;
+                history.TenantId = masterPOST.TenantId;
+                history.MenuModuleId = masterPOST.MenuModuleId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
+                history.LanguageId = masterPOST.LanguageId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
-                //history.IsDefault = masterPOST.IsDefault;
+                history.IsDefault = masterPOST.IsDefault;
+                history.IsDraft = masterPOST.IsDraft;
                 history.Browser = masterPOST.Browser;
-                history.DeviceName = masterPOST.DeviceName;
                 history.Location = masterPOST.Location;
                 history.DeviceIP = masterPOST.DeviceIP;
-                //history.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                history.LocationURL = masterPOST.LocationURL;
+                history.DeviceName = masterPOST.DeviceName;
                 history.Latitude = masterPOST.Latitude;
                 history.Longitude = masterPOST.Longitude;
-                //history.ActionBy = masterPOST.CreatedBy;
+                history.ActionBy = masterPOST.ActionBy;
                 history.ActionAt = DateTime.Now;
 
                 await context.SupplierHistory.AddAsync(history);
@@ -224,8 +223,11 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
 
             var data = (from s in context.Suppliers
                         join st in context.StatusTypes on s.StatusTypeId equals st.Id
-                        join cu in context.Currencies on s.StatusTypeId equals cu.Id
-                        join co in context.Countries on s.StatusTypeId equals co.Id
+                        join cu in context.Currencies on s.CurrencyId equals cu.Id
+                        join co in context.Countries on s.CountryId equals co.Id
+                        join t in context.Tenants on s.TenantId equals t.Id
+                        join l in context.Languages on s.LanguageId equals l.Id
+                        join mm in context.MenuModules on s.MenuModuleId equals mm.Id
                         select new
                         {
                             s.Id,
@@ -241,6 +243,9 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                             s.ContactPersonName,
                             s.Mobile,
                             s.Email,
+                            MenuModule = mm.Name,
+                            Tanent = t.Name,
+                            Language = l.Name,
                             Status = st.Name,
                             Country = co.Name,
                             Currency = cu.Name
@@ -294,43 +299,49 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
     {
         try
         {
-            var data = (from sa in context.SupplierHistory
-                        join s in context.Suppliers on sa.SupplierId equals s.Id
-                        join co in context.Countries on sa.CountryId equals co.Id
-                        join cu in context.Currencies on sa.CurrencyId equals cu.Id
-                        join at in context.ActionTypes on sa.ActionTypeId equals at.Id
-                        //join st in context.StatusTypes on sa.StatusTypeId equals st.Id
+            var data = (from sh in context.SupplierHistory
+                        join s in context.Suppliers on sh.SupplierId equals s.Id
+                        join co in context.Countries on sh.CountryId equals co.Id
+                        join cu in context.Currencies on sh.CurrencyId equals cu.Id
+                        join et in context.ExportTypes on sh.ExportTypeId equals et.Id
+                        join at in context.ActionTypes on sh.ActionTypeId equals at.Id
+                        join t in context.Tenants on sh.TenantId equals t.Id
+                        join l in context.Languages on sh.LanguageId equals l.Id
+                        join mm in context.MenuModules on sh.MenuModuleId equals mm.Id
                         select new
                         {
-                            sa.Id,
-                            sa.Name,
-                            sa.PaymentTermsId,
-                            sa.DueDays,
-                            sa.DepositAmount,
-                            sa.ExchangeRate,
-                            sa.LocalAmount,
-                            sa.ContactPersonName,
-                            sa.Mobile,
-                            sa.Email,
-                            sa.Website,
+                            sh.Id,
+                            sh.Name,
+                            sh.PaymentTermsId,
+                            sh.DueDays,
+                            sh.DepositAmount,
+                            sh.ExchangeRate,
+                            sh.LocalAmount,
+                            sh.ContactPersonName,
+                            sh.Mobile,
+                            sh.Email,
+                            sh.Website,
                             Supplier = s.Name,
                             Country = co.Name,
                             Currency = cu.Name,
-                            //ExportType = et.Name,
-                            ActionType = at.Name,
-                            //StatusType = st.Name,
-                            sa.ExportTo,
-                            sa.SourceURL,
-                            //sa.IsDefault,
-                            sa.Browser,
-                            sa.DeviceName,
-                            sa.Location,
-                            sa.DeviceIP,
-                            //sa.GoogleMapUrl,
-                            sa.Latitude,
-                            sa.Longitude,
-                            sa.ActionBy,
-                            sa.ActionAt
+                            Tanent = t.Name,
+                            MenuModule = mm.Name,
+                            Action = at.Name,
+                            Language = l.Name,
+                            ExportType = et.Name,
+                            sh.ExportTo,
+                            sh.SourceURL,
+                            sh.IsDefault,
+                            sh.IsDraft,
+                            sh.Browser,
+                            sh.Location,
+                            sh.DeviceIP,
+                            sh.LocationURL,
+                            sh.DeviceName,
+                            sh.Latitude,
+                            sh.Longitude,
+                            sh.ActionBy,
+                            sh.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -381,9 +392,10 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
         return result;
     }
 
-    public Task<dynamic> SoftDelete(int id)
+    public async Task<dynamic> SoftDelete(int id)
     {
-        throw new NotImplementedException();
+        var result = await shared.SoftDelete<Supplier>(id);
+        return result;
     }
 
     public async Task<RequestResponse> Update(SupplierPUT masterPUT)
@@ -399,9 +411,9 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.CountryId, masterPUT.CountryId)
                 .SetProperty(x => x.PaymentTermsId, masterPUT.PaymentTermsId)
+                .SetProperty(x => x.PaymentTypeId, masterPUT.PaymentTypeId)
                 .SetProperty(x => x.DueDays, masterPUT.DueDays)
                 .SetProperty(x => x.DepositTypeId, masterPUT.DepositTypeId)
-                .SetProperty(x => x.PaymentTypeId, masterPUT.PaymentTypeId)
                 .SetProperty(x => x.DepositAmount, masterPUT.DepositAmount)
                 .SetProperty(x => x.CurrencyId, masterPUT.CurrencyId)
                 .SetProperty(x => x.ExchangeRate, masterPUT.ExchangeRate)
@@ -409,9 +421,14 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                 .SetProperty(x => x.ContactPersonName, masterPUT.ContactPersonName)
                 .SetProperty(x => x.Mobile, masterPUT.Mobile)
                 .SetProperty(x => x.Email, masterPUT.Email)
-                .SetProperty(x => x.Website, masterPUT.Website));
+                .SetProperty(x => x.Website, masterPUT.Website)
+                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                .SetProperty(x => x.TenantId, masterPUT.TenantId)
+                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                .SetProperty(x => x.LanguageId, masterPUT.LanguageId));
 
                 SupplierHistory history = new();
+                history.SupplierId = masterPUT.Id;
                 history.Name = masterPUT.Name;
                 history.CountryId = masterPUT.CountryId;
                 history.PaymentTermsId = masterPUT.PaymentTermsId;
@@ -427,20 +444,23 @@ public class SupplierService(RapidERPDbContext context, IShared shared) : ISuppl
                 history.Mobile = masterPUT.Mobile;
                 history.Email = masterPUT.Email;
                 history.Website = masterPUT.Website;
-                //history.StatusTypeId = masterPUT.StatusTypeId;
+                history.TenantId = masterPUT.TenantId;
+                history.MenuModuleId = masterPUT.MenuModuleId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
+                history.LanguageId = masterPUT.LanguageId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;
-                //history.IsDefault = masterPUT.IsDefault;
+                history.IsDefault = masterPUT.IsDefault;
+                history.IsDraft = masterPUT.IsDraft;
                 history.Browser = masterPUT.Browser;
-                history.DeviceName = masterPUT.DeviceName;
                 history.Location = masterPUT.Location;
                 history.DeviceIP = masterPUT.DeviceIP;
-                //history.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                history.LocationURL = masterPUT.LocationURL;
+                history.DeviceName = masterPUT.DeviceName;
                 history.Latitude = masterPUT.Latitude;
                 history.Longitude = masterPUT.Longitude;
-                //history.ActionBy = masterPUT.UpdatedBy;
+                history.ActionBy = masterPUT.ActionBy;
                 history.ActionAt = DateTime.Now;
 
                 await context.SupplierHistory.AddAsync(history);

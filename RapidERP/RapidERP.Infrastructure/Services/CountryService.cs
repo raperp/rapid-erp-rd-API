@@ -73,11 +73,11 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
 
                 CountryHistory history = new();
                 history.CountryId = masterData.Id;
+                history.CurrencyId = masterPOST.CurrencyId;
                 history.TenantId = masterPOST.TenantId;
                 history.MenuModuleId = masterPOST.MenuModuleId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 history.LanguageId = masterPOST.LanguageId;
-                history.CurrencyId = masterPOST.CurrencyId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
@@ -211,15 +211,15 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                         join st in context.StatusTypes on c.StatusTypeId equals st.Id
                         join t in context.Tenants on c.TenantId equals t.Id
                         join l in context.Languages on c.LanguageId equals l.Id
-                        join m in context.MenuModules on c.MenuModuleId equals m.Id
+                        join mm in context.MenuModules on c.MenuModuleId equals mm.Id
                         join cu in context.Currencies on c.CurrencyId equals cu.Id
                         select new
                         {
                             c.Id,
-                            Menu = m.Name,
+                            MenuModule = mm.Name,
                             Tanent = t.Name,
-                            Status = st.Name,
                             Language = l.Name,
+                            Status = st.Name,
                             Currency = cu.Name,
                             c.DialCode,
                             c.Name,
@@ -285,18 +285,18 @@ public class CountryService(RapidERPDbContext context, IShared shared) : ICountr
                         join at in context.ActionTypes on ca.ActionTypeId equals at.Id
                         join t in context.Tenants on ca.TenantId equals t.Id
                         join l in context.Languages on ca.LanguageId equals l.Id
-                        join m in context.MenuModules on ca.MenuModuleId equals m.Id
+                        join mm in context.MenuModules on ca.MenuModuleId equals mm.Id
                         join cu in context.Currencies on ca.CurrencyId equals cu.Id
                         select new
                         {
                             ca.Id,
                             Country = c.Name,
                             Tanent = t.Name,
-                            Menu = m.Name,
+                            MenuModule = mm.Name,
                             Action = at.Name,
                             Language = l.Name,
-                            Currency = cu.Name,
                             ExportType = et.Name,
+                            Currency = cu.Name,
                             ca.ExportTo,
                             ca.SourceURL,
                             ca.DialCode,

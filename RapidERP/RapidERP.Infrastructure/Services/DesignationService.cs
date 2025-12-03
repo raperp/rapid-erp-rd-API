@@ -27,14 +27,6 @@ public class DesignationService(RapidERPDbContext context, IShared shared) : IDe
                 requestResponse.Data = result.FirstOrDefault().Data;
             }
 
-            //requestResponse = new()
-            //{
-            //    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
-            //    IsSuccess = true,
-            //    Message = ResponseMessage.CreateSuccess,
-            //    Data = masterPOSTs
-            //};
-
             return requestResponse;
         }
 
@@ -65,29 +57,35 @@ public class DesignationService(RapidERPDbContext context, IShared shared) : IDe
                 masterData.Description = masterPOST.Description;
                 masterData.DepartmentId = masterPOST.DepartmentId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
+                masterData.MenuModuleId = masterPOST.MenuModuleId;
+                masterData.TenantId = masterPOST.TenantId;
+                masterData.LanguageId = masterPOST.LanguageId;
 
                 await context.Designations.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
                 DesignationHistory history = new();
-                history.Name = masterData.Name;
-                history.Description = masterPOST.Description;
                 history.DesignationId = masterData.Id;
+                history.Name = masterPOST.Name;
+                history.Description = masterPOST.Description;
                 history.DepartmentId = masterPOST.DepartmentId;
-                //history.StatusTypeId = masterPOST.StatusTypeId;
+                history.TenantId = masterPOST.TenantId;
+                history.MenuModuleId = masterPOST.MenuModuleId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
+                history.LanguageId = masterPOST.LanguageId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
-                //history.IsDefault = masterPOST.IsDefault;
+                history.IsDefault = masterPOST.IsDefault;
+                history.IsDraft = masterPOST.IsDraft;
                 history.Browser = masterPOST.Browser;
-                history.DeviceName = masterPOST.DeviceName;
                 history.Location = masterPOST.Location;
                 history.DeviceIP = masterPOST.DeviceIP;
-                //history.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                history.LocationURL = masterPOST.LocationURL;
+                history.DeviceName = masterPOST.DeviceName;
                 history.Latitude = masterPOST.Latitude;
                 history.Longitude = masterPOST.Longitude;
-                //history.ActionBy = masterPOST.CreatedBy;
+                history.ActionBy = masterPOST.ActionBy;
                 history.ActionAt = DateTime.Now;
 
                 await context.DesignationHistory.AddAsync(history);
@@ -201,12 +199,18 @@ public class DesignationService(RapidERPDbContext context, IShared shared) : IDe
             var data = (from d in context.Designations
                         join dep in context.Departments on d.DepartmentId equals dep.Id
                         join st in context.StatusTypes on d.StatusTypeId equals st.Id
+                        join t in context.Tenants on d.TenantId equals t.Id
+                        join l in context.Languages on d.LanguageId equals l.Id
+                        join mm in context.MenuModules on d.MenuModuleId equals mm.Id
                         select new
                         {
                             d.Id,
                             d.Name,
                             d.Description,
                             Department = dep.Name,
+                            MenuModule = mm.Name,
+                            Tanent = t.Name,
+                            Language = l.Name,
                             Status = st.Name
                         }).AsNoTracking().AsQueryable();
 
@@ -258,34 +262,39 @@ public class DesignationService(RapidERPDbContext context, IShared shared) : IDe
     {
         try
         {
-            var data = (from da in context.DesignationHistory
-                        join des in context.Designations on da.DepartmentId equals des.Id
-                        join dep in context.Departments on da.DepartmentId equals dep.Id
-                        //join et in context.ExportTypes on da.ExportTypeId equals et.Id
-                        join at in context.ActionTypes on da.ActionTypeId equals at.Id
-                        //join st in context.StatusTypes on da.StatusTypeId equals st.Id
+            var data = (from dh in context.DesignationHistory
+                        join des in context.Designations on dh.DesignationId equals des.Id
+                        join dep in context.Departments on dh.DepartmentId equals dep.Id
+                        join et in context.ExportTypes on dh.ExportTypeId equals et.Id
+                        join at in context.ActionTypes on dh.ActionTypeId equals at.Id
+                        join t in context.Tenants on dh.TenantId equals t.Id
+                        join l in context.Languages on dh.LanguageId equals l.Id
+                        join mm in context.MenuModules on dh.MenuModuleId equals mm.Id
                         select new
                         {
-                            da.Id,
+                            dh.Id,
                             Department = dep.Name,
                             Designation = des.Name,
-                            da.Name,
-                            da.Description,
-                            //ExportType = et.Name,
-                            ActionType = at.Name,
-                            //StatusType = st.Name,
-                            da.ExportTo,
-                            da.SourceURL,
-                            //da.IsDefault,
-                            da.Browser,
-                            da.DeviceName,
-                            da.Location,
-                            da.DeviceIP,
-                            //da.GoogleMapUrl,
-                            da.Latitude,
-                            da.Longitude,
-                            da.ActionBy,
-                            da.ActionAt
+                            dh.Name,
+                            dh.Description,
+                            Tanent = t.Name,
+                            MenuModule = mm.Name,
+                            Action = at.Name,
+                            Language = l.Name,
+                            ExportType = et.Name,
+                            dh.ExportTo,
+                            dh.SourceURL,
+                            dh.IsDefault,
+                            dh.IsDraft,
+                            dh.Browser,
+                            dh.Location,
+                            dh.DeviceIP,
+                            dh.LocationURL,
+                            dh.DeviceName,
+                            dh.Latitude,
+                            dh.Longitude,
+                            dh.ActionBy,
+                            dh.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -336,9 +345,10 @@ public class DesignationService(RapidERPDbContext context, IShared shared) : IDe
         return result;
     }
 
-    public Task<dynamic> SoftDelete(int id)
+    public async Task<dynamic> SoftDelete(int id)
     {
-        throw new NotImplementedException();
+        var result = await shared.SoftDelete<Designation>(id);
+        return result;
     }
 
     public async Task<RequestResponse> Update(DesignationPUT masterPUT)
@@ -353,27 +363,34 @@ public class DesignationService(RapidERPDbContext context, IShared shared) : IDe
                 await context.Designations.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description)
-                .SetProperty(x => x.DepartmentId, masterPUT.DepartmentId));
+                .SetProperty(x => x.DepartmentId, masterPUT.DepartmentId)
+                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                .SetProperty(x => x.TenantId, masterPUT.TenantId)
+                .SetProperty(x => x.LanguageId, masterPUT.LanguageId));
 
                 DesignationHistory history = new();
+                history.DesignationId = masterPUT.Id;
                 history.Name = masterPUT.Name;
                 history.Description = masterPUT.Description;
-                history.DesignationId = masterPUT.Id;
                 history.DepartmentId = masterPUT.DepartmentId;
-                //history.StatusTypeId = masterPUT.StatusTypeId;
+                history.TenantId = masterPUT.TenantId;
+                history.MenuModuleId = masterPUT.MenuModuleId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
+                history.LanguageId = masterPUT.LanguageId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;
-                //history.IsDefault = masterPUT.IsDefault;
+                history.IsDefault = masterPUT.IsDefault;
+                history.IsDraft = masterPUT.IsDraft;
                 history.Browser = masterPUT.Browser;
-                history.DeviceName = masterPUT.DeviceName;
                 history.Location = masterPUT.Location;
                 history.DeviceIP = masterPUT.DeviceIP;
-                //history.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                history.LocationURL = masterPUT.LocationURL;
+                history.DeviceName = masterPUT.DeviceName;
                 history.Latitude = masterPUT.Latitude;
                 history.Longitude = masterPUT.Longitude;
-                //history.ActionBy = masterPUT.UpdatedBy;
+                history.ActionBy = masterPUT.ActionBy;
                 history.ActionAt = DateTime.Now;
 
                 await context.DesignationHistory.AddAsync(history);

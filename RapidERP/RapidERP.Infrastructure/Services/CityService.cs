@@ -27,14 +27,6 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
                 requestResponse.Data = result.FirstOrDefault().Data;
             }
 
-            //requestResponse = new()
-            //{
-            //    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
-            //    IsSuccess = true,
-            //    Message = ResponseMessage.CreateSuccess,
-            //    Data = masterPOSTs
-            //};
-
             return requestResponse;
         }
 
@@ -64,32 +56,41 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
                 masterData.Name = masterPOST.Name;
                 masterData.Code = masterPOST.Code;
                 masterData.CountryId = masterPOST.CountryId;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.StateId = masterPOST.StateId;
+                masterData.TenantId = masterPOST.TenantId;
+                masterData.MenuModuleId = masterPOST.MenuModuleId;
+                masterData.LanguageId = masterPOST.LanguageId;
+                masterData.StatusTypeId = masterPOST.StatusTypeId;
+                masterData.IsDefault = masterPOST.IsDefault;
+                masterData.IsDraft = masterPOST.IsDraft;
+                
 
                 await context.Cities.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
                 CityHistory history = new();
+                history.CityId = masterData.Id;
                 history.Name = masterPOST.Name;
                 history.Code = masterPOST.Code;
                 history.CountryId = masterPOST.CountryId;
                 history.StateId = masterPOST.StateId;
-                history.CityId = masterData.Id;
-                //history.StatusTypeId = masterPOST.StatusTypeId;
+                history.TenantId = masterPOST.TenantId;
+                history.MenuModuleId = masterPOST.MenuModuleId;
+                history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
-                //history.IsDefault = masterPOST.IsDefault;
+                history.IsDefault = masterPOST.IsDefault;
+                history.IsDraft = masterPOST.IsDraft;
                 history.Browser = masterPOST.Browser;
-                history.DeviceName = masterPOST.DeviceName;
                 history.Location = masterPOST.Location;
                 history.DeviceIP = masterPOST.DeviceIP;
-                //history.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                history.LocationURL = masterPOST.LocationURL;
+                history.DeviceName = masterPOST.DeviceName;
                 history.Latitude = masterPOST.Latitude;
                 history.Longitude = masterPOST.Longitude;
-                //history.ActionBy = masterPOST.CreatedBy;
+                history.ActionBy = masterPOST.ActionBy;
                 history.ActionAt = DateTime.Now;
 
                 await context.CityHistory.AddAsync(history);
@@ -204,12 +205,17 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
                         join st in context.StatusTypes on c.StatusTypeId equals st.Id
                         join co in context.Countries on c.CountryId equals co.Id
                         join sta in context.States on c.StateId equals sta.Id
+                        join t in context.Tenants on c.TenantId equals t.Id
+                        join l in context.Languages on c.LanguageId equals l.Id
+                        join m in context.MenuModules on c.MenuModuleId equals m.Id
                         select new
                         {
                             c.Id,
                             c.Name,
                             Tanent = st.Name,
+                            MenuModule = m.Name,
                             Country = co.Name,
+                            Language = l.Name,
                             State = sta.Name,
                             Status = st.Name
                         }).AsNoTracking().AsQueryable();
@@ -262,36 +268,37 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
     {
         try
         {
-            var data = (from ca in context.CountryHistory
-                        join c in context.Countries on ca.CountryId equals c.Id
-                        //join et in context.ExportTypes on ca.ExportTypeId equals et.Id
-                        join at in context.ActionTypes on ca.ActionTypeId equals at.Id
-                        //join st in context.StatusTypes on ca.StatusTypeId equals st.Id
+            var data = (from ch in context.CityHistory
+                        join c in context.Cities on ch.CountryId equals c.Id
+                        join et in context.ExportTypes on ch.ExportTypeId equals et.Id
+                        join at in context.ActionTypes on ch.ActionTypeId equals at.Id
+                        join t in context.Tenants on ch.TenantId equals t.Id
+                        join l in context.Languages on ch.LanguageId equals l.Id
+                        join m in context.MenuModules on ch.MenuModuleId equals m.Id
                         select new
                         {
-                            ca.Id,
-                            Country = c.Name,
-                            ca.Name,
-                            //ExportType = et.Name,
-                            ActionType = at.Name,
-                            //StatusType = st.Name,
-                            ca.ExportTo,
-                            ca.SourceURL,
-                            //ca.IsDefault,
-                            ca.ISONumeric,
-                            ca.DialCode,
-                            ca.ISO2Code,
-                            ca.ISO3Code,
-                            ca.FlagURL,
-                            ca.Browser,
-                            ca.DeviceName,
-                            ca.Location,
-                            ca.DeviceIP,
-                            //ca.GoogleMapUrl,
-                            ca.Latitude,
-                            ca.Longitude,
-                            ca.ActionBy,
-                            ca.ActionAt
+                            ch.Id,
+                            City = c.Name,
+                            ch.Name,
+                            ch.Code,
+                            Tanent = t.Name,
+                            Menu = m.Name,
+                            Action = at.Name,
+                            Language = l.Name,
+                            ExportType = et.Name,
+                            ch.ExportTo,
+                            ch.SourceURL,
+                            ch.IsDefault,
+                            ch.IsDraft,
+                            ch.Browser,
+                            ch.Location,
+                            ch.DeviceIP,
+                            ch.LocationURL,
+                            ch.DeviceName,
+                            ch.Latitude,
+                            ch.Longitude,
+                            ch.ActionBy,
+                            ch.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -342,9 +349,10 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
         return result;
     }
 
-    public Task<dynamic> SoftDelete(int id)
+    public async Task<dynamic> SoftDelete(int id)
     {
-        throw new NotImplementedException();
+        var result = await shared.SoftDelete<City>(id);
+        return result;
     }
 
     public async Task<RequestResponse> Update(CityPUT masterPUT)
@@ -358,30 +366,39 @@ public class CityService(RapidERPDbContext context, IShared shared) : ICity
             {
                 await context.Cities.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
+                .SetProperty(x => x.Code, masterPUT.Code)
                 .SetProperty(x => x.CountryId, masterPUT.CountryId)
                 .SetProperty(x => x.StateId, masterPUT.StateId)
-                .SetProperty(x => x.Code, masterPUT.Code));
+                .SetProperty(x => x.TenantId, masterPUT.TenantId)
+                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
+                .SetProperty(x => x.IsDraft, masterPUT.IsDraft));
 
                 CityHistory history = new();
+                history.CityId = masterPUT.Id;
                 history.Name = masterPUT.Name;
                 history.Code = masterPUT.Code;
                 history.CountryId = masterPUT.CountryId;
                 history.StateId = masterPUT.StateId;
-                history.CityId = masterPUT.Id;
-                //history.StatusTypeId = masterPUT.StatusTypeId;
+                history.TenantId = masterPUT.TenantId;
+                history.MenuModuleId = masterPUT.MenuModuleId;
+                history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;
-                //history.IsDefault = masterPUT.IsDefault;
+                history.IsDefault = masterPUT.IsDefault;
+                history.IsDraft = masterPUT.IsDraft;
                 history.Browser = masterPUT.Browser;
-                history.DeviceName = masterPUT.DeviceName;
                 history.Location = masterPUT.Location;
                 history.DeviceIP = masterPUT.DeviceIP;
-                //history.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                history.LocationURL = masterPUT.LocationURL;
+                history.DeviceName = masterPUT.DeviceName;
                 history.Latitude = masterPUT.Latitude;
                 history.Longitude = masterPUT.Longitude;
-                //history.ActionBy = masterPUT.UpdatedBy;
+                history.ActionBy = masterPUT.ActionBy;
                 history.ActionAt = DateTime.Now;
 
                 await context.CityHistory.AddAsync(history);

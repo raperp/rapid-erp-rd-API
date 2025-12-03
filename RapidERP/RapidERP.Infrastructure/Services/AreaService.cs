@@ -27,14 +27,6 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                 requestResponse.Data = result.FirstOrDefault().Data;
             }
 
-            //requestResponse = new()
-            //{
-            //    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
-            //    IsSuccess = true,
-            //    Message = ResponseMessage.CreateSuccess,
-            //    Data = masterPOSTs
-            //};
-
             return requestResponse;
         }
 
@@ -64,33 +56,43 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                 masterData.Name = masterPOST.Name;
                 masterData.Code = masterPOST.Code;
                 masterData.CountryId = masterPOST.CountryId;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.StateId = masterPOST.StateId;
+                masterData.CityId = masterPOST.CityId;
+                masterData.StatusTypeId = masterPOST.StatusTypeId;
+                masterData.TenantId = masterPOST.TenantId;
+                masterData.MenuModuleId = masterPOST.MenuModuleId;
+                masterData.LanguageId = masterPOST.LanguageId;
+                masterData.IsDefault = masterPOST.IsDefault;
+                masterData.IsDraft = masterPOST.IsDraft;
+                
 
                 await context.Areas.AddAsync(masterData);
                 await context.SaveChangesAsync();
 
                 AreaHistory history = new();
+                history.AreaId = masterData.Id;
                 history.Name = masterPOST.Name;
                 history.Code = masterPOST.Code;
                 history.CountryId = masterPOST.CountryId;
                 history.StateId = masterPOST.StateId;
-                history.AreaId = masterData.Id;
                 history.CityId = masterPOST.CityId;
-                //history.StatusTypeId = masterPOST.StatusTypeId;
+                history.TenantId = masterPOST.TenantId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
+                history.MenuModuleId = masterPOST.MenuModuleId;
+                history.LanguageId = masterPOST.LanguageId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
-                //history.IsDefault = masterPOST.IsDefault;
+                history.IsDefault = masterPOST.IsDefault;
+                history.IsDraft = masterPOST.IsDraft;
                 history.Browser = masterPOST.Browser;
-                history.DeviceName = masterPOST.DeviceName;
                 history.Location = masterPOST.Location;
                 history.DeviceIP = masterPOST.DeviceIP;
-                //history.GoogleMapUrl = masterPOST.GoogleMapUrl;
+                history.LocationURL = masterPOST.LocationURL;
+                history.DeviceName = masterPOST.DeviceName;
                 history.Latitude = masterPOST.Latitude;
                 history.Longitude = masterPOST.Longitude;
-                //history.ActionBy = masterPOST.CreatedBy;
+                history.ActionBy = masterPOST.ActionBy;
                 history.ActionAt = DateTime.Now;
 
                 await context.AreaHistory.AddAsync(history);
@@ -206,14 +208,21 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
                         join co in context.Countries on a.CountryId equals co.Id
                         join sta in context.States on a.StateId equals sta.Id
                         join ci in context.Cities on a.CityId equals ci.Id
+                        join mm in context.MenuModules on a.MenuModuleId equals mm.Id
+                        join t in context.Tenants on a.TenantId equals t.Id
+                        join l in context.Languages on a.LanguageId equals l.Id
                         select new
                         {
                             a.Id,
                             a.Name,
-                            Tanent = st.Name,
+                            a.Code,
+                            Tanent = t.Name,
+                            Language = l.Name,
+                            MenuModule = mm.Name,
                             Country = co.Name,
                             State = sta.Name,
-                            Status = st.Name
+                            Status = st.Name,
+                            City = ci.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -265,30 +274,35 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
         try
         {
             var data = (from aa in context.AreaHistory
+                        join a in context.Areas on aa.AreaId equals a.Id
                         join c in context.Countries on aa.CountryId equals c.Id
                         join sta in context.States on aa.StateId equals sta.Id
                         join cit in context.Cities on aa.CityId equals cit.Id
-                        //join et in context.ExportTypes on aa.ExportTypeId equals et.Id
+                        join mm in context.MenuModules on aa.MenuModuleId equals mm.Id
+                        join t in context.Tenants on aa.TenantId equals t.Id
+                        join l in context.Languages on aa.LanguageId equals l.Id
                         join at in context.ActionTypes on aa.ActionTypeId equals at.Id
-                        //join st in context.StatusTypes on aa.StatusTypeId equals st.Id
+                        join et in context.ExportTypes on aa.ExportTypeId equals et.Id
                         select new
                         {
                             aa.Id,
+                            aa.Name,
+                            aa.Code,
                             Country = c.Name,
                             State = sta.Name,
                             City = cit.Name,
-                            aa.Name,
-                            //ExportType = et.Name,
+                            Tanent = t.Name,
+                            Language = l.Name,
+                            MenuModule = mm.Name,
                             ActionType = at.Name,
-                            //StatusType = st.Name,
+                            ExportType = et.Name,
                             aa.ExportTo,
                             aa.SourceURL,
-                            //aa.IsDefault,
                             aa.Browser,
-                            aa.DeviceName,
                             aa.Location,
                             aa.DeviceIP,
-                            //aa.GoogleMapUrl,
+                            aa.LocationURL,
+                            aa.DeviceName,
                             aa.Latitude,
                             aa.Longitude,
                             aa.ActionBy,
@@ -359,32 +373,41 @@ public class AreaService(RapidERPDbContext context, IShared shared) : IArea
             {
                 await context.Areas.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
+                .SetProperty(x => x.Code, masterPUT.Code)
                 .SetProperty(x => x.CountryId, masterPUT.CountryId)
                 .SetProperty(x => x.StateId, masterPUT.StateId)
                 .SetProperty(x => x.CityId, masterPUT.CityId)
-                .SetProperty(x => x.Code, masterPUT.Code));
+                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                .SetProperty(x => x.TenantId, masterPUT.TenantId)
+                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
+                .SetProperty(x => x.IsDraft, masterPUT.IsDraft));
 
                 AreaHistory history = new();
+                history.AreaId = masterPUT.Id;
                 history.Name = masterPUT.Name;
                 history.Code = masterPUT.Code;
                 history.CountryId = masterPUT.CountryId;
                 history.StateId = masterPUT.StateId;
-                history.AreaId = masterPUT.Id;
                 history.CityId = masterPUT.CityId;
-                //history.StatusTypeId = masterPUT.StatusTypeId;
+                history.TenantId = masterPUT.TenantId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
+                history.MenuModuleId = masterPUT.MenuModuleId;
+                history.LanguageId = masterPUT.LanguageId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;
-                //history.IsDefault = masterPUT.IsDefault;
+                history.IsDefault = masterPUT.IsDefault;
+                history.IsDraft = masterPUT.IsDraft;
                 history.Browser = masterPUT.Browser;
-                history.DeviceName = masterPUT.DeviceName;
                 history.Location = masterPUT.Location;
                 history.DeviceIP = masterPUT.DeviceIP;
-                //history.GoogleMapUrl = masterPUT.GoogleMapUrl;
+                history.LocationURL = masterPUT.LocationURL;
+                history.DeviceName = masterPUT.DeviceName;
                 history.Latitude = masterPUT.Latitude;
                 history.Longitude = masterPUT.Longitude;
-                //history.ActionBy = masterPUT.UpdatedBy;
+                history.ActionBy = masterPUT.ActionBy;
                 history.ActionAt = DateTime.Now;
 
                 await context.AreaHistory.AddAsync(history);
