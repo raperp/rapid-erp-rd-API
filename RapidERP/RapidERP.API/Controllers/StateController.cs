@@ -50,11 +50,11 @@ namespace RapidERP.API.Controllers
             return Ok(result);
         }
 
-        //[HttpDelete("Delete")]
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    var result = await state.Delete(id);
-        //    return Ok(result);
-        //}
+        [HttpPut("Delete")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await state.SoftDelete(id);
+            return Ok(result);
+        }
     }
 }
