@@ -6,5 +6,5 @@ namespace RapidERP.Application.Interfaces;
 public interface IAuthentication
 {
     Task<RequestResponse> Login(Login login);
-    //Task<RequestResponse> VerifyOTP(string otp);
+    Task<RequestResponse> ResetPassowrd(string email);
 }

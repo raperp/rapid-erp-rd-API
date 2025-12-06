@@ -14,7 +14,7 @@ public class AuthenticationService(RapidERPDbContext context, ICommunication com
     {
         try
         {
-            await using var transaction = await context.Database.BeginTransactionAsync();
+            //await using var transaction = await context.Database.BeginTransactionAsync();
             
             var user = await context.Users.SingleOrDefaultAsync(u => u.Email == login.Email && u.Password == login.Password);
             //var userId = await context.Users.Where(u => u.Email == login.Email).Select(u => u.Id).FirstOrDefaultAsync();
@@ -112,5 +112,70 @@ public class AuthenticationService(RapidERPDbContext context, ICommunication com
         }
     }
 
-     
+    public async Task<RequestResponse> ResetPassowrd(string email)
+    {
+        try
+        {
+            //await using var transaction = await context.Database.BeginTransactionAsync();
+
+            var user = await context.Users.SingleOrDefaultAsync(u => u.Email == email);
+            
+            if (user is not null)
+            {
+                string generatedOTP = Guid.NewGuid().ToString().Substring(0, 6);
+                communication.SendEmail(user.Email, "Your OTP Code", $"Your OTP code is: {generatedOTP}", "");
+                await context.Users.Where(u => u.Email == email).ExecuteUpdateAsync(u => u.SetProperty(user => user.OTP, generatedOTP));
+                var otp = await context.Users.Where(u => u.Email == email).Select(u => u.OTP).FirstOrDefaultAsync();
+
+                if (generatedOTP == otp)
+                {
+                    string generatedPassword = Guid.NewGuid().ToString().Substring(0, 9);
+                    communication.SendEmail(user.Email, "Password Reset", $"Your New Password is: {generatedPassword}", "");
+                    await context.Users.Where(u => u.Email == email).ExecuteUpdateAsync(u => u.SetProperty(user => user.Password, generatedPassword));
+                    
+                    requestResponse = new()
+                    {
+                        StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                        IsSuccess = true,
+                        Message = "Password Reset Successful"
+                    };
+                }
+
+                else
+                {
+                    requestResponse = new()
+                    {
+                        StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
+                        IsSuccess = false,
+                        Message = "OTP Verification Failed"
+                    };
+                }
+            }
+
+            else
+            {
+                // Failed login, return to the login page with an error message
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
+                    IsSuccess = false,
+                    Message = "Invalid email address"
+                };
+            }
+
+            return requestResponse;
+        }
+
+        catch
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
+                IsSuccess = false,
+                Message = ResponseMessage.WrongDataInput
+            };
+
+            return requestResponse;
+        }
+    }
 }
