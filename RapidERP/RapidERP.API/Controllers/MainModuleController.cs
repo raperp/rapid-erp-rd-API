@@ -8,7 +8,7 @@ namespace RapidERP.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class MainModuleController(IMainModule mainModule) : ControllerBase
+public class MainModuleController(IMainModuleService mainModule) : ControllerBase
 {
     [HttpGet("GetAll")]
     public async Task<IActionResult> GetAll(int skip, int take)

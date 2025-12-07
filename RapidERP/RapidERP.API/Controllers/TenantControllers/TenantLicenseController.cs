@@ -6,7 +6,7 @@ namespace RapidERP.API.Controllers.TenantControllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class TenantLicenseController(ITenantLicense tenantLicense) : ControllerBase
+public class TenantLicenseController(ITenantLicenseService tenantLicense) : ControllerBase
 {
     [HttpGet("GetAll")]
     public async Task<IActionResult> GetAll(int skip, int take)

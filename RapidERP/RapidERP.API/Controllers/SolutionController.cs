@@ -6,7 +6,7 @@ namespace RapidERP.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class SolutionController(ISolution solution) : ControllerBase
+public class SolutionController(ISolutionService solution) : ControllerBase
 {
     [HttpGet("GetAll")]
     public async Task<IActionResult> GetAll(int skip, int take)

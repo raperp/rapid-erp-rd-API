@@ -6,7 +6,7 @@ namespace RapidERP.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TableController(ITable table) : ControllerBase
+    public class TableController(ITableService table) : ControllerBase
     {
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll(int skip, int take)

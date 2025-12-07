@@ -7,7 +7,7 @@ using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
-public class AreaService(RapidERPDbContext context, IShared shared) : IArea
+public class AreaService(RapidERPDbContext context, ISharedService shared) : IAreaService
 {
     RequestResponse requestResponse { get; set; }
 

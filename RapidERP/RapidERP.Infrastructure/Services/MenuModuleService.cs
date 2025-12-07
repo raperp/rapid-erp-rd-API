@@ -10,7 +10,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class MenuModuleService(RapidERPDbContext context, IShared shared) : IMenuModule
+public class MenuModuleService(RapidERPDbContext context, ISharedService shared) : IMenuModuleService
 {
     RequestResponse requestResponse { get; set; }
 

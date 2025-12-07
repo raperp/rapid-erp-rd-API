@@ -8,7 +8,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class SolutionService(RapidERPDbContext context, IShared shared) : ISolution
+public class SolutionService(RapidERPDbContext context, ISharedService shared) : ISolutionService
 {
     RequestResponse requestResponse { get; set; }
 

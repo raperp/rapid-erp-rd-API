@@ -6,7 +6,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class AuthenticationService(RapidERPDbContext context, ICommunication communication) : IAuthentication
+public class AuthenticationService(RapidERPDbContext context, ICommunicationService communication) : IAuthenticationService
 {
     RequestResponse requestResponse { get; set; }
 

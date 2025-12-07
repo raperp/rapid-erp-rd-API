@@ -8,7 +8,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class ActionTypeService(RapidERPDbContext context, IShared shared) : IActionType
+public class ActionTypeService(RapidERPDbContext context, ISharedService shared) : IActionTypeService
 {
     RequestResponse requestResponse { get; set; }
 

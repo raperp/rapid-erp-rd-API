@@ -8,7 +8,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class CountryService(RapidERPDbContext context, IShared shared) : ICountry
+public class CountryService(RapidERPDbContext context, ISharedService shared) : ICountryService
 {
     RequestResponse requestResponse { get; set; }
 

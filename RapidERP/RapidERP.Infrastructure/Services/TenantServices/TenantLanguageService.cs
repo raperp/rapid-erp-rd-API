@@ -9,7 +9,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services.TenantServices;
 
-public class TenantLanguageService(RapidERPDbContext context, IShared shared) : ITenantLanguage
+public class TenantLanguageService(RapidERPDbContext context, ISharedService shared) : ITenantLanguageService
 {
     RequestResponse requestResponse { get; set; }
 

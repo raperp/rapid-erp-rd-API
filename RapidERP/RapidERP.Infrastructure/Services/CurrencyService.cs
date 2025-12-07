@@ -7,7 +7,7 @@ using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
-public class CurrencyService(RapidERPDbContext context, IShared shared) : ICurrency
+public class CurrencyService(RapidERPDbContext context, ISharedService shared) : ICurrencyService
 {
     RequestResponse requestResponse { get; set; }
 

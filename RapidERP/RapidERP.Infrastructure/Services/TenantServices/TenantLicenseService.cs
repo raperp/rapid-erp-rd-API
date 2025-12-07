@@ -8,7 +8,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services.TenantServices;
 
-public class TenantLicenseService(RapidERPDbContext context, IShared shared) : ITenantLicense
+public class TenantLicenseService(RapidERPDbContext context, ISharedService shared) : ITenantLicenseService
 {
     RequestResponse requestResponse { get; set; }
 

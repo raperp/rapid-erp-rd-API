@@ -8,7 +8,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services.TenantServices;
 
-public class TenantCalendarService(RapidERPDbContext context, IShared shared) : ITenantCalendar
+public class TenantCalendarService(RapidERPDbContext context, ISharedService shared) : ITenantCalendarService
 {
     RequestResponse requestResponse { get; set; }
 

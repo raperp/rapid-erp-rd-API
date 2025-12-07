@@ -5,7 +5,7 @@ using RapidERP.Application.Interfaces;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class CommunicationService : ICommunication
+public class CommunicationService : ICommunicationService
 {
     public string SendEmail(string to, string subject, string body, string parameter)
     {

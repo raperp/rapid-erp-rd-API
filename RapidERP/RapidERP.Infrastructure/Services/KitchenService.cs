@@ -8,7 +8,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services
 {
-    public class KitchenService(RapidERPDbContext context, IShared shared) : IKitchen
+    public class KitchenService(RapidERPDbContext context, ISharedService shared) : IKitchenService
     {
         RequestResponse requestResponse { get; set; }
 

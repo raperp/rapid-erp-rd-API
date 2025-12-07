@@ -8,7 +8,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class UserIPWhitelistService(RapidERPDbContext context, IShared shared) : IUserIPWhitelist
+public class UserIPWhitelistService(RapidERPDbContext context, ISharedService shared) : IUserIPWhitelistService
 {
     RequestResponse requestResponse { get; set; }
 

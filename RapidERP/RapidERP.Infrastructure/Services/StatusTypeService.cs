@@ -8,7 +8,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class StatusTypeService(RapidERPDbContext context, IShared shared) : IStatusType
+public class StatusTypeService(RapidERPDbContext context, ISharedService shared) : IStatusTypeService
 {
     RequestResponse requestResponse { get; set; }
 

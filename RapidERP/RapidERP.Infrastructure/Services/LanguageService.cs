@@ -7,7 +7,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class LanguageService(RapidERPDbContext context, IShared shared) : ILanguage
+public class LanguageService(RapidERPDbContext context, ISharedService shared) : ILanguageService
 {
     RequestResponse requestResponse { get; set; }
 

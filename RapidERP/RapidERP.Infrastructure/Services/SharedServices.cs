@@ -7,7 +7,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class SharedServices(RapidERPDbContext context) : IShared
+public class SharedServices(RapidERPDbContext context) : ISharedService
 {
     RequestResponse requestResponse { get; set; }
 

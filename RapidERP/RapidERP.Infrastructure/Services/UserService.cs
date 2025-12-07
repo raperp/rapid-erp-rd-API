@@ -8,7 +8,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class UserService(RapidERPDbContext context, IShared shared) : IUser
+public class UserService(RapidERPDbContext context, ISharedService shared) : IUserService
 {
     RequestResponse requestResponse { get; set; }
 

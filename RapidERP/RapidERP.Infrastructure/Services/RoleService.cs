@@ -8,7 +8,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class RoleService(RapidERPDbContext context, IShared shared) : IRole
+public class RoleService(RapidERPDbContext context, ISharedService shared) : IRoleService
 {
     RequestResponse requestResponse { get; set; }
 

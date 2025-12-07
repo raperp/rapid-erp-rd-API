@@ -7,7 +7,7 @@ using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
-public class CityService(RapidERPDbContext context, IShared shared) : ICity
+public class CityService(RapidERPDbContext context, ISharedService shared) : ICityService
 {
     RequestResponse requestResponse { get; set; }
 

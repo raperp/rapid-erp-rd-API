@@ -7,7 +7,7 @@ using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
-public class SalesmanService(RapidERPDbContext context, IShared shared) : ISalesman
+public class SalesmanService(RapidERPDbContext context, ISharedService shared) : ISalesmanService
 {
     RequestResponse requestResponse { get; set; }
 

@@ -8,7 +8,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services
 {
-    public class StateService(RapidERPDbContext context, IShared shared) : IState
+    public class StateService(RapidERPDbContext context, ISharedService shared) : IStateService
     {
         RequestResponse requestResponse { get; set; }
 

@@ -7,7 +7,7 @@ namespace RapidERP.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class LanguageController(ILanguage language) : ControllerBase
+public class LanguageController(ILanguageService language) : ControllerBase
 {
     [HttpGet("GetAll")]
     public async Task<IActionResult> GetAll(int skip, int take)

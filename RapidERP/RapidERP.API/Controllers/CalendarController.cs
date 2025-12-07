@@ -6,7 +6,7 @@ namespace RapidERP.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class CalendarController(ICalendar calendar) : ControllerBase
+public class CalendarController(ICalendarService calendar) : ControllerBase
 {
     [HttpGet("GetAll")]
     public async Task<IActionResult> GetAll(int skip, int take)

@@ -6,7 +6,7 @@ namespace RapidERP.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class UserIPWhitelistController(IUserIPWhitelist userIPWhitelist) : ControllerBase
+public class UserIPWhitelistController(IUserIPWhitelistService userIPWhitelist) : ControllerBase
 {
     [HttpGet("GetAll")]
     public async Task<IActionResult> GetAll(int skip, int take)

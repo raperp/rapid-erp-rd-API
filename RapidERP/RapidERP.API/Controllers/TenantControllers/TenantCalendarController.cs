@@ -6,7 +6,7 @@ namespace RapidERP.API.Controllers.TenantControllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class TenantCalendarController(ITenantCalendar tenantCalendar) : ControllerBase
+public class TenantCalendarController(ITenantCalendarService tenantCalendar) : ControllerBase
 {
     [HttpGet("GetAll")]
     public async Task<IActionResult> GetAll(int skip, int take)

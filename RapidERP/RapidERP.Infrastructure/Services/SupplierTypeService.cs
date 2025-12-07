@@ -6,7 +6,7 @@ using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
-public class SupplierTypeService(RapidERPDbContext context, IShared shared) : ISupplierType
+public class SupplierTypeService(RapidERPDbContext context, ISharedService shared) : ISupplierTypeService
 {
     RequestResponse requestResponse { get; set; }
 

@@ -8,7 +8,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class RiderService(RapidERPDbContext context, IShared shared) : IRider
+public class RiderService(RapidERPDbContext context, ISharedService shared) : IRiderService
 {
     RequestResponse requestResponse { get; set; }
 

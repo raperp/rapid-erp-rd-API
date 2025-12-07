@@ -8,7 +8,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class OrderTypeService(RapidERPDbContext context, IShared shared) : IOrderType
+public class OrderTypeService(RapidERPDbContext context, ISharedService shared) : IOrderTypeService
 {
     RequestResponse requestResponse { get; set; }
 

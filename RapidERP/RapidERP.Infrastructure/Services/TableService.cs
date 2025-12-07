@@ -5,11 +5,11 @@ using RapidERP.Application.Interfaces;
 using RapidERP.Domain.Entities.TableModules;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
-using ITable = RapidERP.Application.Interfaces.ITable;
+using ITableService = RapidERP.Application.Interfaces.ITableService;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class TableService(RapidERPDbContext context, IShared shared) : ITable
+public class TableService(RapidERPDbContext context, ISharedService shared) : ITableService
 {
     RequestResponse requestResponse { get; set; }
 

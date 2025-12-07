@@ -7,7 +7,7 @@ using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
-public class DesignationService(RapidERPDbContext context, IShared shared) : IDesignation
+public class DesignationService(RapidERPDbContext context, ISharedService shared) : IDesignationService
 {
     RequestResponse requestResponse { get; set; }
 

@@ -8,7 +8,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class MainModuleService(RapidERPDbContext context, IShared shared) : IMainModule
+public class MainModuleService(RapidERPDbContext context, ISharedService shared) : IMainModuleService
 {
     RequestResponse requestResponse { get; set; }
 

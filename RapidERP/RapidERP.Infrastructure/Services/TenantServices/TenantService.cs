@@ -9,7 +9,7 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services.TenantServices;
 
-public class TenantService(RapidERPDbContext context, IShared shared) : ITenant
+public class TenantService(RapidERPDbContext context, ISharedService shared) : ITenantService
 {
     RequestResponse requestResponse { get; set; }
     

@@ -7,7 +7,7 @@ using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
-public class ExportTypeService(RapidERPDbContext context, IShared shared) : IExportType
+public class ExportTypeService(RapidERPDbContext context, ISharedService shared) : IExportTypeService
 {
     RequestResponse requestResponse { get; set; }
 
