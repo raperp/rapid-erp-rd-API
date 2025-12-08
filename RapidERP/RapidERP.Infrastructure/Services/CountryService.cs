@@ -378,6 +378,28 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
             var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
+            
+            var masterData = await context.Countries.SingleOrDefaultAsync(x => x.Id == masterPUT.Id);
+            var historyData = await context.CountryHistory.SingleOrDefaultAsync(x => x.CountryId == masterPUT.Id);
+
+            //Loading current data
+            masterPUT.ISONumeric = (masterPUT.ISONumeric is not null) ? masterPUT.ISONumeric : masterData.ISONumeric;
+            masterPUT.Name = (masterPUT.Name is not null) ? masterPUT.Name : masterData.Name;
+            masterPUT.ISO2Code = (masterPUT.ISO2Code is not null) ? masterPUT.ISO2Code : masterData.ISO2Code;
+            masterPUT.ISO3Code = (masterPUT.ISO3Code is not null) ? masterPUT.ISO3Code : masterData.ISO3Code;
+            masterPUT.MenuModuleId = (masterPUT.MenuModuleId is not null) ? masterPUT.MenuModuleId : masterData.MenuModuleId;
+            masterPUT.TenantId = (masterPUT.TenantId is not null) ? masterPUT.TenantId : masterData.TenantId;
+            masterPUT.StatusTypeId = (masterPUT.StatusTypeId != 0) ? masterPUT.StatusTypeId : masterData.StatusTypeId;
+            masterPUT.LanguageId = (masterPUT.LanguageId is not null) ? masterPUT.LanguageId : masterData.LanguageId;
+            masterPUT.CurrencyId = (masterPUT.CurrencyId != 0) ? masterPUT.CurrencyId : masterData.CurrencyId;
+            masterPUT.DialCode = (masterPUT.DialCode is not null) ? masterPUT.DialCode : masterData.DialCode;
+            masterPUT.FlagURL = (masterPUT.FlagURL is not null) ? masterPUT.FlagURL : masterData.FlagURL;
+            
+            masterPUT.ActionTypeId = (masterPUT.ActionTypeId is not null) ? masterPUT.ActionTypeId : historyData.ActionTypeId;
+            masterPUT.ExportTypeId = (masterPUT.ExportTypeId is not null) ? masterPUT.ExportTypeId : historyData.ExportTypeId;
+            masterPUT.SourceURL = (masterPUT.SourceURL is not null) ? masterPUT.SourceURL : historyData.SourceURL;
+            masterPUT.ExportTo = (masterPUT.ExportTo is not null) ? masterPUT.ExportTo : historyData.ExportTo;
+            masterPUT.ActionBy = (masterPUT.ActionBy != 0) ? masterPUT.ActionBy : historyData.ActionBy;
 
             if (isExists == false)
             {
@@ -427,6 +449,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
                 await context.CountryHistory.AddAsync(history);
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
+
 
                 requestResponse = new()
                 {

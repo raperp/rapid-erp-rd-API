@@ -5,7 +5,7 @@ public class BaseDTO : TrackerDTO
     public string Name { get; set; } 
     public int? MenuModuleId { get; set; }
     public int? TenantId { get; set; }
-    public int StatusTypeId { get; set; }
+    public int? StatusTypeId { get; set; }
     public int? LanguageId { get; set; }
     public bool IsDefault { get; set; }
     public bool IsDraft { get; set; }
