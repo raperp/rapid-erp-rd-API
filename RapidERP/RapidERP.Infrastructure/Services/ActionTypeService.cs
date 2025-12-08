@@ -67,7 +67,7 @@ public class ActionTypeService(RapidERPDbContext context, ISharedService shared)
                 masterData.Description = masterPOST.Description;
 
                 await context.ActionTypes.AddAsync(masterData);
-                await context.SaveChangesAsync();
+                //await context.SaveChangesAsync();
 
                 ActionTypeHistory history = new();
                 history.ActionTypeId = masterData.Id;

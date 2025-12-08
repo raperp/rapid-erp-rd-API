@@ -62,7 +62,7 @@ public class DesignationService(RapidERPDbContext context, ISharedService shared
                 masterData.LanguageId = masterPOST.LanguageId;
 
                 await context.Designations.AddAsync(masterData);
-                await context.SaveChangesAsync();
+                //await context.SaveChangesAsync();
 
                 DesignationHistory history = new();
                 history.DesignationId = masterData.Id;

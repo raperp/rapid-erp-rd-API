@@ -64,7 +64,7 @@ public class SolutionService(RapidERPDbContext context, ISharedService shared) :
                 masterData.Description = masterPOST.Description;
 
                 await context.Solutions.AddAsync(masterData);
-                await context.SaveChangesAsync();
+                //await context.SaveChangesAsync();
 
                 SolutionHistory history = new();
                 history.SolutionId = masterData.Id;

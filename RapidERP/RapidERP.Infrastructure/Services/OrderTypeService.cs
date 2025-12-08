@@ -65,7 +65,7 @@ public class OrderTypeService(RapidERPDbContext context, ISharedService shared) 
                 masterData.IsDraft = masterPOST.IsDraft;
 
                 await context.OrderTypes.AddAsync(masterData);
-                await context.SaveChangesAsync();
+                //await context.SaveChangesAsync();
 
                 OrderTypeHistory history = new();
                 history.OrderTypeId = masterData.Id;

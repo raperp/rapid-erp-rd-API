@@ -69,7 +69,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
                 masterData.FlagURL = masterPOST.FlagURL;
 
                 await context.Countries.AddAsync(masterData);
-                await context.SaveChangesAsync();
+                //await context.SaveChangesAsync();
 
                 CountryHistory history = new();
                 history.CountryId = masterData.Id;

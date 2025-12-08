@@ -63,7 +63,7 @@ public class DepartmentService(RapidERPDbContext context, ISharedService shared)
                 masterData.IsDraft = masterPOST.IsDraft;
 
                 await context.Departments.AddAsync(masterData);
-                await context.SaveChangesAsync();
+                //await context.SaveChangesAsync();
 
                 DepartmentHistory history = new();
                 history.DepartmentId = masterData.Id;

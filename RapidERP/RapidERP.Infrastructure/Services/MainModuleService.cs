@@ -69,7 +69,7 @@ public class MainModuleService(RapidERPDbContext context, ISharedService shared)
                 masterData.SetSerial = masterPOST.SetSerial;
 
                 await context.MainModules.AddAsync(masterData);
-                await context.SaveChangesAsync();
+                //await context.SaveChangesAsync();
 
                 MainModuleHistory history = new();
                 history.MainModuleId = masterData.Id;

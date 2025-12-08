@@ -72,7 +72,7 @@ namespace RapidERP.Infrastructure.Services
                     masterData.IsDraft = masterPOST.IsDraft;
 
                     await context.States.AddAsync(masterData);
-                    await context.SaveChangesAsync();
+                    //await context.SaveChangesAsync();
 
                     StateHistory history = new();
                     history.StateId = masterData.Id;

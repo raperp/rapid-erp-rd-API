@@ -58,7 +58,7 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
 
                 await context.Roles.AddAsync(masterData);
-                await context.SaveChangesAsync();
+                //await context.SaveChangesAsync();
 
                 RoleHistory history = new();
                 history.RoleId = masterData.Id;

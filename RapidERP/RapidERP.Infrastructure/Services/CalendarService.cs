@@ -65,7 +65,7 @@ public class CalendarService(RapidERPDbContext context, ISharedService shared) :
                 masterData.TotalMonth = masterPOST.TotalMonth;
 
                 await context.Calendars.AddAsync(masterData);
-                await context.SaveChangesAsync();
+                //await context.SaveChangesAsync();
 
                 CalendarHistory history = new();
                 history.CalendarId = masterData.Id;

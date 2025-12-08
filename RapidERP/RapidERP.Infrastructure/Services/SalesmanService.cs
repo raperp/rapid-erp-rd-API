@@ -69,7 +69,7 @@ public class SalesmanService(RapidERPDbContext context, ISharedService shared) :
                 masterData.LanguageId = masterPOST.LanguageId;
 
                 await context.Salesmen.AddAsync(masterData);
-                await context.SaveChangesAsync();
+                //await context.SaveChangesAsync();
 
                 SalesmanHistory history = new();
                 history.SalesmanId = masterData.Id;

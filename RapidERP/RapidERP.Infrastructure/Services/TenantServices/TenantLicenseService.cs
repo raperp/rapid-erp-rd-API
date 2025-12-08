@@ -64,7 +64,7 @@ public class TenantLicenseService(RapidERPDbContext context, ISharedService shar
                 masterData.ReminderAt = masterPOST.ReminderAt;
 
                 await context.TenantLicenses.AddAsync(masterData);
-                await context.SaveChangesAsync();
+                //await context.SaveChangesAsync();
 
             TenantHistory history = new();
             history.TenantId = masterPOST.TenantId;

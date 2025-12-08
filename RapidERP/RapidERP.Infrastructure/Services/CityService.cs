@@ -66,7 +66,7 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                 
 
                 await context.Cities.AddAsync(masterData);
-                await context.SaveChangesAsync();
+                //await context.SaveChangesAsync();
 
                 CityHistory history = new();
                 history.CityId = masterData.Id;

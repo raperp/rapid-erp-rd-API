@@ -61,7 +61,7 @@ public class TenantLanguageService(RapidERPDbContext context, ISharedService sha
                 masterData.DefaultLanguageId = masterPOST.DefaultLanguageId; 
 
                 await context.TenantLanguages.AddAsync(masterData);
-                await context.SaveChangesAsync();
+                //await context.SaveChangesAsync();
 
                 TenantHistory history = new();
                 history.TenantId = masterPOST.TenantId;

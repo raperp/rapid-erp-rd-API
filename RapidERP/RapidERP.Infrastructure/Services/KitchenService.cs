@@ -62,7 +62,7 @@ namespace RapidERP.Infrastructure.Services
                     masterData.MenuModuleId = masterPOST.MenuModuleId;
 
                     await context.Kitchens.AddAsync(masterData);
-                    await context.SaveChangesAsync();
+                    //await context.SaveChangesAsync();
 
                     KitchenHistory history = new();
                     history.Name = masterPOST.Name;

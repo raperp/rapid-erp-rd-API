@@ -60,7 +60,7 @@ public class LanguageService(RapidERPDbContext context, ISharedService shared) :
                 masterData.IconURL = masterPOST.IconURL;
 
                 await context.Languages.AddAsync(masterData);
-                await context.SaveChangesAsync();
+                //await context.SaveChangesAsync();
 
                 LanguageHistory history = new();
                 history.LanguageId = masterData.Id;

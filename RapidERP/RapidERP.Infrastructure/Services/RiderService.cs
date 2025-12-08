@@ -67,7 +67,7 @@ public class RiderService(RapidERPDbContext context, ISharedService shared) : IR
                 masterData.MenuModuleId = masterPOST.MenuModuleId;
 
                 await context.Riders.AddAsync(masterData);
-                await context.SaveChangesAsync();
+                //await context.SaveChangesAsync();
 
                 RiderHistory history = new();
                 history.Name = masterPOST.Name;

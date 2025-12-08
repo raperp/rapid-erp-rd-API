@@ -69,7 +69,7 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
                 masterData.Website = masterPOST.Website;
 
                 await context.Tenants.AddAsync(masterData);
-                await context.SaveChangesAsync();
+                //await context.SaveChangesAsync();
 
                 TenantHistory history = new();
                 history.TenantId = masterData.Id;

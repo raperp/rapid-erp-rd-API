@@ -67,7 +67,7 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                 
 
                 await context.Areas.AddAsync(masterData);
-                await context.SaveChangesAsync();
+                //await context.SaveChangesAsync();
 
                 AreaHistory history = new();
                 history.AreaId = masterData.Id;

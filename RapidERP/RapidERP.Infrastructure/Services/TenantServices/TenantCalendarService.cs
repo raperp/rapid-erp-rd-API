@@ -59,7 +59,7 @@ public class TenantCalendarService(RapidERPDbContext context, ISharedService sha
                 masterData.DefaultCalendarId = masterPOST.DefaultCalendarId;
 
                 await context.TenantCalendars.AddAsync(masterData);
-                await context.SaveChangesAsync();
+                //await context.SaveChangesAsync();
 
                 TenantHistory history = new();
                 history.TenantId = masterPOST.TenantId;
