@@ -2,13 +2,14 @@
 using RapidERP.Application.DTOs.CountryDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
+using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class CountryService(RapidERPDbContext context, ISharedService shared) : ICountryService
+public class CountryService(RapidERPDbContext context, ISharedService shared, IRepository repository) : ICountryService
 {
     private RequestResponse _requestResponse { get; set; }
 
@@ -48,12 +49,14 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
     {
         try
         {
+            Country masterData = new();
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
+            //var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
+            var masterRecord = await repository.FindByName(masterData);
 
-            if (isExists == false)
+            if (masterRecord is null)
             {
-                Country masterData = new();
+                
                 masterData.MenuModuleId = masterPOST.MenuModuleId;
                 masterData.TenantId = masterPOST.TenantId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
@@ -68,8 +71,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
                 masterData.ISO3Code = masterPOST.ISO3Code;
                 masterData.FlagURL = masterPOST.FlagURL;
 
-                await context.Countries.AddAsync(masterData);
-                //await context.SaveChangesAsync();
+                await repository.Add(masterData);
 
                 CountryHistory history = new();
                 history.CountryId = masterData.Id;
@@ -99,8 +101,8 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
                 history.ActionBy = masterPOST.ActionBy;
                 history.ActionAt = DateTime.Now;
 
-                await context.CountryHistory.AddAsync(history);
-                await context.SaveChangesAsync();
+                await repository.Add(history);
+                await repository.CommitChanges();
                 await transaction.CommitAsync();
 
                 _requestResponse = new()
@@ -376,49 +378,60 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
     {
         try
         {
+            Country masterData = new();
+            CountryHistory history = new();
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
+            //var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
+            var masterRecord = await repository.FindById(masterData);
             
-            var masterData = await context.Countries.SingleOrDefaultAsync(x => x.Id == masterPUT.Id);
-            var historyData = await context.CountryHistory.SingleOrDefaultAsync(x => x.CountryId == masterPUT.Id);
-
-            //Loading current data
-            masterPUT.ISONumeric = (masterPUT.ISONumeric is not null) ? masterPUT.ISONumeric : masterData.ISONumeric;
-            masterPUT.Name = (masterPUT.Name is not null) ? masterPUT.Name : masterData.Name;
-            masterPUT.ISO2Code = (masterPUT.ISO2Code is not null) ? masterPUT.ISO2Code : masterData.ISO2Code;
-            masterPUT.ISO3Code = (masterPUT.ISO3Code is not null) ? masterPUT.ISO3Code : masterData.ISO3Code;
-            masterPUT.MenuModuleId = (masterPUT.MenuModuleId is not null) ? masterPUT.MenuModuleId : masterData.MenuModuleId;
-            masterPUT.TenantId = (masterPUT.TenantId is not null) ? masterPUT.TenantId : masterData.TenantId;
-            masterPUT.StatusTypeId = (masterPUT.StatusTypeId != 0) ? masterPUT.StatusTypeId : masterData.StatusTypeId;
-            masterPUT.LanguageId = (masterPUT.LanguageId is not null) ? masterPUT.LanguageId : masterData.LanguageId;
-            masterPUT.CurrencyId = (masterPUT.CurrencyId != 0) ? masterPUT.CurrencyId : masterData.CurrencyId;
-            masterPUT.DialCode = (masterPUT.DialCode is not null) ? masterPUT.DialCode : masterData.DialCode;
-            masterPUT.FlagURL = (masterPUT.FlagURL is not null) ? masterPUT.FlagURL : masterData.FlagURL;
+            //Loading current data to parameter
+            masterPUT.ISONumeric = (masterPUT.ISONumeric is not null) ? masterPUT.ISONumeric : masterRecord.ISONumeric;
+            masterPUT.Name = (masterPUT.Name is not null) ? masterPUT.Name : masterRecord.Name;
+            masterPUT.ISO2Code = (masterPUT.ISO2Code is not null) ? masterPUT.ISO2Code : masterRecord.ISO2Code;
+            masterPUT.ISO3Code = (masterPUT.ISO3Code is not null) ? masterPUT.ISO3Code : masterRecord.ISO3Code;
+            masterPUT.MenuModuleId = (masterPUT.MenuModuleId is not null) ? masterPUT.MenuModuleId : masterRecord.MenuModuleId;
+            masterPUT.TenantId = (masterPUT.TenantId is not null) ? masterPUT.TenantId : masterRecord.TenantId;
+            masterPUT.StatusTypeId = (masterPUT.StatusTypeId != 0) ? masterPUT.StatusTypeId : masterRecord.StatusTypeId;
+            masterPUT.LanguageId = (masterPUT.LanguageId is not null) ? masterPUT.LanguageId : masterRecord.LanguageId;
+            masterPUT.CurrencyId = (masterPUT.CurrencyId != 0) ? masterPUT.CurrencyId : masterRecord.CurrencyId;
+            masterPUT.DialCode = (masterPUT.DialCode is not null) ? masterPUT.DialCode : masterRecord.DialCode;
+            masterPUT.FlagURL = (masterPUT.FlagURL is not null) ? masterPUT.FlagURL : masterRecord.FlagURL;
             
-            masterPUT.ActionTypeId = (masterPUT.ActionTypeId is not null) ? masterPUT.ActionTypeId : historyData.ActionTypeId;
-            masterPUT.ExportTypeId = (masterPUT.ExportTypeId is not null) ? masterPUT.ExportTypeId : historyData.ExportTypeId;
-            masterPUT.SourceURL = (masterPUT.SourceURL is not null) ? masterPUT.SourceURL : historyData.SourceURL;
-            masterPUT.ExportTo = (masterPUT.ExportTo is not null) ? masterPUT.ExportTo : historyData.ExportTo;
-            masterPUT.ActionBy = (masterPUT.ActionBy != 0) ? masterPUT.ActionBy : historyData.ActionBy;
+             
 
-            if (isExists == false)
+            if (masterRecord is null)
             {
-                await context.Countries.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
-                .SetProperty(x => x.TenantId, masterPUT.TenantId)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
-                .SetProperty(x => x.CurrencyId, masterPUT.CurrencyId)
-                .SetProperty(x => x.DialCode, masterPUT.DialCode)
-                .SetProperty(x => x.Name, masterPUT.Name)
-                .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
-                .SetProperty(x => x.IsDraft, masterPUT.IsDraft)
-                .SetProperty(x => x.ISONumeric, masterPUT.ISONumeric)
-                .SetProperty(x => x.ISO2Code, masterPUT.ISO2Code)
-                .SetProperty(x => x.ISO3Code, masterPUT.ISO3Code)
-                .SetProperty(x => x.FlagURL, masterPUT.FlagURL));
+                //await context.Countries.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
+                //.SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                //.SetProperty(x => x.TenantId, masterPUT.TenantId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                //.SetProperty(x => x.CurrencyId, masterPUT.CurrencyId)
+                //.SetProperty(x => x.DialCode, masterPUT.DialCode)
+                //.SetProperty(x => x.Name, masterPUT.Name)
+                //.SetProperty(x => x.IsDefault, masterPUT.IsDefault)
+                //.SetProperty(x => x.IsDraft, masterPUT.IsDraft)
+                //.SetProperty(x => x.ISONumeric, masterPUT.ISONumeric)
+                //.SetProperty(x => x.ISO2Code, masterPUT.ISO2Code)
+                //.SetProperty(x => x.ISO3Code, masterPUT.ISO3Code)
+                //.SetProperty(x => x.FlagURL, masterPUT.FlagURL));
 
-                CountryHistory history = new();
+                
+                masterData.MenuModuleId = masterPUT.MenuModuleId;
+                masterData.TenantId = masterPUT.TenantId;
+                masterData.StatusTypeId = masterPUT.StatusTypeId;
+                masterData.LanguageId = masterPUT.LanguageId;
+                masterData.CurrencyId = masterPUT.CurrencyId;
+                masterData.DialCode = masterPUT.DialCode;
+                masterData.Name = masterPUT.Name;
+                masterData.IsDefault = masterPUT.IsDefault;
+                masterData.IsDraft = masterPUT.IsDraft;
+                masterData.ISONumeric = masterPUT.ISONumeric;
+                masterData.ISO2Code = masterPUT.ISO2Code;
+                masterData.ISO3Code = masterPUT.ISO3Code;
+                masterData.FlagURL = masterPUT.FlagURL;
+
+                
                 history.CountryId = masterPUT.Id;
                 history.TenantId = masterPUT.TenantId;
                 history.MenuModuleId = masterPUT.MenuModuleId;
@@ -445,9 +458,10 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
                 history.Longitude = masterPUT.Longitude;
                 history.ActionBy = masterPUT.ActionBy;
                 history.ActionAt = DateTime.Now;
-
-                await context.CountryHistory.AddAsync(history);
-                await context.SaveChangesAsync();
+                
+                await repository.Update(masterData); 
+                await repository.Add(history);
+                await repository.CommitChanges();
                 await transaction.CommitAsync();
 
 
