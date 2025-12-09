@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using RapidERP.Infrastructure.Extentions;
+using RapidERP.Infrastructure.Health;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext(builder.Configuration);
 builder.Services.AddScopedServices();
+builder.Services.AddHealthChecks().AddCheck<SqlHealth>("sql-health-check", HealthStatus.Unhealthy);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,7 +24,10 @@ var app = builder.Build();
 //}
 
 app.UseSwagger();
+
 app.UseSwaggerUI();
+
+app.MapHealthChecks("health");
 
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {

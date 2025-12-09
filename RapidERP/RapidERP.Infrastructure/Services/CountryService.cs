@@ -10,37 +10,37 @@ namespace RapidERP.Infrastructure.Services;
 
 public class CountryService(RapidERPDbContext context, ISharedService shared) : ICountryService
 {
-    RequestResponse requestResponse { get; set; }
+    private RequestResponse _requestResponse { get; set; }
 
     public async Task<RequestResponse> CreateBulk(List<CountryPOST> masterPOSTs)
     {
         try
         {
-            requestResponse = new();
+            _requestResponse = new();
 
             foreach (var masterPOST in masterPOSTs)
             {
                 var task = CreateSingle(masterPOST);
                 var result = await Task.WhenAll(task);
-                requestResponse.Message = result.FirstOrDefault().Message;
-                requestResponse.IsSuccess = result.FirstOrDefault().IsSuccess;
-                requestResponse.StatusCode = result.FirstOrDefault().StatusCode;
-                requestResponse.Data = result.FirstOrDefault().Data;
+                _requestResponse.Message = result.FirstOrDefault().Message;
+                _requestResponse.IsSuccess = result.FirstOrDefault().IsSuccess;
+                _requestResponse.StatusCode = result.FirstOrDefault().StatusCode;
+                _requestResponse.Data = result.FirstOrDefault().Data;
             }
 
-            return requestResponse;
+            return _requestResponse;
         }
 
         catch
         {
-            requestResponse = new()
+            _requestResponse = new()
             {
                 StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
                 IsSuccess = false,
                 Message = ResponseMessage.WrongDataInput
             };
 
-            return requestResponse;
+            return _requestResponse;
         }
     }
 
@@ -103,7 +103,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
                 await context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
-                requestResponse = new()
+                _requestResponse = new()
                 {
                     StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
                     IsSuccess = true,
@@ -114,7 +114,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
 
             else
             {
-                requestResponse = new()
+                _requestResponse = new()
                 {
                     StatusCode = $"{HTTPStatusCode.Conflict} {HTTPStatusCode.StatusCode409}",
                     IsSuccess = false,
@@ -122,19 +122,19 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
                 };
             }
 
-            return requestResponse;
+            return _requestResponse;
         }
 
         catch
         {
-            requestResponse = new()
+            _requestResponse = new()
             {
                 StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
                 IsSuccess = false,
                 Message = ResponseMessage.WrongDataInput
             };
 
-            return requestResponse;
+            return _requestResponse;
         }
     }
 
@@ -147,7 +147,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
 
             if (ishistoryExists == false)
             {
-                requestResponse = new()
+                _requestResponse = new()
                 {
                     StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
                     IsSuccess = false,
@@ -164,7 +164,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
 
             if (isExists == false)
             {
-                requestResponse = new()
+                _requestResponse = new()
                 {
                     StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
                     IsSuccess = false,
@@ -178,26 +178,26 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
                 await transaction.CommitAsync();
             }
 
-            requestResponse = new()
+            _requestResponse = new()
             {
                 StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
                 IsSuccess = true,
                 Message = ResponseMessage.DeleteSuccess
             };
 
-            return requestResponse;
+            return _requestResponse;
         }
 
         catch (Exception ex)
         {
-            requestResponse = new()
+            _requestResponse = new()
             {
                 StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
                 IsSuccess = false,
                 Message = ex.Message
             };
 
-            return requestResponse;
+            return _requestResponse;
         }
     }
 
@@ -236,7 +236,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
                 result.Count = await shared.GetCounts<Country>();
                 result.Data = await data.ToListAsync();
 
-                requestResponse = new()
+                _requestResponse = new()
                 {
                     StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
                     IsSuccess = true,
@@ -250,7 +250,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
                 result.Count = await shared.GetCounts<Country>();
                 result.Data = await data.Skip(skip).Take(take).ToListAsync();
 
-                requestResponse = new()
+                _requestResponse = new()
                 {
                     StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
                     IsSuccess = true,
@@ -259,19 +259,19 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
                 };
             }
 
-            return requestResponse;
+            return _requestResponse;
         }
 
         catch (Exception ex)
         {
-            requestResponse = new()
+            _requestResponse = new()
             {
                 StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
                 IsSuccess = false,
                 Message = ex.Message
             };
 
-            return requestResponse;
+            return _requestResponse;
         }
     }
 
@@ -322,7 +322,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
             {
                 var result = await data.ToListAsync();
 
-                requestResponse = new()
+                _requestResponse = new()
                 {
                     StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
                     IsSuccess = true,
@@ -335,7 +335,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
             {
                 var result = await data.Skip(skip).Take(take).ToListAsync();
 
-                requestResponse = new()
+                _requestResponse = new()
                 {
                     StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
                     IsSuccess = true,
@@ -344,19 +344,19 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
                 };
             }
 
-            return requestResponse;
+            return _requestResponse;
         }
 
         catch (Exception ex)
         {
-            requestResponse = new()
+            _requestResponse = new()
             {
                 StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
                 IsSuccess = false,
                 Message = ex.Message
             };
 
-            return requestResponse;
+            return _requestResponse;
         }
     }
 
@@ -451,7 +451,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
                 await transaction.CommitAsync();
 
 
-                requestResponse = new()
+                _requestResponse = new()
                 {
                     StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
                     IsSuccess = true,
@@ -462,7 +462,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
 
             else
             {
-                requestResponse = new()
+                _requestResponse = new()
                 {
                     StatusCode = $"{HTTPStatusCode.Conflict} {HTTPStatusCode.StatusCode409}",
                     IsSuccess = false,
@@ -470,19 +470,19 @@ public class CountryService(RapidERPDbContext context, ISharedService shared) : 
                 };
             }
 
-            return requestResponse;
+            return _requestResponse;
         }
 
         catch
         {
-            requestResponse = new()
+            _requestResponse = new()
             {
                 StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
                 IsSuccess = false,
                 Message = ResponseMessage.WrongDataInput
             };
 
-            return requestResponse;
+            return _requestResponse;
         }
     }
 }
