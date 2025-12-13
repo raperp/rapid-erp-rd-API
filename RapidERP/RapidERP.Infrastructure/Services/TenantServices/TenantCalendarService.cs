@@ -122,7 +122,7 @@ public class TenantCalendarService(RapidERPDbContext context, ISharedService sha
         }
     }
 
-    public async Task<RequestResponse> GetAll(int skip, int take)
+    public async Task<RequestResponse> GetAll(int skip, int take, int pageSize)
     {
         try
         {
@@ -179,7 +179,7 @@ public class TenantCalendarService(RapidERPDbContext context, ISharedService sha
         }
     }
 
-    public async Task<RequestResponse> GetHistory(int skip, int take)
+    public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
     {
         try
         {

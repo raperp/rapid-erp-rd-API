@@ -9,9 +9,9 @@ namespace RapidERP.API.Controllers
     public class StateController(IStateService state) : ControllerBase
     {
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll(int skip, int take)
+        public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
         {
-            var result = await state.GetAll(skip, take);
+            var result = await state.GetAll(skip, take, pageSize);
             return Ok(result);
         }
 
@@ -23,9 +23,9 @@ namespace RapidERP.API.Controllers
         }
 
         [HttpGet("GetHistory")]
-        public async Task<IActionResult> GetHistory(int skip, int take)
+        public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
         {
-            var result = await state.GetHistory(skip, take);
+            var result = await state.GetHistory(skip, take, pageSize);
             return Ok(result);
         }
 

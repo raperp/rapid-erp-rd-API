@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
 using RapidERP.Domain.Entities.Shared;
 using RapidERP.Domain.Utilities;
@@ -11,7 +10,7 @@ public class SharedServices(RapidERPDbContext context) : ISharedService
 {
     RequestResponse requestResponse { get; set; }
 
-    public async Task<dynamic> GetCounts<T>() where T : BaseMaster
+    public async Task<dynamic> GetCounts<T>(int pageSize) where T : BaseMaster
     {
         float totalCount = await context.Set<T>().CountAsync();
         int activeCount = await context.Set<T>().Where(x => x.StatusTypeId == 3).CountAsync();
@@ -28,6 +27,9 @@ public class SharedServices(RapidERPDbContext context) : ISharedService
         //float updatedPercentage = updatedCount / totalCount * 100;
         float deletedPercentage = deletedCount / totalCount * 100;
 
+        int totalItems = await context.Set<T>().CountAsync();
+        int totalPages = (totalItems + pageSize - 1) / pageSize;
+
         var result = new
         {
             totalCount,
@@ -36,6 +38,8 @@ public class SharedServices(RapidERPDbContext context) : ISharedService
             draftCount,
             //updatedCount,
             deletedCount,
+            totalItems,
+            totalPages,
 
             totalPercentage = $"{totalPercentage.ToString()}%",
             activePercentage = $"{activePercentage.ToString()}%",

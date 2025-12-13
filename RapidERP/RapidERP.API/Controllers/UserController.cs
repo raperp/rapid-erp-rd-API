@@ -10,9 +10,9 @@ namespace RapidERP.API.Controllers
     public class UserController(IUserService user) : ControllerBase
     {
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll(int skip, int take)
+        public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
         {
-            var result = await user.GetAll(skip, take);
+            var result = await user.GetAll(skip, take, pageSize);
             return Ok(result);
         }
 
@@ -24,9 +24,9 @@ namespace RapidERP.API.Controllers
         }
 
         [HttpGet("GetHistory")]
-        public async Task<IActionResult> GetHistory(int skip, int take)
+        public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
         {
-            var result = await user.GetHistory(skip, take);
+            var result = await user.GetHistory(skip, take, pageSize);
             return Ok(result);
         }
 

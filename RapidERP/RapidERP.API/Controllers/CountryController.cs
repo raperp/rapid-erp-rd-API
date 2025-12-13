@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RapidERP.Application.DTOs.CountryDTOs;
+using RapidERP.Application.DTOs.CountryDTOs.CountryRecord;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
 
@@ -10,9 +11,9 @@ namespace RapidERP.API.Controllers
     public class CountryController(ICountryService country) : ControllerBase
     {
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll(int skip, int take)
+        public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
         {
-            var result = await country.GetAll(skip, take);
+            var result = await country.GetAll(skip, take, pageSize);
             return Ok(result);
         }
 
@@ -24,28 +25,28 @@ namespace RapidERP.API.Controllers
         }
 
         [HttpGet("GetHistory")]
-        public async Task<IActionResult> GetHistory(int skip, int take)
+        public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
         {
-            var result = await country.GetHistory(skip, take);
+            var result = await country.GetHistory(skip, take, pageSize);
             return Ok(result);
         }
 
         [HttpPost("CreateSingle")]
-        public async Task<IActionResult> CreateSingle(CountryPOST masterPOST)
+        public async Task<IActionResult> CreateSingle(CountryPOSTRequestDTO masterPOST)
         {
             var result = await country.CreateSingle(masterPOST);
             return Ok(result);
         }
 
         [HttpPost("CreateBulk")]
-        public async Task<IActionResult> CreateBulk(List<CountryPOST> masterPOSTs)
+        public async Task<IActionResult> CreateBulk(List<CountryPOSTRequestDTO> masterPOSTs)
         {
             var result = await country.CreateBulk(masterPOSTs);
             return Ok(result);
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(CountryPUT masterPUT)
+        public async Task<IActionResult> Update(CountryPUTRequestDTO masterPUT)
         {
             var result = await country.Update(masterPUT);
             return Ok(result);

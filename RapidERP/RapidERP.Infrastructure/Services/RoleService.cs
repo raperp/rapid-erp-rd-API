@@ -181,7 +181,7 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
         }
     }
 
-    public async Task<RequestResponse> GetAll(int skip, int take)
+    public async Task<RequestResponse> GetAll(int skip, int take, int pageSize)
     {
         try
         {
@@ -198,7 +198,7 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
 
             if (skip == 0 || take == 0)
             {
-                result.Count = await shared.GetCounts<Role>();
+                result.Count = await shared.GetCounts<Role>(pageSize);
                 result.Data = await data.ToListAsync();
 
                 requestResponse = new()
@@ -212,7 +212,7 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
 
             else
             {
-                result.Count = await shared.GetCounts<Role>();
+                result.Count = await shared.GetCounts<Role>(pageSize);
                 result.Data = await data.Skip(skip).Take(take).ToListAsync();
 
                 requestResponse = new()
@@ -240,7 +240,7 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
         }
     }
 
-    public async Task<RequestResponse> GetHistory(int skip, int take)
+    public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
     {
         try
         {

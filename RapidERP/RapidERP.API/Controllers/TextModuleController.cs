@@ -9,9 +9,9 @@ namespace RapidERP.API.Controllers;
 public class TextModuleController(ITextModuleService textModule) : ControllerBase
 {
     [HttpGet("GetAll")]
-    public async Task<IActionResult> GetAll(int skip, int take)
+    public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
     {
-        var result = await textModule.GetAll(skip, take);
+        var result = await textModule.GetAll(skip, take, pageSize);
         return Ok(result);
     }
 
@@ -23,9 +23,9 @@ public class TextModuleController(ITextModuleService textModule) : ControllerBas
     }
 
     [HttpGet("GetHistory")]
-    public async Task<IActionResult> GetHistory(int skip, int take)
+    public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
     {
-        var result = await textModule.GetHistory(skip, take);
+        var result = await textModule.GetHistory(skip, take, pageSize);
         return Ok(result);
     }
 

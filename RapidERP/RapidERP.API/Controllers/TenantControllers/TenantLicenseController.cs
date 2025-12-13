@@ -9,9 +9,9 @@ namespace RapidERP.API.Controllers.TenantControllers;
 public class TenantLicenseController(ITenantLicenseService tenantLicense) : ControllerBase
 {
     [HttpGet("GetAll")]
-    public async Task<IActionResult> GetAll(int skip, int take)
+    public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
     {
-        var result = await tenantLicense.GetAll(skip, take);
+        var result = await tenantLicense.GetAll(skip, take, pageSize);
         return Ok(result);
     }
 
@@ -23,9 +23,9 @@ public class TenantLicenseController(ITenantLicenseService tenantLicense) : Cont
     }
 
     [HttpGet("GetHistory")]
-    public async Task<IActionResult> GetHistory(int skip, int take)
+    public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
     {
-        var result = await tenantLicense.GetHistory(skip, take);
+        var result = await tenantLicense.GetHistory(skip, take, pageSize);
         return Ok(result);
     }
 

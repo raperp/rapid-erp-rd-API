@@ -119,7 +119,7 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
         }
     }
 
-    public async Task<RequestResponse> GetAll(int skip, int take)
+    public async Task<RequestResponse> GetAll(int skip, int take, int pageSize)
     {
         try
         {
@@ -138,7 +138,7 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
 
             if (skip == 0 || take == 0)
             {
-                result.Count = await shared.GetCounts<TextModule>();
+                result.Count = await shared.GetCounts<TextModule>(pageSize);
                 result.Data = await data.ToListAsync();
 
                 requestResponse = new()
@@ -152,7 +152,7 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
 
             else
             {
-                result.Count = await shared.GetCounts<TextModule>();
+                result.Count = await shared.GetCounts<TextModule>(pageSize);
                 result.Data = await data.Skip(skip).Take(take).ToListAsync();
 
                 requestResponse = new()
@@ -180,7 +180,7 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
         }
     }
 
-    public async Task<RequestResponse> GetHistory(int skip, int take)
+    public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
     {
         try
         {

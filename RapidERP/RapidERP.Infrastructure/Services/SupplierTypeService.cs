@@ -203,7 +203,7 @@ public class SupplierTypeService(RapidERPDbContext context, ISharedService share
         }
     }
 
-    public async Task<RequestResponse> GetAll(int skip, int take)
+    public async Task<RequestResponse> GetAll(int skip, int take, int pageSize)
     {
         try
         {
@@ -267,7 +267,7 @@ public class SupplierTypeService(RapidERPDbContext context, ISharedService share
         }
     }
 
-    public async Task<RequestResponse> GetHistory(int skip, int take)
+    public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
     {
         try
         {

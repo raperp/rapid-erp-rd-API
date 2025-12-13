@@ -9,9 +9,9 @@ namespace RapidERP.API.Controllers.TenantControllers;
 public class TenantCalendarController(ITenantCalendarService tenantCalendar) : ControllerBase
 {
     [HttpGet("GetAll")]
-    public async Task<IActionResult> GetAll(int skip, int take)
+    public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
     {
-        var result = await tenantCalendar.GetAll(skip, take);
+        var result = await tenantCalendar.GetAll(skip, take, pageSize);
         return Ok(result);
     }
 
@@ -23,9 +23,9 @@ public class TenantCalendarController(ITenantCalendarService tenantCalendar) : C
     }
 
     [HttpGet("GetHistory")]
-    public async Task<IActionResult> GetHistory(int skip, int take)
+    public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
     {
-        var result = await tenantCalendar.GetHistory(skip, take);
+        var result = await tenantCalendar.GetHistory(skip, take, pageSize);
         return Ok(result);
     }
 

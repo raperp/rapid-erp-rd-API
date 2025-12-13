@@ -187,7 +187,7 @@ namespace RapidERP.Infrastructure.Services
             }
         }
 
-        public async Task<RequestResponse> GetAll(int skip, int take)
+        public async Task<RequestResponse> GetAll(int skip, int take, int pageSize)
         {
             try
             {
@@ -206,7 +206,7 @@ namespace RapidERP.Infrastructure.Services
 
                 if (skip == 0 || take == 0)
                 {
-                    result.Count = await shared.GetCounts<Kitchen>();
+                    result.Count = await shared.GetCounts<Kitchen>(pageSize);
                     result.Data = await data.ToListAsync();
 
                     requestResponse = new()
@@ -220,7 +220,7 @@ namespace RapidERP.Infrastructure.Services
 
                 else
                 {
-                    result.Count = await shared.GetCounts<Kitchen>();
+                    result.Count = await shared.GetCounts<Kitchen>(pageSize);
                     result.Data = await data.Skip(skip).Take(take).ToListAsync();
 
                     requestResponse = new()
@@ -248,7 +248,7 @@ namespace RapidERP.Infrastructure.Services
             }
         }
 
-        public async Task<RequestResponse> GetHistory(int skip, int take)
+        public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
         {
             try
             {

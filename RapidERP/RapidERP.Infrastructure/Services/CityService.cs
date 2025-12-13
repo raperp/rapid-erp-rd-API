@@ -195,7 +195,7 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
         }
     }
 
-    public async Task<RequestResponse> GetAll(int skip, int take)
+    public async Task<RequestResponse> GetAll(int skip, int take, int pageSize)
     {
         try
         {
@@ -222,7 +222,7 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
 
             if (skip == 0 || take == 0)
             {
-                result.Count = await shared.GetCounts<City>();
+                result.Count = await shared.GetCounts<City>(pageSize);
                 result.Data = await data.ToListAsync();
 
                 requestResponse = new()
@@ -236,7 +236,7 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
 
             else
             {
-                result.Count = await shared.GetCounts<City>();
+                result.Count = await shared.GetCounts<City>(pageSize);
                 result.Data = await data.Skip(skip).Take(take).ToListAsync();
 
                 requestResponse = new()
@@ -264,7 +264,7 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
         }
     }
 
-    public async Task<RequestResponse> GetHistory(int skip, int take)
+    public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
     {
         try
         {

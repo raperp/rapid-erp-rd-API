@@ -10,9 +10,9 @@ namespace RapidERP.API.Controllers.TenantControllers;
 public class TenantLanguageController(ITenantLanguageService tenantLanguage) : ControllerBase
 {
     [HttpGet("GetAll")]
-    public async Task<IActionResult> GetAll(int skip, int take)
+    public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
     {
-        var result = await tenantLanguage.GetAll(skip, take);
+        var result = await tenantLanguage.GetAll(skip, take, pageSize);
         return Ok(result);
     }
 
@@ -24,9 +24,9 @@ public class TenantLanguageController(ITenantLanguageService tenantLanguage) : C
     }
 
     [HttpGet("GetHistory")]
-    public async Task<IActionResult> GetHistory(int skip, int take)
+    public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
     {
-        var result = await tenantLanguage.GetHistory(skip, take);
+        var result = await tenantLanguage.GetHistory(skip, take, pageSize);
         return Ok(result);
     }
 

@@ -9,9 +9,9 @@ namespace RapidERP.API.Controllers;
 public class SubmoduleController(ISubmoduleService submodule) : ControllerBase
 {
     [HttpGet("GetAll")]
-    public async Task<IActionResult> GetAll(int skip, int take)
+    public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
     {
-        var result = await submodule.GetAll(skip, take);
+        var result = await submodule.GetAll(skip, take, pageSize);
         return Ok(result);
     }
 
@@ -23,9 +23,9 @@ public class SubmoduleController(ISubmoduleService submodule) : ControllerBase
     }
 
     [HttpGet("GetHistory")]
-    public async Task<IActionResult> GetHistory(int skip, int take)
+    public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
     {
-        var result = await submodule.GetHistory(skip, take);
+        var result = await submodule.GetHistory(skip, take, pageSize);
         return Ok(result);
     }
 

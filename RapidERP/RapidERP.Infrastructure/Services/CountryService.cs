@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.CountryDTOs;
+using RapidERP.Application.DTOs.CountryDTOs.CountryRecord;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
 using RapidERP.Application.Repository;
@@ -13,7 +14,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
 {
     private RequestResponse _requestResponse { get; set; }
 
-    public async Task<RequestResponse> CreateBulk(List<CountryPOST> masterPOSTs)
+    public async Task<RequestResponse> CreateBulk(List<CountryPOSTRequestDTO> masterPOSTs)
     {
         try
         {
@@ -45,7 +46,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
         }
     }
 
-    public async Task<RequestResponse> CreateSingle(CountryPOST masterPOST)
+    public async Task<RequestResponse> CreateSingle(CountryPOSTRequestDTO masterPOST)
     {
         try
         {
@@ -203,7 +204,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
         }
     }
 
-    public async Task<RequestResponse> GetAll(int skip, int take)
+    public async Task<RequestResponse> GetAll(int skip, int take, int pageSize)
     {
         try
         {
@@ -235,7 +236,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
 
             if (skip == 0 || take == 0)
             {
-                result.Count = await shared.GetCounts<Country>();
+                result.Count = await shared.GetCounts<Country>(pageSize);
                 result.Data = await data.ToListAsync();
 
                 _requestResponse = new()
@@ -249,7 +250,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
 
             else
             {
-                result.Count = await shared.GetCounts<Country>();
+                result.Count = await shared.GetCounts<Country>(pageSize);
                 result.Data = await data.Skip(skip).Take(take).ToListAsync();
 
                 _requestResponse = new()
@@ -277,7 +278,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
         }
     }
 
-    public async Task<RequestResponse> GetHistory(int skip, int take)
+    public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
     {
         try
         {
@@ -322,7 +323,11 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
 
             if (skip == 0 || take == 0)
             {
-                var result = await data.ToListAsync();
+                //var result = await data.ToListAsync();
+                var result = new
+                {
+
+                };
 
                 _requestResponse = new()
                 {
@@ -374,7 +379,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
         return result;
     }
 
-    public async Task<RequestResponse> Update(CountryPUT masterPUT)
+    public async Task<RequestResponse> Update(CountryPUTRequestDTO masterPUT)
     {
         try
         {

@@ -11,9 +11,9 @@ namespace RapidERP.API.Controllers;
 public class MainModuleController(IMainModuleService mainModule) : ControllerBase
 {
     [HttpGet("GetAll")]
-    public async Task<IActionResult> GetAll(int skip, int take)
+    public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
     {
-        var result = await mainModule.GetAll(skip, take);
+        var result = await mainModule.GetAll(skip, take, pageSize);
         return Ok(result);
     }
 
@@ -25,9 +25,9 @@ public class MainModuleController(IMainModuleService mainModule) : ControllerBas
     }
 
     [HttpGet("GetHistory")]
-    public async Task<IActionResult> GetHistory(int skip, int take)
+    public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
     {
-        var result = await mainModule.GetHistory(skip, take);
+        var result = await mainModule.GetHistory(skip, take, pageSize);
         return Ok(result);
     }
 

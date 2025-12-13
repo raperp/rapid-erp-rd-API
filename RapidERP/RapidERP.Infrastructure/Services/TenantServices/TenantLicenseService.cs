@@ -133,7 +133,7 @@ public class TenantLicenseService(RapidERPDbContext context, ISharedService shar
         }
     }
 
-    public async Task<RequestResponse> GetAll(int skip, int take)
+    public async Task<RequestResponse> GetAll(int skip, int take, int pageSize)
     {
         try
         {
@@ -194,7 +194,7 @@ public class TenantLicenseService(RapidERPDbContext context, ISharedService shar
         }
     }
 
-    public async Task<RequestResponse> GetHistory(int skip, int take)
+    public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
     {
         try
         {

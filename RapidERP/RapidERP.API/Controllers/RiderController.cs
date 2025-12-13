@@ -9,9 +9,9 @@ namespace RapidERP.API.Controllers
     public class RiderController(IRiderService rider) : ControllerBase
     {
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll(int skip, int take)
+        public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
         {
-            var result = await rider.GetAll(skip, take);
+            var result = await rider.GetAll(skip, take, pageSize);
             return Ok(result);
         }
 
@@ -23,9 +23,9 @@ namespace RapidERP.API.Controllers
         }
 
         [HttpGet("GetHistory")]
-        public async Task<IActionResult> GetHistory(int skip, int take)
+        public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
         {
-            var result = await rider.GetHistory(skip, take);
+            var result = await rider.GetHistory(skip, take, pageSize);
             return Ok(result);
         }
 

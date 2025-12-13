@@ -1,5 +1,7 @@
+using FluentValidation;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using RapidERP.Application.Validator.CountryValidator;
 using RapidERP.Infrastructure.Extentions;
 using RapidERP.Infrastructure.Health;
 
@@ -12,6 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext(builder.Configuration);
+builder.Services.AddValidatorsFromAssemblyContaining<CountryPOSTRequestValidator>();
 builder.Services.AddScopedServices();
 builder.Services.AddHealthChecks().AddCheck<SqlHealth>("sql-health-check", HealthStatus.Unhealthy);
 var app = builder.Build();

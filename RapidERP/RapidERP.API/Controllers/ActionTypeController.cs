@@ -9,9 +9,9 @@ namespace RapidERP.API.Controllers;
 public class ActionTypeController(IActionTypeService actionType) : ControllerBase
 {
     [HttpGet("GetAll")]
-    public async Task<IActionResult> GetAll(int skip, int take)
+    public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
     {
-        var result = await actionType.GetAll(skip, take);
+        var result = await actionType.GetAll(skip, take, pageSize);
         return Ok(result);
     }
 
@@ -23,9 +23,9 @@ public class ActionTypeController(IActionTypeService actionType) : ControllerBas
     }
 
     [HttpGet("GetHistory")]
-    public async Task<IActionResult> GetHistory(int skip, int take)
+    public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
     {
-        var result = await actionType.GetHistory(skip, take);
+        var result = await actionType.GetHistory(skip, take, pageSize);
         return Ok(result);
     }
 

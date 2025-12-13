@@ -9,9 +9,9 @@ namespace RapidERP.API.Controllers
     public class KitchenController(IKitchenService kitchen) : ControllerBase
     {
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll(int skip, int take)
+        public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
         {
-            var result = await kitchen.GetAll(skip, take);
+            var result = await kitchen.GetAll(skip, take, pageSize);
             return Ok(result);
         }
 
@@ -23,9 +23,9 @@ namespace RapidERP.API.Controllers
         }
 
         [HttpGet("GetHistory")]
-        public async Task<IActionResult> GetHistory(int skip, int take)
+        public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
         {
-            var result = await kitchen.GetHistory(skip, take);
+            var result = await kitchen.GetHistory(skip, take, pageSize);
             return Ok(result);
         }
 

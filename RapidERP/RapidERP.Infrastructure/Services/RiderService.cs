@@ -197,7 +197,7 @@ public class RiderService(RapidERPDbContext context, ISharedService shared) : IR
         }
     }
 
-    public async Task<RequestResponse> GetAll(int skip, int take)
+    public async Task<RequestResponse> GetAll(int skip, int take, int pageSize)
     {
         try
         {
@@ -225,7 +225,7 @@ public class RiderService(RapidERPDbContext context, ISharedService shared) : IR
 
             if (skip == 0 || take == 0)
             {
-                result.Count = await shared.GetCounts<Rider>();
+                result.Count = await shared.GetCounts<Rider>(pageSize);
                 result.Data = await data.ToListAsync();
 
                 requestResponse = new()
@@ -239,7 +239,7 @@ public class RiderService(RapidERPDbContext context, ISharedService shared) : IR
 
             else
             {
-                result.Count = await shared.GetCounts<Rider>();
+                result.Count = await shared.GetCounts<Rider>(pageSize);
                 result.Data = await data.Skip(skip).Take(take).ToListAsync();
 
                 requestResponse = new()
@@ -267,7 +267,7 @@ public class RiderService(RapidERPDbContext context, ISharedService shared) : IR
         }
     }
 
-    public async Task<RequestResponse> GetHistory(int skip, int take)
+    public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
     {
         try
         {

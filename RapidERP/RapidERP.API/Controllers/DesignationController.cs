@@ -9,9 +9,9 @@ namespace RapidERP.API.Controllers
     public class DesignationController(IDesignationService designation) : ControllerBase
     {
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll(int skip, int take)
+        public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
         {
-            var result = await designation.GetAll(skip, take);
+            var result = await designation.GetAll(skip, take, pageSize);
             return Ok(result);
         }
 
@@ -23,9 +23,9 @@ namespace RapidERP.API.Controllers
         }
 
         [HttpGet("GetHistory")]
-        public async Task<IActionResult> GetHistory(int skip, int take)
+        public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
         {
-            var result = await designation.GetHistory(skip, take);
+            var result = await designation.GetHistory(skip, take, pageSize);
             return Ok(result);
         }
 

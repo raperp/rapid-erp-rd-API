@@ -9,9 +9,9 @@ namespace RapidERP.API.Controllers;
 public class SolutionController(ISolutionService solution) : ControllerBase
 {
     [HttpGet("GetAll")]
-    public async Task<IActionResult> GetAll(int skip, int take)
+    public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
     {
-        var result = await solution.GetAll(skip, take);
+        var result = await solution.GetAll(skip, take, pageSize);
         return Ok(result);
     }
 
@@ -23,9 +23,9 @@ public class SolutionController(ISolutionService solution) : ControllerBase
     }
 
     [HttpGet("GetHistory")]
-    public async Task<IActionResult> GetHistory(int skip, int take)
+    public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
     {
-        var result = await solution.GetHistory(skip, take);
+        var result = await solution.GetHistory(skip, take, pageSize);
         return Ok(result);
     }
 

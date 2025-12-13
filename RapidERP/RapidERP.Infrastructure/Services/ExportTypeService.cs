@@ -185,7 +185,7 @@ public class ExportTypeService(RapidERPDbContext context, ISharedService shared)
         }
     }
 
-    public async Task<RequestResponse> GetAll(int skip, int take)
+    public async Task<RequestResponse> GetAll(int skip, int take, int pageSize)
     {
         try
         {
@@ -241,7 +241,7 @@ public class ExportTypeService(RapidERPDbContext context, ISharedService shared)
         }
     }
 
-    public async Task<RequestResponse> GetHistory(int skip, int take)
+    public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
     {
         try
         {
