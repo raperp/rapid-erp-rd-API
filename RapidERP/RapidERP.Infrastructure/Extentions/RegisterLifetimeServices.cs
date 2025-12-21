@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RapidERP.Application.Interfaces;
 using RapidERP.Application.Interfaces.Tenant;
+using RapidERP.Application.Repository;
 using RapidERP.Infrastructure.Services;
 using RapidERP.Infrastructure.Services.TenantServices;
 
@@ -43,6 +44,7 @@ public static class RegisterLifetimeServices
         services.AddScoped<ISolutionService, SolutionService>();
         services.AddScoped<ICommunicationService, CommunicationService>();
         services.AddScoped<IUserIPWhitelistService, UserIPWhitelistService>();
+        services.AddScoped<IRepository, Repository.Repository>();
 
         return services;
     }

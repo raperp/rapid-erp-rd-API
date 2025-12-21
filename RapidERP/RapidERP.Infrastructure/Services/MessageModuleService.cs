@@ -119,6 +119,11 @@ public class MessageModuleService(RapidERPDbContext context, ISharedService shar
         }
     }
 
+    public Task<RequestResponse> Delete(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> GetAll(int skip, int take, int pageSize)
     {
         try

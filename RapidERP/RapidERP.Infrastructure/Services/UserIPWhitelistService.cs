@@ -118,6 +118,11 @@ public class UserIPWhitelistService(RapidERPDbContext context, ISharedService sh
         }
     }
 
+    public Task<RequestResponse> Delete(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> GetAll(int skip, int take, int pageSize)
     {
         try

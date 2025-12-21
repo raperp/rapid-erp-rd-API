@@ -4,7 +4,14 @@ using RapidERP.Application.DTOs.CountryDTOs.CountryRecord;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
 using RapidERP.Application.Repository;
+using RapidERP.Domain.Entities.ActionTypeModels;
 using RapidERP.Domain.Entities.CountryModels;
+using RapidERP.Domain.Entities.CurrencyModels;
+using RapidERP.Domain.Entities.ExportTypeModels;
+using RapidERP.Domain.Entities.LanguageModels;
+using RapidERP.Domain.Entities.MenuModuleModels;
+using RapidERP.Domain.Entities.StatusTypeModels;
+using RapidERP.Domain.Entities.TenantModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
@@ -53,7 +60,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
             Country masterData = new();
             await using var transaction = await context.Database.BeginTransactionAsync();
             //var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
-            var masterRecord = await repository.FindByName(masterData);
+            var masterRecord = await repository.FindById(masterData);
 
             if (masterRecord is null)
             {
@@ -146,7 +153,8 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
         try
         {
             await using var transaction = await context.Database.BeginTransactionAsync();
-            var ishistoryExists = await context.CountryHistory.AsNoTracking().AnyAsync(x => x.CountryId == id);
+            //var ishistoryExists = await context.CountryHistory.AsNoTracking().AnyAsync(x => x.CountryId == id);
+            var ishistoryExists = await repository.Set<CountryHistory>().AsNoTracking().AnyAsync(x => x.CountryId == id);
 
             if (ishistoryExists == false)
             {
@@ -160,34 +168,34 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
 
             else
             {
-                await context.CountryHistory.Where(x => x.CountryId == id).ExecuteDeleteAsync();
+                await repository.Set<CountryHistory>().Where(x => x.CountryId == id).ExecuteDeleteAsync();
             }
 
-            var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Id == id);
+            //var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Id == id);
 
-            if (isExists == false)
-            {
-                _requestResponse = new()
-                {
-                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
-                    IsSuccess = false,
-                    Message = ResponseMessage.NoRecordFound
-                };
-            }
+            //if (isExists == false)
+            //{
+            //    _requestResponse = new()
+            //    {
+            //        StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
+            //        IsSuccess = false,
+            //        Message = ResponseMessage.NoRecordFound
+            //    };
+            //}
 
-            else
-            {
-                await context.Countries.Where(x => x.Id == id).ExecuteDeleteAsync();
-                await transaction.CommitAsync();
-            }
+            //else
+            //{
+            //    await context.Countries.Where(x => x.Id == id).ExecuteDeleteAsync();
+            //    await transaction.CommitAsync();
+            //}
 
-            _requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
-                IsSuccess = true,
-                Message = ResponseMessage.DeleteSuccess
-            };
-
+            //_requestResponse = new()
+            //{
+            //    StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+            //    IsSuccess = true,
+            //    Message = ResponseMessage.DeleteSuccess
+            //};
+            await shared.Delete<Country>(id);
             return _requestResponse;
         }
 
@@ -210,28 +218,29 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
         {
             GetAllDTO result = new();
 
-            var data = (from c in context.Countries
-                        join st in context.StatusTypes on c.StatusTypeId equals st.Id
-                        join t in context.Tenants on c.TenantId equals t.Id
-                        join l in context.Languages on c.LanguageId equals l.Id
-                        join mm in context.MenuModules on c.MenuModuleId equals mm.Id
-                        join cu in context.Currencies on c.CurrencyId equals cu.Id
-                        select new
+            var data = (from c in repository.Set<Country>()
+                            //join st in context.StatusTypes on c.StatusTypeId equals st.Id
+                        join st in repository.Set<StatusType>() on c.StatusTypeId equals st.Id
+                        join t in repository.Set<Tenant>() on c.TenantId equals t.Id
+                        join l in repository.Set<Language>() on c.LanguageId equals l.Id
+                        join mm in repository.Set<MenuModule>() on c.MenuModuleId equals mm.Id
+                        join cu in repository.Set<Currency>() on c.CurrencyId equals cu.Id
+                        select new GetAll
                         {
-                            c.Id,
+                            Id = c.Id,
                             MenuModule = mm.Name,
                             Tanent = t.Name,
                             Language = l.Name,
                             Status = st.Name,
                             Currency = cu.Name,
-                            c.DialCode,
-                            c.Name,
-                            c.IsDefault,
-                            c.IsDraft,
-                            c.ISONumeric,
-                            c.ISO2Code,
-                            c.ISO3Code,
-                            c.FlagURL
+                            DialCode = c.DialCode,
+                            Country = c.Name,
+                            IsDefault =  c.IsDefault,
+                            IsDraft = c.IsDraft,
+                            ISONumeric = c.ISONumeric,
+                            ISO2Code = c.ISO2Code,
+                            ISO3Code = c.ISO3Code,
+                            FlagURL = c.FlagURL
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -282,14 +291,14 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
     {
         try
         {
-            var data = (from ca in context.CountryHistory
-                        join c in context.Countries on ca.CountryId equals c.Id
-                        join et in context.ExportTypes on ca.ExportTypeId equals et.Id
-                        join at in context.ActionTypes on ca.ActionTypeId equals at.Id
-                        join t in context.Tenants on ca.TenantId equals t.Id
-                        join l in context.Languages on ca.LanguageId equals l.Id
-                        join mm in context.MenuModules on ca.MenuModuleId equals mm.Id
-                        join cu in context.Currencies on ca.CurrencyId equals cu.Id
+            var data = (from ca in repository.Set<CountryHistory>()
+                        join c in repository.Set<Country>() on ca.CountryId equals c.Id
+                        join et in repository.Set<ExportType>() on ca.ExportTypeId equals et.Id
+                        join at in repository.Set<ActionType>() on ca.ActionTypeId equals at.Id
+                        join t in repository.Set<Tenant>() on ca.TenantId equals t.Id
+                        join l in repository.Set<Language>() on ca.LanguageId equals l.Id
+                        join mm in repository.Set<MenuModule>() on ca.MenuModuleId equals mm.Id
+                        join cu in repository.Set<Currency>() on ca.CurrencyId equals cu.Id
                         select new
                         {
                             ca.Id,
@@ -436,7 +445,8 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
                 masterData.ISO3Code = masterPUT.ISO3Code;
                 masterData.FlagURL = masterPUT.FlagURL;
 
-                
+                await repository.Update(masterData);
+
                 history.CountryId = masterPUT.Id;
                 history.TenantId = masterPUT.TenantId;
                 history.MenuModuleId = masterPUT.MenuModuleId;
@@ -464,7 +474,6 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
                 history.ActionBy = masterPUT.ActionBy;
                 history.ActionAt = DateTime.Now;
                 
-                await repository.Update(masterData); 
                 await repository.Add(history);
                 await repository.CommitChanges();
                 await transaction.CommitAsync();

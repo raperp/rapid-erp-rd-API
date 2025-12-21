@@ -10,6 +10,50 @@ public class SharedServices(RapidERPDbContext context) : ISharedService
 {
     RequestResponse requestResponse { get; set; }
 
+    public async Task<RequestResponse> Delete<T>(int id) where T : Master
+    {
+        try
+        {
+            var isExists = await context.Set<T>().AsNoTracking().AnyAsync(x => x.Id == id);
+
+            if (isExists == false)
+            {
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
+                    IsSuccess = false,
+                    Message = ResponseMessage.NoRecordFound
+                };
+            }
+
+            else
+            {
+                await context.Set<T>().Where(x => x.Id == id).ExecuteDeleteAsync();
+            }
+
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                IsSuccess = true,
+                Message = ResponseMessage.DeleteSuccess
+            };
+
+            return requestResponse;
+        }
+
+        catch (Exception ex)
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ex.Message
+            };
+
+            return requestResponse;
+        }
+    }
+
     public async Task<dynamic> GetCounts<T>(int pageSize) where T : BaseMaster
     {
         float totalCount = await context.Set<T>().CountAsync();

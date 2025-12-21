@@ -130,6 +130,11 @@ public class CalendarService(RapidERPDbContext context, ISharedService shared) :
         }
     }
 
+    public Task<RequestResponse> Delete(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> GetAll(int skip, int take, int pageSize)
     {
         try
