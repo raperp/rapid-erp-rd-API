@@ -268,6 +268,11 @@ public class TenantCalendarService(RapidERPDbContext context, ISharedService sha
         throw new NotImplementedException();
     }
 
+    public Task<RequestResponse> GetTemplate()
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<dynamic> SoftDelete(int id)
     {
         throw new NotImplementedException();

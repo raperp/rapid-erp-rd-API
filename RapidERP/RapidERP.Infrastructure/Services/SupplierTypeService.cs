@@ -350,6 +350,11 @@ public class SupplierTypeService(RapidERPDbContext context, ISharedService share
         return result;
     }
 
+    public Task<RequestResponse> GetTemplate()
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<dynamic> SoftDelete(int id)
     {
         throw new NotImplementedException();

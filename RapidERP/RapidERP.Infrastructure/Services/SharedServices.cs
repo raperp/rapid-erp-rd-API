@@ -96,34 +96,34 @@ public class SharedServices(RapidERPDbContext context) : ISharedService
         return result;
     }
 
-    public async Task<RequestResponse> GetSingle<T>(int id) where T : Master
+    public async Task<object> GetSingle<T>(int id) where T : Master
     {
-        try
-        {
+        //try
+        //{
             var data = await context.Set<T>().Where(x => x.Id == id).AsNoTracking().ToListAsync();
 
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
-                IsSuccess = true,
-                Message = ResponseMessage.FetchSuccess,
-                Data = data
-            };
+            //requestResponse = new()
+            //{
+            //    StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+            //    IsSuccess = true,
+            //    Message = ResponseMessage.FetchSuccess,
+            //    Data = data
+            //};
 
-            return requestResponse;
-        }
+            return data;
+        //}
 
-        catch (Exception ex)
-        {
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
-                IsSuccess = false,
-                Message = ex.Message
-            };
+        //catch (Exception ex)
+        //{
+        //    requestResponse = new()
+        //    {
+        //        StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+        //        IsSuccess = false,
+        //        Message = ex.Message
+        //    };
 
-            return requestResponse;
-        }
+        //    return requestResponse;
+        //}
     }
 
     public async Task<RequestResponse> SoftDelete<T>(int id) where T : BaseMaster

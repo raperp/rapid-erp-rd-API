@@ -312,6 +312,11 @@ public class LanguageService(RapidERPDbContext context, ISharedService shared) :
         return result;
     }
 
+    public Task<RequestResponse> GetTemplate()
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<dynamic> SoftDelete(int id)
     {
         var result = "Not Applicable";

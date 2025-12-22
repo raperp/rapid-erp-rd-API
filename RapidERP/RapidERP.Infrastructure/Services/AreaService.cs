@@ -357,6 +357,11 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
         return result;
     }
 
+    public Task<RequestResponse> GetTemplate()
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<dynamic> SoftDelete(int id)
     {
         throw new NotImplementedException();

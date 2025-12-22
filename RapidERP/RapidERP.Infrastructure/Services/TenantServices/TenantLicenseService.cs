@@ -289,6 +289,11 @@ public class TenantLicenseService(RapidERPDbContext context, ISharedService shar
         return result;
     }
 
+    public Task<RequestResponse> GetTemplate()
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<dynamic> SoftDelete(int id)
     {
         throw new NotImplementedException();

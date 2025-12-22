@@ -6,7 +6,7 @@ using RapidERP.Infrastructure.Data;
 namespace RapidERP.Infrastructure.Repository;
 
 //public class Repository<T> : IRepository<T> where T : class
-public class Repository  : IRepository 
+public class Repository : IRepository
 {
     private readonly RapidERPDbContext context;
 
@@ -53,6 +53,18 @@ public class Repository  : IRepository
     {
         return await context.Database.BeginTransactionAsync();
     }
-
      
+    public async Task SoftDelete<TEntity>(int id) where TEntity : BaseMaster
+    {
+        int statusTypeId = await context.StatusTypes.Where(x => x.Name == "Deleted")
+                    .AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+
+        await context.Set<TEntity>().Where(x => x.Id == id)
+            .ExecuteUpdateAsync(x => x.SetProperty(x => x.StatusTypeId, statusTypeId));
+    }
+
+    public async Task<TEntity> GetSingle<TEntity>(int id) where TEntity : class
+    {
+        return await context.Set<TEntity>().FindAsync(id);
+    }
 }

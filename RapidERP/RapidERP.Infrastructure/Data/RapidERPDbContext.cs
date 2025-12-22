@@ -54,6 +54,7 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
 
     public DbSet<Country> Countries { get; set; }
     public DbSet<CountryHistory> CountryHistory { get; set; }
+    public DbSet<CountryTemplate> CountryTemplate { get; set; }
 
     public DbSet<State> States { get; set; }
     public DbSet<StateHistory> StateHistory { get; set; }

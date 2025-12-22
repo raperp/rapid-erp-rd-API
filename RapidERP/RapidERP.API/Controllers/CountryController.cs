@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RapidERP.Application.CQRS.Command.CountryCommands.CreateBulkCommand;
-using RapidERP.Application.CQRS.Command.CountryCommands.CreateSingleCommand;
-using RapidERP.Application.CQRS.Command.CountryCommands.SoftDeleteCommand;
-using RapidERP.Application.CQRS.Command.CountryCommands.UpdateCommand;
-using RapidERP.Application.CQRS.Query.CountryQueries.GetAllQuery;
-using RapidERP.Application.CQRS.Query.CountryQueries.GetHistoryQuery;
-using RapidERP.Application.CQRS.Query.CountryQueries.GetSingleQuery;
 using RapidERP.Application.DTOs.CountryDTOs.CountryRecord;
+using RapidERP.Application.Features.CountryFeatures.GetAllQuery;
+using RapidERP.Application.Features.CountryFeatures.GetHistoryQuery;
+using RapidERP.Application.Features.CountryFeatures.GetSingleQuery;
 using RapidERP.Domain.Utilities;
 using Wolverine;
 
@@ -20,8 +16,8 @@ namespace RapidERP.API.Controllers
         public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
         {
             logger.LogInformation("GetAll called with skip: {skip}, take: {take}, pageSize: {pageSize}", skip, take, pageSize);
-            var query = new GetAllQuery(skip, take, pageSize);
-            var result = await bus.InvokeAsync<RequestResponse>(query);
+            var query = new GetAllCountryRequestModel(skip, take, pageSize);
+            var result = await bus.InvokeAsync<GetAllCountryRequestModel>(query);
             return Ok(result);
         }
 
@@ -29,8 +25,8 @@ namespace RapidERP.API.Controllers
         public async Task<IActionResult> GetSingle(int id)
         {
             logger.LogInformation("GetSingle called with id: {id}", id);
-            var query = new GetSingleQuery(id);
-            var result = await bus.InvokeAsync<RequestResponse>(query);
+            var query = new GetSingleCountryRequestModel(id);
+            var result = await bus.InvokeAsync<GetSingleCountryRequestModel>(query);
             return Ok(result);
         }
 
@@ -38,8 +34,8 @@ namespace RapidERP.API.Controllers
         public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
         {
             logger.LogInformation("GetHistory called with skip: {skip}, take: {take}, pageSize: {pageSize}", skip, take, pageSize);
-            var query = new GetHistoryQuery(skip, take, pageSize);
-            var result = await bus.InvokeAsync<RequestResponse>(query);
+            var query = new GetHistoryCountryRequestModel(skip, take, pageSize);
+            var result = await bus.InvokeAsync<GetHistoryCountryRequestModel>(query);
             return Ok(result);
         }
 

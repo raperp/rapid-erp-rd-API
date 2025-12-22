@@ -262,6 +262,11 @@ public class UserIPWhitelistService(RapidERPDbContext context, ISharedService sh
         return result;
     }
 
+    public Task<RequestResponse> GetTemplate()
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<dynamic> SoftDelete(int id)
     {
         var result = await shared.SoftDelete<UserIPWhitelist>(id);

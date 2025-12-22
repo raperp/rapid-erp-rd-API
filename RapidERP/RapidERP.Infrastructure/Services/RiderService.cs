@@ -357,6 +357,11 @@ public class RiderService(RapidERPDbContext context, ISharedService shared) : IR
         return result;
     }
 
+    public Task<RequestResponse> GetTemplate()
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<dynamic> SoftDelete(int id)
     {
         var result = await shared.SoftDelete<Rider>(id);

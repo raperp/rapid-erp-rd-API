@@ -2,6 +2,7 @@
 using RapidERP.Application.DTOs.CountryDTOs;
 using RapidERP.Application.DTOs.CountryDTOs.CountryRecord;
 using RapidERP.Application.DTOs.Shared;
+using RapidERP.Application.Features.CountryFeatures.GetSingleCountry;
 using RapidERP.Application.Interfaces;
 using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.ActionTypeModels;
@@ -221,13 +222,12 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
             GetAllDTO result = new();
 
             var data = (from c in repository.Set<Country>()
-                            //join st in context.StatusTypes on c.StatusTypeId equals st.Id
                         join st in repository.Set<StatusType>() on c.StatusTypeId equals st.Id
                         join t in repository.Set<Tenant>() on c.TenantId equals t.Id
                         join l in repository.Set<Language>() on c.LanguageId equals l.Id
                         join mm in repository.Set<MenuModule>() on c.MenuModuleId equals mm.Id
                         join cu in repository.Set<Currency>() on c.CurrencyId equals cu.Id
-                        select new GetAllCountriesDTO
+                        select new GetSingleCountryResponseModel
                         {
                             Id = c.Id,
                             MenuModule = mm.Name,
@@ -378,6 +378,11 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
     {
         var result = await shared.GetSingle<Country>(id);
         return result;
+    }
+
+    public Task<RequestResponse> GetTemplate()
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<dynamic> SoftDelete(int id)

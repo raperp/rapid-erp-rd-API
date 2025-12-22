@@ -316,6 +316,11 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
         return result;
     }
 
+    public Task<RequestResponse> GetTemplate()
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<dynamic> SoftDelete(int id)
     {
         throw new NotImplementedException();
