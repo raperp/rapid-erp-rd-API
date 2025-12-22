@@ -1,4 +1,5 @@
-﻿using RapidERP.Application.Repository;
+﻿using Microsoft.EntityFrameworkCore;
+using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.Shared;
 using RapidERP.Infrastructure.Data;
 
@@ -31,10 +32,7 @@ public class Repository  : IRepository
 
     public async Task Update<TEntity>(TEntity entity) where TEntity : class
     {
-        if (context.ChangeTracker.HasChanges())
-        {
-            await context.SaveChangesAsync();
-        }
+        context.Entry<TEntity>(entity).State = EntityState.Modified;
     }
 
     public async Task<dynamic> FindById<TEntity>(TEntity entity) where TEntity : Master

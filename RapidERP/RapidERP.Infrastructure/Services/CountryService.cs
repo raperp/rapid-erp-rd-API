@@ -153,7 +153,8 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
     {
         try
         {
-            await using var transaction = await context.Database.BeginTransactionAsync();
+            //await using var transaction = await context.Database.BeginTransactionAsync();
+            await using var transaction = await repository.BeginTransactionAsync(); ;
             //var ishistoryExists = await context.CountryHistory.AsNoTracking().AnyAsync(x => x.CountryId == id);
             var ishistoryExists = await repository.Set<CountryHistory>().AsNoTracking().AnyAsync(x => x.CountryId == id);
 
@@ -391,7 +392,8 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
         {
             Country masterData = new();
             CountryHistory history = new();
-            await using var transaction = await context.Database.BeginTransactionAsync();
+            //await using var transaction = await context.Database.BeginTransactionAsync();
+            await using var transaction = await repository.BeginTransactionAsync();
             //var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
             var masterRecord = await repository.FindById(masterData);
             
