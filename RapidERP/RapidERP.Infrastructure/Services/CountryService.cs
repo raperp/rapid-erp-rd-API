@@ -58,7 +58,8 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
         try
         {
             Country masterData = new();
-            await using var transaction = await context.Database.BeginTransactionAsync();
+            //await using var transaction = await context.Database.BeginTransactionAsync();
+            await using var transaction = await repository.BeginTransactionAsync();
             //var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
             var masterRecord = await repository.FindById(masterData);
 
@@ -225,7 +226,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
                         join l in repository.Set<Language>() on c.LanguageId equals l.Id
                         join mm in repository.Set<MenuModule>() on c.MenuModuleId equals mm.Id
                         join cu in repository.Set<Currency>() on c.CurrencyId equals cu.Id
-                        select new GetAll
+                        select new GetAllCountriesDTO
                         {
                             Id = c.Id,
                             MenuModule = mm.Name,
@@ -299,9 +300,9 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
                         join l in repository.Set<Language>() on ca.LanguageId equals l.Id
                         join mm in repository.Set<MenuModule>() on ca.MenuModuleId equals mm.Id
                         join cu in repository.Set<Currency>() on ca.CurrencyId equals cu.Id
-                        select new
+                        select new GetHistoriesDTO
                         {
-                            ca.Id,
+                            Id = ca.Id,
                             Country = c.Name,
                             Tanent = t.Name,
                             MenuModule = mm.Name,
@@ -309,34 +310,30 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
                             Language = l.Name,
                             ExportType = et.Name,
                             Currency = cu.Name,
-                            ca.ExportTo,
-                            ca.SourceURL,
-                            ca.DialCode,
-                            ca.Name,
-                            ca.IsDefault,
-                            ca.IsDraft,
-                            ca.ISONumeric,
-                            ca.ISO2Code,
-                            ca.ISO3Code,
-                            ca.FlagURL,
-                            ca.Browser,
-                            ca.Location,
-                            ca.DeviceIP,
-                            ca.LocationURL,
-                            ca.DeviceName,
-                            ca.Latitude,
-                            ca.Longitude,
-                            ca.ActionBy,
-                            ca.ActionAt
+                            ExportTo = ca.ExportTo,
+                            SourceURL = ca.SourceURL,
+                            DialCode = ca.DialCode,
+                            Name = ca.Name,
+                            IsDefault = ca.IsDefault,
+                            IsDraft = ca.IsDraft,
+                            ISONumeric = ca.ISONumeric,
+                            ISO2Code = ca.ISO2Code,
+                            ISO3Code = ca.ISO3Code,
+                            FlagURL = ca.FlagURL,
+                            Browser = ca.Browser,
+                            Location = ca.Location,
+                            DeviceIP = ca.DeviceIP,
+                            LocationURL = ca.LocationURL,
+                            DeviceName = ca.DeviceName,
+                            Latitude = ca.Latitude,
+                            Longitude = ca.Longitude,
+                            ActionBy = ca.ActionBy,
+                            ActionAt = ca.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
             {
-                //var result = await data.ToListAsync();
-                var result = new
-                {
-
-                };
+                var result = await data.ToListAsync();
 
                 _requestResponse = new()
                 {

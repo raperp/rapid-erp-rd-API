@@ -51,8 +51,10 @@ public class Repository  : IRepository
         return record;
     }
 
-    public IQueryable DbContext()
+    public async Task<dynamic> BeginTransactionAsync()
     {
-        return (IQueryable) context.Database.BeginTransaction();
+        return await context.Database.BeginTransactionAsync();
     }
+
+     
 }

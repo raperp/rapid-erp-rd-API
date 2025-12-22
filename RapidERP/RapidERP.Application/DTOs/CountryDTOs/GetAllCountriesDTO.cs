@@ -1,6 +1,6 @@
 ﻿namespace RapidERP.Application.DTOs.CountryDTOs;
 
-public record GetAll
+public record GetAllCountriesDTO
 {
     public int Id { get; set; }
 

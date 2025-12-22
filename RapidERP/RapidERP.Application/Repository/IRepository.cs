@@ -10,7 +10,6 @@ public interface IRepository
     Task Add<TEntity>(TEntity entity) where TEntity : class;
     Task Update<TEntity>(TEntity entity) where TEntity : class;
     Task CommitChanges();
-    //IQueryable<T> DbSet();
     IQueryable<T> Set<T>() where T : class;
-    IQueryable DbContext();
+    Task<dynamic> BeginTransactionAsync();
 }
