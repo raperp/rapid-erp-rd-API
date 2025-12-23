@@ -3,9 +3,9 @@ using RapidERP.Application.DTOs.CountryDTOs.CountryRecord;
 
 namespace RapidERP.Application.Features.CountryFeatures.CreateSingleCommand;
 
-public class CreateSingleValidator : AbstractValidator<CountryPOSTRequestDTO>
+public class CreateSingleCountryValidator : AbstractValidator<CountryPOSTRequestDTO>
 {
-    public CreateSingleValidator()
+    public CreateSingleCountryValidator()
     {
         RuleFor(x => x.Name)
             .NotEmpty()

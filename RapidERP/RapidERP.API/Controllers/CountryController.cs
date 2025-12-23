@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RapidERP.Application.DTOs.CountryDTOs.CountryRecord;
+using RapidERP.Application.Features.CountryFeatures.CreateBulkCommand;
+using RapidERP.Application.Features.CountryFeatures.CreateSingleCommand;
 using RapidERP.Application.Features.CountryFeatures.GetAllQuery;
 using RapidERP.Application.Features.CountryFeatures.GetHistoryQuery;
 using RapidERP.Application.Features.CountryFeatures.GetSingleQuery;
@@ -40,39 +42,39 @@ namespace RapidERP.API.Controllers
         }
 
         [HttpPost("CreateSingle")]
-        public async Task<IActionResult> CreateSingle(CountryPOSTRequestDTO masterPOST)
+        public async Task<IActionResult> CreateSingle(CreateSingleCountryCommandRequestModel createSingleCountryCommandRequestModel)
         {
-            logger.LogInformation("CreateSingle called with CountryPOSTRequestDTO: {@masterPOST}", masterPOST);
-            var command = new CreateSingleCommand(masterPOST);
-            var result = await bus.InvokeAsync<RequestResponse>(command);
+            logger.LogInformation("CreateSingle called with CountryPOSTRequestDTO: {@masterPOST}");
+             
+            var result = await bus.InvokeAsync<CreateBulkCountryCommandResponseModel>(new CreateSingleCountryCommandRequestModel());
             return Ok(result);
         }
 
-        [HttpPost("CreateBulk")]
-        public async Task<IActionResult> CreateBulk(List<CountryPOSTRequestDTO> masterPOSTs)
-        {
-            logger.LogInformation("CreateBulk called with {count} CountryPOSTRequestDTO items", masterPOSTs.Count);
-            var command = new CreateBulkCommand(masterPOSTs);
-            var result = await bus.InvokeAsync<RequestResponse>(command);
-            return Ok(result);
-        }
+        //[HttpPost("CreateBulk")]
+        //public async Task<IActionResult> CreateBulk(List<CountryPOSTRequestDTO> masterPOSTs)
+        //{
+        //    logger.LogInformation("CreateBulk called with {count} CountryPOSTRequestDTO items", masterPOSTs.Count);
+        //    var command = new CreateBulkCommand(masterPOSTs);
+        //    var result = await bus.InvokeAsync<RequestResponse>(command);
+        //    return Ok(result);
+        //}
 
-        [HttpPut("Update")]
-        public async Task<IActionResult> Update(CountryPUTRequestDTO masterPUT)
-        {
-            logger.LogInformation("Update called with CountryPUTRequestDTO: {@masterPUT}", masterPUT);
-            var command = new UpdateCommand(masterPUT);
-            var result = await bus.InvokeAsync<RequestResponse>(command);
-            return Ok(result);
-        }
+        //[HttpPut("Update")]
+        //public async Task<IActionResult> Update(CountryPUTRequestDTO masterPUT)
+        //{
+        //    logger.LogInformation("Update called with CountryPUTRequestDTO: {@masterPUT}", masterPUT);
+        //    var command = new UpdateCommand(masterPUT);
+        //    var result = await bus.InvokeAsync<RequestResponse>(command);
+        //    return Ok(result);
+        //}
 
-        [HttpPut("Delete")]
-        public async Task<IActionResult> SoftDelete(int id)
-        {
-            logger.LogInformation("SoftDelete called with id: {id}", id);
-            var command = new SoftDeleteCommand(id);
-            var result = await bus.InvokeAsync<RequestResponse>(command);
-            return Ok(result);
-        }
+        //[HttpPut("Delete")]
+        //public async Task<IActionResult> SoftDelete(int id)
+        //{
+        //    logger.LogInformation("SoftDelete called with id: {id}", id);
+        //    var command = new SoftDeleteCommand(id);
+        //    var result = await bus.InvokeAsync<RequestResponse>(command);
+        //    return Ok(result);
+        //}
     }
 }

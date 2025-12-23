@@ -1,3 +1,3 @@
 ﻿namespace RapidERP.Application.Features.CountryFeatures.DeleteCommand;
 
-public record DeleteCommand(int id);
+public record DeleteCountryCommandRequestModel(int id);

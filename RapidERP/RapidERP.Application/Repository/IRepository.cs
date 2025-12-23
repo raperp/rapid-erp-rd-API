@@ -1,5 +1,5 @@
-﻿using RapidERP.Domain.Entities.Shared;
-using RapidERP.Domain.Utilities;
+﻿using RapidERP.Application.DTOs.Shared;
+using RapidERP.Domain.Entities.Shared;
 
 namespace RapidERP.Application.Repository;
 
@@ -21,7 +21,10 @@ public interface IRepository
     Task Update<TEntity>(TEntity entity) where TEntity : class;
     Task CommitChanges();
     IQueryable<TEntity> Set<TEntity>() where TEntity : class;
-    Task SoftDelete<TEntity>(int id) where TEntity : BaseMaster;
+    Task<string> SoftDelete<TEntity>(int id) where TEntity : BaseMaster;
+    Task Delete<TEntity>(int id) where TEntity : Master; 
+    Task DeleteQueryable<TEntity>(TEntity entity) where TEntity : class; 
     Task<TEntity> GetSingle<TEntity>(int id) where TEntity : class;
     Task<dynamic> BeginTransactionAsync();
+    Task<dynamic> GetCounts<T>(int pageSize) where T : BaseMaster;
 }

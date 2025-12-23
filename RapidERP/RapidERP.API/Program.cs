@@ -2,8 +2,9 @@
 using FluentValidation;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using RapidERP.Application.Validator.CountryValidator;
+using RapidERP.Application.Assembly;
 using RapidERP.Infrastructure.Extentions;
+using RapidERP.Infrastructure.GlobalExceptions;
 using RapidERP.Infrastructure.Health;
 using Serilog;
 
@@ -24,7 +25,7 @@ try
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
     builder.Services.AddDbContext(builder.Configuration);
-    builder.Services.AddValidatorsFromAssemblyContaining<CountryPOSTRequestValidator>();
+    builder.Services.AddValidatorsFromAssemblyContaining<RapidERPApplication>();
     builder.Services.AddScopedServices();
     builder.Services.AddHealthChecks().AddCheck<SqlHealth>("sql-health-check", HealthStatus.Unhealthy);
     var app = builder.Build();
@@ -46,6 +47,8 @@ try
     {
         ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
     });
+
+    app.UseMiddleware<ExceptionHandlingMiddleware>();
 
     app.UseHttpsRedirection();
 

@@ -3,9 +3,9 @@ using RapidERP.Application.DTOs.CountryDTOs.CountryRecord;
 
 namespace RapidERP.Application.Features.CountryFeatures.UpdateCommand;
 
-public class UpdateValidator : AbstractValidator<CountryPUTRequestDTO>
+public class UpdateCountryValidator : AbstractValidator<CountryPUTRequestDTO>
 {
-    public UpdateValidator()
+    public UpdateCountryValidator()
     {
         RuleFor(x => x.Id)
             .NotEmpty()

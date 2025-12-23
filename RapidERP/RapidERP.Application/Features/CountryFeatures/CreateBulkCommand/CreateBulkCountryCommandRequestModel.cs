@@ -1,0 +1,5 @@
+﻿using RapidERP.Application.Features.CountryFeatures.CreateSingleCommand;
+
+namespace RapidERP.Application.Features.CountryFeatures.CreateBulkCommand;
+
+public record CreateBulkCountryCommandRequestModel(List<CreateSingleCountryCommandRequestModel> masterPOSTs);

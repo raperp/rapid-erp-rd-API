@@ -1,3 +1,3 @@
 ﻿namespace RapidERP.Application.Features.CountryFeatures.SoftDeleteCommand;
 
-public record SoftDeleteCommand(int id);
+public record SoftDeleteCountryCommandRequestModel(int id);

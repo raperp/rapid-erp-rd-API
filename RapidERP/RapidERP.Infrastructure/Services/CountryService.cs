@@ -18,7 +18,8 @@ using RapidERP.Infrastructure.Data;
 
 namespace RapidERP.Infrastructure.Services;
 
-public class CountryService(RapidERPDbContext context, ISharedService shared, IRepository repository) : ICountryService
+//public class CountryService(RapidERPDbContext context, ISharedService shared, IRepository repository) : ICountryService
+public class CountryService(RapidERPDbContext context, IRepository repository) : ICountryService
 {
     private RequestResponse _requestResponse { get; set; }
 
@@ -152,6 +153,12 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
 
     public async Task<RequestResponse> Delete(int id)
     {
+        //var histories = repository.Set<CountryHistory>().Where(c => c.CountryId == request.id).ToList();
+
+        //foreach (var item in histories)
+        //{
+        //    await repository.DeleteQueryable(item);
+        //}
         try
         {
             //await using var transaction = await context.Database.BeginTransactionAsync();
@@ -198,7 +205,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
             //    IsSuccess = true,
             //    Message = ResponseMessage.DeleteSuccess
             //};
-            await shared.Delete<Country>(id);
+            await repository.Delete<Country>(id);
             return _requestResponse;
         }
 
@@ -247,7 +254,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
 
             if (skip == 0 || take == 0)
             {
-                result.Count = await shared.GetCounts<Country>(pageSize);
+                result.Count = await repository.GetCounts<Country>(pageSize);
                 result.Data = await data.ToListAsync();
 
                 _requestResponse = new()
@@ -261,7 +268,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
 
             else
             {
-                result.Count = await shared.GetCounts<Country>(pageSize);
+                result.Count = await repository.GetCounts<Country>(pageSize);
                 result.Data = await data.Skip(skip).Take(take).ToListAsync();
 
                 _requestResponse = new()
@@ -376,7 +383,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
 
     public async Task<dynamic> GetSingle(int id)
     {
-        var result = await shared.GetSingle<Country>(id);
+        var result = await repository.GetSingle<Country>(id);
         return result;
     }
 
@@ -387,7 +394,7 @@ public class CountryService(RapidERPDbContext context, ISharedService shared, IR
 
     public async Task<dynamic> SoftDelete(int id)
     {
-        var result = await shared.SoftDelete<Country>(id);
+        var result = await repository.SoftDelete<Country>(id);
         return result;
     }
 
