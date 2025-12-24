@@ -50,9 +50,6 @@ public class Repository : IRepository
 
     public async Task<TEntity> FindById<TEntity>(int id) where TEntity : Master
     {
-        //var record = await context.Set<TEntity>().FindAsync(entity.Name) ?? 
-        //    throw new ApplicationException("Record not found");
-        //var user = await context.Users.SingleOrDefaultAsync(u => u.Email == login.Email && u.Password == login.Password);
         var record = await context.Set<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
         return record;
     }
@@ -84,20 +81,25 @@ public class Repository : IRepository
 
     public async Task<dynamic> GetCounts<T>(int pageSize) where T : BaseMaster
     {
+        var activeStatusId = await context.StatusTypes.Where(x => x.Name == "Active").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        var inActiveStatusId = await context.StatusTypes.Where(x => x.Name == "InActive").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        var draftedStatusId = await context.StatusTypes.Where(x => x.Name == "Drafted").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        var updatedStatusId = await context.StatusTypes.Where(x => x.Name == "Updated").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        var softDeletedStatusId = await context.StatusTypes.Where(x => x.Name == "SoftDeleted").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+
         float totalCount = await context.Set<T>().CountAsync();
-        int activeCount = await context.Set<T>().Where(x => x.StatusTypeId == 3).CountAsync();
-        int inActiveCount = await context.Set<T>().Where(x => x.StatusTypeId == 10).CountAsync();
-        int draftCount = await context.Set<T>().Where(x => x.StatusTypeId == 5).CountAsync();
-        //int updatedCount = await context.Set<T>().Where(x => x.UpdatedAt != null).CountAsync();
-        int deletedCount = await context.Set<T>().Where(x => x.StatusTypeId == 7).CountAsync();
-        int softDeletedCount = await context.Set<T>().Where(x => x.StatusTypeId == 6).CountAsync();
+        int activeCount = await context.Set<T>().Where(x => x.StatusTypeId == activeStatusId).CountAsync();
+        int inActiveCount = await context.Set<T>().Where(x => x.StatusTypeId == inActiveStatusId).CountAsync();
+        int draftCount = await context.Set<T>().Where(x => x.StatusTypeId == draftedStatusId).CountAsync();
+        int updatedCount = await context.Set<T>().Where(x => x.StatusTypeId == updatedStatusId).CountAsync();
+        int softDeletedCount = await context.Set<T>().Where(x => x.StatusTypeId == softDeletedStatusId).CountAsync();
 
         float totalPercentage = totalCount / totalCount * 100;
         float activePercentage = activeCount / totalCount * 100;
         float inActivePercentage = inActiveCount / totalCount * 100;
         float draftPercentage = draftCount / totalCount * 100;
-        //float updatedPercentage = updatedCount / totalCount * 100;
-        float deletedPercentage = deletedCount / totalCount * 100;
+        float updatedPercentage = updatedCount / totalCount * 100;
+        float softdeletedPercentage = softDeletedCount / totalCount * 100;
 
         int totalItems = await context.Set<T>().CountAsync();
         int totalPages = (totalItems + pageSize - 1) / pageSize;
@@ -108,8 +110,8 @@ public class Repository : IRepository
             activeCount,
             inActiveCount,
             draftCount,
-            //updatedCount,
-            deletedCount,
+            updatedCount,
+            softDeletedCount,
             totalItems,
             totalPages,
 
@@ -117,8 +119,8 @@ public class Repository : IRepository
             activePercentage = $"{activePercentage.ToString()}%",
             inActivePercentage = $"{inActivePercentage.ToString()}%",
             draftPercentage = $"{draftPercentage.ToString()}%",
-            //updatedPercentage = $"{updatedPercentage.ToString()}%",
-            deletedPercentage = $"{deletedPercentage.ToString()}%"
+            updatedPercentage = $"{updatedPercentage.ToString()}%",
+            softDeletedPercentage = $"{softdeletedPercentage.ToString()}%"
         };
 
         return result;
