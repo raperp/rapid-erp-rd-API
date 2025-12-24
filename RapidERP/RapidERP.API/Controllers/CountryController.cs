@@ -1,11 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RapidERP.Application.DTOs.CountryDTOs.CountryRecord;
+using RapidERP.Application.Features.CountryFeatures.CountryTemplate;
 using RapidERP.Application.Features.CountryFeatures.CreateBulkCommand;
 using RapidERP.Application.Features.CountryFeatures.CreateSingleCommand;
+using RapidERP.Application.Features.CountryFeatures.DeleteCommand;
 using RapidERP.Application.Features.CountryFeatures.GetAllQuery;
 using RapidERP.Application.Features.CountryFeatures.GetHistoryQuery;
+using RapidERP.Application.Features.CountryFeatures.GetSingleCountry;
 using RapidERP.Application.Features.CountryFeatures.GetSingleQuery;
-using RapidERP.Domain.Utilities;
+using RapidERP.Application.Features.CountryFeatures.SoftDeleteCommand;
+using RapidERP.Application.Features.CountryFeatures.UpdateCommand;
 using Wolverine;
 
 namespace RapidERP.API.Controllers
@@ -15,66 +19,82 @@ namespace RapidERP.API.Controllers
     public class CountryController(IMessageBus bus, ILogger<CountryController> logger) : ControllerBase
     {
         [HttpGet("GetAll")]
+        [ProducesResponseType(typeof(GetAllCountryResponseModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
         {
             logger.LogInformation("GetAll called with skip: {skip}, take: {take}, pageSize: {pageSize}", skip, take, pageSize);
             var query = new GetAllCountryRequestModel(skip, take, pageSize);
-            var result = await bus.InvokeAsync<GetAllCountryRequestModel>(query);
+            var result = await bus.InvokeAsync<GetAllCountryResponseModel>(query);
             return Ok(result);
         }
 
         [HttpGet("GetSingle")]
+        [ProducesResponseType(typeof(GetSingleCountryResponseModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetSingle(int id)
         {
             logger.LogInformation("GetSingle called with id: {id}", id);
             var query = new GetSingleCountryRequestModel(id);
-            var result = await bus.InvokeAsync<GetSingleCountryRequestModel>(query);
+            var result = await bus.InvokeAsync<GetSingleCountryResponseModel>(query);
             return Ok(result);
         }
 
         [HttpGet("GetHistory")]
+        [ProducesResponseType(typeof(GetHistoryCountryResponseModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
         {
             logger.LogInformation("GetHistory called with skip: {skip}, take: {take}, pageSize: {pageSize}", skip, take, pageSize);
             var query = new GetHistoryCountryRequestModel(skip, take, pageSize);
-            var result = await bus.InvokeAsync<GetHistoryCountryRequestModel>(query);
+            var result = await bus.InvokeAsync<GetHistoryCountryResponseModel>(query);
             return Ok(result);
         }
 
-        [HttpPost("CreateSingle")]
-        public async Task<IActionResult> CreateSingle(CreateSingleCountryCommandRequestModel createSingleCountryCommandRequestModel)
+        [HttpGet("GetTempleteData")]
+        [ProducesResponseType(typeof(CountryTemplateResponseModel), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetTempleteData()
         {
-            logger.LogInformation("CreateSingle called with CountryPOSTRequestDTO: {@masterPOST}");
-             
-            var result = await bus.InvokeAsync<CreateBulkCountryCommandResponseModel>(new CreateSingleCountryCommandRequestModel());
+            logger.LogInformation("Get Templete Data called");
+            var result = await bus.InvokeAsync<CountryTemplateResponseModel>(new CountryTemplateRequestModel());
+            return Ok(result);
+
+        }
+        [HttpPost("CreateSingle")]
+        public async Task<IActionResult> CreateSingle(CountryPOSTRequestDTO masterPOST)
+        {
+            logger.LogInformation("CreateSingle called");
+            var result = await bus.InvokeAsync<CreateSingleCountryCommandResponseModel>(new CreateSingleCountryCommandRequestModel(masterPOST));
             return Ok(result);
         }
 
-        //[HttpPost("CreateBulk")]
-        //public async Task<IActionResult> CreateBulk(List<CountryPOSTRequestDTO> masterPOSTs)
-        //{
-        //    logger.LogInformation("CreateBulk called with {count} CountryPOSTRequestDTO items", masterPOSTs.Count);
-        //    var command = new CreateBulkCommand(masterPOSTs);
-        //    var result = await bus.InvokeAsync<RequestResponse>(command);
-        //    return Ok(result);
-        //}
+        [HttpPost("CreateBulk")]
+        public async Task<IActionResult> CreateBulk(List<CreateSingleCountryCommandRequestModel> masterPOSTs)
+        {
+            logger.LogInformation("CreateBulk called");
+            var result = await bus.InvokeAsync<CreateBulkCountryCommandResponseModel>(new CreateBulkCountryCommandRequestModel(masterPOSTs));
+            return Ok(result);
+        }
 
-        //[HttpPut("Update")]
-        //public async Task<IActionResult> Update(CountryPUTRequestDTO masterPUT)
-        //{
-        //    logger.LogInformation("Update called with CountryPUTRequestDTO: {@masterPUT}", masterPUT);
-        //    var command = new UpdateCommand(masterPUT);
-        //    var result = await bus.InvokeAsync<RequestResponse>(command);
-        //    return Ok(result);
-        //}
+        [HttpPut("Update")]
+        public async Task<IActionResult> Update(CountryPUTRequestDTO masterPUT)
+        {
+            logger.LogInformation("Update called");
+            var result = await bus.InvokeAsync<UpdateCountryCommandResponseModel>(new UpdateCountryCommandRequestModel(masterPUT));
+            return Ok(result);
+        }
 
-        //[HttpPut("Delete")]
-        //public async Task<IActionResult> SoftDelete(int id)
-        //{
-        //    logger.LogInformation("SoftDelete called with id: {id}", id);
-        //    var command = new SoftDeleteCommand(id);
-        //    var result = await bus.InvokeAsync<RequestResponse>(command);
-        //    return Ok(result);
-        //}
+        [HttpPut("SoftDelete")]
+        public async Task<IActionResult> SoftDelete(int id)
+        {
+            logger.LogInformation("Soft Delete action performed with id: {id}", id);
+            var result = await bus.InvokeAsync<SoftDeleteCountryCommandResponseModel>(new SoftDeleteCountryCommandRequestModel(id));
+            return Ok(result);
+        }
+
+        [HttpPut("Delete")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            logger.LogInformation("Delete action performed with id: {id}", id);
+            var result = await bus.InvokeAsync<DeleteCountryCommandResponseModel>(new DeleteCountryCommandRequestModel(id));
+            return Ok(result);
+        }
     }
 }

@@ -64,7 +64,7 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                 masterData.IsDraft = masterPOST.IsDraft;
 
                 await context.Currencies.AddAsync(masterData);
-                //await context.SaveChangesAsync();
+                await context.SaveChangesAsync();
 
                 CurrencyHistory history = new();
                 history.CurrencyId = masterData.Id;

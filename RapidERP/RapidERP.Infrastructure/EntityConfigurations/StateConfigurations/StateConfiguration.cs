@@ -21,9 +21,9 @@ public class StateConfiguration : IEntityTypeConfiguration<State>
         builder.Ignore(x => x.TenantId);
         builder.Ignore(x => x.Tenant);
 
-        builder.HasMany(x => x.Tenants)
-        .WithOne(x => x.State)
-        .HasForeignKey(x => x.StateId)
-        .OnDelete(DeleteBehavior.NoAction);
+        //builder.HasMany(x => x.Tenants)
+        //.WithOne(x => x.State)
+        //.HasForeignKey(x => x.StateId)
+        //.OnDelete(DeleteBehavior.NoAction);
     }
 }

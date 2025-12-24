@@ -9,5 +9,5 @@ public class State : BaseMaster
     public Country Country { get; set; }
     public int CountryId { get; set; }
     public string Code { get; set; }
-    public ICollection<Tenant> Tenants { get; set; }
+    //public ICollection<Tenant> Tenants { get; set; }
 }

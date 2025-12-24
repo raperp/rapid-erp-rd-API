@@ -1,4 +1,5 @@
-﻿using RapidERP.Application.Features.CountryFeatures.GetSingleCountry;
+﻿using Microsoft.EntityFrameworkCore;
+using RapidERP.Application.Features.CountryFeatures.GetSingleCountry;
 using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Entities.CurrencyModels;
@@ -6,11 +7,14 @@ using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Entities.MenuModuleModels;
 using RapidERP.Domain.Entities.StatusTypeModels;
 using RapidERP.Domain.Entities.TenantModels;
+using RapidERP.Domain.Utilities;
 
 namespace RapidERP.Application.Features.CountryFeatures.GetSingleQuery;
 
 public class GetSingleCountryHandler(IRepository repository)
 {
+    GetSingleCountryResponseModel _response;
+
     public async Task<GetSingleCountryResponseModel> Handle(int id)
     {
         try
@@ -21,7 +25,7 @@ public class GetSingleCountryHandler(IRepository repository)
                         join l in repository.Set<Language>() on c.LanguageId equals l.Id
                         join mm in repository.Set<MenuModule>() on c.MenuModuleId equals mm.Id
                         join cu in repository.Set<Currency>() on c.CurrencyId equals cu.Id
-                        select new GetSingleCountryResponseModel
+                        select new GetSingleCountryResponseDTOModel
                         {
                             Id = c.Id,
                             MenuModule = mm.Name,
@@ -37,14 +41,29 @@ public class GetSingleCountryHandler(IRepository repository)
                             ISO2Code = c.ISO2Code,
                             ISO3Code = c.ISO3Code,
                             FlagURL = c.FlagURL
-                        }).Where(x => x.Id == id).SingleOrDefault();
+                        }).Where(x => x.Id == id).AsNoTracking().ToListAsync();
 
-            return data;
+            _response = new()
+            {
+                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                IsSuccess = true,
+                Message = ResponseMessage.FetchSuccess,
+                Data = data
+            };
+
+            return _response;
         }
 
         catch (Exception ex)
         {
-            throw new ApplicationException(ex.Message);
+            _response = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ex.Message
+            };
+
+            return _response;
         }
     }
 }

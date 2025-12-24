@@ -67,7 +67,7 @@ public class StatusTypeService(RapidERPDbContext context, ISharedService shared)
                 masterData.Description = masterPOST.Description;
 
                 await context.StatusTypes.AddAsync(masterData);
-                //await context.SaveChangesAsync();
+                await context.SaveChangesAsync();
 
                 StatusTypeHistory history = new();
                 history.StatusTypeId = masterData.Id;

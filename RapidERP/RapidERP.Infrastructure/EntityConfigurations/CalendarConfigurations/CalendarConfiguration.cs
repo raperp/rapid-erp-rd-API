@@ -21,5 +21,6 @@ public class CalendarConfiguration : IEntityTypeConfiguration<Calendar>
         builder.Property(x => x.TotalMonth).HasColumnOrder(9);
         builder.Ignore(x => x.IsDefault);
         builder.Ignore(x => x.IsDraft);
+        builder.Ignore(x => x.Tenant);
     }
 }

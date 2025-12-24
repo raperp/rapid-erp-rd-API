@@ -66,7 +66,7 @@ public class ExportTypeService(RapidERPDbContext context, ISharedService shared)
                 masterData.Description = masterPOST.Description;
 
                 await context.ExportTypes.AddAsync(masterData);
-                //await context.SaveChangesAsync();
+                await context.SaveChangesAsync();
 
                 ExportTypeHistory history = new();
                 history.ExportTypeId = masterData.Id;

@@ -6,9 +6,9 @@ namespace RapidERP.Domain.Entities.TenantModels;
 
 public class Tenant : BaseMaster
 {
-    public Country Country { get; set; }
+    //public Country Country { get; set; }
     public int? CountryId { get; set; }
-    public State State { get; set; }
+    //public State State { get; set; }
     public int? StateId { get; set; }
     public string Contact { get; set; }
     public string Phone { get; set; }

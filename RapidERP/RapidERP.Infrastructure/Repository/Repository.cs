@@ -1,8 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using RapidERP.Application.Repository;
+using RapidERP.Domain.Entities.LoginModels;
 using RapidERP.Domain.Entities.Shared;
 using RapidERP.Infrastructure.Data;
 using System.Data;
+using System.Threading.Tasks;
 
 namespace RapidERP.Infrastructure.Repository;
 
@@ -29,32 +32,31 @@ public class Repository : IRepository
     public async Task Add<TEntity>(TEntity entity) where TEntity : class
     {
         await context.Set<TEntity>().AddAsync(entity);
+        await context.SaveChangesAsync();
     }
 
     public async Task Update<TEntity>(TEntity entity) where TEntity : class
     {
-        context.Entry<TEntity>(entity).State = EntityState.Modified;
+        context.Set<TEntity>().Update(entity);
+        await context.SaveChangesAsync();
     }
 
-    public async Task<dynamic> FindById<TEntity>(TEntity entity) where TEntity : Master
+    //public async Task<dynamic> FindById<TEntity>(TEntity entity) where TEntity : Master
+    //{
+    //    var record = await context.Set<TEntity>().FindAsync(entity.Id) ?? 
+    //        throw new ApplicationException("Record not found");
+    //    return record;
+    //}
+
+    public async Task<TEntity> FindById<TEntity>(int id) where TEntity : Master
     {
-        var record = await context.Set<TEntity>().FindAsync(entity.Id) ?? 
-            throw new ApplicationException("Record not found");
+        //var record = await context.Set<TEntity>().FindAsync(entity.Name) ?? 
+        //    throw new ApplicationException("Record not found");
+        //var user = await context.Users.SingleOrDefaultAsync(u => u.Email == login.Email && u.Password == login.Password);
+        var record = await context.Set<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
         return record;
     }
 
-    public async Task<dynamic> FindByName<TEntity>(TEntity entity) where TEntity : Master
-    {
-        var record = await context.Set<TEntity>().FindAsync(entity.Name) ?? 
-            throw new ApplicationException("Record not found");
-        return record;
-    }
-
-    public async Task<dynamic> BeginTransactionAsync()
-    {
-        return await context.Database.BeginTransactionAsync();
-    }
-     
     public async Task<string> SoftDelete<TEntity>(int id) where TEntity : BaseMaster
     {
         int statusTypeId = await context.StatusTypes.Where(x => x.Name == "Deleted")
@@ -120,5 +122,23 @@ public class Repository : IRepository
         };
 
         return result;
+    }
+
+    public async Task<bool> IsExists<T>(string name) where T : Master
+    {
+        var result = await context.Set<T>().AsNoTracking().AnyAsync(x => x.Name == name);
+        return result;
+    }
+
+    public async Task<bool> IsExistsById<T>(int id, string name) where T : Master
+    {
+        var result = await context.Set<T>().AsNoTracking().AnyAsync(x => x.Name == name && x.Id != id);
+        return result;
+    }
+
+    public IDbTransaction BeginTransaction()
+    {
+        var transaction = context.Database.BeginTransaction();
+        return transaction.GetDbTransaction();
     }
 }

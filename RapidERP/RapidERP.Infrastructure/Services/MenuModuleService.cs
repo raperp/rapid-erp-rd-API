@@ -63,7 +63,7 @@ public class MenuModuleService(RapidERPDbContext context, ISharedService shared)
                 masterData.SetSerial = masterPOST.SetSerial;
 
                 await context.MenuModules.AddAsync(masterData);
-                //await context.SaveChangesAsync();
+                await context.SaveChangesAsync();
 
                 MenuModuleHistory history = new();
                 history.MenuModuleId = masterData.Id;

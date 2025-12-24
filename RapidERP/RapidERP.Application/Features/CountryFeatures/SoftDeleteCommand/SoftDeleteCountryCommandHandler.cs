@@ -1,15 +1,40 @@
 ﻿using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.CountryModels;
+using RapidERP.Domain.Utilities;
 
 namespace RapidERP.Application.Features.CountryFeatures.SoftDeleteCommand;
 
 public class SoftDeleteCountryCommandHandler(IRepository repository)
 {
+    SoftDeleteCountryCommandResponseModel _response;
+
     public async Task<SoftDeleteCountryCommandResponseModel> Handle(SoftDeleteCountryCommandRequestModel request)
     {
-        await repository.SoftDelete<Country>(request.id);
-        SoftDeleteCountryCommandResponseModel responseModel = new();
-        responseModel.Message = "Country soft deleted successfully.";
-        return responseModel;
+       try
+       {
+            var result = await repository.SoftDelete<Country>(request.id);
+
+            _response = new()
+            {
+                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                IsSuccess = true,
+                Message = ResponseMessage.UpdateSuccess,
+                Data = result
+            };
+
+            return _response;
+        }
+
+        catch (Exception ex)
+        {
+            _response = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ex.Message
+            };
+
+            return _response;
+        }
     }
 }

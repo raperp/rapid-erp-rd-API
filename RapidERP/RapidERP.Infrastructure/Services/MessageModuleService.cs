@@ -59,7 +59,7 @@ public class MessageModuleService(RapidERPDbContext context, ISharedService shar
                 masterData.Name = masterPOST.Name;
 
                 await context.MessageModules.AddAsync(masterData);
-                //await context.SaveChangesAsync();
+                await context.SaveChangesAsync();
 
                 MessageModuleHistory history = new();
                 history.MessageModuleId = masterData.Id;

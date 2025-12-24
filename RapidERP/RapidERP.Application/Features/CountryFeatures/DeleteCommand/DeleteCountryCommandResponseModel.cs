@@ -1,6 +1,5 @@
-﻿namespace RapidERP.Application.Features.CountryFeatures.DeleteCommand;
+﻿using RapidERP.Domain.Utilities;
 
-public class DeleteCountryCommandResponseModel
-{
-    public string Message { get; set; }
-}
+namespace RapidERP.Application.Features.CountryFeatures.DeleteCommand;
+
+public record DeleteCountryCommandResponseModel : RequestResponse { }

@@ -11,8 +11,8 @@ public class TenantConfiguration : IEntityTypeConfiguration<Tenant>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).HasColumnOrder(0);
         builder.Property(x => x.MenuModuleId).HasColumnOrder(1);
-        builder.Property(x => x.CountryId).HasColumnOrder(2);
-        builder.Property(x => x.StateId).HasColumnOrder(3);
+        builder.Property(x => x.CountryId).IsRequired(false).HasColumnOrder(2);
+        builder.Property(x => x.StateId).IsRequired(false).HasColumnOrder(3);
         builder.Property(x => x.StatusTypeId).HasColumnOrder(4);
         builder.Property(x => x.LanguageId).HasColumnOrder(5);
         builder.Property(x => x.Name).HasMaxLength(40).IsRequired().HasColumnOrder(6);
@@ -26,6 +26,8 @@ public class TenantConfiguration : IEntityTypeConfiguration<Tenant>
         builder.Ignore(x => x.IsDraft);
         builder.Ignore(x => x.Tenant);
         builder.Ignore(x => x.TenantId);
+        //builder.Ignore(x => x.Country);
+        //builder.Ignore(x => x.State);
 
         //builder.HasMany(x => x.Countries)
         //.WithOne(x => x.Tenant)

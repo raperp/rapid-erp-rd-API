@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Features.CountryFeatures.CreateSingleCommand;
 
-public class CreateSingleCountryCommandResponseModel : RequestResponse { }
+public record CreateSingleCountryCommandResponseModel : RequestResponse { }

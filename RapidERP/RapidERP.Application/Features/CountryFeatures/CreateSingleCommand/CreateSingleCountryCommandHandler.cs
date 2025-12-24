@@ -9,64 +9,63 @@ public class CreateSingleCountryCommandHandler(IRepository repository)
     public async Task<CreateSingleCountryCommandResponseModel> Handle(CreateSingleCountryCommandRequestModel request)
     {
         CreateSingleCountryCommandResponseModel _response;
+        string name = string.Empty;
 
         try
         {
-            Country masterData = new();
-            //await using var transaction = await context.Database.BeginTransactionAsync();
-            await using var transaction = await repository.BeginTransactionAsync();
-            //var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
-            var masterRecord = await repository.FindById(masterData);
-
-            if (masterRecord is null)
+            using var transaction = repository.BeginTransaction(); 
+            var isExists = await repository.IsExists<Country>(request.masterPOST.Name);
+           
+            if (isExists == false)
             {
-                masterData.MenuModuleId = request.MenuModuleId;
-                masterData.TenantId = request.TenantId;
-                masterData.StatusTypeId = request.StatusTypeId;
-                masterData.LanguageId = request.LanguageId;
-                masterData.CurrencyId = request.CurrencyId;
-                masterData.DialCode = request.DialCode;
-                masterData.Name = request.Name;
-                masterData.IsDefault = request.IsDefault;
-                masterData.IsDraft = request.IsDraft;
-                masterData.ISONumeric = request.ISONumeric;
-                masterData.ISO2Code = request.ISO2Code;
-                masterData.ISO3Code = request.ISO3Code;
-                masterData.FlagURL = request.FlagURL;
+                Country masterData = new();
+                masterData.MenuModuleId = request.masterPOST.MenuModuleId;
+                masterData.TenantId = request.masterPOST.TenantId;
+                masterData.StatusTypeId = request.masterPOST.StatusTypeId;
+                masterData.LanguageId = request.masterPOST.LanguageId;
+                masterData.CurrencyId = request.masterPOST.CurrencyId;
+                masterData.DialCode = request.masterPOST.DialCode;
+                masterData.Name = request.masterPOST.Name;
+                masterData.IsDefault = request.masterPOST.IsDefault;
+                masterData.IsDraft = request.masterPOST.IsDraft;
+                masterData.ISONumeric = request.masterPOST.ISONumeric;
+                masterData.ISO2Code = request.masterPOST.ISO2Code;
+                masterData.ISO3Code = request.masterPOST.ISO3Code;
+                masterData.FlagURL = request.masterPOST.FlagURL;
+                name = request.masterPOST.Name;
 
-                await repository.Add(masterData);
+                await repository.Add(masterData); 
 
                 CountryHistory history = new();
                 history.CountryId = masterData.Id;
-                history.CurrencyId = request.CurrencyId;
-                history.TenantId = request.TenantId;
-                history.MenuModuleId = request.MenuModuleId;
-                history.ActionTypeId = request.ActionTypeId;
-                history.LanguageId = request.LanguageId;
-                history.ExportTypeId = request.ExportTypeId;
-                history.ExportTo = request.ExportTo;
-                history.SourceURL = request.SourceURL;
-                history.DialCode = request.DialCode;
-                history.Name = request.Name;
-                history.IsDefault = request.IsDefault;
-                history.IsDraft = request.IsDraft;
-                history.ISONumeric = request.ISONumeric;
-                history.ISO2Code = request.ISO2Code;
-                history.ISO3Code = request.ISO3Code;
-                history.FlagURL = request.FlagURL;
-                history.Browser = request.Browser;
-                history.Location = request.Location;
-                history.DeviceIP = request.DeviceIP;
-                history.LocationURL = request.LocationURL;
-                history.DeviceName = request.DeviceName;
-                history.Latitude = request.Latitude;
-                history.Longitude = request.Longitude;
-                history.ActionBy = request.ActionBy;
+                history.CurrencyId = request.masterPOST.CurrencyId;
+                history.TenantId = request.masterPOST.TenantId;
+                history.MenuModuleId = request.masterPOST.MenuModuleId;
+                history.ActionTypeId = request.masterPOST.ActionTypeId;
+                history.LanguageId = request.masterPOST.LanguageId;
+                history.ExportTypeId = request.masterPOST.ExportTypeId;
+                history.ExportTo = request.masterPOST.ExportTo;
+                history.SourceURL = request.masterPOST.SourceURL;
+                history.DialCode = request.masterPOST.DialCode;
+                history.Name = request.masterPOST.Name;
+                history.IsDefault = request.masterPOST.IsDefault;
+                history.IsDraft = request.masterPOST.IsDraft;
+                history.ISONumeric = request.masterPOST.ISONumeric;
+                history.ISO2Code = request.masterPOST.ISO2Code;
+                history.ISO3Code = request.masterPOST.ISO3Code;
+                history.FlagURL = request.masterPOST.FlagURL;
+                history.Browser = request.masterPOST.Browser;
+                history.Location = request.masterPOST.Location;
+                history.DeviceIP = request.masterPOST.DeviceIP;
+                history.LocationURL = request.masterPOST.LocationURL;
+                history.DeviceName = request.masterPOST.DeviceName;
+                history.Latitude = request.masterPOST.Latitude;
+                history.Longitude = request.masterPOST.Longitude;
+                history.ActionBy = request.masterPOST.ActionBy;
                 history.ActionAt = DateTime.Now;
 
-                await repository.Add(history);
-                await repository.CommitChanges();
-                await transaction.CommitAsync(); /////commit transaction not accessable from repository
+                await repository.Add(history); 
+                transaction.Commit();  
 
                 _response = new()
                 {
@@ -83,7 +82,7 @@ public class CreateSingleCountryCommandHandler(IRepository repository)
                 {
                     StatusCode = $"{HTTPStatusCode.Conflict} {HTTPStatusCode.StatusCode409}",
                     IsSuccess = false,
-                    Message = $"{ResponseMessage.RecordExists} {request.Name}"
+                    Message = $"{ResponseMessage.RecordExists} {name}"
                 };
             }
 

@@ -1,4 +1,3 @@
 ﻿namespace RapidERP.Application.Features.CountryFeatures.CountryTemplate;
 
-public record CountryTemplateRequestModel();
- 
+public record CountryTemplateRequestModel { }

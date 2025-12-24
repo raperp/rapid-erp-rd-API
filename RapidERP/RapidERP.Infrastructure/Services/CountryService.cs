@@ -61,11 +61,11 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
         {
             Country masterData = new();
             //await using var transaction = await context.Database.BeginTransactionAsync();
-            await using var transaction = await repository.BeginTransactionAsync();
-            //var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
-            var masterRecord = await repository.FindById(masterData);
+              using var transaction =   repository.BeginTransaction();
+            var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
+            //var masterRecord = await repository.FindById(masterPOST.id);
 
-            if (masterRecord is null)
+            if (isExists == false)
             {
                 
                 masterData.MenuModuleId = masterPOST.MenuModuleId;
@@ -112,9 +112,8 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                 history.ActionBy = masterPOST.ActionBy;
                 history.ActionAt = DateTime.Now;
 
-                await repository.Add(history);
-                await repository.CommitChanges();
-                await transaction.CommitAsync();
+                await repository.Add(history); 
+                transaction.Commit();
 
                 _requestResponse = new()
                 {
@@ -162,7 +161,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
         try
         {
             //await using var transaction = await context.Database.BeginTransactionAsync();
-            await using var transaction = await repository.BeginTransactionAsync(); ;
+            using var transaction = repository.BeginTransaction(); ;
             //var ishistoryExists = await context.CountryHistory.AsNoTracking().AnyAsync(x => x.CountryId == id);
             var ishistoryExists = await repository.Set<CountryHistory>().AsNoTracking().AnyAsync(x => x.CountryId == id);
 
@@ -234,7 +233,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                         join l in repository.Set<Language>() on c.LanguageId equals l.Id
                         join mm in repository.Set<MenuModule>() on c.MenuModuleId equals mm.Id
                         join cu in repository.Set<Currency>() on c.CurrencyId equals cu.Id
-                        select new GetSingleCountryResponseModel
+                        select new GetSingleCountryResponseDTOModel
                         {
                             Id = c.Id,
                             MenuModule = mm.Name,
@@ -405,9 +404,9 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
             Country masterData = new();
             CountryHistory history = new();
             //await using var transaction = await context.Database.BeginTransactionAsync();
-            await using var transaction = await repository.BeginTransactionAsync();
+            using var transaction = repository.BeginTransaction();
             //var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
-            var masterRecord = await repository.FindById(masterData);
+            var masterRecord = await repository.FindById<Country>(masterPUT.Id);
             
             //Loading current data to parameter
             masterPUT.ISONumeric = (masterPUT.ISONumeric is not null) ? masterPUT.ISONumeric : masterRecord.ISONumeric;
@@ -487,7 +486,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                 
                 await repository.Add(history);
                 await repository.CommitChanges();
-                await transaction.CommitAsync();
+                transaction.Commit();
 
 
                 _requestResponse = new()

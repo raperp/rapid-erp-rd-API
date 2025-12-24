@@ -16,9 +16,9 @@ public class CountryConfiguration : IEntityTypeConfiguration<Country>
         builder.Ignore(x => x.Tenant);
         builder.Property(x => x.TenantId).IsRequired(false);
         
-        builder.HasMany(x => x.Tenants)
-               .WithOne(x => x.Country)
-               .HasForeignKey(x => x.CountryId)
-               .OnDelete(DeleteBehavior.NoAction);
+        //builder.HasMany(x => x.Tenants)
+        //       .WithOne(x => x.Country)
+        //       .HasForeignKey(x => x.CountryId)
+        //       .OnDelete(DeleteBehavior.NoAction);
     }
 }

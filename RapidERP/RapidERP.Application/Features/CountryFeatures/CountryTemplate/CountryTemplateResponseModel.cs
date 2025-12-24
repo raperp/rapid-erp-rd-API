@@ -1,5 +1,5 @@
-﻿namespace RapidERP.Application.Features.CountryFeatures.CountryTemplate;
+﻿using RapidERP.Domain.Utilities;
 
-public record CountryTemplateResponseModel
-{
-}
+namespace RapidERP.Application.Features.CountryFeatures.CountryTemplate;
+
+public record CountryTemplateResponseModel : RequestResponse { }

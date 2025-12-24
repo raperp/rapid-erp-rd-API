@@ -1,6 +1,5 @@
-﻿namespace RapidERP.Application.Features.CountryFeatures.SoftDeleteCommand;
+﻿using RapidERP.Domain.Utilities;
 
-public record SoftDeleteCountryCommandResponseModel
-{
-    public string Message { get; set; }
-}
+namespace RapidERP.Application.Features.CountryFeatures.SoftDeleteCommand;
+
+public record SoftDeleteCountryCommandResponseModel : RequestResponse { }

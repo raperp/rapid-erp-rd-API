@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RapidERP.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using RapidERP.Infrastructure.Data;
 namespace RapidERP.Infrastructure.Migrations
 {
     [DbContext(typeof(RapidERPDbContext))]
-    partial class RapidERPDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251224134751_CalTenantIdNull")]
+    partial class CalTenantIdNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2836,6 +2839,8 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.HasIndex("StatusTypeId");
 
+                    b.HasIndex("TenantId");
+
                     b.ToTable("Solutions");
                 });
 
@@ -3792,9 +3797,13 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CountryId");
+
                     b.HasIndex("LanguageId");
 
                     b.HasIndex("MenuModuleId");
+
+                    b.HasIndex("StateId");
 
                     b.HasIndex("StatusTypeId");
 
@@ -5184,11 +5193,17 @@ namespace RapidERP.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("StatusTypeId");
 
+                    b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
+                        .WithMany()
+                        .HasForeignKey("TenantId");
+
                     b.Navigation("Language");
 
                     b.Navigation("MenuModule");
 
                     b.Navigation("StatusType");
+
+                    b.Navigation("Tenant");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.SolutionModels.SolutionHistory", b =>
@@ -5390,6 +5405,11 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.TenantModels.Tenant", b =>
                 {
+                    b.HasOne("RapidERP.Domain.Entities.CountryModels.Country", "Country")
+                        .WithMany("Tenants")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
                         .WithMany("Tenants")
                         .HasForeignKey("LanguageId")
@@ -5400,14 +5420,23 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasForeignKey("MenuModuleId")
                         .OnDelete(DeleteBehavior.NoAction);
 
+                    b.HasOne("RapidERP.Domain.Entities.SateModules.State", "State")
+                        .WithMany("Tenants")
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
                         .WithMany("Tenants")
                         .HasForeignKey("StatusTypeId")
                         .OnDelete(DeleteBehavior.NoAction);
 
+                    b.Navigation("Country");
+
                     b.Navigation("Language");
 
                     b.Navigation("MenuModule");
+
+                    b.Navigation("State");
 
                     b.Navigation("StatusType");
                 });
@@ -5524,6 +5553,11 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.Country", b =>
+                {
+                    b.Navigation("Tenants");
+                });
+
             modelBuilder.Entity("RapidERP.Domain.Entities.CurrencyModels.Currency", b =>
                 {
                     b.Navigation("Countries");
@@ -5535,6 +5569,11 @@ namespace RapidERP.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", b =>
+                {
+                    b.Navigation("Tenants");
+                });
+
+            modelBuilder.Entity("RapidERP.Domain.Entities.SateModules.State", b =>
                 {
                     b.Navigation("Tenants");
                 });

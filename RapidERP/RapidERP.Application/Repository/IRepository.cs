@@ -1,5 +1,6 @@
 ﻿using RapidERP.Application.DTOs.Shared;
 using RapidERP.Domain.Entities.Shared;
+using System.Data;
 
 namespace RapidERP.Application.Repository;
 
@@ -14,9 +15,9 @@ public interface IRepository
     //Task<IReadOnlyList<T>> CreateBulk(List<T> masterPOSTs);
     //Task<T> Update(T masterPUT);
     //Task  Delete(int id);
-    
+
     ///
-    Task<dynamic> FindById<TEntity>(TEntity entity) where TEntity : Master;
+    Task<TEntity> FindById<TEntity>(int id) where TEntity : Master;
     Task Add<TEntity>(TEntity entity) where TEntity : class;
     Task Update<TEntity>(TEntity entity) where TEntity : class;
     Task CommitChanges();
@@ -25,6 +26,8 @@ public interface IRepository
     Task Delete<TEntity>(int id) where TEntity : Master; 
     Task DeleteQueryable<TEntity>(TEntity entity) where TEntity : class; 
     Task<TEntity> GetSingle<TEntity>(int id) where TEntity : class;
-    Task<dynamic> BeginTransactionAsync();
+    IDbTransaction BeginTransaction();
     Task<dynamic> GetCounts<T>(int pageSize) where T : BaseMaster;
+    Task<bool> IsExists<T>(string name) where T : Master;
+    Task<bool> IsExistsById<T>(int id, string name) where T : Master;
 }

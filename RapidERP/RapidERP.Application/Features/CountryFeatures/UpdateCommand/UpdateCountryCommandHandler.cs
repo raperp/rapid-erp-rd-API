@@ -1,5 +1,4 @@
-﻿using RapidERP.Application.Interfaces;
-using RapidERP.Application.Repository;
+﻿using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Utilities;
 
@@ -7,34 +6,34 @@ namespace RapidERP.Application.Features.CountryFeatures.UpdateCommand;
 
 public class UpdateCountryCommandHandler(IRepository repository)
 {
+    UpdateCountryCommandResponseModel _response;
+
     public async Task<UpdateCountryCommandResponseModel> Handle(UpdateCountryCommandRequestModel request)
     {
         try
         {
             Country masterData = new();
-            CountryHistory history = new();
-            UpdateCountryCommandResponseModel response = new();
-            //await using var transaction = await context.Database.BeginTransactionAsync();
-            await using var transaction = await repository.BeginTransactionAsync();
-            //var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
-            var masterRecord = await repository.FindById(masterData);
+            using var transaction = repository.BeginTransaction();
+            var isExists = await repository.IsExistsById<Country>(request.masterPUT.Id, request.masterPUT.Name);
+            var masterRecord = await repository.FindById<Country>(request.masterPUT.Id);
 
-            //Loading current data to parameter
-            request.ISONumeric = (request.ISONumeric is not null) ? request.ISONumeric : masterRecord.ISONumeric;
-            request.Name = (request.Name is not null) ? request.Name : masterRecord.Name;
-            request.ISO2Code = (request.ISO2Code is not null) ? request.ISO2Code : masterRecord.ISO2Code;
-            request.ISO3Code = (request.ISO3Code is not null) ? request.ISO3Code : masterRecord.ISO3Code;
-            request.MenuModuleId = (request.MenuModuleId is not null) ? request.MenuModuleId : masterRecord.MenuModuleId;
-            request.TenantId = (request.TenantId is not null) ? request.TenantId : masterRecord.TenantId;
-            request.StatusTypeId = (request.StatusTypeId != 0) ? request.StatusTypeId : masterRecord.StatusTypeId;
-            request.LanguageId = (request.LanguageId is not null) ? request.LanguageId : masterRecord.LanguageId;
-            request.CurrencyId = (request.CurrencyId != 0) ? request.CurrencyId : masterRecord.CurrencyId;
-            request.DialCode = (request.DialCode is not null) ? request.DialCode : masterRecord.DialCode;
-            request.FlagURL = (request.FlagURL is not null) ? request.FlagURL : masterRecord.FlagURL;
+            //Loading current data to parameters
+            if (masterRecord is not null)
+            {
+                request.masterPUT.ISONumeric = (request.masterPUT.ISONumeric is not null) ? request.masterPUT.ISONumeric : masterRecord.ISONumeric;
+                request.masterPUT.Name = (request.masterPUT.Name is not null) ? request.masterPUT.Name : masterRecord.Name;
+                request.masterPUT.ISO2Code = (request.masterPUT.ISO2Code is not null) ? request.masterPUT.ISO2Code : masterRecord.ISO2Code;
+                request.masterPUT.ISO3Code = (request.masterPUT.ISO3Code is not null) ? request.masterPUT.ISO3Code : masterRecord.ISO3Code;
+                request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId is not null) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
+                request.masterPUT.TenantId = (request.masterPUT.TenantId is not null) ? request.masterPUT.TenantId : masterRecord.TenantId;
+                request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;
+                request.masterPUT.LanguageId = (request.masterPUT.LanguageId is not null) ? request.masterPUT.LanguageId : masterRecord.LanguageId;
+                request.masterPUT.CurrencyId = (request.masterPUT.CurrencyId is not null) ? request.masterPUT.CurrencyId : masterRecord.CurrencyId;
+                request.masterPUT.DialCode = (request.masterPUT.DialCode is not null) ? request.masterPUT.DialCode : masterRecord.DialCode;
+                request.masterPUT.FlagURL = (request.masterPUT.FlagURL is not null) ? request.masterPUT.FlagURL : masterRecord.FlagURL;
+            }
 
-
-
-            if (masterRecord is null)
+            if (isExists == false)
             {
                 //await context.Countries.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 //.SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
@@ -51,116 +50,85 @@ public class UpdateCountryCommandHandler(IRepository repository)
                 //.SetProperty(x => x.ISO3Code, masterPUT.ISO3Code)
                 //.SetProperty(x => x.FlagURL, masterPUT.FlagURL));
 
+                masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
+                masterRecord.TenantId = request.masterPUT.TenantId;
+                masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
+                masterRecord.LanguageId = request.masterPUT.LanguageId;
+                masterRecord.CurrencyId = request.masterPUT.CurrencyId;
+                masterRecord.DialCode = request.masterPUT.DialCode;
+                masterRecord.Name = request.masterPUT.Name;
+                masterRecord.IsDefault = request.masterPUT.IsDefault;
+                masterRecord.IsDraft = request.masterPUT.IsDraft;
+                masterRecord.ISONumeric = request.masterPUT.ISONumeric;
+                masterRecord.ISO2Code = request.masterPUT.ISO2Code;
+                masterRecord.ISO3Code = request.masterPUT.ISO3Code;
+                masterRecord.FlagURL = request.masterPUT.FlagURL;
 
-                masterData.MenuModuleId = request.MenuModuleId;
-                masterData.TenantId = request.TenantId;
-                masterData.StatusTypeId = request.StatusTypeId;
-                masterData.LanguageId = request.LanguageId;
-                masterData.CurrencyId = request.CurrencyId;
-                masterData.DialCode = request.DialCode;
-                masterData.Name = request.Name;
-                masterData.IsDefault = request.IsDefault;
-                masterData.IsDraft = request.IsDraft;
-                masterData.ISONumeric = request.ISONumeric;
-                masterData.ISO2Code = request.ISO2Code;
-                masterData.ISO3Code = request.ISO3Code;
-                masterData.FlagURL = request.FlagURL;
+                await repository.Update(masterRecord);
 
-                await repository.Update(masterData);
-
-                history.CountryId = request.Id;
-                history.TenantId = request.TenantId;
-                history.MenuModuleId = request.MenuModuleId;
-                history.ActionTypeId = request.ActionTypeId;
-                history.LanguageId = request.LanguageId;
-                history.CurrencyId = request.CurrencyId;
-                history.ExportTypeId = request.ExportTypeId;
-                history.ExportTo = request.ExportTo;
-                history.SourceURL = request.SourceURL;
-                history.DialCode = request.DialCode;
-                history.Name = request.Name;
-                history.IsDefault = request.IsDefault;
-                history.IsDraft = request.IsDraft;
-                history.ISONumeric = request.ISONumeric;
-                history.ISO2Code = request.ISO2Code;
-                history.ISO3Code = request.ISO3Code;
-                history.FlagURL = request.FlagURL;
-                history.Browser = request.Browser;
-                history.Location = request.Location;
-                history.DeviceIP = request.DeviceIP;
-                history.LocationURL = request.LocationURL;
-                history.DeviceName = request.DeviceName;
-                history.Latitude = request.Latitude;
-                history.Longitude = request.Longitude;
-                history.ActionBy = request.ActionBy;
+                CountryHistory history = new();
+                history.CountryId = request.masterPUT.Id;
+                history.CurrencyId = request.masterPUT.CurrencyId;
+                history.TenantId = request.masterPUT.TenantId;
+                history.MenuModuleId = request.masterPUT.MenuModuleId;
+                history.ActionTypeId = request.masterPUT.ActionTypeId;
+                history.LanguageId = request.masterPUT.LanguageId;
+                history.ExportTypeId = request.masterPUT.ExportTypeId;
+                history.ExportTo = request.masterPUT.ExportTo;
+                history.SourceURL = request.masterPUT.SourceURL;
+                history.DialCode = request.masterPUT.DialCode;
+                history.Name = request.masterPUT.Name;
+                history.IsDefault = request.masterPUT.IsDefault;
+                history.IsDraft = request.masterPUT.IsDraft;
+                history.ISONumeric = request.masterPUT.ISONumeric;
+                history.ISO2Code = request.masterPUT.ISO2Code;
+                history.ISO3Code = request.masterPUT.ISO3Code;
+                history.FlagURL = request.masterPUT.FlagURL;
+                history.Browser = request.masterPUT.Browser;
+                history.Location = request.masterPUT.Location;
+                history.DeviceIP = request.masterPUT.DeviceIP;
+                history.LocationURL = request.masterPUT.LocationURL;
+                history.DeviceName = request.masterPUT.DeviceName;
+                history.Latitude = request.masterPUT.Latitude;
+                history.Longitude = request.masterPUT.Longitude;
+                history.ActionBy = request.masterPUT.ActionBy;
                 history.ActionAt = DateTime.Now;
 
                 await repository.Add(history);
-                await repository.CommitChanges();
-                await transaction.CommitAsync();
+                transaction.Commit();
 
-
-                response.Id = request.Id;
-                response.CurrencyId = request.CurrencyId;
-                response.DialCode = request.DialCode;
-                response.ISONumeric = request.ISONumeric;
-                response.ISO2Code = request.ISO2Code;
-                response.ISO3Code = request.ISO3Code;
-                response.FlagURL = request.FlagURL;
-                response.Name = request.Name;
-                response.MenuModuleId = request.MenuModuleId;
-                response.TenantId = request.TenantId;
-                response.StatusTypeId = request.StatusTypeId;
-                response.LanguageId = request.LanguageId;
-                response.IsDefault = request.IsDefault;
-                response.IsDraft = request.IsDraft;
-                response.ActionTypeId = request.ActionTypeId;
-                response.ExportTypeId = request.ExportTypeId;
-                response.ExportTo = request.ExportTo;
-                response.SourceURL = request.SourceURL;
-                response.Browser = request.Browser;
-                response.Location = request.Location;
-                response.DeviceIP = request.DeviceIP;
-                response.LocationURL = request.LocationURL;
-                response.DeviceName = request.DeviceName;
-                response.Latitude = request.Latitude;
-                response.Longitude = request.Longitude;
-                response.ActionBy = request.ActionBy;
-
-
-                //_requestResponse = new()
-                //{
-                //    StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
-                //    IsSuccess = true,
-                //    Message = ResponseMessage.UpdateSuccess,
-                //    Data = request
-                //};
+                _response = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                    IsSuccess = true,
+                    Message = ResponseMessage.UpdateSuccess,
+                    Data = request
+                };
             }
 
             else
+        {
+            _response = new()
             {
-                //_requestResponse = new()
-                //{
-                //    StatusCode = $"{HTTPStatusCode.Conflict} {HTTPStatusCode.StatusCode409}",
-                //    IsSuccess = false,
-                //    Message = ResponseMessage.RecordExists
-                //};
-            }
-
-            return response;
+                StatusCode = $"{HTTPStatusCode.Conflict} {HTTPStatusCode.StatusCode409}",
+                IsSuccess = false,
+                Message = ResponseMessage.RecordExists
+            };
         }
 
-        catch(Exception ex)
-        {
-            //_requestResponse = new()
-            //{
-            //    StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
-            //    IsSuccess = false,
-            //    Message = ResponseMessage.WrongDataInput
-            //};
+        return _response;
+        }
 
-            //return _requestResponse;
-            throw new ApplicationException(ex.Message);
+        catch 
+        {
+            _response = new()
+            {
+                StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
+                IsSuccess = false,
+                Message = ResponseMessage.WrongDataInput
+            };
+
+            return _response;
         }
     }
 }

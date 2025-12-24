@@ -1,5 +1,7 @@
 ﻿using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.CountryModels;
+using RapidERP.Domain.Utilities;
+using System.Xml.Linq;
 
 namespace RapidERP.Application.Features.CountryFeatures.CreateBulkCommand;
 
@@ -7,100 +9,90 @@ public class CreateBulkCountryCommandHandler(IRepository repository)
 {
     public async Task<CreateBulkCountryCommandResponseModel> Handle(CreateBulkCountryCommandRequestModel request)
     {
+        CreateBulkCountryCommandResponseModel _response = new();
+        string name = string.Empty;
+
         try
         {
-            CreateBulkCountryCommandResponseModel responseModel = new();
-            foreach (var masterPOST in request.masterPOSTs)
+            foreach (var item in request.masterPOSTs)
             {
-                Country masterData = new();
-                //await using var transaction = await context.Database.BeginTransactionAsync();
-                await using var transaction = await repository.BeginTransactionAsync();
-                //var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name);
-                var masterRecord = await repository.FindById(masterData);
+                using var transaction = repository.BeginTransaction();
+                var isExists = await repository.IsExists<Country>(item.masterPOST.Name);
 
-                if (masterRecord is null)
+                if (isExists == false)
                 {
-
-                    masterData.MenuModuleId = masterPOST.MenuModuleId;
-                    masterData.TenantId = masterPOST.TenantId;
-                    masterData.StatusTypeId = masterPOST.StatusTypeId;
-                    masterData.LanguageId = masterPOST.LanguageId;
-                    masterData.CurrencyId = masterPOST.CurrencyId;
-                    masterData.DialCode = masterPOST.DialCode;
-                    masterData.Name = masterPOST.Name;
-                    masterData.IsDefault = masterPOST.IsDefault;
-                    masterData.IsDraft = masterPOST.IsDraft;
-                    masterData.ISONumeric = masterPOST.ISONumeric;
-                    masterData.ISO2Code = masterPOST.ISO2Code;
-                    masterData.ISO3Code = masterPOST.ISO3Code;
-                    masterData.FlagURL = masterPOST.FlagURL;
+                    Country masterData = new();
+                    masterData.MenuModuleId = item.masterPOST.MenuModuleId;
+                    masterData.TenantId = item.masterPOST.TenantId;
+                    masterData.StatusTypeId = item.masterPOST.StatusTypeId;
+                    masterData.LanguageId = item.masterPOST.LanguageId;
+                    masterData.CurrencyId = item.masterPOST.CurrencyId;
+                    masterData.DialCode = item.masterPOST.DialCode;
+                    masterData.Name = item.masterPOST.Name;
+                    masterData.IsDefault = item.masterPOST.IsDefault;
+                    masterData.IsDraft = item.masterPOST.IsDraft;
+                    masterData.ISONumeric = item.masterPOST.ISONumeric;
+                    masterData.ISO2Code = item.masterPOST.ISO2Code;
+                    masterData.ISO3Code = item.masterPOST.ISO3Code;
+                    masterData.FlagURL = item.masterPOST.FlagURL;
+                    name = item.masterPOST.Name;
 
                     await repository.Add(masterData);
 
                     CountryHistory history = new();
                     history.CountryId = masterData.Id;
-                    history.CurrencyId = masterPOST.CurrencyId;
-                    history.TenantId = masterPOST.TenantId;
-                    history.MenuModuleId = masterPOST.MenuModuleId;
-                    history.ActionTypeId = masterPOST.ActionTypeId;
-                    history.LanguageId = masterPOST.LanguageId;
-                    history.ExportTypeId = masterPOST.ExportTypeId;
-                    history.ExportTo = masterPOST.ExportTo;
-                    history.SourceURL = masterPOST.SourceURL;
-                    history.DialCode = masterPOST.DialCode;
-                    history.Name = masterPOST.Name;
-                    history.IsDefault = masterPOST.IsDefault;
-                    history.IsDraft = masterPOST.IsDraft;
-                    history.ISONumeric = masterPOST.ISONumeric;
-                    history.ISO2Code = masterPOST.ISO2Code;
-                    history.ISO3Code = masterPOST.ISO3Code;
-                    history.FlagURL = masterPOST.FlagURL;
-                    history.Browser = masterPOST.Browser;
-                    history.Location = masterPOST.Location;
-                    history.DeviceIP = masterPOST.DeviceIP;
-                    history.LocationURL = masterPOST.LocationURL;
-                    history.DeviceName = masterPOST.DeviceName;
-                    history.Latitude = masterPOST.Latitude;
-                    history.Longitude = masterPOST.Longitude;
-                    history.ActionBy = masterPOST.ActionBy;
+                    history.CurrencyId = item.masterPOST.CurrencyId;
+                    history.TenantId = item.masterPOST.TenantId;
+                    history.MenuModuleId = item.masterPOST.MenuModuleId;
+                    history.ActionTypeId = item.masterPOST.ActionTypeId;
+                    history.LanguageId = item.masterPOST.LanguageId;
+                    history.ExportTypeId = item.masterPOST.ExportTypeId;
+                    history.ExportTo = item.masterPOST.ExportTo;
+                    history.SourceURL = item.masterPOST.SourceURL;
+                    history.DialCode = item.masterPOST.DialCode;
+                    history.Name = item.masterPOST.Name;
+                    history.IsDefault = item.masterPOST.IsDefault;
+                    history.IsDraft = item.masterPOST.IsDraft;
+                    history.ISONumeric = item.masterPOST.ISONumeric;
+                    history.ISO2Code = item.masterPOST.ISO2Code;
+                    history.ISO3Code = item.masterPOST.ISO3Code;
+                    history.FlagURL = item.masterPOST.FlagURL;
+                    history.Browser = item.masterPOST.Browser;
+                    history.Location = item.masterPOST.Location;
+                    history.DeviceIP = item.masterPOST.DeviceIP;
+                    history.LocationURL = item.masterPOST.LocationURL;
+                    history.DeviceName = item.masterPOST.DeviceName;
+                    history.Latitude = item.masterPOST.Latitude;
+                    history.Longitude = item.masterPOST.Longitude;
+                    history.ActionBy = item.masterPOST.ActionBy;
                     history.ActionAt = DateTime.Now;
 
                     await repository.Add(history);
-                    await repository.CommitChanges();
-                    await transaction.CommitAsync();
-                }
+                    transaction.Commit();
 
-                responseModel = new()  
-                {
-                    MenuModuleId = masterPOST.MenuModuleId,
-                    TenantId = masterPOST.TenantId,
-                    StatusTypeId = masterPOST.StatusTypeId,
-                    LanguageId = masterPOST.LanguageId,
-                    CurrencyId = masterPOST.CurrencyId,
-                    DialCode = masterPOST.DialCode,
-                    Name = masterPOST.Name,
-                    IsDefault = masterPOST.IsDefault,
-                    IsDraft = masterPOST.IsDraft,
-                    ISONumeric = masterPOST.ISONumeric,
-                    ISO2Code = masterPOST.ISO2Code,
-                    ISO3Code = masterPOST.ISO3Code,
-                    FlagURL = masterPOST.FlagURL,
-                };
-                
+                    _response = new()
+                    {
+                        StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
+                        IsSuccess = true,
+                        Message = ResponseMessage.CreateSuccess,
+                        Data = request
+                    };
+                }
             }
-            return responseModel;
+
+            return _response;
         }
+
         catch
         {
-            //_requestResponse = new()
-            //{
-            //    StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
-            //    IsSuccess = false,
-            //    Message = ResponseMessage.WrongDataInput
-            //};
+            _response = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ResponseMessage.WrongDataInput
+            };
 
-            //return _requestResponse;
-            throw new ApplicationException();
+            return _response;
         }
     }
 }
