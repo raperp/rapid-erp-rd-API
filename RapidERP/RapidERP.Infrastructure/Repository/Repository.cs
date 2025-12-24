@@ -61,7 +61,8 @@ public class Repository : IRepository
 
         await context.Set<TEntity>().Where(x => x.Id == id)
             .ExecuteUpdateAsync(x => x.SetProperty(x => x.StatusTypeId, statusTypeId));
-        return "Record soft deleted successfully.";
+
+        return "Soft deleted successful.";
     }
 
     public async Task<TEntity> GetSingle<TEntity>(int id) where TEntity : class
