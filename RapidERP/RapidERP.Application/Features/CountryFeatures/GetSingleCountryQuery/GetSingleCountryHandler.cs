@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RapidERP.Application.Features.CountryFeatures.GetSingleCountry;
 using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Entities.CurrencyModels;
@@ -9,13 +8,13 @@ using RapidERP.Domain.Entities.StatusTypeModels;
 using RapidERP.Domain.Entities.TenantModels;
 using RapidERP.Domain.Utilities;
 
-namespace RapidERP.Application.Features.CountryFeatures.GetSingleQuery;
+namespace RapidERP.Application.Features.CountryFeatures.GetSingleCountryQuery;
 
 public class GetSingleCountryHandler(IRepository repository)
 {
     GetSingleCountryResponseModel _response;
 
-    public async Task<GetSingleCountryResponseModel> Handle(int id)
+    public async Task<GetSingleCountryResponseModel> Handle(GetSingleCountryRequestModel request)
     {
         try
         {
@@ -41,14 +40,16 @@ public class GetSingleCountryHandler(IRepository repository)
                             ISO2Code = c.ISO2Code,
                             ISO3Code = c.ISO3Code,
                             FlagURL = c.FlagURL
-                        }).Where(x => x.Id == id).AsNoTracking().ToListAsync();
+                        }).AsNoTracking().AsQueryable();
+
+            var result = data.Where(x => x.Id == request.id).ToListAsync();
 
             _response = new()
             {
                 StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
                 IsSuccess = true,
                 Message = ResponseMessage.FetchSuccess,
-                Data = data
+                Data = result.Result.FirstOrDefault()
             };
 
             return _response;

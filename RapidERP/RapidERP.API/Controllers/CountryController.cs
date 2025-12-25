@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RapidERP.Application.DTOs.CountryDTOs.CountryRecord;
-using RapidERP.Application.Features.CountryFeatures.CountryTemplate;
 using RapidERP.Application.Features.CountryFeatures.CreateBulkCommand;
 using RapidERP.Application.Features.CountryFeatures.CreateSingleCommand;
 using RapidERP.Application.Features.CountryFeatures.DeleteCommand;
+using RapidERP.Application.Features.CountryFeatures.GetAllCountryTemplateDataQuery;
 using RapidERP.Application.Features.CountryFeatures.GetAllQuery;
 using RapidERP.Application.Features.CountryFeatures.GetHistoryQuery;
-using RapidERP.Application.Features.CountryFeatures.GetSingleCountry;
-using RapidERP.Application.Features.CountryFeatures.GetSingleQuery;
+using RapidERP.Application.Features.CountryFeatures.GetSingleCountryQuery;
 using RapidERP.Application.Features.CountryFeatures.SoftDeleteCommand;
 using RapidERP.Application.Features.CountryFeatures.UpdateCommand;
+using RapidERP.Domain.Entities.CountryModels;
 using Wolverine;
 
 namespace RapidERP.API.Controllers
@@ -19,7 +19,7 @@ namespace RapidERP.API.Controllers
     public class CountryController(IMessageBus bus, ILogger<CountryController> logger) : ControllerBase
     {
         [HttpGet("GetAll")]
-        [ProducesResponseType(typeof(GetAllCountryResponseModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GetAllCountryResponseDTOModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
         {
             logger.LogInformation("GetAll called with skip: {skip}, take: {take}, pageSize: {pageSize}", skip, take, pageSize);
@@ -29,17 +29,16 @@ namespace RapidERP.API.Controllers
         }
 
         [HttpGet("GetSingle")]
-        [ProducesResponseType(typeof(GetSingleCountryResponseModel), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetSingle(int id)
+        [ProducesResponseType(typeof(GetSingleCountryResponseDTOModel), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetSingle([FromQuery] GetSingleCountryRequestModel request)
         {
-            logger.LogInformation("GetSingle called with id: {id}", id);
-            var query = new GetSingleCountryRequestModel(id);
-            var result = await bus.InvokeAsync<GetSingleCountryResponseModel>(query);
+            logger.LogInformation("GetSingle called with id: {id}", request.id);
+            var result = await bus.InvokeAsync<GetSingleCountryResponseModel>(new GetSingleCountryRequestModel(request.id));
             return Ok(result);
         }
 
         [HttpGet("GetHistory")]
-        [ProducesResponseType(typeof(GetHistoryCountryResponseModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(GetHistoryCountryResponseDTOModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
         {
             logger.LogInformation("GetHistory called with skip: {skip}, take: {take}, pageSize: {pageSize}", skip, take, pageSize);
@@ -49,14 +48,16 @@ namespace RapidERP.API.Controllers
         }
 
         [HttpGet("GetTempleteData")]
-        [ProducesResponseType(typeof(CountryTemplateResponseModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CountryTemplate), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetTempleteData()
         {
+            int id = 0;
             logger.LogInformation("Get Templete Data called");
-            var result = await bus.InvokeAsync<CountryTemplateResponseModel>(new CountryTemplateRequestModel());
+            var result = await bus.InvokeAsync<GetAllCountryTemplateDataResponseModel>(new GetAllCountryTemplateDataRequestModel());
             return Ok(result);
 
         }
+
         [HttpPost("CreateSingle")]
         public async Task<IActionResult> CreateSingle(CountryPOSTRequestDTO masterPOST)
         {

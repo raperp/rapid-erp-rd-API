@@ -56,18 +56,20 @@ public class Repository : IRepository
 
     public async Task<string> SoftDelete<TEntity>(int id) where TEntity : BaseMaster
     {
-        int statusTypeId = await context.StatusTypes.Where(x => x.Name == "Deleted")
+        int softDeletedStatusTypeId = await context.StatusTypes.Where(x => x.Name == "SoftDeleted")
                     .AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
 
         await context.Set<TEntity>().Where(x => x.Id == id)
-            .ExecuteUpdateAsync(x => x.SetProperty(x => x.StatusTypeId, statusTypeId));
+            .ExecuteUpdateAsync(x => x.SetProperty(x => x.StatusTypeId, softDeletedStatusTypeId));
 
         return "Soft deleted successful.";
     }
 
-    public async Task<TEntity> GetSingle<TEntity>(int id) where TEntity : class
+    public async Task<TEntity> GetSingle<TEntity>(int id) where TEntity : Master
     {
-        return await context.Set<TEntity>().FindAsync(id);
+        //return await context.Set<TEntity>().FindAsync(id);
+        var record = await context.Set<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
+        return record;
     }
 
     public async Task Delete<TEntity>(int id) where TEntity : Master
@@ -143,5 +145,10 @@ public class Repository : IRepository
     {
         var transaction = context.Database.BeginTransaction();
         return transaction.GetDbTransaction();
+    }
+
+    public async Task<List<TEntity>> GetAll<TEntity>() where TEntity : class
+    {
+        return await context.Set<TEntity>().AsNoTracking().ToListAsync();
     }
 }

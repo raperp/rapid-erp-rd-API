@@ -78,6 +78,16 @@ public class CreateBulkCountryCommandHandler(IRepository repository)
                         Data = request
                     };
                 }
+
+                else
+                {
+                    _response = new()
+                    {
+                        StatusCode = $"{HTTPStatusCode.Conflict} {HTTPStatusCode.StatusCode409}",
+                        IsSuccess = false,
+                        Message = $"{ResponseMessage.RecordExists} {name}"
+                    };
+                }
             }
 
             return _response;

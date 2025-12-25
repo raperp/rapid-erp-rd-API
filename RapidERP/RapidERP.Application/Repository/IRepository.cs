@@ -25,7 +25,8 @@ public interface IRepository
     Task<string> SoftDelete<TEntity>(int id) where TEntity : BaseMaster;
     Task Delete<TEntity>(int id) where TEntity : Master; 
     Task DeleteQueryable<TEntity>(TEntity entity) where TEntity : class; 
-    Task<TEntity> GetSingle<TEntity>(int id) where TEntity : class;
+    Task<TEntity> GetSingle<TEntity>(int id) where TEntity : Master;
+    Task<List<TEntity>> GetAll<TEntity>() where TEntity : class;
     IDbTransaction BeginTransaction();
     Task<dynamic> GetCounts<T>(int pageSize) where T : BaseMaster;
     Task<bool> IsExists<T>(string name) where T : Master;

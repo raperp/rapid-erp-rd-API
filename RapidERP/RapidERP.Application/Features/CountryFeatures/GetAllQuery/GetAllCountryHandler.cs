@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.Shared;
+using RapidERP.Application.Features.CountryFeatures.GetSingleCountryQuery;
 using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Entities.CurrencyModels;
@@ -27,7 +28,7 @@ public class GetAllCountryHandler(IRepository repository)
                         join l in repository.Set<Language>() on c.LanguageId equals l.Id
                         join mm in repository.Set<MenuModule>() on c.MenuModuleId equals mm.Id
                         join cu in repository.Set<Currency>() on c.CurrencyId equals cu.Id
-                        select new GetAllCountryResponseDTOModel
+                        select new GetSingleCountryResponseDTOModel
                         {
                             Id = c.Id,
                             MenuModule = mm.Name,
@@ -47,29 +48,29 @@ public class GetAllCountryHandler(IRepository repository)
 
             if (query.skip == 0 || query.take == 0)
             {
-                result.Count = await repository.GetCounts<Country>(query.pageSize);
-                result.Data = data.ToListAsync();
+                //result.Count = await repository.GetCounts<Country>(query.pageSize);
+                result.Data = await data.ToListAsync();
 
                 _response = new()
                 {
                     StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
                     IsSuccess = true,
                     Message = ResponseMessage.FetchSuccess,
-                    Data = result
+                    Data = result.Data
                 };
             }
 
             else
             {
-                result.Count = await repository.GetCounts<Country>(query.pageSize);
-                result.Data = data.Skip(query.skip).Take(query.take).ToListAsync();
+                //result.Count = await repository.GetCounts<Country>(query.pageSize);
+                result.Data = await data.Skip(query.skip).Take(query.take).ToListAsync();
 
                 _response = new()
                 {
                     StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
                     IsSuccess = true,
                     Message = ResponseMessage.FetchSuccessWithPagination,
-                    Data = result
+                    Data = result.Data
                 };
             }
 
@@ -80,7 +81,7 @@ public class GetAllCountryHandler(IRepository repository)
         {
             _response = new()
             {
-                StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
                 IsSuccess = false,
                 Message = ex.Message
             };

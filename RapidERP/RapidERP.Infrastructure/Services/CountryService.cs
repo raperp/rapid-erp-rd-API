@@ -2,7 +2,7 @@
 using RapidERP.Application.DTOs.CountryDTOs;
 using RapidERP.Application.DTOs.CountryDTOs.CountryRecord;
 using RapidERP.Application.DTOs.Shared;
-using RapidERP.Application.Features.CountryFeatures.GetSingleCountry;
+using RapidERP.Application.Features.CountryFeatures.GetSingleCountryQuery;
 using RapidERP.Application.Interfaces;
 using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.ActionTypeModels;

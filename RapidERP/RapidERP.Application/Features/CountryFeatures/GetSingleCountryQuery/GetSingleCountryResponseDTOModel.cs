@@ -1,4 +1,4 @@
-﻿namespace RapidERP.Application.Features.CountryFeatures.GetSingleCountry;
+﻿namespace RapidERP.Application.Features.CountryFeatures.GetSingleCountryQuery;
 
 public record GetSingleCountryResponseDTOModel 
 {

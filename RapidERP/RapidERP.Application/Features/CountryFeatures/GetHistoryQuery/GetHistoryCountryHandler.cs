@@ -25,7 +25,7 @@ public class GetHistoryCountryHandler(IRepository repository)
 
             var data = (from ca in repository.Set<CountryHistory>()
                         join c in repository.Set<Country>() on ca.CountryId equals c.Id
-                        join et in repository.Set<ExportType>() on ca.ExportTypeId equals et.Id
+                        //join et in repository.Set<ExportType>() on ca.ExportTypeId equals et.Id
                         join at in repository.Set<ActionType>() on ca.ActionTypeId equals at.Id
                         join t in repository.Set<Tenant>() on ca.TenantId equals t.Id
                         join l in repository.Set<Language>() on ca.LanguageId equals l.Id
@@ -39,7 +39,7 @@ public class GetHistoryCountryHandler(IRepository repository)
                             MenuModule = mm.Name,
                             Action = at.Name,
                             Language = l.Name,
-                            ExportType = et.Name,
+                            //ExportType = et.Name,
                             Currency = cu.Name,
                             ExportTo = ca.ExportTo,
                             SourceURL = ca.SourceURL,
@@ -62,13 +62,13 @@ public class GetHistoryCountryHandler(IRepository repository)
                             ActionAt = ca.ActionAt
                         }).AsNoTracking().AsQueryable();
 
-            int totalItems = await repository.Set<CountryHistory>().CountAsync();
-            int totalPages = (totalItems + query.pageSize - 1) / query.pageSize;
+            //int totalItems = await repository.Set<CountryHistory>().CountAsync();
+            //int totalPages = (totalItems + query.pageSize - 1) / query.pageSize;
 
             if (query.skip == 0 || query.take == 0)
             {
-                result.TotalCount = totalItems;
-                result.TotalPages = totalPages;
+                //result.TotalCount = totalItems;
+                //result.TotalPages = totalPages;
                 result.Data = await data.ToListAsync();
 
                 _response = new()
@@ -76,14 +76,14 @@ public class GetHistoryCountryHandler(IRepository repository)
                     StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
                     IsSuccess = true,
                     Message = ResponseMessage.FetchSuccess,
-                    Data = result
+                    Data = result.Data
                 };
             }
 
             else
             {
-                result.TotalCount = totalItems;
-                result.TotalPages = totalPages;
+                //result.TotalCount = totalItems;
+                //result.TotalPages = totalPages;
                 result.Data = await data.Skip(query.skip).Take(query.take).ToListAsync();
 
                 _response = new()
@@ -91,7 +91,7 @@ public class GetHistoryCountryHandler(IRepository repository)
                     StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
                     IsSuccess = true,
                     Message = ResponseMessage.FetchSuccessWithPagination,
-                    Data = result
+                    Data = result.Data
                 };
             }
 

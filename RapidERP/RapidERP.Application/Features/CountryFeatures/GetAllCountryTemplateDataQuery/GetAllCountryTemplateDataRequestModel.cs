@@ -1,0 +1,3 @@
+﻿namespace RapidERP.Application.Features.CountryFeatures.GetAllCountryTemplateDataQuery;
+
+public record GetAllCountryTemplateDataRequestModel();
