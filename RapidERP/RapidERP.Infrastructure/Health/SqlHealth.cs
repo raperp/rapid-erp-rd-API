@@ -1,10 +1,9 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace RapidERP.Infrastructure.Health;
 
-public class SqlHealth : IHealthCheck
+//public class SqlHealth : IHealthCheck
+public class SqlHealth  
 {
     private readonly string connectionString;
 
@@ -13,24 +12,24 @@ public class SqlHealth : IHealthCheck
         this.connectionString = configuration.GetConnectionString("RapidERPConnection");
     }
 
-    public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
-    {
-        try
-        {
-            using var sqlConnection = new SqlConnection(connectionString);
+    //public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
+    //{
+    //    try
+    //    {
+    //        using var sqlConnection = new SqlConnection(connectionString);
 
-            await sqlConnection.OpenAsync(cancellationToken);
+    //        await sqlConnection.OpenAsync(cancellationToken);
 
-            using var command = sqlConnection.CreateCommand();
-            command.CommandText = "SELECT 1";
+    //        using var command = sqlConnection.CreateCommand();
+    //        command.CommandText = "SELECT 1";
 
-            await command.ExecuteScalarAsync(cancellationToken);
+    //        await command.ExecuteScalarAsync(cancellationToken);
 
-            return HealthCheckResult.Healthy();
-        }
-        catch (Exception ex)
-        {
-            return HealthCheckResult.Unhealthy(exception: ex);
-        }
-    }
+    //        return HealthCheckResult.Healthy();
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        return HealthCheckResult.Unhealthy(exception: ex);
+    //    }
+    //}
 }

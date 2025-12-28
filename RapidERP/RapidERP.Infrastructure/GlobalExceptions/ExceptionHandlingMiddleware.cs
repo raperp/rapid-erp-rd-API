@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
 using RapidERP.Application.DTOs.Shared;
 using System.Net;
@@ -64,11 +63,11 @@ public class ExceptionHandlingMiddleware
                     httpResponseDTO.StatusCode = (int)HttpStatusCode.InternalServerError;
                     httpResponseDTO.Message = invalidOperationException.Message;
                     break;
-                case SqlException sqlException:
-                    response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                    httpResponseDTO.StatusCode = (int)HttpStatusCode.InternalServerError;
-                    httpResponseDTO.Message = sqlException.Message;
-                    break;
+                //case SqlException sqlException:
+                //    response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                //    httpResponseDTO.StatusCode = (int)HttpStatusCode.InternalServerError;
+                //    httpResponseDTO.Message = sqlException.Message;
+                //    break;
                 default:
                     response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     httpResponseDTO.StatusCode = (int)HttpStatusCode.InternalServerError;
