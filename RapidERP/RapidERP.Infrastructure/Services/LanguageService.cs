@@ -77,7 +77,7 @@ public class LanguageService(RapidERPDbContext context, ISharedService shared) :
                 history.Latitude = masterPOST.Latitude;
                 history.Longitude = masterPOST.Longitude;
                 history.ActionBy = masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                history.ActionAt = DateTime.UtcNow;
 
                 await context.LanguageHistory.AddAsync(history);
                 await context.SaveChangesAsync();

@@ -11,7 +11,7 @@ public static class RegisterDbContext
         var connectionString = configuration.GetConnectionString("RapidERPConnection") ?? throw new InvalidOperationException("Connection string 'RapidERPConnection' not found.");
         
         services.AddDbContext<RapidERPDbContext>(options => {
-            options.UseSqlServer(connectionString);
+            options.UseNpgsql(connectionString);
         });
 
         return services;
