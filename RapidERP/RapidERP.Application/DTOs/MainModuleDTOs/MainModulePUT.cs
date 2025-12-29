@@ -2,7 +2,7 @@
 
 namespace RapidERP.Application.DTOs.MainModuleDTOs;
 
-public class MainModulePUT : TrackerDTO
+public record class MainModulePUT : TrackerDTO
 {
     public int Id { get; set; }
     public int LanguageId { get; set; }

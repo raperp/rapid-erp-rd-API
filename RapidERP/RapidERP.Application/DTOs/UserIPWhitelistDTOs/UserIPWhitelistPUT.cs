@@ -2,7 +2,7 @@
 
 namespace RapidERP.Application.DTOs.UserIPWhitelistDTOs;
 
-public class UserIPWhitelistPUT : TrackerDTO
+public record class UserIPWhitelistPUT : TrackerDTO
 {
     public int Id { get; set; }
     public int UserId { get; set; }

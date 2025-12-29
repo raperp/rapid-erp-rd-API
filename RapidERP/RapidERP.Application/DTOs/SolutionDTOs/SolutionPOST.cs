@@ -2,7 +2,7 @@
 
 namespace RapidERP.Application.DTOs.SolutionDTOs;
 
-public class SolutionPOST : TrackerDTO
+public record class SolutionPOST : TrackerDTO
 {
     public string Code { get; set; }
     public string Icon { get; set; }

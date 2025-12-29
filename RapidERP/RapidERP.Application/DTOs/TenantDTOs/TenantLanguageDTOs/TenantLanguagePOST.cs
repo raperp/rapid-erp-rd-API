@@ -2,7 +2,7 @@
 
 namespace RapidERP.Application.DTOs.TenantDTOs.TenantLanguageDTOs;
 
-public class TenantLanguagePOST : TrackerDTO
+public record class TenantLanguagePOST : TrackerDTO
 {
     public int TenantId { get; set; }
     public int MenuModuleId { get; set; }

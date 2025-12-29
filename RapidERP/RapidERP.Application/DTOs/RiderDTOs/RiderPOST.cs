@@ -2,7 +2,7 @@
 
 namespace RapidERP.Application.DTOs.RiderDTOs;
 
-public class RiderPOST : BasePOST
+public record class RiderPOST : BasePOST
 {
     public string Email { get; set; }
     public string MobileNumber { get; set; }

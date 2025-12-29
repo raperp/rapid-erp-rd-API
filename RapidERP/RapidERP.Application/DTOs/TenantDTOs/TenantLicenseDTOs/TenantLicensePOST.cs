@@ -2,7 +2,7 @@
 
 namespace RapidERP.Application.DTOs.TenantDTOs.TenantLicenseDTOs;
 
-public class TenantLicensePOST : TrackerDTO
+public record class TenantLicensePOST : TrackerDTO
 {
     public int TenantId { get; set; }
     public int MenuModuleId { get; set; }

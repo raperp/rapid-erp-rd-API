@@ -2,7 +2,7 @@
 
 namespace RapidERP.Application.DTOs.TenantDTOs.TenantDTOs;
 
-public class TenantPUT : BasePUT
+public record class TenantPUT : BasePUT
 {
     public int CalendarId { get; set; }
     public string Contact { get; set; }

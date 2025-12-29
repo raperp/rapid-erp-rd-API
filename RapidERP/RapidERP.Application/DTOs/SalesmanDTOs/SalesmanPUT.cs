@@ -1,7 +1,8 @@
 ﻿using RapidERP.Application.DTOs.Shared;
 
 namespace RapidERP.Application.DTOs.SalesmanDTOs;
-public class SalesmanPUT : BasePUT
+
+public record class SalesmanPUT : BasePUT
 {
     public string Code { get; set; }
     public decimal? Commission { get; set; }
@@ -12,4 +13,6 @@ public class SalesmanPUT : BasePUT
     public string Phone { get; set; }
     public string Email { get; set; }
     public string Description { get; set; }
+    public bool IsDefault { get; set; }
+    public bool IsDraft { get; set; }
 }

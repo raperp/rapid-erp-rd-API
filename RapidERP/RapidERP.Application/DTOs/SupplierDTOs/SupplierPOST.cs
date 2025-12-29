@@ -1,7 +1,7 @@
 ﻿using RapidERP.Application.DTOs.Shared;
 
 namespace RapidERP.Application.DTOs.SupplierDTOs;
-public class SupplierPOST : BasePOST
+public record class SupplierPOST : BasePOST
 {
     public int CountryId { get; set; }
     public int PaymentTermsId { get; set; }
@@ -16,4 +16,6 @@ public class SupplierPOST : BasePOST
     public string Mobile { get; set; }
     public string Email { get; set; }
     public string Website { get; set; }
+    public bool IsDefault { get; set; }
+    public bool IsDraft { get; set; }
 }

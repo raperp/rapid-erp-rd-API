@@ -1,7 +1,7 @@
 ﻿using RapidERP.Application.DTOs.Shared;
 
 namespace RapidERP.Application.DTOs.SupplierTypeDTOs;
-public class SupplierTypePUT : BasePUT
+public record class SupplierTypePUT : BasePUT
 {
     public string VATNumber { get; set; }
     public string Website { get; set; }

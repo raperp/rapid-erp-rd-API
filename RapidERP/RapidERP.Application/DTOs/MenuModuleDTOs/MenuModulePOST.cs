@@ -2,7 +2,7 @@
 
 namespace RapidERP.Application.DTOs.MenuModuleDTOs;
 
-public class MenuModulePOST : TrackerDTO
+public record class MenuModulePOST : TrackerDTO
 {
     public int SubmoduleId { get; set; } 
     public int LanguageId { get; set; }

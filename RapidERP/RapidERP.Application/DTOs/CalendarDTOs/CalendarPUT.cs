@@ -2,7 +2,7 @@
 
 namespace RapidERP.Application.DTOs.CalendarDTOs;
 
-public class CalendarPUT : TrackerDTO
+public record class CalendarPUT : TrackerDTO
 {
     public int Id { get; set; }
     public string Code { get; set; }

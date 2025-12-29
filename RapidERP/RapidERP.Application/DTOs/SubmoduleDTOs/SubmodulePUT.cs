@@ -2,7 +2,7 @@
 
 namespace RapidERP.Application.DTOs.SubmoduleDTOs;
 
-public class SubmodulePUT : TrackerDTO
+public record class SubmodulePUT : TrackerDTO
 {
     public int Id { get; set; }
     public int MainModuleId { get; set; }

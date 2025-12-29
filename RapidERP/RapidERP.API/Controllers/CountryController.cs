@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RapidERP.Application.DTOs.CountryDTOs.CountryRecord;
+using RapidERP.Application.DTOs.CountryDTOs;
 using RapidERP.Application.Features.CountryFeatures.CreateBulkCommand;
 using RapidERP.Application.Features.CountryFeatures.CreateSingleCommand;
 using RapidERP.Application.Features.CountryFeatures.DeleteCommand;
@@ -59,7 +59,7 @@ namespace RapidERP.API.Controllers
         }
 
         [HttpPost("CreateSingle")]
-        public async Task<IActionResult> CreateSingle(CountryPOSTRequestDTO masterPOST)
+        public async Task<IActionResult> CreateSingle(CountryPOST masterPOST)
         {
             logger.LogInformation("CreateSingle called");
             var result = await bus.InvokeAsync<CreateSingleCountryCommandResponseModel>(new CreateSingleCountryCommandRequestModel(masterPOST));
@@ -75,7 +75,7 @@ namespace RapidERP.API.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(CountryPUTRequestDTO masterPUT)
+        public async Task<IActionResult> Update(CountryPUT masterPUT)
         {
             logger.LogInformation("Update called");
             var result = await bus.InvokeAsync<UpdateCountryCommandResponseModel>(new UpdateCountryCommandRequestModel(masterPUT));

@@ -345,11 +345,11 @@ public class StatusTypeService(RapidERPDbContext context, ISharedService shared)
 
             if (isExists == false)
             {
-                ActionDTO actionDTO = new();
-                actionDTO.UpdatedBy = (masterPUT.IsDraft == false) ? masterPUT.ActionBy : null;
-                actionDTO.UpdatedAt = (masterPUT.IsDraft == false) ? DateTime.Now : null;
-                actionDTO.DraftedBy = (masterPUT.IsDraft == true) ? masterPUT.ActionBy : null;
-                actionDTO.DraftedAt = (masterPUT.IsDraft == true) ? DateTime.Now : null;
+                //ActionDTO actionDTO = new();
+                //actionDTO.UpdatedBy = (masterPUT.IsDraft == false) ? masterPUT.ActionBy : null;
+                //actionDTO.UpdatedAt = (masterPUT.IsDraft == false) ? DateTime.Now : null;
+                //actionDTO.DraftedBy = (masterPUT.IsDraft == true) ? masterPUT.ActionBy : null;
+                //actionDTO.DraftedAt = (masterPUT.IsDraft == true) ? DateTime.Now : null;
 
                 await context.StatusTypes.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.LanguageId, masterPUT.LanguageId)

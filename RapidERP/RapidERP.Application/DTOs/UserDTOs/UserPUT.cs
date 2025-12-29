@@ -2,7 +2,7 @@
 
 namespace RapidERP.Application.DTOs.UserDTOs;
 
-public class UserPUT : TrackerDTO
+public record class UserPUT : TrackerDTO
 {
     public int Id { get; set; }
     public int RoleId { get; set; }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.CountryDTOs;
-using RapidERP.Application.DTOs.CountryDTOs.CountryRecord;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Features.CountryFeatures.GetSingleCountryQuery;
 using RapidERP.Application.Interfaces;
@@ -23,7 +22,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
 {
     private RequestResponse _requestResponse { get; set; }
 
-    public async Task<RequestResponse> CreateBulk(List<CountryPOSTRequestDTO> masterPOSTs)
+    public async Task<RequestResponse> CreateBulk(List<CountryPOST> masterPOSTs)
     {
         try
         {
@@ -55,7 +54,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
         }
     }
 
-    public async Task<RequestResponse> CreateSingle(CountryPOSTRequestDTO masterPOST)
+    public async Task<RequestResponse> CreateSingle(CountryPOST masterPOST)
     {
         try
         {
@@ -307,9 +306,9 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                         join l in repository.Set<Language>() on ca.LanguageId equals l.Id
                         join mm in repository.Set<MenuModule>() on ca.MenuModuleId equals mm.Id
                         join cu in repository.Set<Currency>() on ca.CurrencyId equals cu.Id
-                        select new GetHistoriesDTO
+                        select new  
                         {
-                            Id = ca.Id,
+                            ca.Id,
                             Country = c.Name,
                             Tanent = t.Name,
                             MenuModule = mm.Name,
@@ -317,25 +316,25 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                             Language = l.Name,
                             ExportType = et.Name,
                             Currency = cu.Name,
-                            ExportTo = ca.ExportTo,
-                            SourceURL = ca.SourceURL,
-                            DialCode = ca.DialCode,
-                            Name = ca.Name,
-                            IsDefault = ca.IsDefault,
-                            IsDraft = ca.IsDraft,
-                            ISONumeric = ca.ISONumeric,
-                            ISO2Code = ca.ISO2Code,
-                            ISO3Code = ca.ISO3Code,
-                            FlagURL = ca.FlagURL,
-                            Browser = ca.Browser,
-                            Location = ca.Location,
-                            DeviceIP = ca.DeviceIP,
-                            LocationURL = ca.LocationURL,
-                            DeviceName = ca.DeviceName,
-                            Latitude = ca.Latitude,
-                            Longitude = ca.Longitude,
-                            ActionBy = ca.ActionBy,
-                            ActionAt = ca.ActionAt
+                            ca.ExportTo,
+                            ca.SourceURL,
+                            ca.DialCode,
+                            ca.Name,
+                            ca.IsDefault,
+                            ca.IsDraft,
+                            ca.ISONumeric,
+                            ca.ISO2Code,
+                            ca.ISO3Code,
+                            ca.FlagURL,
+                            ca.Browser,
+                            ca.Location,
+                            ca.DeviceIP,
+                            ca.LocationURL,
+                            ca.DeviceName,
+                            ca.Latitude,
+                            ca.Longitude,
+                            ca.ActionBy,
+                            ca.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -397,7 +396,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
         return result;
     }
 
-    public async Task<RequestResponse> Update(CountryPUTRequestDTO masterPUT)
+    public async Task<RequestResponse> Update(CountryPUT masterPUT)
     {
         try
         {

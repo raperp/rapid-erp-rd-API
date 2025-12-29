@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.DTOs.RoleDTOs;
 
-public class RolePOST : BasePOST { }
+public record class RolePOST : BasePOST { }
