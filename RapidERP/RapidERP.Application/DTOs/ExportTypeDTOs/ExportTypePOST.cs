@@ -2,7 +2,7 @@
 
 namespace RapidERP.Application.DTOs.ExportTypeDTOs;
 
-public class ExportTypePOST : TrackerDTO
+public record class ExportTypePOST : TrackerDTO
 {
     public int LanguageId { get; set; }
     public string Name { get; set; }

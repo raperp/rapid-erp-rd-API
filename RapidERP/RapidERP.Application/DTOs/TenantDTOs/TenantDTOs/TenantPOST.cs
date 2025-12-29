@@ -2,7 +2,7 @@
 
 namespace RapidERP.Application.DTOs.TenantDTOs.TenantDTOs;
 
-public class TenantPOST : TrackerDTO
+public record class TenantPOST : TrackerDTO
 { 
     public int CalendarId { get; set; }    
     public string Contact { get; set; }

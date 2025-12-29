@@ -1,7 +1,7 @@
 ﻿using RapidERP.Application.DTOs.Shared;
 
 namespace RapidERP.Application.DTOs.SupplierTypeDTOs;
-public class SupplierTypePOST : BasePOST
+public record class SupplierTypePOST : BasePOST
 {
     public string VATNumber { get; set; }
     public string Website { get; set; }

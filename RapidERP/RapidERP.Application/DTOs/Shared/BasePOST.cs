@@ -1,3 +1,3 @@
 ﻿namespace RapidERP.Application.DTOs.Shared;
 
-public class BasePOST : BaseDTO { }
+public record class BasePOST : BaseDTO { }

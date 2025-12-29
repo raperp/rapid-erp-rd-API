@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using RapidERP.Application.DTOs.CountryDTOs.CountryRecord;
+using RapidERP.Application.DTOs.CountryDTOs;
 
 namespace RapidERP.Application.Features.CountryFeatures.UpdateCommand;
 
-public class UpdateCountryValidator : AbstractValidator<CountryPUTRequestDTO>
+public class UpdateCountryValidator : AbstractValidator<CountryPUT>
 {
     public UpdateCountryValidator()
     {

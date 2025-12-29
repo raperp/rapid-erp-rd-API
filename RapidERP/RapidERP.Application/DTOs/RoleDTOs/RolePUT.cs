@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.DTOs.RoleDTOs;
 
-public class RolePUT : BasePUT { }
+public record class RolePUT : BasePUT { }

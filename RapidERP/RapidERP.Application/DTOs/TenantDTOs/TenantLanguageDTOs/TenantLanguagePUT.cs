@@ -2,7 +2,7 @@
 
 namespace RapidERP.Application.DTOs.TenantDTOs.TenantLanguageDTOs;
 
-public class TenantLanguagePUT : TrackerDTO
+public record class TenantLanguagePUT : TrackerDTO
 {
     public int Id { get; set; }
     public int TenantId { get; set; }

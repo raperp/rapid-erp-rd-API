@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using RapidERP.Application.DTOs.CountryDTOs.CountryRecord;
+using RapidERP.Application.DTOs.CountryDTOs;
 
 namespace RapidERP.Application.Features.CountryFeatures.CreateSingleCommand;
 
-public class CreateSingleCountryValidator : AbstractValidator<CountryPOSTRequestDTO>
+public class CreateSingleCountryValidator : AbstractValidator<CountryPOST>
 {
     public CreateSingleCountryValidator()
     {
