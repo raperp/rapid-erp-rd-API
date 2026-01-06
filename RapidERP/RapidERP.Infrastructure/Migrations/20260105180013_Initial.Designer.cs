@@ -12,7 +12,7 @@ using RapidERP.Infrastructure.Data;
 namespace RapidERP.Infrastructure.Migrations
 {
     [DbContext(typeof(RapidERPDbContext))]
-    [Migration("20260101161805_Initial")]
+    [Migration("20260105180013_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
