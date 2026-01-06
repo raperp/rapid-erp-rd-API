@@ -17,4 +17,15 @@
     <ProjectReference Include="..\RapidERP.Domain\RapidERP.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\LanguageFeatures\DeleteCommand\" />
+    <Folder Include="Features\LanguageFeatures\GetAllTemplateDataQuery\" />
+    <Folder Include="Features\LanguageFeatures\GetAllQuery\" />
+    <Folder Include="Features\LanguageFeatures\GetHistoryQuery\" />
+    <Folder Include="Features\LanguageFeatures\GetSingleCountryQuery\" />
+    <Folder Include="Features\LanguageFeatures\SoftDeleteCommand\" />
+    <Folder Include="Features\LanguageFeatures\UpdateCommand\" />
+    <Folder Include="Features\LanguageFeatures\CreateBulkCommand\" />
+  </ItemGroup>
+
 </Project>
