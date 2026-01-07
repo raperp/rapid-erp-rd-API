@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 using RapidERP.Application.DTOs.LanguageDTOs;
 
-namespace RapidERP.Application.Features.LanguageFeatures.CreateSingleCommand;
+namespace RapidERP.Application.Features.LanguageFeatures.CreateBulkCommand;
 
-public class CreateSingleLanguageValidator : AbstractValidator<LanguagePOST>
+public class CreateBulkLanguageValidator : AbstractValidator<LanguagePOST>
 {
-    public CreateSingleLanguageValidator()
+    public CreateBulkLanguageValidator()
     {
         RuleFor(x => x.Name).NotEmpty().WithMessage("Name can't be empty").MaximumLength(40);
         RuleFor(x => x.LanguageId).NotEmpty().WithMessage("Language Id can't be zero");

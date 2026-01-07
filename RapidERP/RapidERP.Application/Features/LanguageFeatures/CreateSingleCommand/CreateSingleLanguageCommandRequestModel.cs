@@ -1,5 +1,5 @@
-﻿namespace RapidERP.Application.Features.LanguageFeatures.CreateSingleCommand;
+﻿using RapidERP.Application.DTOs.LanguageDTOs;
 
-public class CreateSingleLanguageCommandRequestModel
-{
-}
+namespace RapidERP.Application.Features.LanguageFeatures.CreateSingleCommand;
+
+public record CreateSingleLanguageCommandRequestModel(LanguagePOST masterPOST);

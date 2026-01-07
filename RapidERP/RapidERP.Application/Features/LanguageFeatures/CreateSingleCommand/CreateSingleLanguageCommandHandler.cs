@@ -1,6 +1,4 @@
-﻿using RapidERP.Application.Features.CountryFeatures.CreateSingleCommand;
-using RapidERP.Application.Repository;
-using RapidERP.Domain.Entities.CountryModels;
+﻿using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Utilities;
 
@@ -8,55 +6,53 @@ namespace RapidERP.Application.Features.LanguageFeatures.CreateSingleCommand;
 
 public class CreateSingleLanguageCommandHandler(IRepository repository)
 {
-    public async Task<CreateSingleLanguageCommandResponseModel> Handle(CreateSingleCountryCommandRequestModel request)
+    public async Task<CreateSingleLanguageCommandResponseModel> Handle(CreateSingleLanguageCommandRequestModel request)
     {
         CreateSingleLanguageCommandResponseModel _response;
         string name = string.Empty;
 
         try
         {
-            await using var transaction = await context.Database.BeginTransactionAsync();
-            var isExists = await context.Languages.AsNoTracking().AnyAsync(x => x.Name == masterPOST.Name || x.ISONumeric == masterPOST.ISONumeric || x.ISO2Code == masterPOST.ISO2Code || x.ISO3Code == masterPOST.ISO3Code || x.IconURL == masterPOST.IconURL);
+            using var transaction = repository.BeginTransaction();
+            var isExists = await repository.IsExists<Language>(request.masterPOST.Name);
 
             if (isExists == false)
             {
                 Language masterData = new();
-                masterData.ISONumeric = masterPOST.ISONumeric;
-                masterData.Name = masterPOST.Name;
-                masterData.ISO2Code = masterPOST.ISO2Code;
-                masterData.ISO3Code = masterPOST.ISO3Code;
-                masterData.IconURL = masterPOST.IconURL;
+                masterData.ISONumeric = request.masterPOST.ISONumeric;
+                masterData.Name = request.masterPOST.Name;
+                masterData.ISO2Code = request.masterPOST.ISO2Code;
+                masterData.ISO3Code = request.masterPOST.ISO3Code;
+                masterData.IconURL = request.masterPOST.IconURL;
 
-                await context.Languages.AddAsync(masterData);
-                await context.SaveChangesAsync();
+                await repository.Add(masterData); 
 
                 LanguageHistory history = new();
                 history.LanguageId = masterData.Id;
-                history.ISONumeric = masterPOST.ISONumeric;
-                history.Name = masterPOST.Name;
-                history.ISO2Code = masterPOST.ISO2Code;
-                history.ISO3Code = masterPOST.ISO3Code;
-                history.IconURL = masterPOST.IconURL;
-                history.Browser = masterPOST.Browser;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
-                history.LocationURL = masterPOST.LocationURL;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
-                history.ActionBy = masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                history.ISONumeric = request.masterPOST.ISONumeric;
+                history.Name = request.masterPOST.Name;
+                history.ISO2Code = request.masterPOST.ISO2Code;
+                history.ISO3Code = request.masterPOST.ISO3Code;
+                history.IconURL = request.masterPOST.IconURL;
+                history.Browser = request.masterPOST.Browser;
+                history.Location = request.masterPOST.Location;
+                history.DeviceIP = request.masterPOST.DeviceIP;
+                history.LocationURL = request.masterPOST.LocationURL;
+                history.DeviceName = request.masterPOST.DeviceName;
+                history.Latitude = request.masterPOST.Latitude;
+                history.Longitude = request.masterPOST.Longitude;
+                history.ActionBy = request.masterPOST.ActionBy;
+                history.ActionAt = DateTime.UtcNow;
 
-                await context.LanguageHistory.AddAsync(history);
-                await context.SaveChangesAsync();
-                await transaction.CommitAsync();
+                await repository.Add(history); 
+                transaction.Commit();
 
                 _response = new()
                 {
                     StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
                     IsSuccess = true,
                     Message = ResponseMessage.CreateSuccess,
-                    Data = masterPOST
+                    Data = request.masterPOST
                 };
             }
 
@@ -66,7 +62,7 @@ public class CreateSingleLanguageCommandHandler(IRepository repository)
                 {
                     StatusCode = $"{HTTPStatusCode.Conflict} {HTTPStatusCode.StatusCode409}",
                     IsSuccess = false,
-                    Message = $"{ResponseMessage.RecordExists} {masterPOST.Name}"
+                    Message = $"{ResponseMessage.RecordExists} {request.masterPOST.Name}"
                 };
             }
 
@@ -75,14 +71,14 @@ public class CreateSingleLanguageCommandHandler(IRepository repository)
 
         catch
         {
-            requestResponse = new()
+            _response = new()
             {
                 StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
                 IsSuccess = false,
                 Message = ResponseMessage.WrongDataInput
             };
 
-            return requestResponse;
+            return _response;
         }
     }
 }
