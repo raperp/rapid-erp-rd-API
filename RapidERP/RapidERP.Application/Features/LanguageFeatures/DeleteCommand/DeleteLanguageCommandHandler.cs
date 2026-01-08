@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿  using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Utilities;

@@ -2,24 +2,24 @@
 using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Utilities;
 
-namespace RapidERP.Application.Features.LanguageFeatures.GetAllTemplateDataQuery;
+namespace RapidERP.Application.Features.LanguageFeatures.SoftDeleteCommand;
 
-public class GetAllLanguageTemplateDataHandler(IRepository repository)
+public class SoftDeleteLanguageCommandHandler(IRepository repository)
 {
-    GetAllLanguageTemplateDataResponseModel _response;
+    SoftDeleteLanguageCommandResponseModel _response;
 
-    public async Task<GetAllLanguageTemplateDataResponseModel> Handle(GetAllLanguageTemplateDataRequestModel query)
-    {
+    public async Task<SoftDeleteLanguageCommandResponseModel> Handle(SoftDeleteLanguageCommandRequestModel request)
+    {    
         try
         {
-            var data = await repository.GetAll<LanguageTemplate>();
+            var result = await repository.SoftDelete<Language>(request.id);
 
             _response = new()
             {
                 StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
                 IsSuccess = true,
-                Message = ResponseMessage.FetchSuccess,
-                Data = data
+                Message = ResponseMessage.UpdateSuccess,
+                Data = result
             };
 
             return _response;

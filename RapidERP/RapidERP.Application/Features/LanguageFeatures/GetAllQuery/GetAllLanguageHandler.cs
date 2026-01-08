@@ -22,7 +22,7 @@ public class GetAllLanguageHandler(IRepository repository)
                             Name = l.Name,
                             ISO2Code = l.ISO2Code,
                             ISO3Code = l.ISO3Code,
-                            IconURL = l.IconURL,
+                            IconURL = l.IconURL
                         }).AsNoTracking().AsQueryable();
 
             if (query.skip == 0 || query.take == 0)

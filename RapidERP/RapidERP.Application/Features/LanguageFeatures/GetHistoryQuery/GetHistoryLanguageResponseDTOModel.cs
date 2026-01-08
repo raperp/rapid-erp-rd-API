@@ -1,7 +1,9 @@
-﻿namespace RapidERP.Application.DTOs.LanguageDTOs;
+﻿namespace RapidERP.Application.Features.LanguageFeatures.GetHistoryQuery;
 
-public record LanguagePOST  
+public record GetHistoryLanguageResponseDTOModel
 {
+    public int Id { get; set; }
+    public string Language { get; set; }
     public string ISONumeric { get; set; }
     public string Name { get; set; }
     public string ISO2Code { get; set; }
@@ -12,8 +14,8 @@ public record LanguagePOST
     public string DeviceIP { get; set; }
     public string LocationURL { get; set; }
     public string DeviceName { get; set; }
-    public decimal Latitude { get; set; } // (9, 6)   
-    public decimal Longitude { get; set; } // (9, 6)
-    public bool IsDraft { get; set; }
+    public decimal Latitude { get; set; }
+    public decimal Longitude { get; set; }
     public int ActionBy { get; set; }
+    public DateTime ActionAt { get; set; }
 }

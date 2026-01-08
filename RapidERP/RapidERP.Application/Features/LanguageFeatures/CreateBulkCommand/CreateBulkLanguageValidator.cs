@@ -8,7 +8,6 @@ public class CreateBulkLanguageValidator : AbstractValidator<LanguagePOST>
     public CreateBulkLanguageValidator()
     {
         RuleFor(x => x.Name).NotEmpty().WithMessage("Name can't be empty").MaximumLength(40);
-        RuleFor(x => x.LanguageId).NotEmpty().WithMessage("Language Id can't be zero");
         RuleFor(x => x.ISONumeric).NotEmpty().WithMessage("ISO Numeric can't be empty").MaximumLength(4);
         RuleFor(x => x.ISO2Code).NotEmpty().WithMessage("ISO2 Code can't be empty").MaximumLength(2);
         RuleFor(x => x.IconURL).NotEmpty().WithMessage("Icon URL can't be empty");//.MaximumLength(3);
