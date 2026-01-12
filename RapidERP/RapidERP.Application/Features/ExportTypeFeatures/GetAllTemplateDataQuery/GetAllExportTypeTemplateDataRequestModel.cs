@@ -1,0 +1,3 @@
+﻿namespace RapidERP.Application.Features.ExportTypeFeatures.GetAllTemplateDataQuery;
+
+public record GetAllExportTypeTemplateDataRequestModel();

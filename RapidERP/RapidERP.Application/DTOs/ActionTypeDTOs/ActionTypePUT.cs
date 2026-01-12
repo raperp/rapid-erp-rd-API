@@ -3,7 +3,7 @@
 public class ActionTypePUT  
 {
     public int Id { get; set; }
-    public int LanguageId { get; set; }
+    public int? LanguageId { get; set; }
     public int ExportTypeId { get; set; }
     public string ExportTo { get; set; }
     public string SourceURL { get; set; }

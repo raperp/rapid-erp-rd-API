@@ -17,15 +17,4 @@
     <ProjectReference Include="..\RapidERP.Domain\RapidERP.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\ExportTypeFeatures\CreateBulkCommand\" />
-    <Folder Include="Features\ExportTypeFeatures\DeleteCommand\" />
-    <Folder Include="Features\ExportTypeFeatures\GetAllTemplateDataQuery\" />
-    <Folder Include="Features\ExportTypeFeatures\GetAllQuery\" />
-    <Folder Include="Features\ExportTypeFeatures\GetHistoryQuery\" />
-    <Folder Include="Features\ExportTypeFeatures\GetSingleQuery\" />
-    <Folder Include="Features\ExportTypeFeatures\UpdateCommand\" />
-    <Folder Include="Features\ExportTypeFeatures\SoftDeleteCommand\" />
-  </ItemGroup>
-
 </Project>

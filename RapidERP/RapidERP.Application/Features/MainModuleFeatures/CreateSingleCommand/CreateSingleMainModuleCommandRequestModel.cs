@@ -1,0 +1,5 @@
+﻿using RapidERP.Application.DTOs.MainModuleDTOs;
+
+namespace RapidERP.Application.Features.MainModuleFeatures.CreateSingleCommand;
+
+public record CreateSingleMainModuleCommandRequestModel(MainModulePOST masterPOST);

@@ -255,7 +255,7 @@ public class StatusTypeService(RapidERPDbContext context, ISharedService shared)
                         join at in context.ActionTypes on sta.ActionTypeId equals at.Id
                         join l in context.Languages on sta.LanguageId equals l.Id
                         join et in context.ExportTypes on sta.ExportTypeId equals et.Id
-                        select new
+                        select new 
                         {
                             sta.Id,
                             Status = st.Name,
