@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace RapidERP.Application.Features.SubModuleFeatures.GetAllQuery;
 
-namespace RapidERP.Application.Features.SubModuleFeatures.GetAllQuery
+public record GetAllSubModuleResponseDTOModel
 {
-    internal class GetAllSubModuleResponseDTOModel
-    {
-    }
+    public int Id { get; set; }
+    public string MainModule { get; set; }
+    public string Language { get; set; }
+    public string Name { get; set; }
+    public string IconURL { get; set; }
+    public int SetSerial { get; set; }
 }

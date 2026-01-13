@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using RapidERP.Domain.Utilities;
 
-namespace RapidERP.Application.Features.SubModuleFeatures.GetHistoryQuery
-{
-    internal class GetHistorySubModuleResponseModel
-    {
-    }
-}
+namespace RapidERP.Application.Features.SubModuleFeatures.GetHistoryQuery;
+
+public record GetHistorySubModuleResponseModel : RequestResponse { }

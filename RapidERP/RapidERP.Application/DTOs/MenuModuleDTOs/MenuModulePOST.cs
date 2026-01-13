@@ -4,8 +4,8 @@ namespace RapidERP.Application.DTOs.MenuModuleDTOs;
 
 public record class MenuModulePOST : TrackerDTO
 {
-    public int SubmoduleId { get; set; } 
-    public int LanguageId { get; set; }
+    public int? SubmoduleId { get; set; }
+    public int? LanguageId { get; set; }
     public string Name { get; set; }
     public string IconURL { get; set; }
     public int SetSerial { get; set; }

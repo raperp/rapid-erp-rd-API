@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using RapidERP.Application.DTOs.SubmoduleDTOs;
 
-namespace RapidERP.Application.Features.SubModuleFeatures.UpdateCommand
-{
-    internal class UpdateSubModuleCommandRequestModel
-    {
-    }
-}
+namespace RapidERP.Application.Features.SubModuleFeatures.UpdateCommand;
+
+public record UpdateSubModuleCommandRequestModel(SubmodulePUT masterPUT);

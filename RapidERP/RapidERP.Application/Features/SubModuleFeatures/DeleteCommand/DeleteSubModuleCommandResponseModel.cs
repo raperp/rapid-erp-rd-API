@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using RapidERP.Domain.Utilities;
 
-namespace RapidERP.Application.Features.SubModuleFeatures.DeleteCommand
-{
-    internal class DeleteSubModuleCommandResponseModel
-    {
-    }
-}
+namespace RapidERP.Application.Features.SubModuleFeatures.DeleteCommand;
+
+public record DeleteSubModuleCommandResponseModel : RequestResponse { }

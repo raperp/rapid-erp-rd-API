@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using RapidERP.Domain.Utilities;
 
-namespace RapidERP.Application.Features.SubModuleFeatures.GetAllTemplateDataQuery
-{
-    internal class GetAllSubModuleTemplateDataResponseModel
-    {
-    }
-}
+namespace RapidERP.Application.Features.SubModuleFeatures.GetAllTemplateDataQuery;
+
+public record GetAllSubModuleTemplateDataResponseModel : RequestResponse { }

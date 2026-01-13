@@ -1,10 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace RapidERP.Application.Features.SubModuleFeatures.GetAllQuery;
 
-namespace RapidERP.Application.Features.SubModuleFeatures.GetAllQuery
-{
-    internal class GetAllSubModuleRequestModel
-    {
-    }
-}
+public record GetAllSubModuleRequestModel(int skip, int take, int pageSize);

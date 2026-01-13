@@ -1,10 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace RapidERP.Application.Features.SubModuleFeatures.SoftDeleteCommand;
 
-namespace RapidERP.Application.Features.SubModuleFeatures.SoftDeleteCommand
-{
-    internal class SoftDeleteSubModuleCommandRequestModel
-    {
-    }
-}
+public record SoftDeleteSubModuleCommandRequestModel(int id);

@@ -67,7 +67,9 @@ public class CreateBulkActionTypeCommandHandler(IRepository repository)
                 }
 
                 
-            }return _response;
+            }
+            
+            return _response;
         }
 
         catch
