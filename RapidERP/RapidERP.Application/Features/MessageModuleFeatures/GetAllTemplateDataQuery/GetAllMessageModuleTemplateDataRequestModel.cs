@@ -1,0 +1,3 @@
+﻿namespace RapidERP.Application.Features.MessageModuleFeatures.GetAllTemplateDataQuery;
+
+public record GetAllMessageModuleTemplateDataRequestModel();

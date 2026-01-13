@@ -1,0 +1,3 @@
+﻿namespace RapidERP.Application.Features.CalendarFeatures.GetAllTemplateDataQuery;
+
+public record GetAllCalendarTemplateDataRequestModel();

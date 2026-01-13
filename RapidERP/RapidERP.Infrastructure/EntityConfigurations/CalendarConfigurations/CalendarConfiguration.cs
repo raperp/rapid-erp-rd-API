@@ -16,8 +16,8 @@ public class CalendarConfiguration : IEntityTypeConfiguration<Calendar>
         builder.Property(x => x.StatusTypeId).HasColumnOrder(4);
         builder.Property(x => x.Code).HasMaxLength(3).IsRequired().HasColumnOrder(5);
         builder.Property(x => x.Name).HasMaxLength(10).IsRequired().HasColumnOrder(6);
-        builder.Property(x => x.StartDate).IsRequired().HasColumnOrder(7);
-        builder.Property(x => x.EndDate).IsRequired().HasColumnOrder(8);
+        builder.Property(x => x.StartDate).IsRequired(false).HasColumnOrder(7);
+        builder.Property(x => x.EndDate).IsRequired(false).HasColumnOrder(8);
         builder.Property(x => x.TotalMonth).HasColumnOrder(9);
         builder.Ignore(x => x.IsDefault);
         builder.Ignore(x => x.IsDraft);

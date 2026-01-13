@@ -5,8 +5,8 @@ namespace RapidERP.Application.DTOs.MessageModuleDTOs;
 public record class MessageModulePUT : TrackerDTO
 {
     public int Id { get; set; }
-    public int TextModuleId { get; set; }
-    public int LanguageId { get; set; }
+    public int? TextModuleId { get; set; }
+    public int? LanguageId { get; set; }
     public string Name { get; set; }
     public bool IsDraft { get; set; }
     public int ActionTypeId { get; set; }
