@@ -1,6 +1,6 @@
-﻿namespace RapidERP.Application.Features.CalendarFeatures.GetSingleQuery;
+﻿namespace RapidERP.Application.Features.SolutionFeatures.GetAllQuery;
 
-public record GetSingleCalendarResponseDTOModel
+public record GetAllSolutionResponseDTOModel
 {
     public int Id { get; set; }
     public string Tenant { get; set; }
@@ -9,7 +9,6 @@ public record GetSingleCalendarResponseDTOModel
     public string Status { get; set; }
     public string Code { get; set; }
     public string Name { get; set; }
-    public DateTime? StartDate { get; set; }
-    public DateTime? EndDate { get; set; }
-    public int TotalMonth { get; set; }
+    public string Icon { get; set; }
+    public string Description { get; set; }
 }

@@ -1,0 +1,3 @@
+﻿namespace RapidERP.Application.Features.SolutionFeatures.GetAllTemplateDataQuery;
+
+public record GetAllSolutionTemplateDataRequestModel();
