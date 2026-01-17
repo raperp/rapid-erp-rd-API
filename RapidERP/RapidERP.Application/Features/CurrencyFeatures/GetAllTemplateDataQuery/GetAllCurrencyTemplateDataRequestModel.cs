@@ -1,0 +1,3 @@
+﻿namespace RapidERP.Application.Features.CurrencyFeatures.GetAllTemplateDataQuery;
+
+public record GetAllCurrencyTemplateDataRequestModel();
