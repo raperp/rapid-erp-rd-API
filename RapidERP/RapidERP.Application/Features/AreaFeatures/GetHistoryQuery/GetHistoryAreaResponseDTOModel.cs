@@ -7,6 +7,7 @@ public record GetHistoryAreaResponseDTOModel
     public string Code { get; set; }
     public string Country { get; set; }
     public string State { get; set; }
+    public string StatusType { get; set; }
     public string City { get; set; }
     public string Tanent { get; set; }
     public string Language { get; set; }
