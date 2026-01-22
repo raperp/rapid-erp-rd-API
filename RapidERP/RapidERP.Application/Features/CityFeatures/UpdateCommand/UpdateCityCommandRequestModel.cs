@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using RapidERP.Application.DTOs.CityDTOs;
 
-namespace RapidERP.Application.Features.CityFeatures.UpdateCommand
-{
-    internal class UpdateCityCommandRequestModel
-    {
-    }
-}
+namespace RapidERP.Application.Features.CityFeatures.UpdateCommand;
+
+public record UpdateCityCommandRequestModel(CityPUT masterPUT);

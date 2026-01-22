@@ -147,6 +147,25 @@ namespace RapidERP.Infrastructure.Migrations
                     b.ToTable("ActionTypeHistory");
                 });
 
+            modelBuilder.Entity("RapidERP.Domain.Entities.ActionTypeModels.ActionTypeTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ActionTypeTemplate");
+                });
+
             modelBuilder.Entity("RapidERP.Domain.Entities.AreaModules.Area", b =>
                 {
                     b.Property<int>("Id")
@@ -304,6 +323,25 @@ namespace RapidERP.Infrastructure.Migrations
                     b.ToTable("AreaHistory");
                 });
 
+            modelBuilder.Entity("RapidERP.Domain.Entities.AreaModules.AreaTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AreaTemplate");
+                });
+
             modelBuilder.Entity("RapidERP.Domain.Entities.CalendarModels.Calendar", b =>
                 {
                     b.Property<int>("Id")
@@ -319,7 +357,7 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(3)")
                         .HasColumnOrder(5);
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2")
                         .HasColumnOrder(8);
 
@@ -337,7 +375,7 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(10)")
                         .HasColumnOrder(6);
 
-                    b.Property<DateTime>("StartDate")
+                    b.Property<DateTime?>("StartDate")
                         .HasColumnType("datetime2")
                         .HasColumnOrder(7);
 
@@ -413,7 +451,7 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(10)")
                         .HasColumnOrder(18);
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2")
                         .HasColumnOrder(12);
 
@@ -464,7 +502,7 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnOrder(8);
 
-                    b.Property<DateTime>("StartDate")
+                    b.Property<DateTime?>("StartDate")
                         .HasColumnType("datetime2")
                         .HasColumnOrder(11);
 
@@ -481,6 +519,34 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasIndex("CalendarId");
 
                     b.ToTable("CalendarHistory");
+                });
+
+            modelBuilder.Entity("RapidERP.Domain.Entities.CalendarModels.CalendarTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TotalMonth")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CalendarTemplate");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.CityModels.City", b =>
@@ -630,6 +696,22 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasIndex("CityId");
 
                     b.ToTable("CityHistory");
+                });
+
+            modelBuilder.Entity("RapidERP.Domain.Entities.CityModels.CityTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CityTemplate");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.Country", b =>
@@ -1025,6 +1107,28 @@ namespace RapidERP.Infrastructure.Migrations
                     b.ToTable("CurrencyHistory");
                 });
 
+            modelBuilder.Entity("RapidERP.Domain.Entities.CurrencyModels.CurrencyTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Icon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CurrencyTemplate");
+                });
+
             modelBuilder.Entity("RapidERP.Domain.Entities.DepartmentModels.Department", b =>
                 {
                     b.Property<int>("Id")
@@ -1156,6 +1260,25 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasIndex("DepartmentId");
 
                     b.ToTable("DepartmentHistory");
+                });
+
+            modelBuilder.Entity("RapidERP.Domain.Entities.DepartmentModels.DepartmentTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DepartmentTemplate");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.DesignationModels.Designation", b =>
@@ -1299,6 +1422,25 @@ namespace RapidERP.Infrastructure.Migrations
                     b.ToTable("DesignationHistory");
                 });
 
+            modelBuilder.Entity("RapidERP.Domain.Entities.DesignationModels.DesignationTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DesignationTemplate");
+                });
+
             modelBuilder.Entity("RapidERP.Domain.Entities.ExportTypeModels.ExportType", b =>
                 {
                     b.Property<int>("Id")
@@ -1410,6 +1552,25 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasIndex("ExportTypeId");
 
                     b.ToTable("ExportTypeHistory");
+                });
+
+            modelBuilder.Entity("RapidERP.Domain.Entities.ExportTypeModels.ExportTypeTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ExportTypeTemplate");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.KitchenModels.Kitchen", b =>
@@ -1536,6 +1697,25 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasIndex("KitchenId");
 
                     b.ToTable("KitchenHistory");
+                });
+
+            modelBuilder.Entity("RapidERP.Domain.Entities.KitchenModels.KitchenTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("KitchenTemplate");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.LanguageModels.Language", b =>
@@ -1679,6 +1859,34 @@ namespace RapidERP.Infrastructure.Migrations
                     b.ToTable("LanguageHistory");
                 });
 
+            modelBuilder.Entity("RapidERP.Domain.Entities.LanguageModels.LanguageTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ISO2Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ISO3Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ISONumeric")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IconURL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LanguageTemplate");
+                });
+
             modelBuilder.Entity("RapidERP.Domain.Entities.MainModuleModels.MainModule", b =>
                 {
                     b.Property<int>("Id")
@@ -1794,6 +2002,25 @@ namespace RapidERP.Infrastructure.Migrations
                     b.ToTable("MainModuleHistory");
                 });
 
+            modelBuilder.Entity("RapidERP.Domain.Entities.MainModuleModels.MainModuleTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Prefix")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MainModuleTemplate");
+                });
+
             modelBuilder.Entity("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", b =>
                 {
                     b.Property<int>("Id")
@@ -1905,6 +2132,22 @@ namespace RapidERP.Infrastructure.Migrations
                     b.ToTable("MenuModuleHistory");
                 });
 
+            modelBuilder.Entity("RapidERP.Domain.Entities.MenuModuleModels.MenuModuleTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MenuModuleTemplate");
+                });
+
             modelBuilder.Entity("RapidERP.Domain.Entities.MessageModuleModels.MessageModule", b =>
                 {
                     b.Property<int>("Id")
@@ -2002,6 +2245,22 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasIndex("MessageModuleId");
 
                     b.ToTable("MessageModuleHistory");
+                });
+
+            modelBuilder.Entity("RapidERP.Domain.Entities.MessageModuleModels.MessageModuleTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MessageModuleTemplate");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.OrderTypeModels.OrderType", b =>
@@ -2783,6 +3042,25 @@ namespace RapidERP.Infrastructure.Migrations
                     b.ToTable("StateHistory");
                 });
 
+            modelBuilder.Entity("RapidERP.Domain.Entities.SateModules.StateTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StateTemplate");
+                });
+
             modelBuilder.Entity("RapidERP.Domain.Entities.SolutionModels.Solution", b =>
                 {
                     b.Property<int>("Id")
@@ -2954,6 +3232,31 @@ namespace RapidERP.Infrastructure.Migrations
                     b.ToTable("SolutionHistory");
                 });
 
+            modelBuilder.Entity("RapidERP.Domain.Entities.SolutionModels.SolutionTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Icon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SolutionTemplate");
+                });
+
             modelBuilder.Entity("RapidERP.Domain.Entities.StatusTypeModels.StatusType", b =>
                 {
                     b.Property<int>("Id")
@@ -3083,6 +3386,25 @@ namespace RapidERP.Infrastructure.Migrations
                     b.ToTable("StatusTypeHistory");
                 });
 
+            modelBuilder.Entity("RapidERP.Domain.Entities.StatusTypeModels.StatusTypeTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("StatusTypeTemplate");
+                });
+
             modelBuilder.Entity("RapidERP.Domain.Entities.SubmoduleModels.Submodule", b =>
                 {
                     b.Property<int>("Id")
@@ -3194,6 +3516,22 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasIndex("SubmoduleId");
 
                     b.ToTable("SubmoduleHistory");
+                });
+
+            modelBuilder.Entity("RapidERP.Domain.Entities.SubmoduleModels.SubmoduleTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SubmoduleTemplate");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.SupplierModels.Supplier", b =>
@@ -4103,6 +4441,34 @@ namespace RapidERP.Infrastructure.Migrations
                     b.ToTable("TenantLicenses");
                 });
 
+            modelBuilder.Entity("RapidERP.Domain.Entities.TenantModels.TenantTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Mobile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Website")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TenantTemplate");
+                });
+
             modelBuilder.Entity("RapidERP.Domain.Entities.TextModuleModels.TextModule", b =>
                 {
                     b.Property<int>("Id")
@@ -4200,6 +4566,22 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasIndex("TextModuleId");
 
                     b.ToTable("TextModuleHistory");
+                });
+
+            modelBuilder.Entity("RapidERP.Domain.Entities.TextModuleModels.TextModuleTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TextModuleTemplate");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.UserIPWhitelistModels.UserIPWhitelist", b =>

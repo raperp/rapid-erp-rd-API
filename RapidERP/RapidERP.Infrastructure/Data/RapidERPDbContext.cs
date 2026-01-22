@@ -36,21 +36,26 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
 {
     public DbSet<Language> Languages { get; set; }
     public DbSet<LanguageHistory> LanguageHistory { get; set; } 
+    public DbSet<LanguageTemplate> LanguageTemplate { get; set; } 
 
     public DbSet<ExportType> ExportTypes { get; set; }
     public DbSet<ExportTypeHistory> ExportTypeHistory { get; set; } 
+    public DbSet<ExportTypeTemplate> ExportTypeTemplate { get; set; } 
 
     public DbSet<ActionType> ActionTypes { get; set; }
     public DbSet<ActionTypeHistory> ActionTypeHistory { get; set; }
+    public DbSet<ActionTypeTemplate> ActionTypeTemplate { get; set; }
 
     public DbSet<StatusType> StatusTypes { get; set; }
     public DbSet<StatusTypeHistory> StatusTypeHistory { get; set; }
+    public DbSet<StatusTypeTemplate> StatusTypeTemplate { get; set; }
 
     public DbSet<Tenant> Tenants { get; set; }
     public DbSet<TenantLicense> TenantLicenses { get; set; }
     public DbSet<TenantLanguage> TenantLanguages { get; set; }
     public DbSet<TenantCalendar> TenantCalendars { get; set; }
     public DbSet<TenantHistory> TenantHistory { get; set; }
+    public DbSet<TenantTemplate> TenantTemplate { get; set; }
 
     public DbSet<Country> Countries { get; set; }
     public DbSet<CountryHistory> CountryHistory { get; set; }
@@ -58,21 +63,27 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
 
     public DbSet<State> States { get; set; }
     public DbSet<StateHistory> StateHistory { get; set; }
+    public DbSet<StateTemplate> StateTemplate { get; set; }
 
     public DbSet<Currency> Currencies { get; set; }
     public DbSet<CurrencyHistory> CurrencyHistory { get; set; }
+    public DbSet<CurrencyTemplate> CurrencyTemplate { get; set; }
 
     public DbSet<City> Cities { get; set; }
     public DbSet<CityHistory> CityHistory { get; set; }
+    public DbSet<CityTemplate> CityTemplate { get; set; }
 
     public DbSet<Area> Areas { get; set; }
     public DbSet<AreaHistory> AreaHistory { get; set; }
+    public DbSet<AreaTemplate> AreaTemplate { get; set; }
 
     public DbSet<Department> Departments { get; set; }
     public DbSet<DepartmentHistory> DepartmentHistory { get; set; }
+    public DbSet<DepartmentTemplate> DepartmentTemplate { get; set; }
 
     public DbSet<Designation> Designations { get; set; }
     public DbSet<DesignationHistory> DesignationHistory { get; set; }
+    public DbSet<DesignationTemplate> DesignationTemplate { get; set; }
 
     public DbSet<Salesman> Salesmen { get; set; }
     public DbSet<SalesmanHistory> SalesmanHistory { get; set; }
@@ -94,15 +105,19 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
 
     public DbSet<Kitchen> Kitchens { get; set; }
     public DbSet<KitchenHistory> KitchenHistory { get; set; }
+    public DbSet<KitchenTemplate> KitchenTemplate { get; set; }
 
     public DbSet<MainModule> MainModules { get; set; }
     public DbSet<MainModuleHistory> MainModuleHistory { get; set; }
+    public DbSet<MainModuleTemplate> MainModuleTemplate { get; set; }
 
     public DbSet<Submodule> Submodules { get; set; }
     public DbSet<SubmoduleHistory> SubmoduleHistory { get; set; }
+    public DbSet<SubmoduleTemplate> SubmoduleTemplate { get; set; }
 
     public DbSet<MenuModule> MenuModules { get; set; }
     public DbSet<MenuModuleHistory> MenuModuleHistory { get; set; }
+    public DbSet<MenuModuleTemplate> MenuModuleTemplate { get; set; }
 
     public DbSet<User> Users { get; set; }
     public DbSet<UserHistory> UserHistory { get; set; }
@@ -112,15 +127,19 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
 
     public DbSet<TextModule> TextModules { get; set; }
     public DbSet<TextModuleHistory> TextModuleHistory { get; set; }
+    public DbSet<TextModuleTemplate> TextModuleTemplate { get; set; }
 
     public DbSet<MessageModule> MessageModules { get; set; }
     public DbSet<MessageModuleHistory> MessageModuleHistory { get; set; }
+    public DbSet<MessageModuleTemplate> MessageModuleTemplate { get; set; }
 
     public DbSet<Calendar> Calendars { get; set; }
     public DbSet<CalendarHistory> CalendarHistory { get; set; }
+    public DbSet<CalendarTemplate> CalendarTemplate { get; set; }
 
     public DbSet<Solution> Solutions { get; set; }
     public DbSet<SolutionHistory> SolutionHistory { get; set; }
+    public DbSet<SolutionTemplate> SolutionTemplate { get; set; }
 
     public DbSet<UserIPWhitelist> UserIPWhitelists { get; set; }
     public DbSet<UserIPWhitelistHistory> UserIPWhitelistHistory { get; set; }

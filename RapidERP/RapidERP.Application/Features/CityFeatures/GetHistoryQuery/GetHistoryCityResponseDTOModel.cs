@@ -1,6 +1,4 @@
-﻿using RapidERP.Domain.Utilities;
-
-namespace RapidERP.Application.Features.CityFeatures.GetHistoryQuery;
+﻿namespace RapidERP.Application.Features.CityFeatures.GetHistoryQuery;
 
 public record GetHistoryCityResponseDTOModel
 {
@@ -24,6 +22,6 @@ public record GetHistoryCityResponseDTOModel
     public string DeviceName { get; set; }
     public decimal? Latitude { get; set; }
     public decimal? Longitude { get; set; }
-    public string ActionBy { get; set; }
+    public int ActionBy { get; set; }
     public DateTime ActionAt { get; set; }
 }

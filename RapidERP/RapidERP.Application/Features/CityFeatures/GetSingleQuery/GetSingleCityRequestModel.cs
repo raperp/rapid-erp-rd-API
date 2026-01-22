@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Features.CityFeatures.GetSingleQuery;
 
-public record GetSingleCityRequestModel : RequestResponse { }
+public record GetSingleCityRequestModel(int id);

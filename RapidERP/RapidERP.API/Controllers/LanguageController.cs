@@ -1,67 +1,100 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RapidERP.Application.DTOs.LanguageDTOs;
-using RapidERP.Application.DTOs.Shared;
-using RapidERP.Application.Interfaces;
+using RapidERP.Application.Features.LanguageFeatures.CreateBulkCommand;
+using RapidERP.Application.Features.LanguageFeatures.CreateSingleCommand;
+using RapidERP.Application.Features.LanguageFeatures.DeleteCommand;
+using RapidERP.Application.Features.LanguageFeatures.GetAllQuery;
+using RapidERP.Application.Features.LanguageFeatures.GetAllTemplateDataQuery;
+using RapidERP.Application.Features.LanguageFeatures.GetHistoryQuery;
+using RapidERP.Application.Features.LanguageFeatures.GetSingleLanguageQuery;
+using RapidERP.Application.Features.LanguageFeatures.SoftDeleteCommand;
+using RapidERP.Application.Features.LanguageFeatures.UpdateCommand;
+using RapidERP.Domain.Entities.LanguageModels;
+using Wolverine;
 
 namespace RapidERP.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class LanguageController(ILanguageService language) : ControllerBase
+public class LanguageController(IMessageBus bus, ILogger<LanguageController> logger) : ControllerBase
 {
     [HttpGet("GetAll")]
-    public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
+    [ProducesResponseType(typeof(GetAllLanguageResponseDTOModel), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAll(int skip, int take)
     {
-        var result = await language.GetAll(skip, take, pageSize);
+        logger.LogInformation("GetAll called with skip: {skip}, take: {take}", skip, take);
+        var query = new GetAllLanguageRequestModel(skip, take);
+        var result = await bus.InvokeAsync<GetAllLanguageResponseModel>(query);
         return Ok(result);
     }
 
     [HttpGet("GetSingle")]
-    public async Task<IActionResult> GetSingle(int id)
+    [ProducesResponseType(typeof(GetLanguageResponseDTOModel), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetSingle([FromQuery] GetSingleLanguageRequestModel request)
     {
-        var result = await language.GetSingle(id);
+        logger.LogInformation("GetSingle called with id: {id}", request.id);
+        var result = await bus.InvokeAsync<GetSingleLanguageResponseModel>(new GetSingleLanguageRequestModel(request.id));
         return Ok(result);
     }
 
     [HttpGet("GetHistory")]
-    public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
+    [ProducesResponseType(typeof(GetHistoryLanguageResponseDTOModel), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetHistory(int skip, int take)
     {
-        var result = await language.GetHistory(skip, take, pageSize);
+        logger.LogInformation("GetHistory called with skip: {skip}, take: {take}", skip, take);
+        var query = new GetHistoryLanguageRequestModel(skip, take);
+        var result = await bus.InvokeAsync<GetHistoryLanguageResponseModel>(query);
         return Ok(result);
+    }
+
+    [HttpGet("GetTempleteData")]
+    [ProducesResponseType(typeof(LanguageTemplate), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetTempleteData()
+    {
+        int id = 0;
+        logger.LogInformation("Get Templete Data called");
+        var result = await bus.InvokeAsync<GetAllLanguageTemplateDataResponseModel>(new GetAllLanguageTemplateDataRequestModel());
+        return Ok(result);
+
     }
 
     [HttpPost("CreateSingle")]
     public async Task<IActionResult> CreateSingle(LanguagePOST masterPOST)
     {
-        var result = await language.CreateSingle(masterPOST);
+        logger.LogInformation("CreateSingle called");
+        var result = await bus.InvokeAsync<CreateSingleLanguageCommandResponseModel>(new CreateSingleLanguageCommandRequestModel(masterPOST));
         return Ok(result);
     }
 
     [HttpPost("CreateBulk")]
     public async Task<IActionResult> CreateBulk(List<LanguagePOST> masterPOSTs)
     {
-        var result = await language.CreateBulk(masterPOSTs);
+        logger.LogInformation("CreateBulk called");
+        var result = await bus.InvokeAsync<CreateBulkLanguageCommandResponseModel>(new CreateBulkLanguageCommandRequestModel(masterPOSTs));
         return Ok(result);
     }
 
     [HttpPut("Update")]
     public async Task<IActionResult> Update(LanguagePUT masterPUT)
     {
-        var result = await language.Update(masterPUT);
+        logger.LogInformation("Update called");
+        var result = await bus.InvokeAsync<UpdateLanguageCommandResponseModel>(new UpdateLanguageCommandRequestModel(masterPUT));
         return Ok(result);
     }
 
-    //[HttpPut("Delete")]
-    //public async Task<IActionResult> SoftDelete(int id)
-    //{
-    //    var result = await language.SoftDelete(id);
-    //    return Ok(result);
-    //}
+    [HttpPut("SoftDelete")]
+    public async Task<IActionResult> SoftDelete(int id)
+    {
+        logger.LogInformation("Soft Delete action performed with id: {id}", id);
+        var result = await bus.InvokeAsync<SoftDeleteLanguageCommandResponseModel>(new SoftDeleteLanguageCommandRequestModel(id));
+        return Ok(result);
+    }
 
-    //[HttpDelete("Delete")]
-    //public async Task<IActionResult> Delete(int id)
-    //{
-    //    var result = await language.Delete(id);
-    //    return Ok(result);
-    //}
+    [HttpPut("Delete")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        logger.LogInformation("Delete action performed with id: {id}", id);
+        var result = await bus.InvokeAsync<DeleteLanguageCommandResponseModel>(new DeleteLanguageCommandRequestModel(id));
+        return Ok(result);
+    }
 }

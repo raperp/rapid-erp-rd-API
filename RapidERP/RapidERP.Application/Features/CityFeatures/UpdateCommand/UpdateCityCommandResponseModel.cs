@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using RapidERP.Domain.Utilities;
 
-namespace RapidERP.Application.Features.CityFeatures.UpdateCommand
-{
-    internal class UpdateCityCommandResponseModel
-    {
-    }
-}
+namespace RapidERP.Application.Features.CityFeatures.UpdateCommand;
+
+public record UpdateCityCommandResponseModel : RequestResponse { }
