@@ -71,7 +71,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                 masterData.TenantId = masterPOST.TenantId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.LanguageId = masterPOST.LanguageId;
-                masterData.CurrencyId = masterPOST.CurrencyId;
+                //masterData.CurrencyId = masterPOST.CurrencyId;
                 masterData.DialCode = masterPOST.DialCode;
                 masterData.Name = masterPOST.Name;
                 masterData.IsDefault = masterPOST.IsDefault;
@@ -83,9 +83,9 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
 
                 await repository.Add(masterData);
 
-                CountryHistory history = new();
+                CountryAudit history = new();
                 history.CountryId = masterData.Id;
-                history.CurrencyId = masterPOST.CurrencyId;
+                //history.CurrencyId = masterPOST.CurrencyId;
                 history.TenantId = masterPOST.TenantId;
                 history.MenuModuleId = masterPOST.MenuModuleId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
@@ -162,7 +162,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
             //await using var transaction = await context.Database.BeginTransactionAsync();
             using var transaction = repository.BeginTransaction(); ;
             //var ishistoryExists = await context.CountryHistory.AsNoTracking().AnyAsync(x => x.CountryId == id);
-            var ishistoryExists = await repository.Set<CountryHistory>().AsNoTracking().AnyAsync(x => x.CountryId == id);
+            var ishistoryExists = await repository.Set<CountryAudit>().AsNoTracking().AnyAsync(x => x.CountryId == id);
 
             if (ishistoryExists == false)
             {
@@ -176,7 +176,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
 
             else
             {
-                await repository.Set<CountryHistory>().Where(x => x.CountryId == id).ExecuteDeleteAsync();
+                await repository.Set<CountryAudit>().Where(x => x.CountryId == id).ExecuteDeleteAsync();
             }
 
             //var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Id == id);
@@ -231,7 +231,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                         join t in repository.Set<Tenant>() on c.TenantId equals t.Id
                         join l in repository.Set<Language>() on c.LanguageId equals l.Id
                         join mm in repository.Set<MenuModule>() on c.MenuModuleId equals mm.Id
-                        join cu in repository.Set<Currency>() on c.CurrencyId equals cu.Id
+                        //join cu in repository.Set<Currency>() on c.CurrencyId equals cu.Id
                         select new GetSingleCountryResponseDTOModel
                         {
                             Id = c.Id,
@@ -239,7 +239,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                             Tanent = t.Name,
                             Language = l.Name,
                             Status = st.Name,
-                            Currency = cu.Name,
+                            //Currency = cu.Name,
                             DialCode = c.DialCode,
                             Country = c.Name,
                             IsDefault =  c.IsDefault,
@@ -298,14 +298,14 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
     {
         try
         {
-            var data = (from ca in repository.Set<CountryHistory>()
+            var data = (from ca in repository.Set<CountryAudit>()
                         join c in repository.Set<Country>() on ca.CountryId equals c.Id
                         join et in repository.Set<ExportType>() on ca.ExportTypeId equals et.Id
                         join at in repository.Set<ActionType>() on ca.ActionTypeId equals at.Id
                         join t in repository.Set<Tenant>() on ca.TenantId equals t.Id
                         join l in repository.Set<Language>() on ca.LanguageId equals l.Id
                         join mm in repository.Set<MenuModule>() on ca.MenuModuleId equals mm.Id
-                        join cu in repository.Set<Currency>() on ca.CurrencyId equals cu.Id
+                        //join cu in repository.Set<Currency>() on ca.CurrencyId equals cu.Id
                         select new  
                         {
                             ca.Id,
@@ -315,7 +315,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                             Action = at.Name,
                             Language = l.Name,
                             ExportType = et.Name,
-                            Currency = cu.Name,
+                            //Currency = cu.Name,
                             ca.ExportTo,
                             ca.SourceURL,
                             ca.DialCode,
@@ -401,7 +401,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
         try
         {
             Country masterData = new();
-            CountryHistory history = new();
+            CountryAudit history = new();
             //await using var transaction = await context.Database.BeginTransactionAsync();
             using var transaction = repository.BeginTransaction();
             //var isExists = await context.Countries.AsNoTracking().AnyAsync(x => x.Name == masterPUT.Name && x.Id != masterPUT.Id);
@@ -416,7 +416,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
             masterPUT.TenantId = (masterPUT.TenantId is not null) ? masterPUT.TenantId : masterRecord.TenantId;
             masterPUT.StatusTypeId = (masterPUT.StatusTypeId != 0) ? masterPUT.StatusTypeId : masterRecord.StatusTypeId;
             masterPUT.LanguageId = (masterPUT.LanguageId is not null) ? masterPUT.LanguageId : masterRecord.LanguageId;
-            masterPUT.CurrencyId = (masterPUT.CurrencyId != 0) ? masterPUT.CurrencyId : masterRecord.CurrencyId;
+            //masterPUT.CurrencyId = (masterPUT.CurrencyId != 0) ? masterPUT.CurrencyId : masterRecord.CurrencyId;
             masterPUT.DialCode = (masterPUT.DialCode is not null) ? masterPUT.DialCode : masterRecord.DialCode;
             masterPUT.FlagURL = (masterPUT.FlagURL is not null) ? masterPUT.FlagURL : masterRecord.FlagURL;
             
@@ -444,7 +444,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                 masterData.TenantId = masterPUT.TenantId;
                 masterData.StatusTypeId = masterPUT.StatusTypeId;
                 masterData.LanguageId = masterPUT.LanguageId;
-                masterData.CurrencyId = masterPUT.CurrencyId;
+                //masterData.CurrencyId = masterPUT.CurrencyId;
                 masterData.DialCode = masterPUT.DialCode;
                 masterData.Name = masterPUT.Name;
                 masterData.IsDefault = masterPUT.IsDefault;
@@ -461,7 +461,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                 history.MenuModuleId = masterPUT.MenuModuleId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 history.LanguageId = masterPUT.LanguageId;
-                history.CurrencyId = masterPUT.CurrencyId;
+                //history.CurrencyId = masterPUT.CurrencyId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;

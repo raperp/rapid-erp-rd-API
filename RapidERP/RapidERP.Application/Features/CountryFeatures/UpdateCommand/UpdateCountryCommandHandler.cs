@@ -12,7 +12,7 @@ public class UpdateCountryCommandHandler(IRepository repository)
     {
         try
         {
-            Country masterData = new();
+            //Country masterData = new();
             using var transaction = repository.BeginTransaction();
             var isExists = await repository.IsExistsById<Country>(request.masterPUT.Id, request.masterPUT.Name);
             var masterRecord = await repository.FindById<Country>(request.masterPUT.Id);
@@ -28,7 +28,7 @@ public class UpdateCountryCommandHandler(IRepository repository)
                 request.masterPUT.TenantId = (request.masterPUT.TenantId is not null) ? request.masterPUT.TenantId : masterRecord.TenantId;
                 request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;
                 request.masterPUT.LanguageId = (request.masterPUT.LanguageId is not null) ? request.masterPUT.LanguageId : masterRecord.LanguageId;
-                request.masterPUT.CurrencyId = (request.masterPUT.CurrencyId is not null) ? request.masterPUT.CurrencyId : masterRecord.CurrencyId;
+                //request.masterPUT.CurrencyId = (request.masterPUT.CurrencyId is not null) ? request.masterPUT.CurrencyId : masterRecord.CurrencyId;
                 request.masterPUT.DialCode = (request.masterPUT.DialCode is not null) ? request.masterPUT.DialCode : masterRecord.DialCode;
                 request.masterPUT.FlagURL = (request.masterPUT.FlagURL is not null) ? request.masterPUT.FlagURL : masterRecord.FlagURL;
             }
@@ -54,7 +54,7 @@ public class UpdateCountryCommandHandler(IRepository repository)
                 masterRecord.TenantId = request.masterPUT.TenantId;
                 masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
                 masterRecord.LanguageId = request.masterPUT.LanguageId;
-                masterRecord.CurrencyId = request.masterPUT.CurrencyId;
+                //masterRecord.CurrencyId = request.masterPUT.CurrencyId;
                 masterRecord.DialCode = request.masterPUT.DialCode;
                 masterRecord.Name = request.masterPUT.Name;
                 masterRecord.IsDefault = request.masterPUT.IsDefault;
@@ -66,9 +66,9 @@ public class UpdateCountryCommandHandler(IRepository repository)
 
                 await repository.Update(masterRecord);
 
-                CountryHistory history = new();
+                CountryAudit history = new();
                 history.CountryId = request.masterPUT.Id;
-                history.CurrencyId = request.masterPUT.CurrencyId;
+                //history.CurrencyId = request.masterPUT.CurrencyId;
                 history.TenantId = request.masterPUT.TenantId;
                 history.MenuModuleId = request.masterPUT.MenuModuleId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;

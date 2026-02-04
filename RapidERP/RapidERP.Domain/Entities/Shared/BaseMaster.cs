@@ -17,12 +17,4 @@ public class BaseMaster : Master
     public int? StatusTypeId { get; set; }
     public bool IsDefault { get; set; }
     public bool IsDraft { get; set; }
-    //public int? CreatedBy { get; set; }
-    //public DateTime? CreatedAt { get; set; }
-    //public int? DraftedBy { get; set; }
-    //public DateTime? DraftedAt { get; set; }
-    //public int? UpdatedBy { get; set; }
-    //public DateTime? UpdatedAt { get; set; }
-    //public int? DeletedBy { get; set; }
-    //public DateTime? DeletedAt { get; set; }
 }

@@ -27,7 +27,7 @@ try
     builder.Services.AddDbContext(builder.Configuration);
     builder.Services.AddValidatorsFromAssemblyContaining<RapidERPApplication>();
     builder.Services.AddScopedServices();
-    builder.Services.AddHealthChecks().AddCheck<SqlHealth>("sql-health-check", HealthStatus.Unhealthy);
+    //builder.Services.AddHealthChecks().AddCheck<SqlHealth>("sql-health-check", HealthStatus.Unhealthy);
     var app = builder.Build();
 
     // Configure the HTTP request pipeline.
@@ -41,14 +41,14 @@ try
 
     app.UseSwaggerUI();
 
-    app.MapHealthChecks("health");
+    //app.MapHealthChecks("health");
 
     //app.UseForwardedHeaders(new ForwardedHeadersOptions
     //{
     //    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
     //});
 
-    app.UseMiddleware<ExceptionHandlingMiddleware>();
+    //app.UseMiddleware<ExceptionHandlingMiddleware>();
 
     app.UseHttpsRedirection();
 

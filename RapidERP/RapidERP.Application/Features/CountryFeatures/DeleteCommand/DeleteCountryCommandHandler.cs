@@ -15,7 +15,7 @@ public class DeleteCountryCommandHandler(IRepository repository)
         {
             if (request.id is not 0)
             {
-                var histories = await repository.Set<CountryHistory>().Where(c => c.CountryId == request.id).AsNoTracking().ToListAsync();
+                var histories = await repository.Set<CountryAudit>().Where(c => c.CountryId == request.id).AsNoTracking().ToListAsync();
 
                 foreach (var item in histories)
                 {

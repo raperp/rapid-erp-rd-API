@@ -27,7 +27,7 @@ public class GetAllCountryHandler(IRepository repository)
                         join t in repository.Set<Tenant>() on c.TenantId equals t.Id
                         join l in repository.Set<Language>() on c.LanguageId equals l.Id
                         join mm in repository.Set<MenuModule>() on c.MenuModuleId equals mm.Id
-                        join cu in repository.Set<Currency>() on c.CurrencyId equals cu.Id
+                        //join cu in repository.Set<Currency>() on c.CurrencyId equals cu.Id
                         select new GetSingleCountryResponseDTOModel
                         {
                             Id = c.Id,
@@ -35,7 +35,7 @@ public class GetAllCountryHandler(IRepository repository)
                             Tanent = t.Name,
                             Language = l.Name,
                             Status = st.Name,
-                            Currency = cu.Name,
+                            //Currency = cu.Name,
                             DialCode = c.DialCode,
                             Country = c.Name,
                             IsDefault = c.IsDefault,

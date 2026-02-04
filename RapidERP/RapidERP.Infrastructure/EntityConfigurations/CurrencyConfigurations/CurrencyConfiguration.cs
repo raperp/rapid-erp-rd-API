@@ -20,9 +20,9 @@ public class CurrencyConfiguration : IEntityTypeConfiguration<Currency>
         builder.Property(x => x.IsDefault).IsRequired().HasColumnOrder(8);
         builder.Property(x => x.IsDraft).IsRequired().HasColumnOrder(9);
         
-        builder.HasMany(x => x.Countries)
-                .WithOne(x => x.Currency)
-                .HasForeignKey(x => x.CurrencyId)
-                .OnDelete(DeleteBehavior.NoAction);
+        //builder.HasMany(x => x.Countries)
+        //        .WithOne(x => x.Currency)
+        //        .HasForeignKey(x => x.CurrencyId)
+        //        .OnDelete(DeleteBehavior.NoAction);
     }
 }

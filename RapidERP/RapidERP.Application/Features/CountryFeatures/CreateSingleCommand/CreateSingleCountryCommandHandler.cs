@@ -23,7 +23,7 @@ public class CreateSingleCountryCommandHandler(IRepository repository)
                 masterData.TenantId = request.masterPOST.TenantId;
                 masterData.StatusTypeId = request.masterPOST.StatusTypeId;
                 masterData.LanguageId = request.masterPOST.LanguageId;
-                masterData.CurrencyId = request.masterPOST.CurrencyId;
+                //masterData.CurrencyId = request.masterPOST.CurrencyId;
                 masterData.DialCode = request.masterPOST.DialCode;
                 masterData.Name = request.masterPOST.Name;
                 masterData.IsDefault = request.masterPOST.IsDefault;
@@ -36,9 +36,9 @@ public class CreateSingleCountryCommandHandler(IRepository repository)
 
                 await repository.Add(masterData); 
 
-                CountryHistory history = new();
+                CountryAudit history = new();
                 history.CountryId = masterData.Id;
-                history.CurrencyId = request.masterPOST.CurrencyId;
+                //history.CurrencyId = request.masterPOST.CurrencyId;
                 history.TenantId = request.masterPOST.TenantId;
                 history.MenuModuleId = request.masterPOST.MenuModuleId;
                 history.ActionTypeId = request.masterPOST.ActionTypeId;

@@ -23,14 +23,14 @@ public class GetHistoryCountryHandler(IRepository repository)
         {
             GetHistoryDTO result = new();
 
-            var data = (from ca in repository.Set<CountryHistory>()
+            var data = (from ca in repository.Set<CountryAudit>()
                         join c in repository.Set<Country>() on ca.CountryId equals c.Id
                         //join et in repository.Set<ExportType>() on ca.ExportTypeId equals et.Id
                         join at in repository.Set<ActionType>() on ca.ActionTypeId equals at.Id
                         join t in repository.Set<Tenant>() on ca.TenantId equals t.Id
                         join l in repository.Set<Language>() on ca.LanguageId equals l.Id
                         join mm in repository.Set<MenuModule>() on ca.MenuModuleId equals mm.Id
-                        join cu in repository.Set<Currency>() on ca.CurrencyId equals cu.Id
+                        //join cu in repository.Set<Currency>() on ca.CurrencyId equals cu.Id
                         select new GetHistoryCountryResponseDTOModel
                         {
                             Id = ca.Id,
@@ -40,7 +40,7 @@ public class GetHistoryCountryHandler(IRepository repository)
                             Action = at.Name,
                             Language = l.Name,
                             //ExportType = et.Name,
-                            Currency = cu.Name,
+                            //Currency = cu.Name,
                             ExportTo = ca.ExportTo,
                             SourceURL = ca.SourceURL,
                             DialCode = ca.DialCode,

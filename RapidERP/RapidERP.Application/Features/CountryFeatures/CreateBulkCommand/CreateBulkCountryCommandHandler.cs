@@ -1,4 +1,4 @@
-﻿using RapidERP.Application.Repository;
+﻿  using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Utilities;
 using System.Xml.Linq;
@@ -26,7 +26,7 @@ public class CreateBulkCountryCommandHandler(IRepository repository)
                     masterData.TenantId = item.masterPOST.TenantId;
                     masterData.StatusTypeId = item.masterPOST.StatusTypeId;
                     masterData.LanguageId = item.masterPOST.LanguageId;
-                    masterData.CurrencyId = item.masterPOST.CurrencyId;
+                    //masterData.CurrencyId = item.masterPOST.CurrencyId;
                     masterData.DialCode = item.masterPOST.DialCode;
                     masterData.Name = item.masterPOST.Name;
                     masterData.IsDefault = item.masterPOST.IsDefault;
@@ -39,9 +39,9 @@ public class CreateBulkCountryCommandHandler(IRepository repository)
 
                     await repository.Add(masterData);
 
-                    CountryHistory history = new();
+                    CountryAudit history = new();
                     history.CountryId = masterData.Id;
-                    history.CurrencyId = item.masterPOST.CurrencyId;
+                    //history.CurrencyId = item.masterPOST.CurrencyId;
                     history.TenantId = item.masterPOST.TenantId;
                     history.MenuModuleId = item.masterPOST.MenuModuleId;
                     history.ActionTypeId = item.masterPOST.ActionTypeId;

@@ -13,12 +13,18 @@ public class CountryConfiguration : IEntityTypeConfiguration<Country>
         builder.Property(x => x.ISO3Code).HasMaxLength(3).IsRequired();
         builder.Property(x => x.ISO2Code).HasMaxLength(2).IsRequired();
         builder.Property(x => x.ISONumeric).HasMaxLength(4).IsRequired();
-        builder.Ignore(x => x.Tenant);
         builder.Property(x => x.TenantId).IsRequired(false);
+        builder.Property(x => x.RegionId).IsRequired(false);
+        builder.Property(x => x.StateId).IsRequired(false);
+        builder.Property(x => x.TimeZoneId).IsRequired(false);
+
+        builder.Ignore(x => x.Tenant);
+        builder.Ignore(x => x.Language);
+        builder.Ignore(x => x.LanguageId);
         
-        //builder.HasMany(x => x.Tenants)
-        //       .WithOne(x => x.Country)
-        //       .HasForeignKey(x => x.CountryId)
-        //       .OnDelete(DeleteBehavior.NoAction);
+        builder.HasMany(x => x.States)
+               .WithOne(x => x.Country)
+               .HasForeignKey(x => x.CountryId)
+               .OnDelete(DeleteBehavior.NoAction);
     }
 }

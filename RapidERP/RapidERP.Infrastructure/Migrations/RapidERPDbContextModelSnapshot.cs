@@ -754,9 +754,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
 
@@ -765,17 +762,24 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
+                    b.Property<int?>("RegionId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StateId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("StatusTypeId")
                         .HasColumnType("int");
 
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TimeZoneId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CurrencyId");
-
-                    b.HasIndex("LanguageId");
 
                     b.HasIndex("MenuModuleId");
 
@@ -784,7 +788,7 @@ namespace RapidERP.Infrastructure.Migrations
                     b.ToTable("Countries");
                 });
 
-            modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.CountryHistory", b =>
+            modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.CountryAudit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -805,9 +809,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CountryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CurrencyId")
                         .HasColumnType("int");
 
                     b.Property<string>("DeviceIP")
@@ -875,17 +876,54 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
+                    b.Property<int?>("RegionId")
+                        .HasColumnType("int");
+
                     b.Property<string>("SourceURL")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("StateId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TimeZoneId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("CountryHistory");
+                    b.ToTable("CountryAudits");
+                });
+
+            modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.CountryLocalization", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LanguageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.HasIndex("LanguageId");
+
+                    b.ToTable("CountryLocalizations");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.CountryTemplate", b =>
@@ -5064,14 +5102,9 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.Country", b =>
                 {
-                    b.HasOne("RapidERP.Domain.Entities.CurrencyModels.Currency", "Currency")
+                    b.HasOne("RapidERP.Domain.Entities.CurrencyModels.Currency", null)
                         .WithMany("Countries")
-                        .HasForeignKey("CurrencyId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
+                        .HasForeignKey("CurrencyId");
 
                     b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
                         .WithMany()
@@ -5081,16 +5114,12 @@ namespace RapidERP.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("StatusTypeId");
 
-                    b.Navigation("Currency");
-
-                    b.Navigation("Language");
-
                     b.Navigation("MenuModule");
 
                     b.Navigation("StatusType");
                 });
 
-            modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.CountryHistory", b =>
+            modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.CountryAudit", b =>
                 {
                     b.HasOne("RapidERP.Domain.Entities.CountryModels.Country", "Country")
                         .WithMany()
@@ -5099,6 +5128,21 @@ namespace RapidERP.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Country");
+                });
+
+            modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.CountryLocalization", b =>
+                {
+                    b.HasOne("RapidERP.Domain.Entities.CountryModels.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId");
+
+                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId");
+
+                    b.Navigation("Country");
+
+                    b.Navigation("Language");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.CurrencyModels.Currency", b =>
@@ -5515,9 +5559,9 @@ namespace RapidERP.Infrastructure.Migrations
             modelBuilder.Entity("RapidERP.Domain.Entities.SateModules.State", b =>
                 {
                     b.HasOne("RapidERP.Domain.Entities.CountryModels.Country", "Country")
-                        .WithMany()
+                        .WithMany("States")
                         .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
@@ -5904,6 +5948,11 @@ namespace RapidERP.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.Country", b =>
+                {
+                    b.Navigation("States");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.CurrencyModels.Currency", b =>
