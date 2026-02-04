@@ -33,6 +33,8 @@ public class DeleteCountryLocalizationHandler(IRepository repository)
                     Message = ResponseMessage.NoRecordFound
                 };
             }
+            
+            return requestResponse;
         }
 
         catch (Exception ex)
@@ -43,8 +45,8 @@ public class DeleteCountryLocalizationHandler(IRepository repository)
                 IsSuccess = false,
                 Message = ex.Message
             };
-        }
-
-        return requestResponse;
+            
+            return requestResponse;
+        } 
     }
 }
