@@ -35,15 +35,15 @@ public class CreateBulkLanguageCommandHandler(IRepository repository)
                     history.ISO2Code = item.ISO2Code;
                     history.ISO3Code = item.ISO3Code;
                     history.IconURL = item.IconURL;
-                    history.Browser = item.Browser;
-                    history.Location = item.Location;
-                    history.DeviceIP = item.DeviceIP;
-                    history.LocationURL = item.LocationURL;
-                    history.DeviceName = item.DeviceName;
-                    history.Latitude = item.Latitude;
-                    history.Longitude = item.Longitude;
-                    history.ActionBy = item.ActionBy;
-                    history.ActionAt = DateTime.UtcNow;
+                    //history.Browser = item.Browser;
+                    //history.Location = item.Location;
+                    //history.DeviceIP = item.DeviceIP;
+                    //history.LocationURL = item.LocationURL;
+                    //history.DeviceName = item.DeviceName;
+                    //history.Latitude = item.Latitude;
+                    //history.Longitude = item.Longitude;
+                    //history.ActionBy = item.ActionBy;
+                    //history.ActionAt = DateTime.UtcNow;
 
                     await repository.Add(history);
                     transaction.Commit();

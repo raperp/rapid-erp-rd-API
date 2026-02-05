@@ -16,8 +16,8 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
         builder.Ignore(x => x.MenuModuleId);
         builder.Ignore(x => x.Tenant);
         builder.Ignore(x => x.TenantId);
-        builder.Ignore(x => x.Language);
-        builder.Ignore(x => x.LanguageId);
+        //builder.Ignore(x => x.Language);
+        //builder.Ignore(x => x.LanguageId);
         builder.Ignore(x => x.IsDefault);
         builder.Ignore(x => x.IsDraft);
     }

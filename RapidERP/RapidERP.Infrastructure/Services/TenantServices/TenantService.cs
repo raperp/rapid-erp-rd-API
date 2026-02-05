@@ -59,7 +59,7 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
                 masterData.CountryId = masterPOST.CountryId;
                 masterData.StateId = masterPOST.StateId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                masterData.LanguageId = masterPOST.LanguageId;
+                //masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Name = masterPOST.Name;
                 masterData.Contact = masterPOST.Contact;
                 masterData.Phone = masterPOST.Phone;
@@ -76,7 +76,7 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
                 history.MenuModuleId = masterPOST.MenuModuleId;
                 history.CountryId = masterPOST.CountryId;
                 history.StateId = masterPOST.StateId;
-                history.LanguageId = masterPOST.LanguageId;
+                //history.LanguageId = masterPOST.LanguageId;
                 history.CalendarId = masterPOST.CalendarId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
@@ -89,15 +89,15 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
                 history.Address = masterPOST.Address;
                 history.Email = masterPOST.Email;
                 history.Website = masterPOST.Website;
-                history.Browser = masterPOST.Browser;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
-                history.LocationURL = masterPOST.LocationURL;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
-                history.ActionBy = masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPOST.Browser;
+                //history.Location = masterPOST.Location;
+                //history.DeviceIP = masterPOST.DeviceIP;
+                //history.LocationURL = masterPOST.LocationURL;
+                //history.DeviceName = masterPOST.DeviceName;
+                //history.Latitude = masterPOST.Latitude;
+                //history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.TenantHistory.AddAsync(history);
                 await context.SaveChangesAsync();
@@ -211,7 +211,7 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
                         join mm in context.MenuModules on t.MenuModuleId equals mm.Id
                         join c in context.Countries on t.CountryId equals c.Id
                         join s in context.States on t.StateId equals s.Id
-                        join l in context.Languages on t.LanguageId equals l.Id
+                        //join l in context.Languages on t.LanguageId equals l.Id
                         join st in context.StatusTypes on t.StatusTypeId equals st.Id
                         select new
                         {
@@ -220,7 +220,7 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
                             Country = c.Name,
                             State = s.Name,
                             Status = st.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             t.Name,
                             t.Contact,
                             t.Phone,
@@ -283,7 +283,7 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
                         join mm in context.MenuModules on th.MenuModuleId equals mm.Id
                         join c in context.Countries on th.CountryId equals c.Id
                         join s in context.States on th.StateId equals s.Id
-                        join l in context.Languages on th.LanguageId equals l.Id
+                        //join l in context.Languages on th.LanguageId equals l.Id
                         join at in context.ActionTypes on th.ActionTypeId equals at.Id
                         join et in context.ExportTypes on th.ExportTypeId equals et.Id
                         select new
@@ -293,7 +293,7 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
                             MenuModule = mm.Name,
                             Country = c.Name,
                             State = s.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Action = at.Name,
                             ExportMedia = et.Name,
                             th.ExportTo,
@@ -305,15 +305,15 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
                             th.Address,
                             th.Email,
                             th.Website,
-                            th.Browser,
-                            th.Location,
-                            th.DeviceIP,
-                            th.LocationURL,
-                            th.DeviceName,
-                            th.Latitude,
-                            th.Longitude,
-                            th.ActionBy,
-                            th.ActionAt
+                            //th.Browser,
+                            //th.Location,
+                            //th.DeviceIP,
+                            //th.LocationURL,
+                            //th.DeviceName,
+                            //th.Latitude,
+                            //th.Longitude,
+                            //th.ActionBy,
+                            //th.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -389,7 +389,7 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
                 .SetProperty(x => x.CountryId, masterPUT.CountryId)
                 .SetProperty(x => x.StateId, masterPUT.StateId)
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Contact, masterPUT.Contact)
                 .SetProperty(x => x.Phone, masterPUT.Phone)
@@ -403,7 +403,7 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
                 history.MenuModuleId = masterPUT.MenuModuleId;
                 history.CountryId = masterPUT.CountryId;
                 history.StateId = masterPUT.StateId;
-                history.LanguageId = masterPUT.LanguageId;
+                //history.LanguageId = masterPUT.LanguageId;
                 history.CalendarId = masterPUT.CalendarId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
@@ -416,15 +416,15 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
                 history.Address = masterPUT.Address;
                 history.Email = masterPUT.Email;
                 history.Website = masterPUT.Website;
-                history.Browser = masterPUT.Browser;
-                history.Location = masterPUT.Location;
-                history.DeviceIP = masterPUT.DeviceIP;
-                history.LocationURL = masterPUT.LocationURL;
-                history.DeviceName = masterPUT.DeviceName;
-                history.Latitude = masterPUT.Latitude;
-                history.Longitude = masterPUT.Longitude;
-                history.ActionBy = masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPUT.Browser;
+                //history.Location = masterPUT.Location;
+                //history.DeviceIP = masterPUT.DeviceIP;
+                //history.LocationURL = masterPUT.LocationURL;
+                //history.DeviceName = masterPUT.DeviceName;
+                //history.Latitude = masterPUT.Latitude;
+                //history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.TenantHistory.AddAsync(history);
                 await context.SaveChangesAsync();

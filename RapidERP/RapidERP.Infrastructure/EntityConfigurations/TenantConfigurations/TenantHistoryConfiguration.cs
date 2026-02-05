@@ -14,7 +14,7 @@ public class TenantHistoryConfiguration : IEntityTypeConfiguration<TenantHistory
         builder.Property(x => x.MenuModuleId).IsRequired(false).HasColumnOrder(2);
         builder.Property(x => x.CountryId).IsRequired(false).HasColumnOrder(3);
         builder.Property(x => x.StateId).IsRequired(false).HasColumnOrder(4);
-        builder.Property(x => x.LanguageId).IsRequired(false).HasColumnOrder(5);
+        //builder.Property(x => x.LanguageId).IsRequired(false).HasColumnOrder(5);
         builder.Property(x => x.CalendarId).IsRequired(false).HasColumnOrder(6);
         builder.Property(x => x.ActionTypeId).IsRequired(false).HasColumnOrder(7);
         builder.Property(x => x.ExportTypeId).IsRequired(false).HasColumnOrder(8);
@@ -38,15 +38,15 @@ public class TenantHistoryConfiguration : IEntityTypeConfiguration<TenantHistory
         builder.Property(x => x.DataLanguageId).IsRequired(false).HasColumnOrder(26);
         builder.Property(x => x.DefaultLanguageId).IsRequired(false).HasColumnOrder(27);
         builder.Property(x => x.DefaultCalendarId).IsRequired(false).HasColumnOrder(28);
-        builder.Property(x => x.Browser).HasMaxLength(15).IsRequired().HasColumnOrder(29);
-        builder.Property(x => x.Location).HasMaxLength(40).IsRequired().HasColumnOrder(30);
-        builder.Property(x => x.DeviceIP).HasMaxLength(15).IsRequired().HasColumnOrder(31);
-        builder.Property(x => x.LocationURL).IsRequired().HasColumnOrder(32);
-        builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired().HasColumnOrder(33);
-        builder.Property(x => x.Latitude).HasPrecision(9, 6).IsRequired().HasColumnOrder(34);
-        builder.Property(x => x.Longitude).HasPrecision(9, 6).IsRequired().HasColumnOrder(35);
-        builder.Property(x => x.ActionBy).IsRequired().HasColumnOrder(36);
-        builder.Property(x => x.ActionAt).IsRequired().HasColumnOrder(37);
+        //builder.Property(x => x.Browser).HasMaxLength(15).IsRequired().HasColumnOrder(29);
+        //builder.Property(x => x.Location).HasMaxLength(40).IsRequired().HasColumnOrder(30);
+        //builder.Property(x => x.DeviceIP).HasMaxLength(15).IsRequired().HasColumnOrder(31);
+        //builder.Property(x => x.LocationURL).IsRequired().HasColumnOrder(32);
+        //builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired().HasColumnOrder(33);
+        //builder.Property(x => x.Latitude).HasPrecision(9, 6).IsRequired().HasColumnOrder(34);
+        //builder.Property(x => x.Longitude).HasPrecision(9, 6).IsRequired().HasColumnOrder(35);
+        //builder.Property(x => x.ActionBy).IsRequired().HasColumnOrder(36);
+        //builder.Property(x => x.ActionAt).IsRequired().HasColumnOrder(37);
         
         builder.Ignore(x => x.IsDefault);
         builder.Ignore(x => x.IsDraft);

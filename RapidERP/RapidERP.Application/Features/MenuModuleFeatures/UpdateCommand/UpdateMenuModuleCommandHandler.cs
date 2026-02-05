@@ -24,13 +24,13 @@ public class UpdateMenuModuleCommandHandler(IRepository repository)
                 request.masterPUT.SubmoduleId = (request.masterPUT.SubmoduleId != 0) ? request.masterPUT.SubmoduleId : masterRecord.SubmoduleId;
                 request.masterPUT.IconURL = (request.masterPUT.IconURL is not null) ? request.masterPUT.IconURL : masterRecord.IconURL;
                 request.masterPUT.SetSerial = (request.masterPUT.SetSerial != 0) ? request.masterPUT.SetSerial : masterRecord.SetSerial;
-                request.masterPUT.LanguageId = (request.masterPUT.LanguageId != 0) ? request.masterPUT.LanguageId : masterRecord.LanguageId;            
+                //request.masterPUT.LanguageId = (request.masterPUT.LanguageId != 0) ? request.masterPUT.LanguageId : masterRecord.LanguageId;            
             }
 
             if (isExists == false)
             {
                 masterRecord.SubmoduleId = request.masterPUT.SubmoduleId;
-                masterRecord.LanguageId = request.masterPUT.LanguageId;
+                //masterRecord.LanguageId = request.masterPUT.LanguageId;
                 masterRecord.Name = request.masterPUT.Name;
                 masterRecord.IconURL = request.masterPUT.IconURL;
                 masterRecord.SetSerial = request.masterPUT.SetSerial;
@@ -40,7 +40,7 @@ public class UpdateMenuModuleCommandHandler(IRepository repository)
                 MenuModuleHistory history = new();
                 history.MenuModuleId = masterData.Id;
                 history.SubmoduleId = request.masterPUT.SubmoduleId;
-                history.LanguageId = request.masterPUT.LanguageId;
+                //history.LanguageId = request.masterPUT.LanguageId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
                 history.ExportTypeId = request.masterPUT.ExportTypeId;
                 history.ExportTo = request.masterPUT.ExportTo;
@@ -48,15 +48,15 @@ public class UpdateMenuModuleCommandHandler(IRepository repository)
                 history.Name = request.masterPUT.Name;
                 history.IconURL = request.masterPUT.IconURL;
                 history.SetSerial = request.masterPUT.SetSerial;
-                history.Browser = request.masterPUT.Browser;
-                history.Location = request.masterPUT.Location;
-                history.DeviceIP = request.masterPUT.DeviceIP;
-                history.LocationURL = request.masterPUT.LocationURL;
-                history.DeviceName = request.masterPUT.DeviceName;
-                history.Latitude = request.masterPUT.Latitude;
-                history.Longitude = request.masterPUT.Longitude;
-                history.ActionBy = request.masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = request.masterPUT.Browser;
+                //history.Location = request.masterPUT.Location;
+                //history.DeviceIP = request.masterPUT.DeviceIP;
+                //history.LocationURL = request.masterPUT.LocationURL;
+                //history.DeviceName = request.masterPUT.DeviceName;
+                //history.Latitude = request.masterPUT.Latitude;
+                //history.Longitude = request.masterPUT.Longitude;
+                //history.ActionBy = request.masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await repository.Add(history);
                 transaction.Commit();

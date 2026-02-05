@@ -22,7 +22,7 @@ public class GetSingleDesignationHandler(IRepository repository)
                         join dep in repository.Set<Department>() on d.DepartmentId equals dep.Id
                         join st in repository.Set<StatusType>() on d.StatusTypeId equals st.Id
                         join t in repository.Set<Tenant>() on d.TenantId equals t.Id
-                        join l in repository.Set<Language>() on d.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on d.LanguageId equals l.Id
                         join mm in repository.Set<MenuModule>() on d.MenuModuleId equals mm.Id
                         select new GetSingleDesignationResponseDTOModel
                         {
@@ -32,7 +32,7 @@ public class GetSingleDesignationHandler(IRepository repository)
                             Department = dep.Name,
                             MenuModule = mm.Name,
                             Tanent = t.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Status = st.Name
                         }).AsNoTracking().AsQueryable();
 

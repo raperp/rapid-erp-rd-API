@@ -67,15 +67,15 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
                 history.Name = masterPOST.Name;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
-                history.Browser = masterPOST.Browser;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
-                history.LocationURL = masterPOST.LocationURL;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
-                history.ActionBy = masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPOST.Browser;
+                //history.Location = masterPOST.Location;
+                //history.DeviceIP = masterPOST.DeviceIP;
+                //history.LocationURL = masterPOST.LocationURL;
+                //history.DeviceName = masterPOST.DeviceName;
+                //history.Latitude = masterPOST.Latitude;
+                //history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
 
@@ -257,15 +257,15 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
                             Action = at.Name,
                             rh.ExportTo,
                             rh.SourceURL,
-                            rh.Browser,
-                            rh.Location,
-                            rh.DeviceIP,
-                            rh.LocationURL,
-                            rh.DeviceName,
-                            rh.Latitude,
-                            rh.Longitude,
-                            rh.ActionBy,
-                            rh.ActionAt
+                            //rh.Browser,
+                            //rh.Location,
+                            //rh.DeviceIP,
+                            //rh.LocationURL,
+                            //rh.DeviceName,
+                            //rh.Latitude,
+                            //rh.Longitude,
+                            //rh.ActionBy,
+                            //rh.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -346,15 +346,15 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
                 history.Name = masterPUT.Name;
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;
-                history.Browser = masterPUT.Browser;
-                history.Location = masterPUT.Location;
-                history.DeviceIP = masterPUT.DeviceIP;
-                history.LocationURL = masterPUT.LocationURL;
-                history.DeviceName = masterPUT.DeviceName;
-                history.Latitude = masterPUT.Latitude;
-                history.Longitude = masterPUT.Longitude;
-                history.ActionBy = masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPUT.Browser;
+                //history.Location = masterPUT.Location;
+                //history.DeviceIP = masterPUT.DeviceIP;
+                //history.LocationURL = masterPUT.LocationURL;
+                //history.DeviceName = masterPUT.DeviceName;
+                //history.Latitude = masterPUT.Latitude;
+                //history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;
 

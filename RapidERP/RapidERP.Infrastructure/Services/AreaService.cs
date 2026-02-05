@@ -61,7 +61,7 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.TenantId = masterPOST.TenantId;
                 masterData.MenuModuleId = masterPOST.MenuModuleId;
-                masterData.LanguageId = masterPOST.LanguageId;
+                //masterData.LanguageId = masterPOST.LanguageId;
                 masterData.IsDefault = masterPOST.IsDefault;
                 masterData.IsDraft = masterPOST.IsDraft;
                 
@@ -79,21 +79,21 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                 history.TenantId = masterPOST.TenantId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 history.MenuModuleId = masterPOST.MenuModuleId;
-                history.LanguageId = masterPOST.LanguageId;
+                //history.LanguageId = masterPOST.LanguageId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
                 history.IsDefault = masterPOST.IsDefault;
                 history.IsDraft = masterPOST.IsDraft;
-                history.Browser = masterPOST.Browser;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
-                history.LocationURL = masterPOST.LocationURL;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
-                history.ActionBy = masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPOST.Browser;
+                //history.Location = masterPOST.Location;
+                //history.DeviceIP = masterPOST.DeviceIP;
+                //history.LocationURL = masterPOST.LocationURL;
+                //history.DeviceName = masterPOST.DeviceName;
+                //history.Latitude = masterPOST.Latitude;
+                //history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.AreaHistory.AddAsync(history);
                 await context.SaveChangesAsync();
@@ -210,14 +210,14 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                         join ci in context.Cities on a.CityId equals ci.Id
                         join mm in context.MenuModules on a.MenuModuleId equals mm.Id
                         join t in context.Tenants on a.TenantId equals t.Id
-                        join l in context.Languages on a.LanguageId equals l.Id
+                        //join l in context.Languages on a.LanguageId equals l.Id
                         select new
                         {
                             a.Id,
                             a.Name,
                             a.Code,
                             Tanent = t.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             MenuModule = mm.Name,
                             Country = co.Name,
                             State = sta.Name,
@@ -280,7 +280,7 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                         join cit in context.Cities on aa.CityId equals cit.Id
                         join mm in context.MenuModules on aa.MenuModuleId equals mm.Id
                         join t in context.Tenants on aa.TenantId equals t.Id
-                        join l in context.Languages on aa.LanguageId equals l.Id
+                        //join l in context.Languages on aa.LanguageId equals l.Id
                         join at in context.ActionTypes on aa.ActionTypeId equals at.Id
                         join et in context.ExportTypes on aa.ExportTypeId equals et.Id
                         select new
@@ -292,21 +292,21 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                             State = sta.Name,
                             City = cit.Name,
                             Tanent = t.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             MenuModule = mm.Name,
                             ActionType = at.Name,
                             ExportType = et.Name,
                             aa.ExportTo,
                             aa.SourceURL,
-                            aa.Browser,
-                            aa.Location,
-                            aa.DeviceIP,
-                            aa.LocationURL,
-                            aa.DeviceName,
-                            aa.Latitude,
-                            aa.Longitude,
-                            aa.ActionBy,
-                            aa.ActionAt
+                            //aa.Browser,
+                            //aa.Location,
+                            //aa.DeviceIP,
+                            //aa.LocationURL,
+                            //aa.DeviceName,
+                            //aa.Latitude,
+                            //aa.Longitude,
+                            //aa.ActionBy,
+                            //aa.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -385,7 +385,7 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.TenantId, masterPUT.TenantId)
                 .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
-                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
                 .SetProperty(x => x.IsDraft, masterPUT.IsDraft));
 
@@ -399,21 +399,21 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                 history.TenantId = masterPUT.TenantId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 history.MenuModuleId = masterPUT.MenuModuleId;
-                history.LanguageId = masterPUT.LanguageId;
+                //history.LanguageId = masterPUT.LanguageId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;
                 history.IsDefault = masterPUT.IsDefault;
                 history.IsDraft = masterPUT.IsDraft;
-                history.Browser = masterPUT.Browser;
-                history.Location = masterPUT.Location;
-                history.DeviceIP = masterPUT.DeviceIP;
-                history.LocationURL = masterPUT.LocationURL;
-                history.DeviceName = masterPUT.DeviceName;
-                history.Latitude = masterPUT.Latitude;
-                history.Longitude = masterPUT.Longitude;
-                history.ActionBy = masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPUT.Browser;
+                //history.Location = masterPUT.Location;
+                //history.DeviceIP = masterPUT.DeviceIP;
+                //history.LocationURL = masterPUT.LocationURL;
+                //history.DeviceName = masterPUT.DeviceName;
+                //history.Latitude = masterPUT.Latitude;
+                //history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.AreaHistory.AddAsync(history);
                 await context.SaveChangesAsync();

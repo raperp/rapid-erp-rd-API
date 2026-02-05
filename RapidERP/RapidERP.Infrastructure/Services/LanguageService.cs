@@ -69,15 +69,15 @@ public class LanguageService(RapidERPDbContext context, ISharedService shared) :
                 history.ISO2Code = masterPOST.ISO2Code;
                 history.ISO3Code = masterPOST.ISO3Code;
                 history.IconURL = masterPOST.IconURL;
-                history.Browser = masterPOST.Browser;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
-                history.LocationURL = masterPOST.LocationURL;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
-                history.ActionBy = masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPOST.Browser;
+                //history.Location = masterPOST.Location;
+                //history.DeviceIP = masterPOST.DeviceIP;
+                //history.LocationURL = masterPOST.LocationURL;
+                //history.DeviceName = masterPOST.DeviceName;
+                //history.Latitude = masterPOST.Latitude;
+                //history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.LanguageHistory.AddAsync(history);
                 await context.SaveChangesAsync();
@@ -253,15 +253,15 @@ public class LanguageService(RapidERPDbContext context, ISharedService shared) :
                             la.ISO2Code,
                             la.ISO3Code,
                             la.IconURL,
-                            la.Browser,
-                            la.Location,
-                            la.DeviceIP,
-                            la.LocationURL,
-                            la.DeviceName,
-                            la.Latitude,
-                            la.Longitude,
-                            la.ActionBy,
-                            la.ActionAt
+                            //la.Browser,
+                            //la.Location,
+                            //la.DeviceIP,
+                            //la.LocationURL,
+                            //la.DeviceName,
+                            //la.Latitude,
+                            //la.Longitude,
+                            //la.ActionBy,
+                            //la.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -346,15 +346,15 @@ public class LanguageService(RapidERPDbContext context, ISharedService shared) :
                 history.ISO2Code = masterPUT.ISO2Code;
                 history.ISO3Code = masterPUT.ISO3Code;
                 history.IconURL = masterPUT.IconURL;
-                history.Browser = masterPUT.Browser;
-                history.Location = masterPUT.Location;
-                history.DeviceIP = masterPUT.DeviceIP;
-                history.LocationURL = masterPUT.LocationURL;
-                history.DeviceName = masterPUT.DeviceName;
-                history.Latitude = masterPUT.Latitude;
-                history.Longitude = masterPUT.Longitude;
-                history.ActionBy = masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPUT.Browser;
+                //history.Location = masterPUT.Location;
+                //history.DeviceIP = masterPUT.DeviceIP;
+                //history.LocationURL = masterPUT.LocationURL;
+                //history.DeviceName = masterPUT.DeviceName;
+                //history.Latitude = masterPUT.Latitude;
+                //history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.LanguageHistory.AddAsync(history);
                 await context.SaveChangesAsync();

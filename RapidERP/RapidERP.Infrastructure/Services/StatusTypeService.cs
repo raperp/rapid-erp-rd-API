@@ -62,7 +62,7 @@ public class StatusTypeService(RapidERPDbContext context, ISharedService shared)
             if (isExists == false)
             {
                 StatusType masterData = new();
-                masterData.LanguageId = masterPOST.LanguageId;
+                //masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Name = masterPOST.Name;
                 masterData.Description = masterPOST.Description;
 
@@ -71,22 +71,22 @@ public class StatusTypeService(RapidERPDbContext context, ISharedService shared)
 
                 StatusTypeHistory history = new();
                 history.StatusTypeId = masterData.Id;
-                history.LanguageId = masterPOST.LanguageId;
+                //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
                 history.Name = masterPOST.Name;
                 history.Description = masterPOST.Description;
-                history.Browser = masterPOST.Browser;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
-                history.LocationURL = masterPOST.LocationURL;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
-                history.ActionBy = masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPOST.Browser;
+                //history.Location = masterPOST.Location;
+                //history.DeviceIP = masterPOST.DeviceIP;
+                //history.LocationURL = masterPOST.LocationURL;
+                //history.DeviceName = masterPOST.DeviceName;
+                //history.Latitude = masterPOST.Latitude;
+                //history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.StatusTypeHistory.AddAsync(history);
                 await context.SaveChangesAsync();
@@ -195,11 +195,11 @@ public class StatusTypeService(RapidERPDbContext context, ISharedService shared)
         try
         {
             var data = (from st in context.StatusTypes
-                        join l in context.Languages on st.LanguageId equals l.Id
+                        //join l in context.Languages on st.LanguageId equals l.Id
                         select new
                         {
                             st.Id,
-                            Language = l.Name,
+                            //Language = l.Name,
                             st.Name,
                             st.Description
                         }).AsNoTracking().AsQueryable();
@@ -253,28 +253,28 @@ public class StatusTypeService(RapidERPDbContext context, ISharedService shared)
             var data = (from sta in context.StatusTypeHistory
                         join st in context.StatusTypes on sta.StatusTypeId equals st.Id
                         join at in context.ActionTypes on sta.ActionTypeId equals at.Id
-                        join l in context.Languages on sta.LanguageId equals l.Id
+                        //join l in context.Languages on sta.LanguageId equals l.Id
                         join et in context.ExportTypes on sta.ExportTypeId equals et.Id
                         select new 
                         {
                             sta.Id,
                             Status = st.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Action = at.Name,
                             ExportType = et.Name,
                             sta.ExportTo,
                             sta.SourceURL,
                             sta.Name,
                             sta.Description,
-                            sta.Browser,
-                            sta.Location,
-                            sta.DeviceIP,
-                            sta.LocationURL,
-                            sta.DeviceName,
-                            sta.Latitude,
-                            sta.Longitude,
-                            sta.ActionBy,
-                            sta.ActionAt
+                            //sta.Browser,
+                            //sta.Location,
+                            //sta.DeviceIP,
+                            //sta.LocationURL,
+                            //sta.DeviceName,
+                            //sta.Latitude,
+                            //sta.Longitude,
+                            //sta.ActionBy,
+                            //sta.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -352,28 +352,28 @@ public class StatusTypeService(RapidERPDbContext context, ISharedService shared)
                 //actionDTO.DraftedAt = (masterPUT.IsDraft == true) ? DateTime.Now : null;
 
                 await context.StatusTypes.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description));
 
                 StatusTypeHistory history = new();
                 history.StatusTypeId = masterPUT.Id;
-                history.LanguageId = masterPUT.LanguageId;
+                //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;
                 history.Name = masterPUT.Name;
                 history.Description = masterPUT.Description;
-                history.Browser = masterPUT.Browser;
-                history.Location = masterPUT.Location;
-                history.DeviceIP = masterPUT.DeviceIP;
-                history.LocationURL = masterPUT.LocationURL;
-                history.DeviceName = masterPUT.DeviceName;
-                history.Latitude = masterPUT.Latitude;
-                history.Longitude = masterPUT.Longitude;
-                history.ActionBy = masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPUT.Browser;
+                //history.Location = masterPUT.Location;
+                //history.DeviceIP = masterPUT.DeviceIP;
+                //history.LocationURL = masterPUT.LocationURL;
+                //history.DeviceName = masterPUT.DeviceName;
+                //history.Latitude = masterPUT.Latitude;
+                //history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.StatusTypeHistory.AddAsync(history);
                 await context.SaveChangesAsync();

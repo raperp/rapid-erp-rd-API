@@ -77,15 +77,15 @@ public class UserService(RapidERPDbContext context, ISharedService shared) : IUs
                 history.Email = masterPOST.Email;
                 history.UserName = masterPOST.UserName;
                 history.Password = masterPOST.Password;
-                history.Browser = masterPOST.Browser;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
-                history.LocationURL = masterPOST.LocationURL;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
-                history.ActionBy = masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPOST.Browser;
+                //history.Location = masterPOST.Location;
+                //history.DeviceIP = masterPOST.DeviceIP;
+                //history.LocationURL = masterPOST.LocationURL;
+                //history.DeviceName = masterPOST.DeviceName;
+                //history.Latitude = masterPOST.Latitude;
+                //history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
 
@@ -279,15 +279,15 @@ public class UserService(RapidERPDbContext context, ISharedService shared) : IUs
                             uh.Address,
                             uh.ExportTo,
                             uh.SourceURL,
-                            uh.Browser,
-                            uh.Location,
-                            uh.DeviceIP,
-                            uh.LocationURL,
-                            uh.DeviceName,
-                            uh.Latitude,
-                            uh.Longitude,
-                            uh.ActionBy,
-                            uh.ActionAt
+                            //uh.Browser,
+                            //uh.Location,
+                            //uh.DeviceIP,
+                            //uh.LocationURL,
+                            //uh.DeviceName,
+                            //uh.Latitude,
+                            //uh.Longitude,
+                            //uh.ActionBy,
+                            //uh.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -379,15 +379,15 @@ public class UserService(RapidERPDbContext context, ISharedService shared) : IUs
                 history.Email = masterPUT.Email;
                 history.UserName = masterPUT.UserName;
                 history.Password = masterPUT.Password;
-                history.Browser = masterPUT.Browser;
-                history.Location = masterPUT.Location;
-                history.DeviceIP = masterPUT.DeviceIP;
-                history.LocationURL = masterPUT.LocationURL;
-                history.DeviceName = masterPUT.DeviceName;
-                history.Latitude = masterPUT.Latitude;
-                history.Longitude = masterPUT.Longitude;
-                history.ActionBy = masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPUT.Browser;
+                //history.Location = masterPUT.Location;
+                //history.DeviceIP = masterPUT.DeviceIP;
+                //history.LocationURL = masterPUT.LocationURL;
+                //history.DeviceName = masterPUT.DeviceName;
+                //history.Latitude = masterPUT.Latitude;
+                //history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;
 

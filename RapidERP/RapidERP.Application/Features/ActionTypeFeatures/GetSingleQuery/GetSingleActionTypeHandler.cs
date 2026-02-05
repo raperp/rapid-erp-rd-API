@@ -16,11 +16,11 @@ public record GetSingleActionTypeHandler(IRepository repository)
         try
         {
             var data = (from at in repository.Set<ActionType>()
-                        join l in repository.Set<Language>() on at.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on at.LanguageId equals l.Id
                         select new GetAllActionTypeResponseDTOModel
                         {
                             Id = at.Id,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Name = at.Name,
                             Description = at.Description
                         }).AsNoTracking().AsQueryable();

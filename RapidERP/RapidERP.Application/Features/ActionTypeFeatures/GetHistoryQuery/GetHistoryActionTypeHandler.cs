@@ -17,27 +17,27 @@ public class GetHistoryActionTypeHandler(IRepository repository)
         {
             var data = (from ath in repository.Set<ActionTypeHistory>()
                         join at in repository.Set<ActionType>() on ath.ActionTypeId equals at.Id
-                        join l in repository.Set<Language>() on ath.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on ath.LanguageId equals l.Id
                         //join et in repository.Set<ExportType>() on ath.ExportTypeId equals et.Id
                         select new GetHistoryActionTypeResponseDTOModel
                         {
                             Id = ath.Id,
                             ActionType = at.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             //ExportType = et.Name,
                             ExportTo = ath.ExportTo,
                             SourceURL = ath.SourceURL,
                             Name = ath.Name,
                             Description = ath.Description,
-                            Browser = ath.Browser,
-                            Location = ath.Location,
-                            DeviceIP = ath.DeviceIP,
-                            LocationURL = ath.LocationURL,
-                            DeviceName = ath.DeviceName,
-                            Latitude = ath.Latitude,
-                            Longitude = ath.Longitude,
-                            ActionBy = ath.ActionBy,
-                            ActionAt = ath.ActionAt
+                            //Browser = ath.Browser,
+                            //Location = ath.Location,
+                            //DeviceIP = ath.DeviceIP,
+                            //LocationURL = ath.LocationURL,
+                            //DeviceName = ath.DeviceName,
+                            //Latitude = ath.Latitude,
+                            //Longitude = ath.Longitude,
+                            //ActionBy = ath.ActionBy,
+                            //ActionAt = ath.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (query.skip == 0 || query.take == 0)

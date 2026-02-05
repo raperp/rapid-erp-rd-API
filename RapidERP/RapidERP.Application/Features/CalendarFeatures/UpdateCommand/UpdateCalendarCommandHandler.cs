@@ -21,7 +21,7 @@ public class UpdateCalendarCommandHandler(IRepository repository)
             {
                 request.masterPUT.TenantId = (request.masterPUT.TenantId != 0) ? request.masterPUT.TenantId : masterRecord.TenantId;
                 request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId != 0) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
-                request.masterPUT.LanguageId = (request.masterPUT.LanguageId is not null) ? request.masterPUT.LanguageId : masterRecord.LanguageId;
+                //request.masterPUT.LanguageId = (request.masterPUT.LanguageId is not null) ? request.masterPUT.LanguageId : masterRecord.LanguageId;
                 request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;
                 request.masterPUT.Code = (request.masterPUT.Code is not null) ? request.masterPUT.Code : masterRecord.Code;
                 request.masterPUT.Name = (request.masterPUT.Name is not null) ? request.masterPUT.Name : masterRecord.Name;
@@ -34,7 +34,7 @@ public class UpdateCalendarCommandHandler(IRepository repository)
             {
                 masterRecord.TenantId = request.masterPUT.TenantId;
                 masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
-                masterRecord.LanguageId = request.masterPUT.LanguageId;
+                //masterRecord.LanguageId = request.masterPUT.LanguageId;
                 masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
                 masterRecord.Code = request.masterPUT.Code;
                 masterRecord.Name = request.masterPUT.Name;
@@ -50,7 +50,7 @@ public class UpdateCalendarCommandHandler(IRepository repository)
                 history.CalendarId = request.masterPUT.Id;
                 history.TenantId = request.masterPUT.TenantId;
                 history.MenuModuleId = request.masterPUT.MenuModuleId;
-                history.LanguageId = request.masterPUT.LanguageId;
+                //history.LanguageId = request.masterPUT.LanguageId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
                 history.ExportTypeId = request.masterPUT.ExportTypeId;
                 history.ExportTo = request.masterPUT.ExportTo;
@@ -60,15 +60,15 @@ public class UpdateCalendarCommandHandler(IRepository repository)
                 history.StartDate = request.masterPUT.StartDate;
                 history.EndDate = request.masterPUT.EndDate;
                 history.TotalMonth = request.masterPUT.TotalMonth;
-                history.Browser = request.masterPUT.Browser;
-                history.Location = request.masterPUT.Location;
-                history.DeviceIP = request.masterPUT.DeviceIP;
-                history.LocationURL = request.masterPUT.LocationURL;
-                history.DeviceName = request.masterPUT.DeviceName;
-                history.Latitude = request.masterPUT.Latitude;
-                history.Longitude = request.masterPUT.Longitude;
-                history.ActionBy = request.masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = request.masterPUT.Browser;
+                //history.Location = request.masterPUT.Location;
+                //history.DeviceIP = request.masterPUT.DeviceIP;
+                //history.LocationURL = request.masterPUT.LocationURL;
+                //history.DeviceName = request.masterPUT.DeviceName;
+                //history.Latitude = request.masterPUT.Latitude;
+                //history.Longitude = request.masterPUT.Longitude;
+                //history.ActionBy = request.masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await repository.Add(history);
                 transaction.Commit();

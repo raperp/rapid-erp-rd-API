@@ -12,9 +12,9 @@ public class MainModuleHistoryConfiguration : IEntityTypeConfiguration<MainModul
         builder.Property(x => x.Name).HasMaxLength(30).IsRequired();
         builder.Property(x => x.Prefix).HasMaxLength(4).IsRequired();
         builder.Property(x => x.IconURL).IsRequired();
-        builder.Property(x => x.Latitude).HasPrecision(9, 6);
-        builder.Property(x => x.Longitude).HasPrecision(9, 6);
-        builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired(false);
+        //builder.Property(x => x.Latitude).HasPrecision(9, 6);
+        //builder.Property(x => x.Longitude).HasPrecision(9, 6);
+        //builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired(false);
         builder.Ignore(x => x.TenantId);
         builder.Ignore(x => x.MenuModuleId);
         builder.Ignore(x => x.IsDefault);

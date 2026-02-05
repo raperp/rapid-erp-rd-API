@@ -22,12 +22,12 @@ public class GetHistorySubModuleHandler(IRepository repository)
                         join mm in repository.Set<MainModule>() on sa.MainModuleId equals mm.Id
                         join at in repository.Set<ActionType>() on sa.ActionTypeId equals at.Id
                         join et in repository.Set<ExportType>() on sa.ExportTypeId equals et.Id
-                        join l in repository.Set<Language>() on sa.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on sa.LanguageId equals l.Id
                         select new GetHistorySubModuleResponseDTOModel
                         {
                             Id = sa.Id,
                             SubModule = s.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Action = at.Name,
                             ExportType = et.Name,
                             ExportTo = sa.ExportTo,
@@ -35,15 +35,15 @@ public class GetHistorySubModuleHandler(IRepository repository)
                             Name = sa.Name,
                             IconURL = sa.IconURL,
                             SetSerial = sa.SetSerial,
-                            Browser = sa.Browser,
-                            Location = sa.Location,
-                            DeviceIP = sa.DeviceIP,
-                            LocationURL = sa.LocationURL,
-                            DeviceName = sa.DeviceName,
-                            Latitude = sa.Latitude,
-                            Longitude = sa.Longitude,
-                            ActionBy = sa.ActionBy,
-                            ActionAt = sa.ActionAt
+                            //Browser = sa.Browser,
+                            //Location = sa.Location,
+                            //DeviceIP = sa.DeviceIP,
+                            //LocationURL = sa.LocationURL,
+                            //DeviceName = sa.DeviceName,
+                            //Latitude = sa.Latitude,
+                            //Longitude = sa.Longitude,
+                            //ActionBy = sa.ActionBy,
+                            //ActionAt = sa.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (query.skip == 0 || query.take == 0)

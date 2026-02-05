@@ -18,11 +18,11 @@ public class GetAllMainModuleHandler(IRepository repository)
             GetAllDTO result = new();
 
             var data = (from mm in repository.Set<MainModule>()
-                        join l in repository.Set<Language>() on mm.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on mm.LanguageId equals l.Id
                         select new GetAllMainModuleResponseDTOModel
                         {
                             Id = mm.Id,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Name = mm.Name,
                             Prefix = mm.Prefix,
                             IconURL = mm.IconURL,

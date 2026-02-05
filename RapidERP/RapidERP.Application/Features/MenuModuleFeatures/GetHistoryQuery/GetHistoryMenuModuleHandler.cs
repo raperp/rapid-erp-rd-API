@@ -21,14 +21,14 @@ public class GetHistoryMenuModuleHandler(IRepository repository)
                         join mm in repository.Set<MenuModule>() on mma.MenuModuleId equals mm.Id
                         join at in repository.Set<ActionType>() on mma.ActionTypeId equals at.Id
                         join sm in repository.Set<Submodule>() on mma.SubmoduleId equals sm.Id
-                        join l in repository.Set<Language>() on mma.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on mma.LanguageId equals l.Id
                         join et in repository.Set<ExportType>() on mma.ExportTypeId equals et.Id
                         select new GetHistoryMenuModuleResponseDTOModel
                         {
                             Id = mma.Id,
                             MainModule = mm.Name,
                             Submodule = mm.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Action = at.Name,
                             ExportType = et.Name,
                             ExportTo = mma.ExportTo,
@@ -36,15 +36,15 @@ public class GetHistoryMenuModuleHandler(IRepository repository)
                             Name = mma.Name,
                             IconURL = mma.IconURL,
                             SetSerial = mma.SetSerial,
-                            Browser = mma.Browser,
-                            Location = mma.Location,
-                            DeviceIP = mma.DeviceIP,
-                            LocationURL = mma.LocationURL,
-                            DeviceName = mma.DeviceName,
-                            Latitude = mma.Latitude,
-                            Longitude = mma.Longitude,
-                            ActionBy = mma.ActionBy,
-                            ActionAt = mma.ActionAt
+                            //Browser = mma.Browser,
+                            //Location = mma.Location,
+                            //DeviceIP = mma.DeviceIP,
+                            //LocationURL = mma.LocationURL,
+                            //DeviceName = mma.DeviceName,
+                            //Latitude = mma.Latitude,
+                            //Longitude = mma.Longitude,
+                            //ActionBy = mma.ActionBy,
+                            //ActionAt = mma.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (query.skip == 0 || query.take == 0)

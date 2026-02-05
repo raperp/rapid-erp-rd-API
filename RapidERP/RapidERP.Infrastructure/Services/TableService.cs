@@ -76,15 +76,15 @@ public class TableService(RapidERPDbContext context, ISharedService shared) : IT
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
-                history.Browser = masterPOST.Browser;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
-                history.LocationURL = masterPOST.LocationURL;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
-                history.ActionBy = masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPOST.Browser;
+                //history.Location = masterPOST.Location;
+                //history.DeviceIP = masterPOST.DeviceIP;
+                //history.LocationURL = masterPOST.LocationURL;
+                //history.DeviceName = masterPOST.DeviceName;
+                //history.Latitude = masterPOST.Latitude;
+                //history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.TableHistory.AddAsync(history);
                 await context.SaveChangesAsync();
@@ -272,15 +272,15 @@ public class TableService(RapidERPDbContext context, ISharedService shared) : IT
                             Tenant = tt.Name,
                             ta.ExportTo,
                             ta.SourceURL,
-                            ta.Browser,
-                            ta.Location,
-                            ta.DeviceIP,
-                            ta.LocationURL,
-                            ta.DeviceName,
-                            ta.Latitude,
-                            ta.Longitude,
-                            ta.ActionBy,
-                            ta.ActionAt
+                            //ta.Browser,
+                            //ta.Location,
+                            //ta.DeviceIP,
+                            //ta.LocationURL,
+                            //ta.DeviceName,
+                            //ta.Latitude,
+                            //ta.Longitude,
+                            //ta.ActionBy,
+                            //ta.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -370,15 +370,15 @@ public class TableService(RapidERPDbContext context, ISharedService shared) : IT
                 history.ExportTypeId = masterPUT.ExportTypeId;
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;
-                history.Browser = masterPUT.Browser;
-                history.Location = masterPUT.Location;
-                history.DeviceIP = masterPUT.DeviceIP;
-                history.LocationURL = masterPUT.LocationURL;
-                history.DeviceName = masterPUT.DeviceName;
-                history.Latitude = masterPUT.Latitude;
-                history.Longitude = masterPUT.Longitude;
-                history.ActionBy = masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPUT.Browser;
+                //history.Location = masterPUT.Location;
+                //history.DeviceIP = masterPUT.DeviceIP;
+                //history.LocationURL = masterPUT.LocationURL;
+                //history.DeviceName = masterPUT.DeviceName;
+                //history.Latitude = masterPUT.Latitude;
+                //history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.TableHistory.AddAsync(history);
                 await context.SaveChangesAsync();

@@ -62,7 +62,7 @@ public class MainModuleService(RapidERPDbContext context, ISharedService shared)
             if (isExists == false)
             {
                 MainModule masterData = new();
-                masterData.LanguageId = masterPOST.LanguageId;
+                //masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Name = masterPOST.Name;
                 masterData.Prefix = masterPOST.Prefix;
                 masterData.IconURL = masterPOST.IconURL;
@@ -73,7 +73,7 @@ public class MainModuleService(RapidERPDbContext context, ISharedService shared)
 
                 MainModuleHistory history = new();
                 history.MainModuleId = masterData.Id;
-                history.LanguageId = masterPOST.LanguageId;
+                //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
@@ -82,15 +82,15 @@ public class MainModuleService(RapidERPDbContext context, ISharedService shared)
                 history.Prefix = masterPOST.Prefix;
                 history.IconURL = masterPOST.IconURL;
                 history.SetSerial = masterPOST.SetSerial;
-                history.Browser = masterPOST.Browser;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
-                history.LocationURL = masterPOST.LocationURL;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
-                history.ActionBy = masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPOST.Browser;
+                //history.Location = masterPOST.Location;
+                //history.DeviceIP = masterPOST.DeviceIP;
+                //history.LocationURL = masterPOST.LocationURL;
+                //history.DeviceName = masterPOST.DeviceName;
+                //history.Latitude = masterPOST.Latitude;
+                //history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.MainModuleHistory.AddAsync(history);
                 await context.SaveChangesAsync();
@@ -201,11 +201,11 @@ public class MainModuleService(RapidERPDbContext context, ISharedService shared)
             GetAllDTO result = new();
 
             var data = (from mm in context.MainModules
-                        join l in context.Languages on mm.LanguageId equals l.Id
+                        //join l in context.Languages on mm.LanguageId equals l.Id
                         select new
                         {
                             mm.Id,
-                            Language = l.Name,
+                            //Language = l.Name,
                             mm.Name,
                             mm.Prefix,
                             mm.IconURL,
@@ -262,14 +262,14 @@ public class MainModuleService(RapidERPDbContext context, ISharedService shared)
         {
             var data = (from mma in context.MainModuleHistory
                         join mm in context.MainModules on mma.MainModuleId equals mm.Id
-                        join l in context.Languages on mma.LanguageId equals l.Id
+                        //join l in context.Languages on mma.LanguageId equals l.Id
                         join at in context.ActionTypes on mma.ActionTypeId equals at.Id
                         join et in context.ExportTypes on mma.ExportTypeId equals et.Id
                         select new
                         {
                             mma.Id,
                             MainModule = mm.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Action = at.Name,
                             ExportType = et.Name,
                             mma.ExportTo,
@@ -278,15 +278,15 @@ public class MainModuleService(RapidERPDbContext context, ISharedService shared)
                             mma.Prefix,
                             mma.IconURL,
                             mma.SetSerial,
-                            mma.Browser,
-                            mma.Location,
-                            mma.DeviceIP,
-                            mma.LocationURL,
-                            mma.DeviceName,
-                            mma.Latitude,
-                            mma.Longitude,
-                            mma.ActionBy,
-                            mma.ActionAt
+                            //mma.Browser,
+                            //mma.Location,
+                            //mma.DeviceIP,
+                            //mma.LocationURL,
+                            //mma.DeviceName,
+                            //mma.Latitude,
+                            //mma.Longitude,
+                            //mma.ActionBy,
+                            //mma.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -364,7 +364,7 @@ public class MainModuleService(RapidERPDbContext context, ISharedService shared)
                 //actionDTO.DraftedAt = (masterPUT.IsDraft == true) ? DateTime.Now : null;
 
                 await context.MainModules.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Prefix, masterPUT.Prefix)
                 .SetProperty(x => x.IconURL, masterPUT.IconURL)
@@ -372,7 +372,7 @@ public class MainModuleService(RapidERPDbContext context, ISharedService shared)
 
                 MainModuleHistory history = new();
                 history.MainModuleId = masterPUT.Id;
-                history.LanguageId = masterPUT.LanguageId;
+                //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
                 history.ExportTo = masterPUT.ExportTo;
@@ -381,15 +381,15 @@ public class MainModuleService(RapidERPDbContext context, ISharedService shared)
                 history.Prefix = masterPUT.Prefix;
                 history.IconURL = masterPUT.IconURL;
                 history.SetSerial = masterPUT.SetSerial;
-                history.Browser = masterPUT.Browser;
-                history.Location = masterPUT.Location;
-                history.DeviceIP = masterPUT.DeviceIP;
-                history.LocationURL = masterPUT.LocationURL;
-                history.DeviceName = masterPUT.DeviceName;
-                history.Latitude = masterPUT.Latitude;
-                history.Longitude = masterPUT.Longitude;
-                history.ActionBy = masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPUT.Browser;
+                //history.Location = masterPUT.Location;
+                //history.DeviceIP = masterPUT.DeviceIP;
+                //history.LocationURL = masterPUT.LocationURL;
+                //history.DeviceName = masterPUT.DeviceName;
+                //history.Latitude = masterPUT.Latitude;
+                //history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.MainModuleHistory.AddAsync(history);
                 await context.SaveChangesAsync();

@@ -19,7 +19,7 @@ public class CreateSingleExportTypeCommandHandler(IRepository repository)
             if (isExists == false)
             {
                 ExportType masterData = new();
-                masterData.LanguageId = request.masterPOST.LanguageId;
+                //masterData.LanguageId = request.masterPOST.LanguageId;
                 masterData.Name = request.masterPOST.Name;
                 masterData.Description = request.masterPOST.Description;
 
@@ -27,18 +27,18 @@ public class CreateSingleExportTypeCommandHandler(IRepository repository)
 
                 ExportTypeHistory history = new();
                 history.ExportTypeId = masterData.Id;
-                history.LanguageId = request.masterPOST.LanguageId;
+                //history.LanguageId = request.masterPOST.LanguageId;
                 history.Name = request.masterPOST.Name;
                 history.Description = request.masterPOST.Description;
-                history.Browser = request.masterPOST.Browser;
-                history.Location = request.masterPOST.Location;
-                history.DeviceIP = request.masterPOST.DeviceIP;
-                history.LocationURL = request.masterPOST.LocationURL;
-                history.DeviceName = request.masterPOST.DeviceName;
-                history.Latitude = request.masterPOST.Latitude;
-                history.Longitude = request.masterPOST.Longitude;
-                history.ActionBy = request.masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = request.masterPOST.Browser;
+                //history.Location = request.masterPOST.Location;
+                //history.DeviceIP = request.masterPOST.DeviceIP;
+                //history.LocationURL = request.masterPOST.LocationURL;
+                //history.DeviceName = request.masterPOST.DeviceName;
+                //history.Latitude = request.masterPOST.Latitude;
+                //history.Longitude = request.masterPOST.Longitude;
+                //history.ActionBy = request.masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await repository.Add(history);
                 transaction.Commit();

@@ -22,7 +22,7 @@ public class GetHistorySolutionHandler(IRepository repository)
                         join s in repository.Set<Solution>() on sh.SolutionId equals s.Id
                         join t in repository.Set<Tenant>() on sh.TenantId equals t.Id
                         join mm in repository.Set<MenuModule>() on sh.MenuModuleId equals mm.Id
-                        join l in repository.Set<Language>() on sh.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on sh.LanguageId equals l.Id
                         join at in repository.Set<ActionType>() on sh.ActionTypeId equals at.Id
                         join et in repository.Set<ExportType>() on sh.ExportTypeId equals et.Id
                         select new GetHistorySolutionResponseDTOModel
@@ -31,7 +31,7 @@ public class GetHistorySolutionHandler(IRepository repository)
                             Currency = s.Name,
                             Tenant = t.Name,
                             MenuModule = mm.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Action = at.Name,
                             ExportType = et.Name,
                             ExportTo = sh.ExportTo,
@@ -40,15 +40,15 @@ public class GetHistorySolutionHandler(IRepository repository)
                             Name = sh.Name,
                             Icon = sh.Icon,
                             Description = sh.Description,
-                            Browser = sh.Browser,
-                            Location = sh.Location,
-                            DeviceIP = sh.DeviceIP,
-                            LocationURL = sh.LocationURL,
-                            DeviceName = sh.DeviceName,
-                            Latitude = sh.Latitude,
-                            Longitude = sh.Longitude,
-                            ActionBy = sh.ActionBy,
-                            ActionAt = sh.ActionAt
+                            //Browser = sh.Browser,
+                            //Location = sh.Location,
+                            //DeviceIP = sh.DeviceIP,
+                            //LocationURL = sh.LocationURL,
+                            //DeviceName = sh.DeviceName,
+                            //Latitude = sh.Latitude,
+                            //Longitude = sh.Longitude,
+                            //ActionBy = sh.ActionBy,
+                            //ActionAt = sh.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (query.skip == 0 || query.take == 0)

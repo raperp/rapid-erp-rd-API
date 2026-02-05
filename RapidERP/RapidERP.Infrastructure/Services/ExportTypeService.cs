@@ -61,7 +61,7 @@ public class ExportTypeService(RapidERPDbContext context, ISharedService shared)
             if (isExists == false)
             {
                 ExportType masterData = new();
-                masterData.LanguageId = masterPOST.LanguageId;
+                //masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Name = masterPOST.Name;
                 masterData.Description = masterPOST.Description;
 
@@ -70,18 +70,18 @@ public class ExportTypeService(RapidERPDbContext context, ISharedService shared)
 
                 ExportTypeHistory history = new();
                 history.ExportTypeId = masterData.Id;
-                history.LanguageId = masterPOST.LanguageId;
+                //history.LanguageId = masterPOST.LanguageId;
                 history.Name = masterData.Name;
                 history.Description = masterPOST.Description;
-                history.Browser = masterPOST.Browser;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
-                history.LocationURL = masterPOST.LocationURL;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
-                history.ActionBy = masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPOST.Browser;
+                //history.Location = masterPOST.Location;
+                //history.DeviceIP = masterPOST.DeviceIP;
+                //history.LocationURL = masterPOST.LocationURL;
+                //history.DeviceName = masterPOST.DeviceName;
+                //history.Latitude = masterPOST.Latitude;
+                //history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.ExportTypeHistory.AddAsync(history);
                 await context.SaveChangesAsync();
@@ -190,11 +190,11 @@ public class ExportTypeService(RapidERPDbContext context, ISharedService shared)
         try
         {
             var data = (from et in context.ExportTypes
-                        join l in context.Languages on et.LanguageId equals l.Id
+                        //join l in context.Languages on et.LanguageId equals l.Id
                         select new
                         {
                             et.Id,
-                            Language = l.Name,
+                            //Language = l.Name,
                             et.Name,
                             et.Description
                         }).AsNoTracking().AsQueryable();
@@ -247,23 +247,23 @@ public class ExportTypeService(RapidERPDbContext context, ISharedService shared)
         {
             var data = (from eta in context.ExportTypeHistory
                         join et in context.ExportTypes on eta.ExportTypeId equals et.Id
-                        join l in context.Languages on eta.LanguageId equals l.Id
+                        //join l in context.Languages on eta.LanguageId equals l.Id
                         select new
                         {
                             eta.Id,
                             ExportType = et.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             eta.Name,
                             eta.Description,
-                            eta.Browser,
-                            eta.Location,
-                            eta.DeviceIP,
-                            eta.LocationURL,
-                            eta.DeviceName,
-                            eta.Latitude,
-                            eta.Longitude,
-                            eta.ActionBy,
-                            eta.ActionAt
+                            //eta.Browser,
+                            //eta.Location,
+                            //eta.DeviceIP,
+                            //eta.LocationURL,
+                            //eta.DeviceName,
+                            //eta.Latitude,
+                            //eta.Longitude,
+                            //eta.ActionBy,
+                            //eta.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -341,24 +341,24 @@ public class ExportTypeService(RapidERPDbContext context, ISharedService shared)
                 //actionDTO.DraftedAt = (masterPUT.IsDraft == true) ? DateTime.Now : null;
 
                 await context.ExportTypes.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description));
 
                 ExportTypeHistory history = new();
                 history.ExportTypeId = masterPUT.Id;
-                history.LanguageId = masterPUT.LanguageId;
+                //history.LanguageId = masterPUT.LanguageId;
                 history.Name = masterPUT.Name;
                 history.Description = masterPUT.Description;
-                history.Browser = masterPUT.Browser;
-                history.Location = masterPUT.Location;
-                history.DeviceIP = masterPUT.DeviceIP;
-                history.LocationURL = masterPUT.LocationURL;
-                history.DeviceName = masterPUT.DeviceName;
-                history.Latitude = masterPUT.Latitude;
-                history.Longitude = masterPUT.Longitude;
-                history.ActionBy = masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPUT.Browser;
+                //history.Location = masterPUT.Location;
+                //history.DeviceIP = masterPUT.DeviceIP;
+                //history.LocationURL = masterPUT.LocationURL;
+                //history.DeviceName = masterPUT.DeviceName;
+                //history.Latitude = masterPUT.Latitude;
+                //history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.ExportTypeHistory.AddAsync(history);
                 await context.SaveChangesAsync();

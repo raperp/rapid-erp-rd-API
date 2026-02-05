@@ -22,13 +22,13 @@ public class UpdateMessageModuleCommandHandler(IRepository repository)
             {
                 request.masterPUT.TextModuleId = (request.masterPUT.TextModuleId != 0) ? request.masterPUT.TextModuleId : masterRecord.TextModuleId;
                 request.masterPUT.Name = (request.masterPUT.Name is not null) ? request.masterPUT.Name : masterRecord.Name;   
-                request.masterPUT.LanguageId = (request.masterPUT.LanguageId != 0) ? request.masterPUT.LanguageId : masterRecord.LanguageId;                
+                //request.masterPUT.LanguageId = (request.masterPUT.LanguageId != 0) ? request.masterPUT.LanguageId : masterRecord.LanguageId;                
             }
 
             if (isExists == false)
             {
                 masterRecord.TextModuleId = request.masterPUT.TextModuleId;
-                masterRecord.LanguageId = request.masterPUT.LanguageId;
+                //masterRecord.LanguageId = request.masterPUT.LanguageId;
                 masterRecord.Name = request.masterPUT.Name;
 
                 await repository.Update(masterRecord);
@@ -36,21 +36,21 @@ public class UpdateMessageModuleCommandHandler(IRepository repository)
                 MessageModuleHistory history = new();
                 history.MessageModuleId = masterData.Id;
                 history.TextModuleId = request.masterPUT.TextModuleId;
-                history.LanguageId = request.masterPUT.LanguageId;
+                //history.LanguageId = request.masterPUT.LanguageId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
                 history.ExportTypeId = request.masterPUT.ExportTypeId;
                 history.ExportTo = request.masterPUT.ExportTo;
                 history.SourceURL = request.masterPUT.SourceURL;
                 history.Name = request.masterPUT.Name;
-                history.Browser = request.masterPUT.Browser;
-                history.Location = request.masterPUT.Location;
-                history.DeviceIP = request.masterPUT.DeviceIP;
-                history.LocationURL = request.masterPUT.LocationURL;
-                history.DeviceName = request.masterPUT.DeviceName;
-                history.Latitude = request.masterPUT.Latitude;
-                history.Longitude = request.masterPUT.Longitude;
-                history.ActionBy = request.masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = request.masterPUT.Browser;
+                //history.Location = request.masterPUT.Location;
+                //history.DeviceIP = request.masterPUT.DeviceIP;
+                //history.LocationURL = request.masterPUT.LocationURL;
+                //history.DeviceName = request.masterPUT.DeviceName;
+                //history.Latitude = request.masterPUT.Latitude;
+                //history.Longitude = request.masterPUT.Longitude;
+                //history.ActionBy = request.masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await repository.Add(history);
                 transaction.Commit();

@@ -24,7 +24,7 @@ public class GetHistoryTenantHandler(IRepository repository)
                         join mm in repository.Set<MenuModule>() on th.MenuModuleId equals mm.Id
                         join c in repository.Set<Country>() on th.CountryId equals c.Id
                         join s in repository.Set<State>() on th.StateId equals s.Id
-                        join l in repository.Set<Language>() on th.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on th.LanguageId equals l.Id
                         join at in repository.Set<ActionType>() on th.ActionTypeId equals at.Id
                         join et in repository.Set<ExportType>() on th.ExportTypeId equals et.Id
                         select new GetHistoryTenantResponseDTOModel
@@ -34,7 +34,7 @@ public class GetHistoryTenantHandler(IRepository repository)
                             MenuModule = mm.Name,
                             Country = c.Name,
                             State = s.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Action = at.Name,
                             ExportMedia = et.Name,
                             ExportTo = th.ExportTo,
@@ -46,15 +46,15 @@ public class GetHistoryTenantHandler(IRepository repository)
                             Address = th.Address,
                             Email = th.Email,
                             Website = th.Website,
-                            Browser = th.Browser,
-                            Location = th.Location,
-                            DeviceIP = th.DeviceIP,
-                            LocationURL = th.LocationURL,
-                            DeviceName = th.DeviceName,
-                            Latitude = th.Latitude,
-                            Longitude = th.Longitude,
-                            ActionBy = th.ActionBy,
-                            ActionAt = th.ActionAt
+                            //Browser = th.Browser,
+                            //Location = th.Location,
+                            //DeviceIP = th.DeviceIP,
+                            //LocationURL = th.LocationURL,
+                            //DeviceName = th.DeviceName,
+                            //Latitude = th.Latitude,
+                            //Longitude = th.Longitude,
+                            //ActionBy = th.ActionBy,
+                            //ActionAt = th.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (query.skip == 0 || query.take == 0)

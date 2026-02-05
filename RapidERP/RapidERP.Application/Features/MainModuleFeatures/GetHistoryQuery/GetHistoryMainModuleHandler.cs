@@ -25,14 +25,14 @@ public class GetHistoryMainModuleHandler(IRepository repository)
 
             var data = (from mma in repository.Set<MainModuleHistory>()
                         join mm in repository.Set<MainModule>() on mma.MainModuleId equals mm.Id
-                        join l in repository.Set<Language>() on mma.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on mma.LanguageId equals l.Id
                         join at in repository.Set<ActionType>() on mma.ActionTypeId equals at.Id
                         join et in repository.Set<ExportType>() on mma.ExportTypeId equals et.Id
                         select new GetHistoryMainModuleResponseDTOModel
                         {
                             Id = mma.Id,
                             MainModule = mm.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Action = at.Name,
                             ExportType = et.Name,
                             ExportTo = mma.ExportTo,
@@ -41,15 +41,15 @@ public class GetHistoryMainModuleHandler(IRepository repository)
                             Prefix = mma.Prefix,
                             IconURL = mma.IconURL,
                             SetSerial = mma.SetSerial,
-                            Browser = mma.Browser,
-                            Location = mma.Location,
-                            DeviceIP = mma.DeviceIP,
-                            LocationURL = mma.LocationURL,
-                            DeviceName = mma.DeviceName,
-                            Latitude = mma.Latitude,
-                            Longitude = mma.Longitude,
-                            ActionBy = mma.ActionBy,
-                            ActionAt = mma.ActionAt
+                            //Browser = mma.Browser,
+                            //Location = mma.Location,
+                            //DeviceIP = mma.DeviceIP,
+                            //LocationURL = mma.LocationURL,
+                            //DeviceName = mma.DeviceName,
+                            //Latitude = mma.Latitude,
+                            //Longitude = mma.Longitude,
+                            //ActionBy = mma.ActionBy,
+                            //ActionAt = mma.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             //int totalItems = await repository.Set<MainModuleHistory>().CountAsync();

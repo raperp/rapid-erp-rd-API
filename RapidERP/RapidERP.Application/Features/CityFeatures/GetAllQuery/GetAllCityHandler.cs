@@ -27,7 +27,7 @@ public class GetAllCityHandler(IRepository repository)
                         join co in repository.Set<Country>() on c.CountryId equals co.Id
                         join sta in repository.Set<State>() on c.StateId equals sta.Id
                         join t in repository.Set<Tenant>() on c.TenantId equals t.Id
-                        join l in repository.Set<Language>() on c.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on c.LanguageId equals l.Id
                         join m in repository.Set<MenuModule>() on c.MenuModuleId equals m.Id
                         select new GetAllCityResponseDTOModel
                         {
@@ -36,7 +36,7 @@ public class GetAllCityHandler(IRepository repository)
                             Tanent = st.Name,
                             MenuModule = m.Name,
                             Country = co.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             State = sta.Name,
                             Status = st.Name
                         }).AsNoTracking().AsQueryable();

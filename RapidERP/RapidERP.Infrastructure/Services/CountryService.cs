@@ -70,7 +70,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                 masterData.MenuModuleId = masterPOST.MenuModuleId;
                 masterData.TenantId = masterPOST.TenantId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                masterData.LanguageId = masterPOST.LanguageId;
+                //masterData.LanguageId = masterPOST.LanguageId;
                 //masterData.CurrencyId = masterPOST.CurrencyId;
                 masterData.DialCode = masterPOST.DialCode;
                 masterData.Name = masterPOST.Name;
@@ -89,7 +89,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                 history.TenantId = masterPOST.TenantId;
                 history.MenuModuleId = masterPOST.MenuModuleId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
-                history.LanguageId = masterPOST.LanguageId;
+                //history.LanguageId = masterPOST.LanguageId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
@@ -101,15 +101,15 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                 history.ISO2Code = masterPOST.ISO2Code;
                 history.ISO3Code = masterPOST.ISO3Code;
                 history.FlagURL = masterPOST.FlagURL;
-                history.Browser = masterPOST.Browser;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
-                history.LocationURL = masterPOST.LocationURL;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
-                history.ActionBy = masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPOST.Browser;
+                //history.Location = masterPOST.Location;
+                //history.DeviceIP = masterPOST.DeviceIP;
+                //history.LocationURL = masterPOST.LocationURL;
+                //history.DeviceName = masterPOST.DeviceName;
+                //history.Latitude = masterPOST.Latitude;
+                //history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await repository.Add(history); 
                 transaction.Commit();
@@ -229,7 +229,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
             var data = (from c in repository.Set<Country>()
                         join st in repository.Set<StatusType>() on c.StatusTypeId equals st.Id
                         join t in repository.Set<Tenant>() on c.TenantId equals t.Id
-                        join l in repository.Set<Language>() on c.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on c.LanguageId equals l.Id
                         join mm in repository.Set<MenuModule>() on c.MenuModuleId equals mm.Id
                         //join cu in repository.Set<Currency>() on c.CurrencyId equals cu.Id
                         select new GetSingleCountryResponseDTOModel
@@ -237,7 +237,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                             Id = c.Id,
                             MenuModule = mm.Name,
                             Tanent = t.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Status = st.Name,
                             //Currency = cu.Name,
                             DialCode = c.DialCode,
@@ -303,7 +303,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                         join et in repository.Set<ExportType>() on ca.ExportTypeId equals et.Id
                         join at in repository.Set<ActionType>() on ca.ActionTypeId equals at.Id
                         join t in repository.Set<Tenant>() on ca.TenantId equals t.Id
-                        join l in repository.Set<Language>() on ca.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on ca.LanguageId equals l.Id
                         join mm in repository.Set<MenuModule>() on ca.MenuModuleId equals mm.Id
                         //join cu in repository.Set<Currency>() on ca.CurrencyId equals cu.Id
                         select new  
@@ -313,7 +313,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                             Tanent = t.Name,
                             MenuModule = mm.Name,
                             Action = at.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             ExportType = et.Name,
                             //Currency = cu.Name,
                             ca.ExportTo,
@@ -326,15 +326,15 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                             ca.ISO2Code,
                             ca.ISO3Code,
                             ca.FlagURL,
-                            ca.Browser,
-                            ca.Location,
-                            ca.DeviceIP,
-                            ca.LocationURL,
-                            ca.DeviceName,
-                            ca.Latitude,
-                            ca.Longitude,
-                            ca.ActionBy,
-                            ca.ActionAt
+                            //ca.Browser,
+                            //ca.Location,
+                            //ca.DeviceIP,
+                            //ca.LocationURL,
+                            //ca.DeviceName,
+                            //ca.Latitude,
+                            //ca.Longitude,
+                            //ca.ActionBy,
+                            //ca.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -415,7 +415,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
             masterPUT.MenuModuleId = (masterPUT.MenuModuleId is not null) ? masterPUT.MenuModuleId : masterRecord.MenuModuleId;
             masterPUT.TenantId = (masterPUT.TenantId is not null) ? masterPUT.TenantId : masterRecord.TenantId;
             masterPUT.StatusTypeId = (masterPUT.StatusTypeId != 0) ? masterPUT.StatusTypeId : masterRecord.StatusTypeId;
-            masterPUT.LanguageId = (masterPUT.LanguageId is not null) ? masterPUT.LanguageId : masterRecord.LanguageId;
+            //masterPUT.LanguageId = (masterPUT.LanguageId is not null) ? masterPUT.LanguageId : masterRecord.LanguageId;
             //masterPUT.CurrencyId = (masterPUT.CurrencyId != 0) ? masterPUT.CurrencyId : masterRecord.CurrencyId;
             masterPUT.DialCode = (masterPUT.DialCode is not null) ? masterPUT.DialCode : masterRecord.DialCode;
             masterPUT.FlagURL = (masterPUT.FlagURL is not null) ? masterPUT.FlagURL : masterRecord.FlagURL;
@@ -443,7 +443,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                 masterData.MenuModuleId = masterPUT.MenuModuleId;
                 masterData.TenantId = masterPUT.TenantId;
                 masterData.StatusTypeId = masterPUT.StatusTypeId;
-                masterData.LanguageId = masterPUT.LanguageId;
+                //masterData.LanguageId = masterPUT.LanguageId;
                 //masterData.CurrencyId = masterPUT.CurrencyId;
                 masterData.DialCode = masterPUT.DialCode;
                 masterData.Name = masterPUT.Name;
@@ -460,7 +460,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                 history.TenantId = masterPUT.TenantId;
                 history.MenuModuleId = masterPUT.MenuModuleId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
-                history.LanguageId = masterPUT.LanguageId;
+                //history.LanguageId = masterPUT.LanguageId;
                 //history.CurrencyId = masterPUT.CurrencyId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
                 history.ExportTo = masterPUT.ExportTo;
@@ -473,15 +473,15 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                 history.ISO2Code = masterPUT.ISO2Code;
                 history.ISO3Code = masterPUT.ISO3Code;
                 history.FlagURL = masterPUT.FlagURL;
-                history.Browser = masterPUT.Browser;
-                history.Location = masterPUT.Location;
-                history.DeviceIP = masterPUT.DeviceIP;
-                history.LocationURL = masterPUT.LocationURL;
-                history.DeviceName = masterPUT.DeviceName;
-                history.Latitude = masterPUT.Latitude;
-                history.Longitude = masterPUT.Longitude;
-                history.ActionBy = masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPUT.Browser;
+                //history.Location = masterPUT.Location;
+                //history.DeviceIP = masterPUT.DeviceIP;
+                //history.LocationURL = masterPUT.LocationURL;
+                //history.DeviceName = masterPUT.DeviceName;
+                //history.Latitude = masterPUT.Latitude;
+                //history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
                 
                 await repository.Add(history);
                 await repository.CommitChanges();

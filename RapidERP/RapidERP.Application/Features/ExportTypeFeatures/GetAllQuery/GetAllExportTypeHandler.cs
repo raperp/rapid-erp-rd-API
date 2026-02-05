@@ -15,11 +15,11 @@ public class GetAllExportTypeHandler(IRepository repository)
         try
         {
             var data = (from et in repository.Set<ExportType>()
-                        join l in repository.Set<Language>() on et.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on et.LanguageId equals l.Id
                         select new GetAllExportTypeResponseDTOModel
                         {
                             Id = et.Id,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Name = et.Name,
                             Description = et.Description
                         }).AsNoTracking().AsQueryable();

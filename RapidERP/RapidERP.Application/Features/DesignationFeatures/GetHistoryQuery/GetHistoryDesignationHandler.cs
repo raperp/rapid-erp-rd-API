@@ -28,7 +28,7 @@ public class GetHistoryDesignationHandler(IRepository repository)
                         join et in repository.Set<ExportType>() on dh.ExportTypeId equals et.Id
                         join at in repository.Set<ActionType>() on dh.ActionTypeId equals at.Id
                         join t in repository.Set<Tenant>() on dh.TenantId equals t.Id
-                        join l in repository.Set<Language>() on dh.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on dh.LanguageId equals l.Id
                         join mm in repository.Set<MenuModule>() on dh.MenuModuleId equals mm.Id
                         select new GetHistoryDesignationResponseDTOModel
                         {
@@ -40,21 +40,21 @@ public class GetHistoryDesignationHandler(IRepository repository)
                             Tanent = t.Name,
                             MenuModule = mm.Name,
                             Action = at.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             ExportType = et.Name,
                             ExportTo = dh.ExportTo,
                             SourceURL = dh.SourceURL,
                             IsDefault = dh.IsDefault,
                             IsDraft = dh.IsDraft,
-                            Browser = dh.Browser,
-                            Location = dh.Location,
-                            DeviceIP = dh.DeviceIP,
-                            LocationURL = dh.LocationURL,
-                            DeviceName = dh.DeviceName,
-                            Latitude = dh.Latitude,
-                            Longitude = dh.Longitude,
-                            ActionBy = dh.ActionBy,
-                            ActionAt = dh.ActionAt
+                            //Browser = dh.Browser,
+                            //Location = dh.Location,
+                            //DeviceIP = dh.DeviceIP,
+                            //LocationURL = dh.LocationURL,
+                            //DeviceName = dh.DeviceName,
+                            //Latitude = dh.Latitude,
+                            //Longitude = dh.Longitude,
+                            //ActionBy = dh.ActionBy,
+                            //ActionAt = dh.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (query.skip == 0 || query.take == 0)

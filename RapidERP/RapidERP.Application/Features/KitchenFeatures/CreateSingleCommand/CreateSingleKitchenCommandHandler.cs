@@ -38,15 +38,15 @@ public class CreateSingleKitchenCommandHandler(IRepository repository)
                 history.ExportTypeId = request.masterPOST.ExportTypeId;
                 history.ExportTo = request.masterPOST.ExportTo;
                 history.SourceURL = request.masterPOST.SourceURL;
-                history.Browser = request.masterPOST.Browser;
-                history.Location = request.masterPOST.Location;
-                history.DeviceIP = request.masterPOST.DeviceIP;
-                history.LocationURL = request.masterPOST.LocationURL;
-                history.DeviceName = request.masterPOST.DeviceName;
-                history.Latitude = request.masterPOST.Latitude;
-                history.Longitude = request.masterPOST.Longitude;
-                history.ActionBy = request.masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = request.masterPOST.Browser;
+                //history.Location = request.masterPOST.Location;
+                //history.DeviceIP = request.masterPOST.DeviceIP;
+                //history.LocationURL = request.masterPOST.LocationURL;
+                //history.DeviceName = request.masterPOST.DeviceName;
+                //history.Latitude = request.masterPOST.Latitude;
+                //history.Longitude = request.masterPOST.Longitude;
+                //history.ActionBy = request.masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await repository.Add(history);
                 transaction.Commit();

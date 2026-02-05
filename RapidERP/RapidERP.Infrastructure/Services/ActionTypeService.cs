@@ -62,7 +62,7 @@ public class ActionTypeService(RapidERPDbContext context, ISharedService shared)
             if (isExists == false)
             {
                 ActionType masterData = new();
-                masterData.LanguageId = masterPOST.LanguageId;
+                //masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Name = masterPOST.Name;
                 masterData.Description = masterPOST.Description;
 
@@ -71,21 +71,21 @@ public class ActionTypeService(RapidERPDbContext context, ISharedService shared)
 
                 ActionTypeHistory history = new();
                 history.ActionTypeId = masterData.Id;
-                history.LanguageId = masterPOST.LanguageId;
+                //history.LanguageId = masterPOST.LanguageId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
                 history.Name = masterPOST.Name;
                 history.Description = masterPOST.Description;
-                history.Browser = masterPOST.Browser;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
-                history.LocationURL = masterPOST.LocationURL;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
-                history.ActionBy = masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPOST.Browser;
+                //history.Location = masterPOST.Location;
+                //history.DeviceIP = masterPOST.DeviceIP;
+                //history.LocationURL = masterPOST.LocationURL;
+                //history.DeviceName = masterPOST.DeviceName;
+                //history.Latitude = masterPOST.Latitude;
+                //history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.ActionTypeHistory.AddAsync(history);
                 await context.SaveChangesAsync();
@@ -194,11 +194,11 @@ public class ActionTypeService(RapidERPDbContext context, ISharedService shared)
         try
         {
             var data = (from at in context.ActionTypes
-                        join l in context.Languages on at.LanguageId equals l.Id
+                        //join l in context.Languages on at.LanguageId equals l.Id
                         select new
                         {
                             at.Id,
-                            Language = l.Name,
+                            //Language = l.Name,
                             at.Name,
                             at.Description
                         }).AsNoTracking().AsQueryable();
@@ -251,27 +251,27 @@ public class ActionTypeService(RapidERPDbContext context, ISharedService shared)
         {
             var data = (from ath in context.ActionTypeHistory
                         join at in context.ActionTypes on ath.ActionTypeId equals at.Id
-                        join l in context.Languages on ath.LanguageId equals l.Id
+                        //join l in context.Languages on ath.LanguageId equals l.Id
                         join et in context.ExportTypes on ath.ExportTypeId equals et.Id
                         select new
                         {
                             ath.Id,
                             ActionType = at.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             ExportType = et.Name,
                             ath.ExportTo,
                             ath.SourceURL,
                             ath.Name,
                             ath.Description,
-                            ath.Browser,
-                            ath.Location,
-                            ath.DeviceIP,
-                            ath.LocationURL,
-                            ath.DeviceName,
-                            ath.Latitude,
-                            ath.Longitude,
-                            ath.ActionBy,
-                            ath.ActionAt
+                            //ath.Browser,
+                            //ath.Location,
+                            //ath.DeviceIP,
+                            //ath.LocationURL,
+                            //ath.DeviceName,
+                            //ath.Latitude,
+                            //ath.Longitude,
+                            //ath.ActionBy,
+                            //ath.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -349,27 +349,27 @@ public class ActionTypeService(RapidERPDbContext context, ISharedService shared)
                 //actionDTO.DraftedAt = (masterPUT.IsDraft == true) ? DateTime.Now : null;
 
                 await context.ActionTypes.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description));
 
                 ActionTypeHistory history = new();
                 history.ActionTypeId = masterPUT.Id;
-                history.LanguageId = masterPUT.LanguageId;
+                //history.LanguageId = masterPUT.LanguageId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;
                 history.Name = masterPUT.Name;
                 history.Description = masterPUT.Description;
-                history.Browser = masterPUT.Browser;
-                history.Location = masterPUT.Location;
-                history.DeviceIP = masterPUT.DeviceIP;
-                history.LocationURL = masterPUT.LocationURL;
-                history.DeviceName = masterPUT.DeviceName;
-                history.Latitude = masterPUT.Latitude;
-                history.Longitude = masterPUT.Longitude;
-                history.ActionBy = masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPUT.Browser;
+                //history.Location = masterPUT.Location;
+                //history.DeviceIP = masterPUT.DeviceIP;
+                //history.LocationURL = masterPUT.LocationURL;
+                //history.DeviceName = masterPUT.DeviceName;
+                //history.Latitude = masterPUT.Latitude;
+                //history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.ActionTypeHistory.AddAsync(history);
                 await context.SaveChangesAsync();

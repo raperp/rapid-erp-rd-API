@@ -20,7 +20,7 @@ public class CreateBulkStatusTypeCommandHandler(IRepository repository)
                 if (isExists == false)
                 {
                     StatusType masterData = new();
-                    masterData.LanguageId = item.LanguageId;
+                    //masterData.LanguageId = item.LanguageId;
                     masterData.Name = item.Name;
                     masterData.Description = item.Description;
 
@@ -28,22 +28,22 @@ public class CreateBulkStatusTypeCommandHandler(IRepository repository)
 
                     StatusTypeHistory history = new();
                     history.StatusTypeId = masterData.Id;
-                    history.LanguageId = item.LanguageId;
+                    //history.LanguageId = item.LanguageId;
                     history.ActionTypeId = item.ActionTypeId;
                     history.ExportTypeId = item.ExportTypeId;
                     history.ExportTo = item.ExportTo;
                     history.SourceURL = item.SourceURL;
                     history.Name = item.Name;
                     history.Description = item.Description;
-                    history.Browser = item.Browser;
-                    history.Location = item.Location;
-                    history.DeviceIP = item.DeviceIP;
-                    history.LocationURL = item.LocationURL;
-                    history.DeviceName = item.DeviceName;
-                    history.Latitude = item.Latitude;
-                    history.Longitude = item.Longitude;
-                    history.ActionBy = item.ActionBy;
-                    history.ActionAt = DateTime.Now;
+                    //history.Browser = item.Browser;
+                    //history.Location = item.Location;
+                    //history.DeviceIP = item.DeviceIP;
+                    //history.LocationURL = item.LocationURL;
+                    //history.DeviceName = item.DeviceName;
+                    //history.Latitude = item.Latitude;
+                    //history.Longitude = item.Longitude;
+                    //history.ActionBy = item.ActionBy;
+                    //history.ActionAt = DateTime.Now;
 
                     await repository.Add(history);
                     transaction.Commit();

@@ -11,8 +11,8 @@ public class TableConfiguration : IEntityTypeConfiguration<Table>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(5).IsRequired();
         builder.Property(x => x.Description).HasMaxLength(100).IsRequired(false);
-        builder.Ignore(x => x.Language);
-        builder.Ignore(x => x.LanguageId);
+        //builder.Ignore(x => x.Language);
+        //builder.Ignore(x => x.LanguageId);
         builder.Ignore(x => x.IsDefault);
         builder.Ignore(x => x.IsDraft);
     }

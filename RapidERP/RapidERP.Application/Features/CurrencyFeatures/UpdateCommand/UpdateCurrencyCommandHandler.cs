@@ -25,7 +25,7 @@ public class UpdateCurrencyCommandHandler(IRepository repository)
                 request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId is not null) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
                 request.masterPUT.TenantId = (request.masterPUT.TenantId is not null) ? request.masterPUT.TenantId : masterRecord.TenantId;
                 request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;
-                request.masterPUT.LanguageId = (request.masterPUT.LanguageId is not null) ? request.masterPUT.LanguageId : masterRecord.LanguageId;
+                //request.masterPUT.LanguageId = (request.masterPUT.LanguageId is not null) ? request.masterPUT.LanguageId : masterRecord.LanguageId;
             }
 
             if (isExists == false)
@@ -33,7 +33,7 @@ public class UpdateCurrencyCommandHandler(IRepository repository)
                 masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
                 masterRecord.TenantId = request.masterPUT.TenantId;
                 masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
-                masterRecord.LanguageId = request.masterPUT.LanguageId;               
+                //masterRecord.LanguageId = request.masterPUT.LanguageId;               
                 masterRecord.Name = request.masterPUT.Name;
                 masterRecord.Code = request.masterPUT.Code;
                 masterRecord.Icon = request.masterPUT.Icon;
@@ -46,7 +46,7 @@ public class UpdateCurrencyCommandHandler(IRepository repository)
                 history.CurrencyId = request.masterPUT.Id;
                 history.TenantId = request.masterPUT.TenantId;
                 history.MenuModuleId = request.masterPUT.MenuModuleId;
-                history.LanguageId = request.masterPUT.LanguageId;
+                //history.LanguageId = request.masterPUT.LanguageId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
                 history.ExportTypeId = request.masterPUT.ExportTypeId;
                 history.ExportTo = request.masterPUT.ExportTo;
@@ -56,15 +56,15 @@ public class UpdateCurrencyCommandHandler(IRepository repository)
                 history.IsDefault = request.masterPUT.IsDefault;
                 history.IsDraft = request.masterPUT.IsDraft;
                 history.Icon = request.masterPUT.Icon;
-                history.Browser = request.masterPUT.Browser;
-                history.Location = request.masterPUT.Location;
-                history.DeviceIP = request.masterPUT.DeviceIP;
-                history.LocationURL = request.masterPUT.LocationURL;
-                history.DeviceName = request.masterPUT.DeviceName;
-                history.Latitude = request.masterPUT.Latitude;
-                history.Longitude = request.masterPUT.Longitude;
-                history.ActionBy = request.masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = request.masterPUT.Browser;
+                //history.Location = request.masterPUT.Location;
+                //history.DeviceIP = request.masterPUT.DeviceIP;
+                //history.LocationURL = request.masterPUT.LocationURL;
+                //history.DeviceName = request.masterPUT.DeviceName;
+                //history.Latitude = request.masterPUT.Latitude;
+                //history.Longitude = request.masterPUT.Longitude;
+                //history.ActionBy = request.masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await repository.Add(history);
                 transaction.Commit();

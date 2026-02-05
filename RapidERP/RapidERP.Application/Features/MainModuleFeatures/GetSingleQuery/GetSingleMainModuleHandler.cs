@@ -20,11 +20,11 @@ public class GetSingleMainModuleHandler(IRepository repository)
         try
         {
             var data = (from mm in repository.Set<MainModule>()
-                        join l in repository.Set<Language>() on mm.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on mm.LanguageId equals l.Id
                         select new GetSingleMainModuleResponseDTOModel
                         {
                             Id = mm.Id,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Name = mm.Name,
                             Prefix = mm.Prefix,
                             IconURL = mm.IconURL,

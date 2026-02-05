@@ -29,14 +29,14 @@ public class GetSingleAreaHandler(IRepository repository)
                         join ci in repository.Set<City>() on a.CityId equals ci.Id
                         join mm in repository.Set<MenuModule>() on a.MenuModuleId equals mm.Id
                         join t in repository.Set<Tenant>() on a.TenantId equals t.Id
-                        join l in repository.Set<Language>() on a.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on a.LanguageId equals l.Id
                         select new GetSingleAreaResponseDTOModel
                         {
                             Id = a.Id,
                             Name = a.Name,
                             Code = a.Code,
                             Tanent = t.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             MenuModule = mm.Name,
                             Country = co.Name,
                             State = sta.Name,

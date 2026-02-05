@@ -24,7 +24,7 @@ public class UpdateAreaCommandHandler(IRepository repository)
                 request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId is not null) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
                 request.masterPUT.TenantId = (request.masterPUT.TenantId is not null) ? request.masterPUT.TenantId : masterRecord.TenantId;
                 request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;
-                request.masterPUT.LanguageId = (request.masterPUT.LanguageId is not null) ? request.masterPUT.LanguageId : masterRecord.LanguageId;
+                //request.masterPUT.LanguageId = (request.masterPUT.LanguageId is not null) ? request.masterPUT.LanguageId : masterRecord.LanguageId;
                 request.masterPUT.CountryId = (request.masterPUT.CountryId != 0) ? request.masterPUT.CountryId : masterRecord.CountryId;
                 request.masterPUT.CityId = (request.masterPUT.CityId != 0) ? request.masterPUT.CityId : masterRecord.CityId;
                 request.masterPUT.StateId = (request.masterPUT.StateId != 0) ? request.masterPUT.StateId : masterRecord.StateId;
@@ -40,7 +40,7 @@ public class UpdateAreaCommandHandler(IRepository repository)
                 masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
                 masterRecord.TenantId = request.masterPUT.TenantId;
                 masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
-                masterRecord.LanguageId = request.masterPUT.LanguageId;
+                //masterRecord.LanguageId = request.masterPUT.LanguageId;
                 masterRecord.IsDefault = request.masterPUT.IsDefault;
                 masterRecord.IsDraft = request.masterPUT.IsDraft;
 
@@ -56,21 +56,21 @@ public class UpdateAreaCommandHandler(IRepository repository)
                 history.TenantId = request.masterPUT.TenantId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
                 history.MenuModuleId = request.masterPUT.MenuModuleId;
-                history.LanguageId = request.masterPUT.LanguageId;
+                //history.LanguageId = request.masterPUT.LanguageId;
                 history.ExportTypeId = request.masterPUT.ExportTypeId;
                 history.ExportTo = request.masterPUT.ExportTo;
                 history.SourceURL = request.masterPUT.SourceURL;
                 history.IsDefault = request.masterPUT.IsDefault;
                 history.IsDraft = request.masterPUT.IsDraft;
-                history.Browser = request.masterPUT.Browser;
-                history.Location = request.masterPUT.Location;
-                history.DeviceIP = request.masterPUT.DeviceIP;
-                history.LocationURL = request.masterPUT.LocationURL;
-                history.DeviceName = request.masterPUT.DeviceName;
-                history.Latitude = request.masterPUT.Latitude;
-                history.Longitude = request.masterPUT.Longitude;
-                history.ActionBy = request.masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = request.masterPUT.Browser;
+                //history.Location = request.masterPUT.Location;
+                //history.DeviceIP = request.masterPUT.DeviceIP;
+                //history.LocationURL = request.masterPUT.LocationURL;
+                //history.DeviceName = request.masterPUT.DeviceName;
+                //history.Latitude = request.masterPUT.Latitude;
+                //history.Longitude = request.masterPUT.Longitude;
+                //history.ActionBy = request.masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await repository.Add(history);
                 transaction.Commit();

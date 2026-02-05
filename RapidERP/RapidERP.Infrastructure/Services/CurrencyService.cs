@@ -55,7 +55,7 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                 Currency masterData = new();
                 masterData.TenantId = masterPOST.TenantId;
                 masterData.MenuModuleId = masterPOST.MenuModuleId;
-                masterData.LanguageId = masterPOST.LanguageId;
+                //masterData.LanguageId = masterPOST.LanguageId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.Code = masterPOST.Code;
                 masterData.Name = masterPOST.Name;
@@ -70,7 +70,7 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                 history.CurrencyId = masterData.Id;
                 history.TenantId = masterPOST.TenantId;
                 history.MenuModuleId = masterPOST.MenuModuleId;
-                history.LanguageId = masterPOST.LanguageId;
+                //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
@@ -80,15 +80,15 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                 history.IsDefault = masterPOST.IsDefault;
                 history.IsDraft = masterPOST.IsDraft;
                 history.Icon = masterPOST.Icon;
-                history.Browser = masterPOST.Browser;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
-                history.LocationURL = masterPOST.LocationURL;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
-                history.ActionBy = masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPOST.Browser;
+                //history.Location = masterPOST.Location;
+                //history.DeviceIP = masterPOST.DeviceIP;
+                //history.LocationURL = masterPOST.LocationURL;
+                //history.DeviceName = masterPOST.DeviceName;
+                //history.Latitude = masterPOST.Latitude;
+                //history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.CurrencyHistory.AddAsync(history);
                 await context.SaveChangesAsync();
@@ -201,7 +201,7 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
             var data = (from c in context.Currencies
                         join t in context.Tenants on c.TenantId equals t.Id
                         join mm in context.MenuModules on c.MenuModuleId equals mm.Id
-                        join l in context.Languages on c.LanguageId equals l.Id
+                        //join l in context.Languages on c.LanguageId equals l.Id
                         join st in context.StatusTypes on c.StatusTypeId equals st.Id
                         
                         select new
@@ -209,7 +209,7 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                             c.Id,
                             Tenant = t.Name,
                             MenuModule = mm.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Status = st.Name,
                             c.Code,
                             c.Name,
@@ -270,7 +270,7 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                         join c in context.Currencies on ca.CurrencyId equals c.Id
                         join t in context.Tenants on ca.TenantId equals t.Id
                         join mm in context.MenuModules on ca.MenuModuleId equals mm.Id
-                        join l in context.Languages on ca.LanguageId equals l.Id
+                        //join l in context.Languages on ca.LanguageId equals l.Id
                         join at in context.ActionTypes on ca.ActionTypeId equals at.Id
                         join et in context.ExportTypes on ca.ExportTypeId equals et.Id
                         select new
@@ -279,7 +279,7 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                             Currency = c.Name,
                             Tenant = t.Name,
                             MenuModule = mm.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Action = at.Name,
                             ExportType = et.Name,
                             ca.ExportTo,
@@ -289,15 +289,15 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                             ca.IsDefault,
                             ca.IsDraft,
                             ca.Icon,
-                            ca.Browser,
-                            ca.Location,
-                            ca.DeviceIP,
-                            ca.LocationURL,
-                            ca.DeviceName,
-                            ca.Latitude,
-                            ca.Longitude,
-                            ca.ActionBy,
-                            ca.ActionAt
+                            //ca.Browser,
+                            //ca.Location,
+                            //ca.DeviceIP,
+                            //ca.LocationURL,
+                            //ca.DeviceName,
+                            //ca.Latitude,
+                            //ca.Longitude,
+                            //ca.ActionBy,
+                            //ca.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -371,7 +371,7 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                 await context.Currencies.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.TenantId, masterPUT.TenantId)
                 .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
-                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.Code, masterPUT.Code)
                 .SetProperty(x => x.Name, masterPUT.Name)
@@ -383,7 +383,7 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                 history.CurrencyId = masterPUT.Id;
                 history.TenantId = masterPUT.TenantId;
                 history.MenuModuleId = masterPUT.MenuModuleId;
-                history.LanguageId = masterPUT.LanguageId;
+                //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
                 history.ExportTo = masterPUT.ExportTo;
@@ -393,15 +393,15 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                 history.IsDefault = masterPUT.IsDefault;
                 history.IsDraft = masterPUT.IsDraft;
                 history.Icon = masterPUT.Icon;
-                history.Browser = masterPUT.Browser;
-                history.Location = masterPUT.Location;
-                history.DeviceIP = masterPUT.DeviceIP;
-                history.LocationURL = masterPUT.LocationURL;
-                history.DeviceName = masterPUT.DeviceName;
-                history.Latitude = masterPUT.Latitude;
-                history.Longitude = masterPUT.Longitude;
-                history.ActionBy = masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPUT.Browser;
+                //history.Location = masterPUT.Location;
+                //history.DeviceIP = masterPUT.DeviceIP;
+                //history.LocationURL = masterPUT.LocationURL;
+                //history.DeviceName = masterPUT.DeviceName;
+                //history.Latitude = masterPUT.Latitude;
+                //history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.CurrencyHistory.AddAsync(history);
                 await context.SaveChangesAsync();

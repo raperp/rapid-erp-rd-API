@@ -25,15 +25,15 @@ public class GetHistoryLanguageHandler(IRepository repository)
                             ISO2Code = la.ISO2Code,
                             ISO3Code = la.ISO3Code,
                             IconURL = la.IconURL,
-                            Browser = la.Browser,
-                            Location = la.Location,
-                            DeviceIP = la.DeviceIP,
-                            LocationURL = la.LocationURL,
-                            DeviceName = la.DeviceName,
-                            Latitude = la.Latitude,
-                            Longitude = la.Longitude,
-                            ActionBy = la.ActionBy,
-                            ActionAt = la.ActionAt
+                            //Browser = la.Browser,
+                            //Location = la.Location,
+                            //DeviceIP = la.DeviceIP,
+                            //LocationURL = la.LocationURL,
+                            //DeviceName = la.DeviceName,
+                            //Latitude = la.Latitude,
+                            //Longitude = la.Longitude,
+                            //ActionBy = la.ActionBy,
+                            //ActionAt = la.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (query.skip == 0 || query.take == 0)

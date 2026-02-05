@@ -25,7 +25,7 @@ public class CreateBulkTenantCommandHandler(IRepository repository)
                     masterData.CountryId = item.CountryId;
                     masterData.StateId = item.StateId;
                     masterData.StatusTypeId = item.StatusTypeId;
-                    masterData.LanguageId = item.LanguageId;
+                    //masterData.LanguageId = item.LanguageId;
                     masterData.Name = item.Name;
                     masterData.Contact = item.Contact;
                     masterData.Phone = item.Phone;
@@ -41,7 +41,7 @@ public class CreateBulkTenantCommandHandler(IRepository repository)
                     history.MenuModuleId = item.MenuModuleId;
                     history.CountryId = item.CountryId;
                     history.StateId = item.StateId;
-                    history.LanguageId = item.LanguageId;
+                    //history.LanguageId = item.LanguageId;
                     history.CalendarId = item.CalendarId;
                     history.ActionTypeId = item.ActionTypeId;
                     history.ExportTypeId = item.ExportTypeId;
@@ -54,15 +54,15 @@ public class CreateBulkTenantCommandHandler(IRepository repository)
                     history.Address = item.Address;
                     history.Email = item.Email;
                     history.Website = item.Website;
-                    history.Browser = item.Browser;
-                    history.Location = item.Location;
-                    history.DeviceIP = item.DeviceIP;
-                    history.LocationURL = item.LocationURL;
-                    history.DeviceName = item.DeviceName;
-                    history.Latitude = item.Latitude;
-                    history.Longitude = item.Longitude;
-                    history.ActionBy = item.ActionBy;
-                    history.ActionAt = DateTime.Now;
+                    //history.Browser = item.Browser;
+                    //history.Location = item.Location;
+                    //history.DeviceIP = item.DeviceIP;
+                    //history.LocationURL = item.LocationURL;
+                    //history.DeviceName = item.DeviceName;
+                    //history.Latitude = item.Latitude;
+                    //history.Longitude = item.Longitude;
+                    //history.ActionBy = item.ActionBy;
+                    //history.ActionAt = DateTime.Now;
 
                     await repository.Add(history);
                     transaction.Commit();

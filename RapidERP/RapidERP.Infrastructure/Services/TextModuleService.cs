@@ -55,7 +55,7 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
             {
                 TextModule masterData = new();
                 masterData.MenuModuleId = masterPOST.MenuModuleId;
-                masterData.LanguageId = masterPOST.LanguageId;
+                //masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Name = masterPOST.Name;
 
                 await context.TextModules.AddAsync(masterData);
@@ -64,21 +64,21 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
                 TextModuleHistory history = new();
                 history.TextModuleId = masterData.Id;
                 history.MenuModuleId = masterPOST.MenuModuleId;
-                history.LanguageId = masterPOST.LanguageId;
+                //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
                 history.Name = masterPOST.Name;
-                history.Browser = masterPOST.Browser;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
-                history.LocationURL = masterPOST.LocationURL;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
-                history.ActionBy = masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPOST.Browser;
+                //history.Location = masterPOST.Location;
+                //history.DeviceIP = masterPOST.DeviceIP;
+                //history.LocationURL = masterPOST.LocationURL;
+                //history.DeviceName = masterPOST.DeviceName;
+                //history.Latitude = masterPOST.Latitude;
+                //history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.TextModuleHistory.AddAsync(history);
                 await context.SaveChangesAsync();
@@ -132,12 +132,12 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
 
             var data = (from tm in context.TextModules
                         join mm in context.MenuModules on tm.MenuModuleId equals mm.Id
-                        join l in context.Languages on tm.LanguageId equals l.Id
+                        //join l in context.Languages on tm.LanguageId equals l.Id
                         select new
                         {
                             tm.Id,
                             MenuModule = mm.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             tm.Name
                         }).AsNoTracking().AsQueryable();
 
@@ -193,28 +193,28 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
                         join tm in context.TextModules on tma.TextModuleId equals tm.Id
                         join mm in context.MenuModules on tma.MenuModuleId equals mm.Id
                         join at in context.ActionTypes on tma.ActionTypeId equals at.Id
-                        join l in context.Languages on tma.LanguageId equals l.Id
+                        //join l in context.Languages on tma.LanguageId equals l.Id
                         join et in context.ExportTypes on tma.ExportTypeId equals et.Id
                         select new
                         {
                             tma.Id,
                             TextModule = tm.Name,
                             MenuModule = mm.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Action = at.Name,
                             ExportType = et.Name,
                             tma.ExportTo,
                             tma.SourceURL,
                             tma.Name,
-                            tma.Browser,
-                            tma.Location,
-                            tma.DeviceIP,
-                            tma.LocationURL,
-                            tma.DeviceName,
-                            tma.Latitude,
-                            tma.Longitude,
-                            tma.ActionBy,
-                            tma.ActionAt
+                            //tma.Browser,
+                            //tma.Location,
+                            //tma.DeviceIP,
+                            //tma.LocationURL,
+                            //tma.DeviceName,
+                            //tma.Latitude,
+                            //tma.Longitude,
+                            //tma.ActionBy,
+                            //tma.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -293,27 +293,27 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
 
                 await context.TextModules.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
-                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Name, masterPUT.Name));
 
                 TextModuleHistory history = new();
                 history.TextModuleId = masterPUT.Id;
                 history.MenuModuleId = masterPUT.MenuModuleId;
-                history.LanguageId = masterPUT.LanguageId;
+                //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;
                 history.Name = masterPUT.Name;
-                history.Browser = masterPUT.Browser;
-                history.Location = masterPUT.Location;
-                history.DeviceIP = masterPUT.DeviceIP;
-                history.LocationURL = masterPUT.LocationURL;
-                history.DeviceName = masterPUT.DeviceName;
-                history.Latitude = masterPUT.Latitude;
-                history.Longitude = masterPUT.Longitude;
-                history.ActionBy = masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPUT.Browser;
+                //history.Location = masterPUT.Location;
+                //history.DeviceIP = masterPUT.DeviceIP;
+                //history.LocationURL = masterPUT.LocationURL;
+                //history.DeviceName = masterPUT.DeviceName;
+                //history.Latitude = masterPUT.Latitude;
+                //history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.TextModuleHistory.AddAsync(history);
                 await context.SaveChangesAsync();

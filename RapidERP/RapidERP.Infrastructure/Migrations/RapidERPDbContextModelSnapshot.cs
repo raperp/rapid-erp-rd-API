@@ -36,10 +36,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnOrder(3);
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(10)
@@ -47,8 +43,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
 
                     b.ToTable("ActionTypes");
                 });
@@ -63,39 +57,19 @@ namespace RapidERP.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("ActionAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(16);
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ActionBy")
-                        .HasColumnType("int")
-                        .HasColumnOrder(15);
+                        .HasColumnType("int");
 
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int")
                         .HasColumnOrder(1);
 
-                    b.Property<string>("Browser")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(8);
-
                     b.Property<string>("Description")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
                         .HasColumnOrder(7);
-
-                    b.Property<string>("DeviceIP")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(10);
-
-                    b.Property<string>("DeviceName")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .HasColumnOrder(12);
 
                     b.Property<string>("ExportTo")
                         .HasColumnType("nvarchar(max)")
@@ -104,31 +78,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ExportTypeId")
                         .HasColumnType("int")
                         .HasColumnOrder(3);
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(2);
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(13);
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnOrder(9);
-
-                    b.Property<string>("LocationURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(11);
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(14);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -190,9 +139,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
 
@@ -215,8 +161,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasIndex("CityId");
 
                     b.HasIndex("CountryId");
-
-                    b.HasIndex("LanguageId");
 
                     b.HasIndex("MenuModuleId");
 
@@ -249,9 +193,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int>("AreaId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Browser")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("CityId")
                         .HasColumnType("int");
 
@@ -262,13 +203,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Property<int?>("CountryId")
                         .HasColumnType("int");
-
-                    b.Property<string>("DeviceIP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceName")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("ExportTo")
                         .HasColumnType("nvarchar(max)");
@@ -281,23 +215,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LocationURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
 
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
@@ -361,10 +278,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnOrder(8);
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(3);
-
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int")
                         .HasColumnOrder(2);
@@ -393,8 +306,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LanguageId");
-
                     b.HasIndex("MenuModuleId");
 
                     b.HasIndex("StatusTypeId");
@@ -412,22 +323,14 @@ namespace RapidERP.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("ActionAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(22);
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ActionBy")
-                        .HasColumnType("int")
-                        .HasColumnOrder(21);
+                        .HasColumnType("int");
 
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int")
                         .HasColumnOrder(5);
-
-                    b.Property<string>("Browser")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(14);
 
                     b.Property<int?>("CalendarId")
                         .HasColumnType("int")
@@ -438,18 +341,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasMaxLength(3)
                         .HasColumnType("nvarchar(3)")
                         .HasColumnOrder(9);
-
-                    b.Property<string>("DeviceIP")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(16);
-
-                    b.Property<string>("DeviceName")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .HasColumnOrder(18);
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2")
@@ -462,31 +353,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ExportTypeId")
                         .HasColumnType("int")
                         .HasColumnOrder(6);
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(4);
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(19);
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnOrder(15);
-
-                    b.Property<string>("LocationURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(17);
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(20);
 
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int")
@@ -570,9 +436,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
 
@@ -593,8 +456,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
-
-                    b.HasIndex("LanguageId");
 
                     b.HasIndex("MenuModuleId");
 
@@ -624,9 +485,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Browser")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
@@ -637,13 +495,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Property<int?>("CountryId")
                         .HasColumnType("int");
-
-                    b.Property<string>("DeviceIP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceName")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("ExportTo")
                         .HasColumnType("nvarchar(max)");
@@ -656,23 +507,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LocationURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
 
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
@@ -788,6 +622,73 @@ namespace RapidERP.Infrastructure.Migrations
                     b.ToTable("Countries");
                 });
 
+            modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.CountryActivity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("ActionAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("ActionBy")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ActionTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ActivityTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Browser")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DeviceIP")
+                        .HasMaxLength(45)
+                        .HasColumnType("nvarchar(45)");
+
+                    b.Property<string>("DeviceName")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal?>("Latitude")
+                        .HasPrecision(9, 6)
+                        .HasColumnType("decimal(9,6)");
+
+                    b.Property<string>("Location")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("LocationURL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Longitude")
+                        .HasPrecision(9, 6)
+                        .HasColumnType("decimal(9,6)");
+
+                    b.Property<string>("OS")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime?>("PageViewEndedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("PageViewStartedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("CountryActivities");
+                });
+
             modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.CountryAudit", b =>
                 {
                     b.Property<int>("Id")
@@ -805,18 +706,8 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Browser")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("CountryId")
                         .HasColumnType("int");
-
-                    b.Property<string>("DeviceIP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceName")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("DialCode")
                         .HasColumnType("nvarchar(max)");
@@ -850,23 +741,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LocationURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
 
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
@@ -926,44 +800,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.ToTable("CountryLocalizations");
                 });
 
-            modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.CountryTemplate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("DialCode")
-                        .IsRequired()
-                        .HasMaxLength(4)
-                        .HasColumnType("nvarchar(4)");
-
-                    b.Property<string>("ISO2Code")
-                        .IsRequired()
-                        .HasMaxLength(2)
-                        .HasColumnType("nvarchar(2)");
-
-                    b.Property<string>("ISO3Code")
-                        .IsRequired()
-                        .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)");
-
-                    b.Property<string>("ISONumeric")
-                        .IsRequired()
-                        .HasMaxLength(4)
-                        .HasColumnType("nvarchar(4)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CountryTemplate");
-                });
-
             modelBuilder.Entity("RapidERP.Domain.Entities.CurrencyModels.Currency", b =>
                 {
                     b.Property<int>("Id")
@@ -991,10 +827,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("bit")
                         .HasColumnOrder(9);
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(3);
-
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int")
                         .HasColumnOrder(2);
@@ -1015,8 +847,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LanguageId");
-
                     b.HasIndex("MenuModuleId");
 
                     b.HasIndex("StatusTypeId");
@@ -1036,22 +866,14 @@ namespace RapidERP.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("ActionAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(22);
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ActionBy")
-                        .HasColumnType("int")
-                        .HasColumnOrder(21);
+                        .HasColumnType("int");
 
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int")
                         .HasColumnOrder(5);
-
-                    b.Property<string>("Browser")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(14);
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -1062,18 +884,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int>("CurrencyId")
                         .HasColumnType("int")
                         .HasColumnOrder(1);
-
-                    b.Property<string>("DeviceIP")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(16);
-
-                    b.Property<string>("DeviceName")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .HasColumnOrder(18);
 
                     b.Property<string>("ExportTo")
                         .HasColumnType("nvarchar(max)")
@@ -1094,31 +904,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit")
                         .HasColumnOrder(12);
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(4);
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(19);
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnOrder(15);
-
-                    b.Property<string>("LocationURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(17);
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(20);
 
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int")
@@ -1185,9 +970,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
 
@@ -1203,8 +985,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
 
                     b.HasIndex("MenuModuleId");
 
@@ -1232,9 +1012,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Browser")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
@@ -1242,13 +1019,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(3)
                         .HasColumnType("nvarchar(3)");
-
-                    b.Property<string>("DeviceIP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceName")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("ExportTo")
                         .HasColumnType("nvarchar(max)");
@@ -1261,23 +1031,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LocationURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
 
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
@@ -1340,9 +1093,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
 
@@ -1360,8 +1110,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
-
-                    b.HasIndex("LanguageId");
 
                     b.HasIndex("MenuModuleId");
 
@@ -1389,9 +1137,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Browser")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("DepartmentId")
                         .HasColumnType("int");
 
@@ -1402,13 +1147,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Property<int>("DesignationId")
                         .HasColumnType("int");
-
-                    b.Property<string>("DeviceIP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceName")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("ExportTo")
                         .HasColumnType("nvarchar(max)");
@@ -1421,23 +1159,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LocationURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
 
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
@@ -1493,10 +1214,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnOrder(3);
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(5)
@@ -1504,8 +1221,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
 
                     b.ToTable("ExportTypes");
                 });
@@ -1520,64 +1235,19 @@ namespace RapidERP.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("ActionAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(13);
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ActionBy")
-                        .HasColumnType("int")
-                        .HasColumnOrder(12);
-
-                    b.Property<string>("Browser")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(5);
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
                         .HasColumnOrder(4);
 
-                    b.Property<string>("DeviceIP")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(7);
-
-                    b.Property<string>("DeviceName")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .HasColumnOrder(9);
-
                     b.Property<int?>("ExportTypeId")
                         .HasColumnType("int")
                         .HasColumnOrder(1);
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(2);
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(10);
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnOrder(6);
-
-                    b.Property<string>("LocationURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(8);
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(11);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1668,24 +1338,9 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Browser")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
                     b.Property<string>("Description")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("DeviceIP")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<string>("DeviceName")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("ExportTo")
                         .HasColumnType("nvarchar(max)");
@@ -1695,23 +1350,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Property<int>("KitchenId")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("LocationURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
 
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
@@ -1810,30 +1448,10 @@ namespace RapidERP.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("ActionAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(15);
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ActionBy")
-                        .HasColumnType("int")
-                        .HasColumnOrder(14);
-
-                    b.Property<string>("Browser")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(7);
-
-                    b.Property<string>("DeviceIP")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(9);
-
-                    b.Property<string>("DeviceName")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .HasColumnOrder(11);
+                        .HasColumnType("int");
 
                     b.Property<string>("ISO2Code")
                         .IsRequired()
@@ -1862,27 +1480,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("int")
                         .HasColumnOrder(1);
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(12);
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnOrder(8);
-
-                    b.Property<string>("LocationURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(10);
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(13);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1937,9 +1534,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -1954,8 +1548,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
 
                     b.ToTable("MainModules");
                 });
@@ -1977,16 +1569,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Browser")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceIP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceName")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
                     b.Property<string>("ExportTo")
                         .HasColumnType("nvarchar(max)");
 
@@ -1996,23 +1578,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<string>("IconURL")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LocationURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
 
                     b.Property<int?>("MainModuleId")
                         .HasColumnType("int");
@@ -2071,9 +1636,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -2086,8 +1648,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
 
                     b.ToTable("MenuModules");
                 });
@@ -2109,16 +1669,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Browser")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceIP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceName")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
                     b.Property<string>("ExportTo")
                         .HasColumnType("nvarchar(max)");
 
@@ -2128,23 +1678,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<string>("IconURL")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LocationURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
 
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
@@ -2194,9 +1727,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(15)
@@ -2206,8 +1736,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
 
                     b.HasIndex("TextModuleId");
 
@@ -2231,38 +1759,11 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Browser")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceIP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceName")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
                     b.Property<string>("ExportTo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ExportTypeId")
                         .HasColumnType("int");
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LocationURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
 
                     b.Property<int?>("MessageModuleId")
                         .HasColumnType("int");
@@ -2319,9 +1820,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
 
@@ -2337,8 +1835,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
 
                     b.HasIndex("MenuModuleId");
 
@@ -2366,19 +1862,9 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Browser")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Description")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("DeviceIP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceName")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("ExportTo")
                         .HasColumnType("nvarchar(max)");
@@ -2391,23 +1877,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LocationURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
 
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
@@ -2518,11 +1987,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("AreaId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Browser")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
                     b.Property<int?>("CityId")
                         .HasColumnType("int");
 
@@ -2533,16 +1997,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("DeviceIP")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<string>("DeviceName")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
@@ -2552,23 +2006,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Property<int?>("ExportTypeId")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<string>("LocationURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
 
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
@@ -2636,34 +2073,14 @@ namespace RapidERP.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("ActionAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(15);
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ActionBy")
-                        .HasColumnType("int")
-                        .HasColumnOrder(14);
+                        .HasColumnType("int");
 
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int")
                         .HasColumnOrder(2);
-
-                    b.Property<string>("Browser")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(7);
-
-                    b.Property<string>("DeviceIP")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(9);
-
-                    b.Property<string>("DeviceName")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .HasColumnOrder(11);
 
                     b.Property<string>("ExportTo")
                         .HasColumnType("nvarchar(max)")
@@ -2672,27 +2089,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ExportTypeId")
                         .HasColumnType("int")
                         .HasColumnOrder(3);
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(12);
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnOrder(8);
-
-                    b.Property<string>("LocationURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(10);
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(13);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -2751,9 +2147,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("ManagerId")
                         .HasColumnType("int");
 
@@ -2782,8 +2175,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.HasIndex("LanguageId");
-
                     b.HasIndex("MenuModuleId");
 
                     b.HasIndex("StatusTypeId");
@@ -2810,9 +2201,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Browser")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Code")
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
@@ -2827,13 +2215,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("DeviceIP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceName")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -2853,23 +2234,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LocationURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
 
                     b.Property<int?>("ManagerId")
                         .HasColumnType("int");
@@ -2932,10 +2296,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("bit")
                         .HasColumnOrder(8);
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(4);
-
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int")
                         .HasColumnOrder(1);
@@ -2954,8 +2314,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.HasIndex("LanguageId");
-
                     b.HasIndex("MenuModuleId");
 
                     b.HasIndex("StatusTypeId");
@@ -2973,22 +2331,14 @@ namespace RapidERP.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("ActionAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(21);
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ActionBy")
-                        .HasColumnType("int")
-                        .HasColumnOrder(20);
+                        .HasColumnType("int");
 
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int")
                         .HasColumnOrder(5);
-
-                    b.Property<string>("Browser")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(13);
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -2999,18 +2349,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("CountryId")
                         .HasColumnType("int")
                         .HasColumnOrder(3);
-
-                    b.Property<string>("DeviceIP")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(15);
-
-                    b.Property<string>("DeviceName")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .HasColumnOrder(17);
 
                     b.Property<string>("ExportTo")
                         .IsRequired()
@@ -3028,31 +2366,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit")
                         .HasColumnOrder(12);
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(4);
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(18);
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnOrder(14);
-
-                    b.Property<string>("LocationURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(16);
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(19);
 
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int")
@@ -3122,10 +2435,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnOrder(7);
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(3);
-
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int")
                         .HasColumnOrder(2);
@@ -3146,8 +2455,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LanguageId");
-
                     b.HasIndex("MenuModuleId");
 
                     b.HasIndex("StatusTypeId");
@@ -3165,22 +2472,14 @@ namespace RapidERP.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("ActionAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(21);
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ActionBy")
-                        .HasColumnType("int")
-                        .HasColumnOrder(20);
+                        .HasColumnType("int");
 
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int")
                         .HasColumnOrder(5);
-
-                    b.Property<string>("Browser")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(13);
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -3191,18 +2490,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnOrder(12);
-
-                    b.Property<string>("DeviceIP")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(15);
-
-                    b.Property<string>("DeviceName")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .HasColumnOrder(17);
 
                     b.Property<string>("ExportTo")
                         .HasColumnType("nvarchar(max)")
@@ -3215,31 +2502,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<string>("Icon")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnOrder(11);
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(4);
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(18);
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnOrder(14);
-
-                    b.Property<string>("LocationURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(16);
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(19);
 
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int")
@@ -3309,10 +2571,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnOrder(3);
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(15)
@@ -3320,8 +2578,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
 
                     b.ToTable("StatusTypes");
                 });
@@ -3336,39 +2592,19 @@ namespace RapidERP.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("ActionAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(17);
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ActionBy")
-                        .HasColumnType("int")
-                        .HasColumnOrder(16);
+                        .HasColumnType("int");
 
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int")
                         .HasColumnOrder(3);
 
-                    b.Property<string>("Browser")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(9);
-
                     b.Property<string>("Description")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
                         .HasColumnOrder(8);
-
-                    b.Property<string>("DeviceIP")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(11);
-
-                    b.Property<string>("DeviceName")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .HasColumnOrder(13);
 
                     b.Property<string>("ExportTo")
                         .HasColumnType("nvarchar(max)")
@@ -3377,31 +2613,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ExportTypeId")
                         .HasColumnType("int")
                         .HasColumnOrder(4);
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(2);
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(14);
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnOrder(10);
-
-                    b.Property<string>("LocationURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(12);
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(15);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -3455,9 +2666,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
                     b.Property<int>("MainModuleId")
                         .HasColumnType("int");
 
@@ -3470,8 +2678,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
 
                     b.HasIndex("MainModuleId");
 
@@ -3495,16 +2701,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Browser")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceIP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceName")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
                     b.Property<string>("ExportTo")
                         .HasColumnType("nvarchar(max)");
 
@@ -3514,23 +2710,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<string>("IconURL")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LocationURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
 
                     b.Property<int>("MainModuleId")
                         .HasColumnType("int");
@@ -3613,9 +2792,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
                     b.Property<decimal?>("LocalAmount")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
@@ -3652,8 +2828,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.HasIndex("CurrencyId");
 
-                    b.HasIndex("LanguageId");
-
                     b.HasIndex("MenuModuleId");
 
                     b.HasIndex("StatusTypeId");
@@ -3680,9 +2854,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Browser")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ContactPersonName")
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
@@ -3699,13 +2870,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Property<int?>("DepositTypeId")
                         .HasColumnType("int");
-
-                    b.Property<string>("DeviceIP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceName")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int?>("DueDays")
                         .HasColumnType("int");
@@ -3729,26 +2893,9 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
-
                     b.Property<decimal?>("LocalAmount")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LocationURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
 
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
@@ -3874,21 +3021,11 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Browser")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("CountryId")
                         .HasColumnType("int");
 
                     b.Property<int?>("CurrencyId")
                         .HasColumnType("int");
-
-                    b.Property<string>("DeviceIP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceName")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("ExportTo")
                         .HasColumnType("nvarchar(max)");
@@ -3904,20 +3041,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Property<int?>("LanguageId")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LocationURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
 
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
@@ -4009,64 +3132,23 @@ namespace RapidERP.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("ActionAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(16);
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ActionBy")
-                        .HasColumnType("int")
-                        .HasColumnOrder(15);
+                        .HasColumnType("int");
 
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Browser")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(8);
-
                     b.Property<string>("Description")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("DeviceIP")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(10);
-
-                    b.Property<string>("DeviceName")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .HasColumnOrder(12);
 
                     b.Property<string>("ExportTo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ExportTypeId")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(13);
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnOrder(9);
-
-                    b.Property<string>("LocationURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(11);
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(14);
 
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
@@ -4127,8 +3209,7 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnOrder(11);
 
                     b.Property<int?>("LanguageId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(5);
+                        .HasColumnType("int");
 
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int")
@@ -4215,12 +3296,10 @@ namespace RapidERP.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("ActionAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(37);
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ActionBy")
-                        .HasColumnType("int")
-                        .HasColumnOrder(36);
+                        .HasColumnType("int");
 
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int")
@@ -4230,12 +3309,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)")
                         .HasColumnOrder(15);
-
-                    b.Property<string>("Browser")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(29);
 
                     b.Property<int?>("CalendarId")
                         .HasColumnType("int")
@@ -4261,18 +3334,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("DefaultLanguageId")
                         .HasColumnType("int")
                         .HasColumnOrder(27);
-
-                    b.Property<string>("DeviceIP")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(31);
-
-                    b.Property<string>("DeviceName")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .HasColumnOrder(33);
 
                     b.Property<string>("ERPPlan")
                         .HasMaxLength(20)
@@ -4305,15 +3366,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnOrder(21);
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(5);
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(34);
-
                     b.Property<string>("LicenseNumber")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
@@ -4323,22 +3375,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasMaxLength(4)
                         .HasColumnType("nvarchar(4)")
                         .HasColumnOrder(19);
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnOrder(30);
-
-                    b.Property<string>("LocationURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(32);
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(35);
 
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int")
@@ -4515,9 +3551,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
 
@@ -4527,8 +3560,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
 
                     b.HasIndex("MenuModuleId");
 
@@ -4552,38 +3583,11 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Browser")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceIP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DeviceName")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
                     b.Property<string>("ExportTo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ExportTypeId")
                         .HasColumnType("int");
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LocationURL")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
 
                     b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
@@ -4663,34 +3667,14 @@ namespace RapidERP.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("ActionAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(16);
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ActionBy")
-                        .HasColumnType("int")
-                        .HasColumnOrder(15);
+                        .HasColumnType("int");
 
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int")
                         .HasColumnOrder(2);
-
-                    b.Property<string>("Browser")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(8);
-
-                    b.Property<string>("DeviceIP")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(10);
-
-                    b.Property<string>("DeviceName")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .HasColumnOrder(12);
 
                     b.Property<string>("ExportTo")
                         .HasColumnType("nvarchar(max)")
@@ -4704,27 +3688,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)")
                         .HasColumnOrder(5);
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(13);
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnOrder(9);
-
-                    b.Property<string>("LocationURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(11);
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(14);
 
                     b.Property<string>("SourceURL")
                         .HasColumnType("nvarchar(max)")
@@ -4820,12 +3783,10 @@ namespace RapidERP.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("ActionAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnOrder(22);
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ActionBy")
-                        .HasColumnType("int")
-                        .HasColumnOrder(21);
+                        .HasColumnType("int");
 
                     b.Property<int?>("ActionTypeId")
                         .HasColumnType("int")
@@ -4835,24 +3796,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)")
                         .HasColumnOrder(6);
-
-                    b.Property<string>("Browser")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(14);
-
-                    b.Property<string>("DeviceIP")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
-                        .HasColumnOrder(16);
-
-                    b.Property<string>("DeviceName")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)")
-                        .HasColumnOrder(18);
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -4867,27 +3810,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("ExportTypeId")
                         .HasColumnType("int")
                         .HasColumnOrder(2);
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(19);
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnOrder(15);
-
-                    b.Property<string>("LocationURL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnOrder(17);
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)")
-                        .HasColumnOrder(20);
 
                     b.Property<string>("Mobile")
                         .HasMaxLength(15)
@@ -4936,15 +3858,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.ToTable("UserHistory");
                 });
 
-            modelBuilder.Entity("RapidERP.Domain.Entities.ActionTypeModels.ActionType", b =>
-                {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.Navigation("Language");
-                });
-
             modelBuilder.Entity("RapidERP.Domain.Entities.ActionTypeModels.ActionTypeHistory", b =>
                 {
                     b.HasOne("RapidERP.Domain.Entities.ActionTypeModels.ActionType", "ActionType")
@@ -4968,10 +3881,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
                     b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
                         .WithMany()
                         .HasForeignKey("MenuModuleId");
@@ -4993,8 +3902,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Navigation("City");
 
                     b.Navigation("Country");
-
-                    b.Navigation("Language");
 
                     b.Navigation("MenuModule");
 
@@ -5018,10 +3925,6 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.CalendarModels.Calendar", b =>
                 {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
                     b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
                         .WithMany()
                         .HasForeignKey("MenuModuleId");
@@ -5029,8 +3932,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
                         .WithMany()
                         .HasForeignKey("StatusTypeId");
-
-                    b.Navigation("Language");
 
                     b.Navigation("MenuModule");
 
@@ -5054,10 +3955,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
                     b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
                         .WithMany()
                         .HasForeignKey("MenuModuleId");
@@ -5077,8 +3974,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasForeignKey("TenantId");
 
                     b.Navigation("Country");
-
-                    b.Navigation("Language");
 
                     b.Navigation("MenuModule");
 
@@ -5119,6 +4014,17 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Navigation("StatusType");
                 });
 
+            modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.CountryActivity", b =>
+                {
+                    b.HasOne("RapidERP.Domain.Entities.CountryModels.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Country");
+                });
+
             modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.CountryAudit", b =>
                 {
                     b.HasOne("RapidERP.Domain.Entities.CountryModels.Country", "Country")
@@ -5147,10 +4053,6 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.CurrencyModels.Currency", b =>
                 {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
                     b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
                         .WithMany()
                         .HasForeignKey("MenuModuleId");
@@ -5162,8 +4064,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId");
-
-                    b.Navigation("Language");
 
                     b.Navigation("MenuModule");
 
@@ -5185,10 +4085,6 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.DepartmentModels.Department", b =>
                 {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
                     b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
                         .WithMany()
                         .HasForeignKey("MenuModuleId");
@@ -5200,8 +4096,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId");
-
-                    b.Navigation("Language");
 
                     b.Navigation("MenuModule");
 
@@ -5229,10 +4123,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
                     b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
                         .WithMany()
                         .HasForeignKey("MenuModuleId");
@@ -5246,8 +4136,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasForeignKey("TenantId");
 
                     b.Navigation("Department");
-
-                    b.Navigation("Language");
 
                     b.Navigation("MenuModule");
 
@@ -5265,15 +4153,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Designation");
-                });
-
-            modelBuilder.Entity("RapidERP.Domain.Entities.ExportTypeModels.ExportType", b =>
-                {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.Navigation("Language");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.ExportTypeModels.ExportTypeHistory", b =>
@@ -5328,15 +4207,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Navigation("Language");
                 });
 
-            modelBuilder.Entity("RapidERP.Domain.Entities.MainModuleModels.MainModule", b =>
-                {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.Navigation("Language");
-                });
-
             modelBuilder.Entity("RapidERP.Domain.Entities.MainModuleModels.MainModuleHistory", b =>
                 {
                     b.HasOne("RapidERP.Domain.Entities.MainModuleModels.MainModule", "MainModule")
@@ -5344,15 +4214,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasForeignKey("MainModuleId");
 
                     b.Navigation("MainModule");
-                });
-
-            modelBuilder.Entity("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", b =>
-                {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.Navigation("Language");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.MenuModuleModels.MenuModuleHistory", b =>
@@ -5366,15 +4227,9 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.MessageModuleModels.MessageModule", b =>
                 {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
                     b.HasOne("RapidERP.Domain.Entities.TextModuleModels.TextModule", "TextModule")
                         .WithMany()
                         .HasForeignKey("TextModuleId");
-
-                    b.Navigation("Language");
 
                     b.Navigation("TextModule");
                 });
@@ -5390,10 +4245,6 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.OrderTypeModels.OrderType", b =>
                 {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
                     b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
                         .WithMany()
                         .HasForeignKey("MenuModuleId");
@@ -5405,8 +4256,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId");
-
-                    b.Navigation("Language");
 
                     b.Navigation("MenuModule");
 
@@ -5518,10 +4367,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
                     b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
                         .WithMany()
                         .HasForeignKey("MenuModuleId");
@@ -5535,8 +4380,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasForeignKey("TenantId");
 
                     b.Navigation("Department");
-
-                    b.Navigation("Language");
 
                     b.Navigation("MenuModule");
 
@@ -5564,10 +4407,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
                     b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
                         .WithMany()
                         .HasForeignKey("MenuModuleId");
@@ -5577,8 +4416,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasForeignKey("StatusTypeId");
 
                     b.Navigation("Country");
-
-                    b.Navigation("Language");
 
                     b.Navigation("MenuModule");
 
@@ -5598,10 +4435,6 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.SolutionModels.Solution", b =>
                 {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
                     b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
                         .WithMany()
                         .HasForeignKey("MenuModuleId");
@@ -5609,8 +4442,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
                         .WithMany()
                         .HasForeignKey("StatusTypeId");
-
-                    b.Navigation("Language");
 
                     b.Navigation("MenuModule");
 
@@ -5626,15 +4457,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Navigation("Solution");
                 });
 
-            modelBuilder.Entity("RapidERP.Domain.Entities.StatusTypeModels.StatusType", b =>
-                {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.Navigation("Language");
-                });
-
             modelBuilder.Entity("RapidERP.Domain.Entities.StatusTypeModels.StatusTypeHistory", b =>
                 {
                     b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
@@ -5646,17 +4468,11 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.SubmoduleModels.Submodule", b =>
                 {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
                     b.HasOne("RapidERP.Domain.Entities.MainModuleModels.MainModule", "MainModule")
                         .WithMany()
                         .HasForeignKey("MainModuleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Language");
 
                     b.Navigation("MainModule");
                 });
@@ -5686,10 +4502,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
                     b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
                         .WithMany()
                         .HasForeignKey("MenuModuleId");
@@ -5705,8 +4517,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Navigation("Country");
 
                     b.Navigation("Currency");
-
-                    b.Navigation("Language");
 
                     b.Navigation("MenuModule");
 
@@ -5816,10 +4626,9 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.TenantModels.Tenant", b =>
                 {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
+                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", null)
                         .WithMany("Tenants")
-                        .HasForeignKey("LanguageId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("LanguageId");
 
                     b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
                         .WithMany("Tenants")
@@ -5830,8 +4639,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .WithMany("Tenants")
                         .HasForeignKey("StatusTypeId")
                         .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Language");
 
                     b.Navigation("MenuModule");
 
@@ -5876,15 +4683,9 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.TextModuleModels.TextModule", b =>
                 {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
                     b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
                         .WithMany()
                         .HasForeignKey("MenuModuleId");
-
-                    b.Navigation("Language");
 
                     b.Navigation("MenuModule");
                 });

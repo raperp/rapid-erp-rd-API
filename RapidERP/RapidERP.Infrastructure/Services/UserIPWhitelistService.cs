@@ -69,15 +69,15 @@ public class UserIPWhitelistService(RapidERPDbContext context, ISharedService sh
                 history.IPAddress = masterPOST.IPAddress;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
-                history.Browser = masterPOST.Browser;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
-                history.LocationURL = masterPOST.LocationURL;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
-                history.ActionBy = masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPOST.Browser;
+                //history.Location = masterPOST.Location;
+                //history.DeviceIP = masterPOST.DeviceIP;
+                //history.LocationURL = masterPOST.LocationURL;
+                //history.DeviceName = masterPOST.DeviceName;
+                //history.Latitude = masterPOST.Latitude;
+                //history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
                 
                 await context.UserIPWhitelistHistory.AddAsync(history);
                 await context.SaveChangesAsync();
@@ -203,15 +203,15 @@ public class UserIPWhitelistService(RapidERPDbContext context, ISharedService sh
                             uiwh.IPAddress,
                             uiwh.ExportTo,
                             uiwh.SourceURL,
-                            uiwh.Browser,
-                            uiwh.Location,
-                            uiwh.DeviceIP,
-                            uiwh.LocationURL,
-                            uiwh.DeviceName,
-                            uiwh.Latitude,
-                            uiwh.Longitude,
-                            uiwh.ActionBy,
-                            uiwh.ActionAt
+                            //uiwh.Browser,
+                            //uiwh.Location,
+                            //uiwh.DeviceIP,
+                            //uiwh.LocationURL,
+                            //uiwh.DeviceName,
+                            //uiwh.Latitude,
+                            //uiwh.Longitude,
+                            //uiwh.ActionBy,
+                            //uiwh.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -295,15 +295,15 @@ public class UserIPWhitelistService(RapidERPDbContext context, ISharedService sh
                 history.IPAddress = masterPUT.IPAddress;
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;
-                history.Browser = masterPUT.Browser;
-                history.Location = masterPUT.Location;
-                history.DeviceIP = masterPUT.DeviceIP;
-                history.LocationURL = masterPUT.LocationURL;
-                history.DeviceName = masterPUT.DeviceName;
-                history.Latitude = masterPUT.Latitude;
-                history.Longitude = masterPUT.Longitude;
-                history.ActionBy = masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPUT.Browser;
+                //history.Location = masterPUT.Location;
+                //history.DeviceIP = masterPUT.DeviceIP;
+                //history.LocationURL = masterPUT.LocationURL;
+                //history.DeviceName = masterPUT.DeviceName;
+                //history.Latitude = masterPUT.Latitude;
+                //history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.UserIPWhitelistHistory.AddAsync(history);
                 await context.SaveChangesAsync();

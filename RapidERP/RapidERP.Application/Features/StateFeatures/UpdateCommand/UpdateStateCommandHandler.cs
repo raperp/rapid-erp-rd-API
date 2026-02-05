@@ -23,7 +23,7 @@ public class UpdateStateCommandHandler(IRepository repository)
                 request.masterPUT.Code = (request.masterPUT.Code is not null) ? request.masterPUT.Code : masterRecord.Code;    
                 request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId is not null) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
                 request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;
-                request.masterPUT.LanguageId = (request.masterPUT.LanguageId is not null) ? request.masterPUT.LanguageId : masterRecord.LanguageId;          
+                //request.masterPUT.LanguageId = (request.masterPUT.LanguageId is not null) ? request.masterPUT.LanguageId : masterRecord.LanguageId;          
                 request.masterPUT.CountryId = (request.masterPUT.CountryId != 0) ? request.masterPUT.CountryId : masterRecord.CountryId;          
             }
 
@@ -32,7 +32,7 @@ public class UpdateStateCommandHandler(IRepository repository)
                 masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
                 masterRecord.CountryId = request.masterPUT.CountryId;
                 masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
-                masterRecord.LanguageId = request.masterPUT.LanguageId; 
+                //masterRecord.LanguageId = request.masterPUT.LanguageId; 
                 masterRecord.Name = request.masterPUT.Name;
                 masterRecord.Code = request.masterPUT.Code;
                 masterRecord.IsDefault = request.masterPUT.IsDefault;
@@ -44,7 +44,7 @@ public class UpdateStateCommandHandler(IRepository repository)
                 history.StateId = request.masterPUT.Id;
                 history.MenuModuleId = request.masterPUT.MenuModuleId;
                 history.CountryId = request.masterPUT.CountryId;
-                history.LanguageId = request.masterPUT.LanguageId;
+                //history.LanguageId = request.masterPUT.LanguageId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
                 history.ExportTypeId = request.masterPUT.ExportTypeId;
                 history.ExportTo = request.masterPUT.ExportTo;
@@ -53,15 +53,15 @@ public class UpdateStateCommandHandler(IRepository repository)
                 history.Name = request.masterPUT.Name;
                 history.IsDefault = request.masterPUT.IsDefault;
                 history.IsDraft = request.masterPUT.IsDraft;
-                history.Browser = request.masterPUT.Browser;
-                history.Location = request.masterPUT.Location;
-                history.DeviceIP = request.masterPUT.DeviceIP;
-                history.LocationURL = request.masterPUT.LocationURL;
-                history.DeviceName = request.masterPUT.DeviceName;
-                history.Latitude = request.masterPUT.Latitude;
-                history.Longitude = request.masterPUT.Longitude;
-                history.ActionBy = request.masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = request.masterPUT.Browser;
+                //history.Location = request.masterPUT.Location;
+                //history.DeviceIP = request.masterPUT.DeviceIP;
+                //history.LocationURL = request.masterPUT.LocationURL;
+                //history.DeviceName = request.masterPUT.DeviceName;
+                //history.Latitude = request.masterPUT.Latitude;
+                //history.Longitude = request.masterPUT.Longitude;
+                //history.ActionBy = request.masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await repository.Add(history);
                 transaction.Commit();

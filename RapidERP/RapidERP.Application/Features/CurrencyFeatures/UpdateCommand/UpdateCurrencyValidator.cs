@@ -15,9 +15,9 @@ public class UpdateCurrencyValidator : AbstractValidator<CurrencyPUT>
             .GreaterThan(0)
             .WithMessage("Menu module is required.");
 
-        RuleFor(x => x.LanguageId)
-            .GreaterThan(0)
-            .WithMessage("Language is required.");
+        //RuleFor(x => x.LanguageId)
+        //    .GreaterThan(0)
+        //    .WithMessage("Language is required.");
 
         RuleFor(x => x.StatusTypeId)
             .GreaterThan(0)

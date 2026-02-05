@@ -26,7 +26,7 @@ public class GetHistoryCityHandler(IRepository repository)
                         join et in repository.Set<ExportType>() on ch.ExportTypeId equals et.Id
                         join at in repository.Set<ActionType>() on ch.ActionTypeId equals at.Id
                         join t in repository.Set<Tenant>() on ch.TenantId equals t.Id
-                        join l in repository.Set<Language>() on ch.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on ch.LanguageId equals l.Id
                         join m in repository.Set<MenuModule>() on ch.MenuModuleId equals m.Id
                         select new GetHistoryCityResponseDTOModel
                         {
@@ -37,21 +37,21 @@ public class GetHistoryCityHandler(IRepository repository)
                             Tanent = t.Name,
                             Menu = m.Name,
                             Action = at.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             ExportType = et.Name,
                             ExportTo = ch.ExportTo,
                             SourceURL = ch.SourceURL,
                             IsDefault = ch.IsDefault,
                             IsDraft = ch.IsDraft,
-                            Browser = ch.Browser,
-                            Location = ch.Location,
-                            DeviceIP = ch.DeviceIP,
-                            LocationURL = ch.LocationURL,
-                            DeviceName = ch.DeviceName,
-                            Latitude = ch.Latitude,
-                            Longitude = ch.Longitude,
-                            ActionBy = ch.ActionBy,
-                            ActionAt = ch.ActionAt
+                            //Browser = ch.Browser,
+                            //Location = ch.Location,
+                            //DeviceIP = ch.DeviceIP,
+                            //LocationURL = ch.LocationURL,
+                            //DeviceName = ch.DeviceName,
+                            //Latitude = ch.Latitude,
+                            //Longitude = ch.Longitude,
+                            //ActionBy = ch.ActionBy,
+                            //ActionAt = ch.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             //int totalItems = await repository.Set<CityHistory>().CountAsync();

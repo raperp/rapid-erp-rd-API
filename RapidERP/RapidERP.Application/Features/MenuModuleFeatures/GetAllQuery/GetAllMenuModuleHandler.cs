@@ -20,12 +20,12 @@ public class GetAllMenuModuleHandler(IRepository repository)
 
             var data = (from mm in repository.Set<MenuModule>()
                         join sm in repository.Set<Submodule>() on mm.SubmoduleId equals sm.Id
-                        join l in repository.Set<Language>() on mm.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on mm.LanguageId equals l.Id
                         select new GetAllMenuModuleResponseDTOModel
                         {
                             Id = mm.Id,
                             Submodule = sm.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Name = mm.Name,
                             IconURL = mm.IconURL,
                             SetSerial = mm.SetSerial

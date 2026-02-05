@@ -21,7 +21,7 @@ public class CreateBulkTextModuleCommandHandler(IRepository repository)
                 {
                     TextModule masterData = new();
                     masterData.MenuModuleId = item.MenuModuleId;
-                    masterData.LanguageId = item.LanguageId;
+                    //masterData.LanguageId = item.LanguageId;
                     masterData.Name = item.Name;
 
                     await repository.Add(masterData);
@@ -29,21 +29,21 @@ public class CreateBulkTextModuleCommandHandler(IRepository repository)
                     TextModuleHistory history = new();
                     history.TextModuleId = masterData.Id;
                     history.MenuModuleId = item.MenuModuleId;
-                    history.LanguageId = item.LanguageId;
+                    //history.LanguageId = item.LanguageId;
                     history.ActionTypeId = item.ActionTypeId;
                     history.ExportTypeId = item.ExportTypeId;
                     history.ExportTo = item.ExportTo;
                     history.SourceURL = item.SourceURL;
                     history.Name = item.Name;
-                    history.Browser = item.Browser;
-                    history.Location = item.Location;
-                    history.DeviceIP = item.DeviceIP;
-                    history.LocationURL = item.LocationURL;
-                    history.DeviceName = item.DeviceName;
-                    history.Latitude = item.Latitude;
-                    history.Longitude = item.Longitude;
-                    history.ActionBy = item.ActionBy;
-                    history.ActionAt = DateTime.Now;
+                    //history.Browser = item.Browser;
+                    //history.Location = item.Location;
+                    //history.DeviceIP = item.DeviceIP;
+                    //history.LocationURL = item.LocationURL;
+                    //history.DeviceName = item.DeviceName;
+                    //history.Latitude = item.Latitude;
+                    //history.Longitude = item.Longitude;
+                    //history.ActionBy = item.ActionBy;
+                    //history.ActionAt = DateTime.Now;
 
                     await repository.Add(history);
                     transaction.Commit();

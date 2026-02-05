@@ -19,27 +19,27 @@ public class GetHistoryMessageModuleHandler(IRepository repository)
             var data = (from mma in repository.Set<MessageModuleHistory>()
                         join mm in repository.Set<MessageModule>() on mma.MessageModuleId equals mm.Id
                         join at in repository.Set<ActionType>() on mma.ActionTypeId equals at.Id
-                        join l in repository.Set<Language>() on mma.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on mma.LanguageId equals l.Id
                         join et in repository.Set<ExportType>() on mma.ExportTypeId equals et.Id
                         select new GetHistoryMessageModuleResponseDTOModel
                         {
                             Id = mma.Id,
                             TextModule = mm.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Action = at.Name,
                             ExportType = et.Name,
                             ExportTo = mma.ExportTo,
                             SourceURL = mma.SourceURL,
                             Name = mma.Name,
-                            Browser = mma.Browser,
-                            Location = mma.Location,
-                            DeviceIP = mma.DeviceIP,
-                            LocationURL = mma.LocationURL,
-                            DeviceName = mma.DeviceName,
-                            Latitude = mma.Latitude,
-                            Longitude = mma.Longitude,
-                            ActionBy = mma.ActionBy,
-                            ActionAt = mma.ActionAt
+                            //Browser = mma.Browser,
+                            //Location = mma.Location,
+                            //DeviceIP = mma.DeviceIP,
+                            //LocationURL = mma.LocationURL,
+                            //DeviceName = mma.DeviceName,
+                            //Latitude = mma.Latitude,
+                            //Longitude = mma.Longitude,
+                            //ActionBy = mma.ActionBy,
+                            //ActionAt = mma.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (query.skip == 0 || query.take == 0)

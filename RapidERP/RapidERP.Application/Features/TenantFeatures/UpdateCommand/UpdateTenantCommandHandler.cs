@@ -29,7 +29,7 @@ public class UpdateTenantCommandHandler(IRepository repository)
                 request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId is not null) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
                 request.masterPUT.TenantId = (request.masterPUT.TenantId is not null) ? request.masterPUT.TenantId : masterRecord.TenantId;
                 request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;
-                request.masterPUT.LanguageId = (request.masterPUT.LanguageId is not null) ? request.masterPUT.LanguageId : masterRecord.LanguageId;                
+                //request.masterPUT.LanguageId = (request.masterPUT.LanguageId is not null) ? request.masterPUT.LanguageId : masterRecord.LanguageId;                
                 request.masterPUT.StateId = (request.masterPUT.StateId is not null) ? request.masterPUT.StateId : masterRecord.StateId;                
                 request.masterPUT.CountryId = (request.masterPUT.CountryId is not null) ? request.masterPUT.CountryId : masterRecord.CountryId;                
             }
@@ -46,7 +46,7 @@ public class UpdateTenantCommandHandler(IRepository repository)
                 masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
                 masterRecord.TenantId = request.masterPUT.TenantId;
                 masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
-                masterRecord.LanguageId = request.masterPUT.LanguageId; 
+                //masterRecord.LanguageId = request.masterPUT.LanguageId; 
                 masterRecord.StateId = request.masterPUT.StateId; 
                 masterRecord.CountryId = request.masterPUT.CountryId; 
                 
@@ -57,7 +57,7 @@ public class UpdateTenantCommandHandler(IRepository repository)
                 history.MenuModuleId = request.masterPUT.MenuModuleId;
                 history.CountryId = request.masterPUT.CountryId;
                 history.StateId = request.masterPUT.StateId;
-                history.LanguageId = request.masterPUT.LanguageId;
+                //history.LanguageId = request.masterPUT.LanguageId;
                 history.CalendarId = request.masterPUT.CalendarId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
                 history.ExportTypeId = request.masterPUT.ExportTypeId;
@@ -70,15 +70,15 @@ public class UpdateTenantCommandHandler(IRepository repository)
                 history.Address = request.masterPUT.Address;
                 history.Email = request.masterPUT.Email;
                 history.Website = request.masterPUT.Website;
-                history.Browser = request.masterPUT.Browser;
-                history.Location = request.masterPUT.Location;
-                history.DeviceIP = request.masterPUT.DeviceIP;
-                history.LocationURL = request.masterPUT.LocationURL;
-                history.DeviceName = request.masterPUT.DeviceName;
-                history.Latitude = request.masterPUT.Latitude;
-                history.Longitude = request.masterPUT.Longitude;
-                history.ActionBy = request.masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = request.masterPUT.Browser;
+                //history.Location = request.masterPUT.Location;
+                //history.DeviceIP = request.masterPUT.DeviceIP;
+                //history.LocationURL = request.masterPUT.LocationURL;
+                //history.DeviceName = request.masterPUT.DeviceName;
+                //history.Latitude = request.masterPUT.Latitude;
+                //history.Longitude = request.masterPUT.Longitude;
+                //history.ActionBy = request.masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await repository.Add(history);
                 transaction.Commit();

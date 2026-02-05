@@ -66,22 +66,22 @@ public class TenantCalendarService(RapidERPDbContext context, ISharedService sha
                 history.MenuModuleId = masterPOST.MenuModuleId;
                 history.CountryId = masterPOST.CountryId;
                 history.StateId = masterPOST.StateId;
-                history.LanguageId = masterPOST.LanguageId;
+                //history.LanguageId = masterPOST.LanguageId;
                 history.CalendarId = masterPOST.CalendarId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
                 history.DefaultCalendarId = masterPOST.DefaultCalendarId;
-                history.Browser = masterPOST.Browser;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
-                history.LocationURL = masterPOST.LocationURL;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
-                history.ActionBy = masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPOST.Browser;
+                //history.Location = masterPOST.Location;
+                //history.DeviceIP = masterPOST.DeviceIP;
+                //history.LocationURL = masterPOST.LocationURL;
+                //history.DeviceName = masterPOST.DeviceName;
+                //history.Latitude = masterPOST.Latitude;
+                //history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.TenantHistory.AddAsync(history);
                 await context.SaveChangesAsync();
@@ -193,7 +193,7 @@ public class TenantCalendarService(RapidERPDbContext context, ISharedService sha
                         join mm in context.MenuModules on th.MenuModuleId equals mm.Id
                         join c in context.Countries on th.CountryId equals c.Id
                         join s in context.States on th.StateId equals s.Id
-                        join l in context.Languages on th.LanguageId equals l.Id
+                        //join l in context.Languages on th.LanguageId equals l.Id
                         join at in context.ActionTypes on th.ActionTypeId equals at.Id
                         join et in context.ExportTypes on th.ExportTypeId equals et.Id
                         select new
@@ -203,22 +203,22 @@ public class TenantCalendarService(RapidERPDbContext context, ISharedService sha
                             MenuModule = mm.Name,
                             Country = c.Name,
                             State = s.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Action = at.Name,
                             ExportMedia = et.Name,
                             th.ExportTo,
                             th.SourceURL,
                             th.CalendarId,
                             th.DefaultCalendarId,
-                            th.Browser,
-                            th.Location,
-                            th.DeviceIP,
-                            th.LocationURL,
-                            th.DeviceName,
-                            th.Latitude,
-                            th.Longitude,
-                            th.ActionBy,
-                            th.ActionAt
+                            //th.Browser,
+                            //th.Location,
+                            //th.DeviceIP,
+                            //th.LocationURL,
+                            //th.DeviceName,
+                            //th.Latitude,
+                            //th.Longitude,
+                            //th.ActionBy,
+                            //th.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -297,22 +297,22 @@ public class TenantCalendarService(RapidERPDbContext context, ISharedService sha
             history.MenuModuleId = masterPUT.MenuModuleId;
             history.CountryId = masterPUT.CountryId;
             history.StateId = masterPUT.StateId;
-            history.LanguageId = masterPUT.LanguageId;
+            //history.LanguageId = masterPUT.LanguageId;
             history.CalendarId = masterPUT.CalendarId;
             history.ActionTypeId = masterPUT.ActionTypeId;
             history.ExportTypeId = masterPUT.ExportTypeId;
             history.ExportTo = masterPUT.ExportTo;
             history.SourceURL = masterPUT.SourceURL;
             history.DefaultCalendarId = masterPUT.DefaultCalendarId;
-            history.Browser = masterPUT.Browser;
-            history.Location = masterPUT.Location;
-            history.DeviceIP = masterPUT.DeviceIP;
-            history.LocationURL = masterPUT.LocationURL;
-            history.DeviceName = masterPUT.DeviceName;
-            history.Latitude = masterPUT.Latitude;
-            history.Longitude = masterPUT.Longitude;
-            history.ActionBy = masterPUT.ActionBy;
-            history.ActionAt = DateTime.Now;
+            //history.Browser = masterPUT.Browser;
+            //history.Location = masterPUT.Location;
+            //history.DeviceIP = masterPUT.DeviceIP;
+            //history.LocationURL = masterPUT.LocationURL;
+            //history.DeviceName = masterPUT.DeviceName;
+            //history.Latitude = masterPUT.Latitude;
+            //history.Longitude = masterPUT.Longitude;
+            //history.ActionBy = masterPUT.ActionBy;
+            //history.ActionAt = DateTime.Now;
 
             await context.TenantHistory.AddAsync(history);
                 await context.SaveChangesAsync();

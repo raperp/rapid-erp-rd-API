@@ -44,9 +44,9 @@ public class CreateSingleCountryValidator : AbstractValidator<CountryPOST>
             .NotEmpty()
             .WithMessage("StatusTypeId can't be empty");
 
-        RuleFor(x => x.LanguageId)
-            .NotEmpty()
-            .WithMessage("LanguageId can't be empty");
+        //RuleFor(x => x.LanguageId)
+        //    .NotEmpty()
+        //    .WithMessage("LanguageId can't be empty");
 
         RuleFor(x => x.IsDefault)
             .NotEmpty()

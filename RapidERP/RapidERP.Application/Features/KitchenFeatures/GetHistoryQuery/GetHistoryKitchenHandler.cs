@@ -32,15 +32,15 @@ public class GetHistoryKitchenHandler(IRepository repository)
                             ActionType = at.Name,
                             ExportTo = ka.ExportTo,
                             SourceURL = ka.SourceURL,
-                            Browser = ka.Browser,
-                            Location = ka.Location,
-                            DeviceIP = ka.DeviceIP,
-                            LocationURL = ka.LocationURL,
-                            DeviceName = ka.DeviceName,
-                            Latitude = ka.Latitude,
-                            Longitude = ka.Longitude,
-                            ActionBy = ka.ActionBy,
-                            ActionAt = ka.ActionAt
+                            //Browser = ka.Browser,
+                            //Location = ka.Location,
+                            //DeviceIP = ka.DeviceIP,
+                            //LocationURL = ka.LocationURL,
+                            //DeviceName = ka.DeviceName,
+                            //Latitude = ka.Latitude,
+                            //Longitude = ka.Longitude,
+                            //ActionBy = ka.ActionBy,
+                            //ActionAt = ka.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             //int totalItems = await repository.Set<KitchenHistory>().CountAsync();

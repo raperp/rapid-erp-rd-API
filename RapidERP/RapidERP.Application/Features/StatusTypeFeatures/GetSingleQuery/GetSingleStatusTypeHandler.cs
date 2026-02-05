@@ -16,11 +16,11 @@ public class GetSingleStatusTypeHandler(IRepository repository)
         try
         {
             var data = (from st in repository.Set<StatusType>()
-                        join l in repository.Set<Language>() on st.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on st.LanguageId equals l.Id
                         select new GetStatusTypeResponseDTOModel
                         {
                             Id = st.Id,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Name = st.Name,
                             Description = st.Description
                         }).AsNoTracking().AsQueryable();

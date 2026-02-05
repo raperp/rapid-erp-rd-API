@@ -91,15 +91,15 @@ public class SupplierTypeService(RapidERPDbContext context, ISharedService share
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
                 //history.IsDefault = masterPOST.IsDefault;
-                history.Browser = masterPOST.Browser;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
+                //history.Browser = masterPOST.Browser;
+                //history.DeviceName = masterPOST.DeviceName;
+                //history.Location = masterPOST.Location;
+                //history.DeviceIP = masterPOST.DeviceIP;
                 //history.GoogleMapUrl = masterPOST.GoogleMapUrl;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
+                //history.Latitude = masterPOST.Latitude;
+                //history.Longitude = masterPOST.Longitude;
                 //history.ActionBy = masterPOST.CreatedBy;
-                history.ActionAt = DateTime.Now;
+                //history.ActionAt = DateTime.Now;
 
                 await context.SupplierTypeHistory.AddAsync(history);
                 await context.SaveChangesAsync();
@@ -291,15 +291,15 @@ public class SupplierTypeService(RapidERPDbContext context, ISharedService share
                             sta.ExportTo,
                             sta.SourceURL,
                             //sta.IsDefault,
-                            sta.Browser,
-                            sta.DeviceName,
-                            sta.Location,
-                            sta.DeviceIP,
+                            //sta.Browser,
+                            //sta.DeviceName,
+                            //sta.Location,
+                            //sta.DeviceIP,
                             //sta.GoogleMapUrl,
-                            sta.Latitude,
-                            sta.Longitude,
-                            sta.ActionBy,
-                            sta.ActionAt
+                            //sta.Latitude,
+                            //sta.Longitude,
+                            //sta.ActionBy,
+                            //sta.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -397,15 +397,15 @@ public class SupplierTypeService(RapidERPDbContext context, ISharedService share
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;
                 //history.IsDefault = masterPUT.IsDefault;
-                history.Browser = masterPUT.Browser;
-                history.DeviceName = masterPUT.DeviceName;
-                history.Location = masterPUT.Location;
-                history.DeviceIP = masterPUT.DeviceIP;
+                //history.Browser = masterPUT.Browser;
+                //history.DeviceName = masterPUT.DeviceName;
+                //history.Location = masterPUT.Location;
+                //history.DeviceIP = masterPUT.DeviceIP;
                 //history.GoogleMapUrl = masterPUT.GoogleMapUrl;
-                history.Latitude = masterPUT.Latitude;
-                history.Longitude = masterPUT.Longitude;
+                //history.Latitude = masterPUT.Latitude;
+                //history.Longitude = masterPUT.Longitude;
                 //history.ActionBy = masterPUT.UpdatedBy;
-                history.ActionAt = DateTime.Now;
+                //history.ActionAt = DateTime.Now;
 
                 await context.SupplierTypeHistory.AddAsync(history);
                 await context.SaveChangesAsync();

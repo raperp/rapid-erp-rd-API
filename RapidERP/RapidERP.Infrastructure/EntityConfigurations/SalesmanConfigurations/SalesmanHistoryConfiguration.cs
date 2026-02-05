@@ -19,9 +19,9 @@ public class SalesmanHistoryConfiguration : IEntityTypeConfiguration<SalesmanHis
         builder.Property(x => x.Description).HasMaxLength(200).IsRequired(false);
         builder.Property(x => x.ManagerId).IsRequired(false);
         builder.Property(x => x.DepartmentId).IsRequired(false);
-        builder.Property(x => x.Latitude).HasPrecision(9, 6);
-        builder.Property(x => x.Longitude).HasPrecision(9, 6);
-        builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired(false);
+        //builder.Property(x => x.Latitude).HasPrecision(9, 6);
+        //builder.Property(x => x.Longitude).HasPrecision(9, 6);
+        //builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired(false);
         builder.Property(x => x.ExportTypeId).IsRequired(false);
         builder.Property(x => x.SourceURL).IsRequired(false);
         builder.Property(x => x.ExportTo).IsRequired(false);

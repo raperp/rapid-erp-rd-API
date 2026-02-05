@@ -18,9 +18,9 @@ public class SupplierTypeHistoryConfiguration : IEntityTypeConfiguration<Supplie
         builder.Property(x => x.CountryId).IsRequired(false);
         builder.Property(x => x.CurrencyId).IsRequired(false);
         builder.Property(x => x.LanguageId).IsRequired(false);
-        builder.Property(x => x.Latitude).HasPrecision(9, 6);
-        builder.Property(x => x.Longitude).HasPrecision(9, 6);
-        builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired(false);
+        //builder.Property(x => x.Latitude).HasPrecision(9, 6);
+        //builder.Property(x => x.Longitude).HasPrecision(9, 6);
+        //builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired(false);
         builder.Property(x => x.ExportTypeId).IsRequired(false);
     }
 }

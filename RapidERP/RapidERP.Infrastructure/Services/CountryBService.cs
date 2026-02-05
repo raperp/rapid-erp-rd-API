@@ -5,7 +5,6 @@ using RapidERP.Application.Interfaces;
 using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.ActionTypeModels;
 using RapidERP.Domain.Entities.CountryModels;
-using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Entities.MenuModuleModels;
 using RapidERP.Domain.Entities.StatusTypeModels;
 using RapidERP.Domain.Entities.TenantModels;
@@ -56,14 +55,13 @@ public class CountryBService(IRepository repository) : ICountryBService
             using var transaction = repository.BeginTransaction();
             var isExists = await repository.IsExists<Country>(masterPOST.Name);
 
-
             if (isExists == false)
             {
                 Country masterData = new();
                 masterData.MenuModuleId = masterPOST.MenuModuleId;
                 masterData.TenantId = masterPOST.TenantId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
-                masterData.LanguageId = masterPOST.LanguageId;
+                //masterData.LanguageId = masterPOST.LanguageId;
                 //masterData.CurrencyId = masterPOST.CurrencyId;
                 masterData.DialCode = masterPOST.DialCode;
                 masterData.Name = masterPOST.Name;
@@ -100,13 +98,13 @@ public class CountryBService(IRepository repository) : ICountryBService
                 history.RegionId = masterPOST.RegionId;
                 history.StateId = masterPOST.StateId;
                 history.TimeZoneId = masterPOST.TimeZoneId;
-                history.Browser = masterPOST.Browser;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
-                history.LocationURL = masterPOST.LocationURL;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
+                //history.Browser = masterPOST.Browser;
+                //history.Location = masterPOST.Location;
+                //history.DeviceIP = masterPOST.DeviceIP;
+                //history.LocationURL = masterPOST.LocationURL;
+                //history.DeviceName = masterPOST.DeviceName;
+                //history.Latitude = masterPOST.Latitude;
+                //history.Longitude = masterPOST.Longitude;
                 history.ActionBy = masterPOST.ActionBy;
                 history.ActionAt = DateTime.Now;
 
@@ -303,13 +301,13 @@ public class CountryBService(IRepository repository) : ICountryBService
                             ch.ISO2Code,
                             ch.ISO3Code,
                             ch.FlagURL,
-                            ch.Browser,
-                            ch.Location,
-                            ch.DeviceIP,
-                            ch.LocationURL,
-                            ch.DeviceName,
-                            ch.Latitude,
-                            ch.Longitude,
+                            //ch.Browser,
+                            //ch.Location,
+                            //ch.DeviceIP,
+                            //ch.LocationURL,
+                            //ch.DeviceName,
+                            //ch.Latitude,
+                            //ch.Longitude,
                             ch.ActionBy,
                             ch.ActionAt
                         }).AsNoTracking().AsQueryable();
@@ -370,7 +368,7 @@ public class CountryBService(IRepository repository) : ICountryBService
             var data = (from c in repository.Set<Country>()
                         join st in repository.Set<StatusType>() on c.StatusTypeId equals st.Id
                         join t in repository.Set<Tenant>() on c.TenantId equals t.Id
-                        join l in repository.Set<Language>() on c.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on c.LanguageId equals l.Id
                         join mm in repository.Set<MenuModule>() on c.MenuModuleId equals mm.Id
                         //join cu in repository.Set<Currency>() on c.CurrencyId equals cu.Id
                         select new
@@ -378,7 +376,7 @@ public class CountryBService(IRepository repository) : ICountryBService
                             c.Id,
                             MenuModule = mm.Name,
                             Tanent = t.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Status = st.Name,
                             //Currency = cu.Name,
                             c.DialCode,
@@ -537,13 +535,13 @@ public class CountryBService(IRepository repository) : ICountryBService
                 history.StateId = masterPUT.StateId;
                 history.TimeZoneId = masterPUT.TimeZoneId;
                 history.FlagURL = masterPUT.FlagURL;
-                history.Browser = masterPUT.Browser;
-                history.Location = masterPUT.Location;
-                history.DeviceIP = masterPUT.DeviceIP;
-                history.LocationURL = masterPUT.LocationURL;
-                history.DeviceName = masterPUT.DeviceName;
-                history.Latitude = masterPUT.Latitude;
-                history.Longitude = masterPUT.Longitude;
+                //history.Browser = masterPUT.Browser;
+                //history.Location = masterPUT.Location;
+                //history.DeviceIP = masterPUT.DeviceIP;
+                //history.LocationURL = masterPUT.LocationURL;
+                //history.DeviceName = masterPUT.DeviceName;
+                //history.Latitude = masterPUT.Latitude;
+                //history.Longitude = masterPUT.Longitude;
                 history.ActionBy = masterPUT.ActionBy;
                 history.ActionAt = DateTime.Now;
 

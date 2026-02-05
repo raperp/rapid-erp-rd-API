@@ -28,7 +28,7 @@ public class GetHistoryCountryHandler(IRepository repository)
                         //join et in repository.Set<ExportType>() on ca.ExportTypeId equals et.Id
                         join at in repository.Set<ActionType>() on ca.ActionTypeId equals at.Id
                         join t in repository.Set<Tenant>() on ca.TenantId equals t.Id
-                        join l in repository.Set<Language>() on ca.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on ca.LanguageId equals l.Id
                         join mm in repository.Set<MenuModule>() on ca.MenuModuleId equals mm.Id
                         //join cu in repository.Set<Currency>() on ca.CurrencyId equals cu.Id
                         select new GetHistoryCountryResponseDTOModel
@@ -38,7 +38,7 @@ public class GetHistoryCountryHandler(IRepository repository)
                             Tanent = t.Name,
                             MenuModule = mm.Name,
                             Action = at.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             //ExportType = et.Name,
                             //Currency = cu.Name,
                             ExportTo = ca.ExportTo,
@@ -51,15 +51,15 @@ public class GetHistoryCountryHandler(IRepository repository)
                             ISO2Code = ca.ISO2Code,
                             ISO3Code = ca.ISO3Code,
                             FlagURL = ca.FlagURL,
-                            Browser = ca.Browser,
-                            Location = ca.Location,
-                            DeviceIP = ca.DeviceIP,
-                            LocationURL = ca.LocationURL,
-                            DeviceName = ca.DeviceName,
-                            Latitude = ca.Latitude,
-                            Longitude = ca.Longitude,
-                            ActionBy = ca.ActionBy,
-                            ActionAt = ca.ActionAt
+                            //Browser = ca.Browser,
+                            //Location = ca.Location,
+                            //DeviceIP = ca.DeviceIP,
+                            //LocationURL = ca.LocationURL,
+                            //DeviceName = ca.DeviceName,
+                            //Latitude = ca.Latitude,
+                            //Longitude = ca.Longitude,
+                            //ActionBy = ca.ActionBy,
+                            //ActionAt = ca.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             //int totalItems = await repository.Set<CountryHistory>().CountAsync();

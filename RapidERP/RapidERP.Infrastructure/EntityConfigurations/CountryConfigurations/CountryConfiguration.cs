@@ -19,8 +19,8 @@ public class CountryConfiguration : IEntityTypeConfiguration<Country>
         builder.Property(x => x.TimeZoneId).IsRequired(false);
 
         builder.Ignore(x => x.Tenant);
-        builder.Ignore(x => x.Language);
-        builder.Ignore(x => x.LanguageId);
+        //builder.Ignore(x => x.Language);
+        //builder.Ignore(x => x.LanguageId);
         
         builder.HasMany(x => x.States)
                .WithOne(x => x.Country)

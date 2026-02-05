@@ -22,7 +22,7 @@ public class GetHistoryCalendarHandler(IRepository repository)
                         join c in repository.Set<Calendar>() on ca.CalendarId equals c.Id
                         join t in repository.Set<Tenant>() on ca.TenantId equals t.Id
                         join mm in repository.Set<MenuModule>() on ca.MenuModuleId equals mm.Id
-                        join l in repository.Set<Language>() on ca.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on ca.LanguageId equals l.Id
                         join at in repository.Set<ActionType>() on ca.ActionTypeId equals at.Id
                         join et in repository.Set<ExportType>() on ca.ExportTypeId equals et.Id
                         select new GetHistoryCalendarResponseDTOModel
@@ -31,7 +31,7 @@ public class GetHistoryCalendarHandler(IRepository repository)
                             Currency = c.Name,
                             Tenant = t.Name,
                             MenuModule = mm.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Action = at.Name,
                             ExportType = et.Name,
                             ExportTo = ca.ExportTo,
@@ -41,15 +41,15 @@ public class GetHistoryCalendarHandler(IRepository repository)
                             StartDate = ca.StartDate,
                             EndDate = ca.EndDate,
                             TotalMonth = ca.TotalMonth,
-                            Browser = ca.Browser,
-                            Location = ca.Location,
-                            DeviceIP = ca.DeviceIP,
-                            LocationURL = ca.LocationURL,
-                            DeviceName = ca.DeviceName,
-                            Latitude = ca.Latitude,
-                            Longitude = ca.Longitude,
-                            ActionBy = ca.ActionBy,
-                            ActionAt = ca.ActionAt
+                            //Browser = ca.Browser,
+                            //Location = ca.Location,
+                            //DeviceIP = ca.DeviceIP,
+                            //LocationURL = ca.LocationURL,
+                            //DeviceName = ca.DeviceName,
+                            //Latitude = ca.Latitude,
+                            //Longitude = ca.Longitude,
+                            //ActionBy = ca.ActionBy,
+                            //ActionAt = ca.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (query.skip == 0 || query.take == 0)

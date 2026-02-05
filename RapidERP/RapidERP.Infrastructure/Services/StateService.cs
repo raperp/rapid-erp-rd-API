@@ -65,7 +65,7 @@ namespace RapidERP.Infrastructure.Services
                     masterData.MenuModuleId = masterPOST.MenuModuleId;
                     masterData.CountryId = masterPOST.CountryId;
                     masterData.StatusTypeId = masterPOST.StatusTypeId;
-                    masterData.LanguageId = masterPOST.LanguageId;
+                    //masterData.LanguageId = masterPOST.LanguageId;
                     masterData.Code = masterPOST.Code;
                     masterData.Name = masterPOST.Name;
                     masterData.IsDefault = masterPOST.IsDefault;
@@ -78,7 +78,7 @@ namespace RapidERP.Infrastructure.Services
                     history.StateId = masterData.Id;
                     history.MenuModuleId = masterPOST.MenuModuleId;
                     history.CountryId = masterPOST.CountryId;
-                    history.LanguageId = masterPOST.LanguageId;
+                    //history.LanguageId = masterPOST.LanguageId;
                     history.ActionTypeId = masterPOST.ActionTypeId;
                     history.ExportTypeId = masterPOST.ExportTypeId;
                     history.ExportTo = masterPOST.ExportTo;
@@ -87,15 +87,15 @@ namespace RapidERP.Infrastructure.Services
                     history.Name = masterPOST.Name;
                     history.IsDefault = masterPOST.IsDefault;
                     history.IsDraft = masterPOST.IsDraft;
-                    history.Browser = masterPOST.Browser;
-                    history.Location = masterPOST.Location;
-                    history.DeviceIP = masterPOST.DeviceIP;
-                    history.LocationURL = masterPOST.LocationURL;
-                    history.DeviceName = masterPOST.DeviceName;
-                    history.Latitude = masterPOST.Latitude;
-                    history.Longitude = masterPOST.Longitude;
-                    history.ActionBy = masterPOST.ActionBy;
-                    history.ActionAt = DateTime.Now;
+                    //history.Browser = masterPOST.Browser;
+                    //history.Location = masterPOST.Location;
+                    //history.DeviceIP = masterPOST.DeviceIP;
+                    //history.LocationURL = masterPOST.LocationURL;
+                    //history.DeviceName = masterPOST.DeviceName;
+                    //history.Latitude = masterPOST.Latitude;
+                    //history.Longitude = masterPOST.Longitude;
+                    //history.ActionBy = masterPOST.ActionBy;
+                    //history.ActionAt = DateTime.Now;
 
                     await context.StateHistory.AddAsync(history);
                     await context.SaveChangesAsync();
@@ -209,7 +209,7 @@ namespace RapidERP.Infrastructure.Services
                             join mm in context.MenuModules on s.CountryId equals mm.Id
                             join c in context.Countries on s.CountryId equals c.Id
                             join st in context.StatusTypes on s.StatusTypeId equals st.Id
-                            join l in context.Languages on s.LanguageId equals l.Id
+                            //join l in context.Languages on s.LanguageId equals l.Id
                             
                             select new
                             {
@@ -217,7 +217,7 @@ namespace RapidERP.Infrastructure.Services
                                 Menu = mm.Name,
                                 Country = c.Name,
                                 Status = st.Name,
-                                Language = l.Name,
+                                //Language = l.Name,
                                 s.Name,
                                 s.Code,
                                 s.IsDefault,  
@@ -277,7 +277,7 @@ namespace RapidERP.Infrastructure.Services
                             join mm in context.MenuModules on sa.MenuModuleId equals mm.Id
                             join c in context.Countries on sa.CountryId equals c.Id
                             join at in context.ActionTypes on sa.ActionTypeId equals at.Id
-                            join l in context.Languages on sa.LanguageId equals l.Id
+                            //join l in context.Languages on sa.LanguageId equals l.Id
                             join et in context.ExportTypes on sa.ExportTypeId equals et.Id
                             select new
                             {
@@ -285,7 +285,7 @@ namespace RapidERP.Infrastructure.Services
                                 State = s.Name,
                                 MenuModule = mm.Name,
                                 Country = c.Name,
-                                Language = l.Name,
+                                //Language = l.Name,
                                 Action = at.Name,
                                 ExportType = et.Name,
                                 sa.ExportTo,
@@ -294,15 +294,15 @@ namespace RapidERP.Infrastructure.Services
                                 sa.Name,
                                 sa.IsDefault,
                                 sa.IsDraft,
-                                sa.Browser,
-                                sa.Location,
-                                sa.DeviceIP,
-                                sa.LocationURL,
-                                sa.DeviceName,
-                                sa.Latitude,
-                                sa.Longitude,
-                                sa.ActionBy,
-                                sa.ActionAt
+                                //sa.Browser,
+                                //sa.Location,
+                                //sa.DeviceIP,
+                                //sa.LocationURL,
+                                //sa.DeviceName,
+                                //sa.Latitude,
+                                //sa.Longitude,
+                                //sa.ActionBy,
+                                //sa.ActionAt
                             }).AsNoTracking().AsQueryable();
 
                 if (skip == 0 || take == 0)
@@ -377,7 +377,7 @@ namespace RapidERP.Infrastructure.Services
                     .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                     .SetProperty(x => x.CountryId, masterPUT.CountryId)
                     .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                    .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                    //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                     .SetProperty(x => x.Code, masterPUT.Code)
                     .SetProperty(x => x.Name, masterPUT.Name)
                     .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
@@ -387,7 +387,7 @@ namespace RapidERP.Infrastructure.Services
                     history.StateId = masterPUT.Id;
                     history.MenuModuleId = masterPUT.MenuModuleId;
                     history.CountryId = masterPUT.CountryId;
-                    history.LanguageId = masterPUT.LanguageId;
+                    //history.LanguageId = masterPUT.LanguageId;
                     history.ActionTypeId = masterPUT.ActionTypeId;
                     history.ExportTypeId = masterPUT.ExportTypeId;
                     history.ExportTo = masterPUT.ExportTo;
@@ -396,15 +396,15 @@ namespace RapidERP.Infrastructure.Services
                     history.Name = masterPUT.Name;
                     history.IsDefault = masterPUT.IsDefault;
                     history.IsDraft = masterPUT.IsDraft;
-                    history.Browser = masterPUT.Browser;
-                    history.Location = masterPUT.Location;
-                    history.DeviceIP = masterPUT.DeviceIP;
-                    history.LocationURL = masterPUT.LocationURL;
-                    history.DeviceName = masterPUT.DeviceName;
-                    history.Latitude = masterPUT.Latitude;
-                    history.Longitude = masterPUT.Longitude;
-                    history.ActionBy = masterPUT.ActionBy;
-                    history.ActionAt = DateTime.Now;
+                    //history.Browser = masterPUT.Browser;
+                    //history.Location = masterPUT.Location;
+                    //history.DeviceIP = masterPUT.DeviceIP;
+                    //history.LocationURL = masterPUT.LocationURL;
+                    //history.DeviceName = masterPUT.DeviceName;
+                    //history.Latitude = masterPUT.Latitude;
+                    //history.Longitude = masterPUT.Longitude;
+                    //history.ActionBy = masterPUT.ActionBy;
+                    //history.ActionAt = DateTime.Now;
 
                     await context.StateHistory.AddAsync(history);
                     await context.SaveChangesAsync();

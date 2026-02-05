@@ -25,7 +25,7 @@ public class CreateBulkDepartmentCommandHandler(IRepository repository)
                     masterData.StatusTypeId = item.StatusTypeId;
                     masterData.TenantId = item.TenantId;
                     masterData.MenuModuleId = item.MenuModuleId;
-                    masterData.LanguageId = item.LanguageId;
+                    //masterData.LanguageId = item.LanguageId;
                     masterData.IsDefault = item.IsDefault;
                     masterData.IsDraft = item.IsDraft;
 
@@ -37,22 +37,22 @@ public class CreateBulkDepartmentCommandHandler(IRepository repository)
                     history.Description = item.Description;
                     history.TenantId = item.TenantId;
                     history.MenuModuleId = item.MenuModuleId;
-                    history.LanguageId = item.LanguageId;
+                    //history.LanguageId = item.LanguageId;
                     history.ActionTypeId = item.ActionTypeId;
                     history.ExportTypeId = item.ExportTypeId;
                     history.ExportTo = item.ExportTo;
                     history.SourceURL = item.SourceURL;
                     history.IsDefault = item.IsDefault;
                     history.IsDraft = item.IsDraft;
-                    history.Browser = item.Browser;
-                    history.Location = item.Location;
-                    history.DeviceIP = item.DeviceIP;
-                    history.LocationURL = item.LocationURL;
-                    history.DeviceName = item.DeviceName;
-                    history.Latitude = item.Latitude;
-                    history.Longitude = item.Longitude;
-                    history.ActionBy = item.ActionBy;
-                    history.ActionAt = DateTime.Now;
+                    //history.Browser = item.Browser;
+                    //history.Location = item.Location;
+                    //history.DeviceIP = item.DeviceIP;
+                    //history.LocationURL = item.LocationURL;
+                    //history.DeviceName = item.DeviceName;
+                    //history.Latitude = item.Latitude;
+                    //history.Longitude = item.Longitude;
+                    //history.ActionBy = item.ActionBy;
+                    //history.ActionAt = DateTime.Now;
 
                     await repository.Add(history);
                     transaction.Commit();

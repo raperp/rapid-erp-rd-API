@@ -15,8 +15,8 @@ namespace RapidERP.Infrastructure.EntityConfiguration.KitchenConfigurations
             builder.Ignore(x => x.IsDefault);
             builder.Ignore(x => x.IsDraft);
             builder.Ignore(x => x.IsDraft);
-            builder.Ignore(x => x.Language);
-            builder.Ignore(x => x.LanguageId);
+            //builder.Ignore(x => x.Language);
+            //builder.Ignore(x => x.LanguageId);
         }
     }
 }

@@ -16,23 +16,23 @@ public class GetHistoryExportTypeHandler(IRepository repository)
         {
             var data = (from eta in repository.Set<ExportTypeHistory>()
                         join et in repository.Set<ExportType>() on eta.ExportTypeId equals et.Id
-                        join l in repository.Set<Language>() on eta.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on eta.LanguageId equals l.Id
                         select new GetHistoryExportTypeResponseDTOModel
                         {
                             Id = eta.Id,
                             ExportType = et.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Name = eta.Name,
                             Description = eta.Description,
-                            Browser = eta.Browser,
-                            Location = eta.Location,
-                            DeviceIP = eta.DeviceIP,
-                            LocationURL = eta.LocationURL,
-                            DeviceName = eta.DeviceName,
-                            Latitude = eta.Latitude,
-                            Longitude = eta.Longitude,
-                            ActionBy = eta.ActionBy,
-                            ActionAt = eta.ActionAt
+                            //Browser = eta.Browser,
+                            //Location = eta.Location,
+                            //DeviceIP = eta.DeviceIP,
+                            //LocationURL = eta.LocationURL,
+                            //DeviceName = eta.DeviceName,
+                            //Latitude = eta.Latitude,
+                            //Longitude = eta.Longitude,
+                            //ActionBy = eta.ActionBy,
+                            //ActionAt = eta.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (query.skip == 0 || query.take == 0)

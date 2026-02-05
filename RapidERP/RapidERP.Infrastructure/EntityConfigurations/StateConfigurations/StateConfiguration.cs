@@ -13,7 +13,7 @@ public class StateConfiguration : IEntityTypeConfiguration<State>
         builder.Property(x => x.MenuModuleId).HasColumnOrder(1);
         builder.Property(x => x.CountryId).HasColumnOrder(2);
         builder.Property(x => x.StatusTypeId).HasColumnOrder(3);
-        builder.Property(x => x.LanguageId).HasColumnOrder(4);
+        //builder.Property(x => x.LanguageId).HasColumnOrder(4);
         builder.Property(x => x.Code).HasMaxLength(4).IsRequired().HasColumnOrder(5);
         builder.Property(x => x.Name).HasMaxLength(40).IsRequired().HasColumnOrder(6);
         builder.Property(x => x.IsDefault).HasColumnOrder(7);

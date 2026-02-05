@@ -59,7 +59,7 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                 masterData.StateId = masterPOST.StateId;
                 masterData.TenantId = masterPOST.TenantId;
                 masterData.MenuModuleId = masterPOST.MenuModuleId;
-                masterData.LanguageId = masterPOST.LanguageId;
+                //masterData.LanguageId = masterPOST.LanguageId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.IsDefault = masterPOST.IsDefault;
                 masterData.IsDraft = masterPOST.IsDraft;
@@ -76,22 +76,22 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                 history.StateId = masterPOST.StateId;
                 history.TenantId = masterPOST.TenantId;
                 history.MenuModuleId = masterPOST.MenuModuleId;
-                history.LanguageId = masterPOST.LanguageId;
+                //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
                 history.SourceURL = masterPOST.SourceURL;
                 history.IsDefault = masterPOST.IsDefault;
                 history.IsDraft = masterPOST.IsDraft;
-                history.Browser = masterPOST.Browser;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
-                history.LocationURL = masterPOST.LocationURL;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
-                history.ActionBy = masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPOST.Browser;
+                //history.Location = masterPOST.Location;
+                //history.DeviceIP = masterPOST.DeviceIP;
+                //history.LocationURL = masterPOST.LocationURL;
+                //history.DeviceName = masterPOST.DeviceName;
+                //history.Latitude = masterPOST.Latitude;
+                //history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.CityHistory.AddAsync(history);
                 await context.SaveChangesAsync();
@@ -206,7 +206,7 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                         join co in context.Countries on c.CountryId equals co.Id
                         join sta in context.States on c.StateId equals sta.Id
                         join t in context.Tenants on c.TenantId equals t.Id
-                        join l in context.Languages on c.LanguageId equals l.Id
+                        //join l in context.Languages on c.LanguageId equals l.Id
                         join m in context.MenuModules on c.MenuModuleId equals m.Id
                         select new
                         {
@@ -215,7 +215,7 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                             Tanent = st.Name,
                             MenuModule = m.Name,
                             Country = co.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             State = sta.Name,
                             Status = st.Name
                         }).AsNoTracking().AsQueryable();
@@ -273,7 +273,7 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                         join et in context.ExportTypes on ch.ExportTypeId equals et.Id
                         join at in context.ActionTypes on ch.ActionTypeId equals at.Id
                         join t in context.Tenants on ch.TenantId equals t.Id
-                        join l in context.Languages on ch.LanguageId equals l.Id
+                        //join l in context.Languages on ch.LanguageId equals l.Id
                         join m in context.MenuModules on ch.MenuModuleId equals m.Id
                         select new
                         {
@@ -284,21 +284,21 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                             Tanent = t.Name,
                             Menu = m.Name,
                             Action = at.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             ExportType = et.Name,
                             ch.ExportTo,
                             ch.SourceURL,
                             ch.IsDefault,
                             ch.IsDraft,
-                            ch.Browser,
-                            ch.Location,
-                            ch.DeviceIP,
-                            ch.LocationURL,
-                            ch.DeviceName,
-                            ch.Latitude,
-                            ch.Longitude,
-                            ch.ActionBy,
-                            ch.ActionAt
+                            //ch.Browser,
+                            //ch.Location,
+                            //ch.DeviceIP,
+                            //ch.LocationURL,
+                            //ch.DeviceName,
+                            //ch.Latitude,
+                            //ch.Longitude,
+                            //ch.ActionBy,
+                            //ch.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -376,7 +376,7 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                 .SetProperty(x => x.StateId, masterPUT.StateId)
                 .SetProperty(x => x.TenantId, masterPUT.TenantId)
                 .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
-                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
                 .SetProperty(x => x.IsDraft, masterPUT.IsDraft));
@@ -389,22 +389,22 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                 history.StateId = masterPUT.StateId;
                 history.TenantId = masterPUT.TenantId;
                 history.MenuModuleId = masterPUT.MenuModuleId;
-                history.LanguageId = masterPUT.LanguageId;
+                //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
                 history.ExportTo = masterPUT.ExportTo;
                 history.SourceURL = masterPUT.SourceURL;
                 history.IsDefault = masterPUT.IsDefault;
                 history.IsDraft = masterPUT.IsDraft;
-                history.Browser = masterPUT.Browser;
-                history.Location = masterPUT.Location;
-                history.DeviceIP = masterPUT.DeviceIP;
-                history.LocationURL = masterPUT.LocationURL;
-                history.DeviceName = masterPUT.DeviceName;
-                history.Latitude = masterPUT.Latitude;
-                history.Longitude = masterPUT.Longitude;
-                history.ActionBy = masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPUT.Browser;
+                //history.Location = masterPUT.Location;
+                //history.DeviceIP = masterPUT.DeviceIP;
+                //history.LocationURL = masterPUT.LocationURL;
+                //history.DeviceName = masterPUT.DeviceName;
+                //history.Latitude = masterPUT.Latitude;
+                //history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.CityHistory.AddAsync(history);
                 await context.SaveChangesAsync();

@@ -22,7 +22,7 @@ public class CreateSingleTenantCommandHandler(IRepository repository)
                 masterData.CountryId = request.masterPOST.CountryId;
                 masterData.StateId = request.masterPOST.StateId;
                 masterData.StatusTypeId = request.masterPOST.StatusTypeId;
-                masterData.LanguageId = request.masterPOST.LanguageId;
+                //masterData.LanguageId = request.masterPOST.LanguageId;
                 masterData.Name = request.masterPOST.Name;
                 masterData.Contact = request.masterPOST.Contact;
                 masterData.Phone = request.masterPOST.Phone;
@@ -38,7 +38,7 @@ public class CreateSingleTenantCommandHandler(IRepository repository)
                 history.MenuModuleId = request.masterPOST.MenuModuleId;
                 history.CountryId = request.masterPOST.CountryId;
                 history.StateId = request.masterPOST.StateId;
-                history.LanguageId = request.masterPOST.LanguageId;
+                //history.LanguageId = request.masterPOST.LanguageId;
                 history.CalendarId = request.masterPOST.CalendarId;
                 history.ActionTypeId = request.masterPOST.ActionTypeId;
                 history.ExportTypeId = request.masterPOST.ExportTypeId;
@@ -51,15 +51,15 @@ public class CreateSingleTenantCommandHandler(IRepository repository)
                 history.Address = request.masterPOST.Address;
                 history.Email = request.masterPOST.Email;
                 history.Website = request.masterPOST.Website;
-                history.Browser = request.masterPOST.Browser;
-                history.Location = request.masterPOST.Location;
-                history.DeviceIP = request.masterPOST.DeviceIP;
-                history.LocationURL = request.masterPOST.LocationURL;
-                history.DeviceName = request.masterPOST.DeviceName;
-                history.Latitude = request.masterPOST.Latitude;
-                history.Longitude = request.masterPOST.Longitude;
-                history.ActionBy = request.masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = request.masterPOST.Browser;
+                //history.Location = request.masterPOST.Location;
+                //history.DeviceIP = request.masterPOST.DeviceIP;
+                //history.LocationURL = request.masterPOST.LocationURL;
+                //history.DeviceName = request.masterPOST.DeviceName;
+                //history.Latitude = request.masterPOST.Latitude;
+                //history.Longitude = request.masterPOST.Longitude;
+                //history.ActionBy = request.masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await repository.Add(history);
                 transaction.Commit();

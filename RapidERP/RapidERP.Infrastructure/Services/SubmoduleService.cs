@@ -63,7 +63,7 @@ public class SubmoduleService(RapidERPDbContext context, ISharedService shared) 
             {
                 Submodule masterData = new();
                 masterData.MainModuleId = masterPOST.MainModuleId;
-                masterData.LanguageId = masterPOST.LanguageId;
+                //masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Name = masterPOST.Name;
                 masterData.IconURL = masterPOST.IconURL;
                 masterData.SetSerial = masterPOST.SetSerial;
@@ -74,7 +74,7 @@ public class SubmoduleService(RapidERPDbContext context, ISharedService shared) 
                 SubmoduleHistory history = new();
                 history.SubmoduleId = masterData.Id;
                 history.MainModuleId = masterPOST.MainModuleId;
-                history.LanguageId = masterPOST.LanguageId;
+                //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
@@ -82,15 +82,15 @@ public class SubmoduleService(RapidERPDbContext context, ISharedService shared) 
                 history.Name = masterPOST.Name;
                 history.IconURL = masterPOST.IconURL;
                 history.SetSerial = masterPOST.SetSerial;
-                history.Browser = masterPOST.Browser;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
-                history.LocationURL = masterPOST.LocationURL;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
-                history.ActionBy = masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPOST.Browser;
+                //history.Location = masterPOST.Location;
+                //history.DeviceIP = masterPOST.DeviceIP;
+                //history.LocationURL = masterPOST.LocationURL;
+                //history.DeviceName = masterPOST.DeviceName;
+                //history.Latitude = masterPOST.Latitude;
+                //history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.SubmoduleHistory.AddAsync(history);
                 await context.SaveChangesAsync();
@@ -202,12 +202,12 @@ public class SubmoduleService(RapidERPDbContext context, ISharedService shared) 
 
             var data = (from sm in context.Submodules
                         join mm in context.MainModules on sm.MainModuleId equals mm.Id
-                        join l in context.Languages on sm.LanguageId equals l.Id
+                        //join l in context.Languages on sm.LanguageId equals l.Id
                         select new
                         {
                             sm.Id,
                             MainModule = mm.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             sm.Name,
                             sm.IconURL,
                             sm.SetSerial
@@ -266,12 +266,12 @@ public class SubmoduleService(RapidERPDbContext context, ISharedService shared) 
                         join mm in context.MainModules on sa.MainModuleId equals mm.Id
                         join at in context.ActionTypes on sa.ActionTypeId equals at.Id
                         join et in context.ExportTypes on sa.ExportTypeId equals et.Id
-                        join l in context.Languages on sa.LanguageId equals l.Id
+                        //join l in context.Languages on sa.LanguageId equals l.Id
                         select new
                         {
                             sa.Id,
                             SubModule = s.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Action = at.Name,
                             ExportType = et.Name,
                             sa.ExportTo,
@@ -279,15 +279,15 @@ public class SubmoduleService(RapidERPDbContext context, ISharedService shared) 
                             sa.Name,
                             sa.IconURL,
                             sa.SetSerial,
-                            sa.Browser,
-                            sa.Location,
-                            sa.DeviceIP,
-                            sa.LocationURL,
-                            sa.DeviceName,
-                            sa.Latitude,
-                            sa.Longitude,
-                            sa.ActionBy,
-                            sa.ActionAt
+                            //sa.Browser,
+                            //sa.Location,
+                            //sa.DeviceIP,
+                            //sa.LocationURL,
+                            //sa.DeviceName,
+                            //sa.Latitude,
+                            //sa.Longitude,
+                            //sa.ActionBy,
+                            //sa.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -366,7 +366,7 @@ public class SubmoduleService(RapidERPDbContext context, ISharedService shared) 
 
                 await context.Submodules.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.MainModuleId, masterPUT.MainModuleId)
-                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.IconURL, masterPUT.IconURL)
                 .SetProperty(x => x.SetSerial, masterPUT.SetSerial));
@@ -374,7 +374,7 @@ public class SubmoduleService(RapidERPDbContext context, ISharedService shared) 
                 SubmoduleHistory history = new();
                 history.SubmoduleId = masterPUT.Id;
                 history.MainModuleId = masterPUT.MainModuleId;
-                history.LanguageId = masterPUT.LanguageId;
+                //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
                 history.ExportTo = masterPUT.ExportTo;
@@ -382,15 +382,15 @@ public class SubmoduleService(RapidERPDbContext context, ISharedService shared) 
                 history.Name = masterPUT.Name;
                 history.IconURL = masterPUT.IconURL;
                 history.SetSerial = masterPUT.SetSerial;
-                history.Browser = masterPUT.Browser;
-                history.Location = masterPUT.Location;
-                history.DeviceIP = masterPUT.DeviceIP;
-                history.LocationURL = masterPUT.LocationURL;
-                history.DeviceName = masterPUT.DeviceName;
-                history.Latitude = masterPUT.Latitude;
-                history.Longitude = masterPUT.Longitude;
-                history.ActionBy = masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPUT.Browser;
+                //history.Location = masterPUT.Location;
+                //history.DeviceIP = masterPUT.DeviceIP;
+                //history.LocationURL = masterPUT.LocationURL;
+                //history.DeviceName = masterPUT.DeviceName;
+                //history.Latitude = masterPUT.Latitude;
+                //history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.SubmoduleHistory.AddAsync(history);
                 await transaction.CommitAsync();

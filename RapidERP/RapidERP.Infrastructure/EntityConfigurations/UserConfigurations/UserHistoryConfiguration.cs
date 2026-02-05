@@ -23,19 +23,19 @@ public class UserHistoryConfiguration : IEntityTypeConfiguration<UserHistory>
         builder.Property(x => x.OTP).HasMaxLength(15).IsRequired(false).HasColumnOrder(11);
         builder.Property(x => x.ExportTo).IsRequired(false).HasColumnOrder(12);
         builder.Property(x => x.SourceURL).IsRequired(false).HasColumnOrder(13);
-        builder.Property(x => x.Browser).HasMaxLength(15).IsRequired().HasColumnOrder(14);
-        builder.Property(x => x.Location).HasMaxLength(40).IsRequired().HasColumnOrder(15);
-        builder.Property(x => x.DeviceIP).HasMaxLength(15).IsRequired().HasColumnOrder(16);
-        builder.Property(x => x.LocationURL).IsRequired().HasColumnOrder(17);
-        builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired().HasColumnOrder(18);
-        builder.Property(x => x.Latitude).HasPrecision(9, 6).HasColumnOrder(19);
-        builder.Property(x => x.Longitude).HasPrecision(9, 6).HasColumnOrder(20);
-        builder.Property(x => x.ActionBy).HasColumnOrder(21);
-        builder.Property(x => x.ActionAt).HasColumnOrder(22); 
+        //builder.Property(x => x.Browser).HasMaxLength(15).IsRequired().HasColumnOrder(14);
+        //builder.Property(x => x.Location).HasMaxLength(40).IsRequired().HasColumnOrder(15);
+        //builder.Property(x => x.DeviceIP).HasMaxLength(15).IsRequired().HasColumnOrder(16);
+        //builder.Property(x => x.LocationURL).IsRequired().HasColumnOrder(17);
+        //builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired().HasColumnOrder(18);
+        //builder.Property(x => x.Latitude).HasPrecision(9, 6).HasColumnOrder(19);
+        //builder.Property(x => x.Longitude).HasPrecision(9, 6).HasColumnOrder(20);
+        //builder.Property(x => x.ActionBy).HasColumnOrder(21);
+        //builder.Property(x => x.ActionAt).HasColumnOrder(22); 
         builder.Ignore(x => x.IsDefault);
         builder.Ignore(x => x.IsDraft);
         builder.Ignore(x => x.TenantId);
         builder.Ignore(x => x.MenuModuleId);
-        builder.Ignore(x => x.LanguageId);
+        //builder.Ignore(x => x.LanguageId);
     }
 }

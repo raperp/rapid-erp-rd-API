@@ -21,12 +21,12 @@ public class GetAllSubModuleHandler(IRepository repository)
 
             var data = (from sm in repository.Set<Submodule>()
                         join mm in repository.Set<MainModule>() on sm.MainModuleId equals mm.Id
-                        join l in repository.Set<Language>() on sm.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on sm.LanguageId equals l.Id
                         select new GetAllSubModuleResponseDTOModel
                         {
                             Id = sm.Id,
                             MainModule = mm.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Name = sm.Name,
                             IconURL = sm.IconURL,
                             SetSerial = sm.SetSerial

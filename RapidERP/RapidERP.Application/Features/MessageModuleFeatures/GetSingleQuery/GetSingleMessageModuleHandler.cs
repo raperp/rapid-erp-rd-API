@@ -17,12 +17,12 @@ public class GetSingleMessageModuleHandler(IRepository repository)
         {
             var data = (from mm in repository.Set<MessageModule>()
                         join tm in repository.Set<TextModule>() on mm.TextModuleId equals tm.Id
-                        join l in repository.Set<Language>() on mm.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on mm.LanguageId equals l.Id
                         select new GetSingleMessageModuleResponseDTOModel
                         {
                             Id = tm.Id,
                             TextModule = tm.Name,  
-                            Language = l.Name,
+                            //Language = l.Name,
                             Name = tm.Name
                         }).AsNoTracking().AsQueryable();
 

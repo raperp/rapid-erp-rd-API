@@ -15,11 +15,11 @@ public class GetAllStatusTypeHandler(IRepository repository)
         try
         {
             var data = (from st in repository.Set<StatusType>()
-                        join l in repository.Set<Language>() on st.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on st.LanguageId equals l.Id
                         select new
                         {
                             st.Id,
-                            Language = l.Name,
+                            //Language = l.Name,
                             st.Name,
                             st.Description
                         }).AsNoTracking().AsQueryable();

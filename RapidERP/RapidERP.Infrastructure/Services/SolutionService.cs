@@ -56,7 +56,7 @@ public class SolutionService(RapidERPDbContext context, ISharedService shared) :
                 Solution masterData = new();
                 masterData.TenantId = masterPOST.TenantId;
                 masterData.MenuModuleId = masterPOST.MenuModuleId;
-                masterData.LanguageId = masterPOST.LanguageId;
+                //masterData.LanguageId = masterPOST.LanguageId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.Code = masterPOST.Code;
                 masterData.Name = masterPOST.Name;
@@ -70,7 +70,7 @@ public class SolutionService(RapidERPDbContext context, ISharedService shared) :
                 history.SolutionId = masterData.Id;
                 history.TenantId = masterPOST.TenantId;
                 history.MenuModuleId = masterPOST.MenuModuleId;
-                history.LanguageId = masterPOST.LanguageId;
+                //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 history.ExportTypeId = masterPOST.ExportTypeId;
                 history.ExportTo = masterPOST.ExportTo;
@@ -79,15 +79,15 @@ public class SolutionService(RapidERPDbContext context, ISharedService shared) :
                 history.Name = masterPOST.Name;
                 history.Icon = masterPOST.Icon;
                 history.Description = masterPOST.Description;
-                history.Browser = masterPOST.Browser;
-                history.Location = masterPOST.Location;
-                history.DeviceIP = masterPOST.DeviceIP;
-                history.LocationURL = masterPOST.LocationURL;
-                history.DeviceName = masterPOST.DeviceName;
-                history.Latitude = masterPOST.Latitude;
-                history.Longitude = masterPOST.Longitude;
-                history.ActionBy = masterPOST.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPOST.Browser;
+                //history.Location = masterPOST.Location;
+                //history.DeviceIP = masterPOST.DeviceIP;
+                //history.LocationURL = masterPOST.LocationURL;
+                //history.DeviceName = masterPOST.DeviceName;
+                //history.Latitude = masterPOST.Latitude;
+                //history.Longitude = masterPOST.Longitude;
+                //history.ActionBy = masterPOST.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.SolutionHistory.AddAsync(history);
                 await context.SaveChangesAsync();
@@ -142,7 +142,7 @@ public class SolutionService(RapidERPDbContext context, ISharedService shared) :
             var data = (from c in context.Solutions
                         join t in context.Tenants on c.TenantId equals t.Id
                         join mm in context.MenuModules on c.MenuModuleId equals mm.Id
-                        join l in context.Languages on c.LanguageId equals l.Id
+                        //join l in context.Languages on c.LanguageId equals l.Id
                         join st in context.StatusTypes on c.StatusTypeId equals st.Id
 
                         select new
@@ -150,7 +150,7 @@ public class SolutionService(RapidERPDbContext context, ISharedService shared) :
                             c.Id,
                             Tenant = t.Name,
                             MenuModule = mm.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Status = st.Name,
                             c.Code,
                             c.Name,
@@ -210,7 +210,7 @@ public class SolutionService(RapidERPDbContext context, ISharedService shared) :
                         join s in context.Solutions on sh.SolutionId equals s.Id
                         join t in context.Tenants on sh.TenantId equals t.Id
                         join mm in context.MenuModules on sh.MenuModuleId equals mm.Id
-                        join l in context.Languages on sh.LanguageId equals l.Id
+                        //join l in context.Languages on sh.LanguageId equals l.Id
                         join at in context.ActionTypes on sh.ActionTypeId equals at.Id
                         join et in context.ExportTypes on sh.ExportTypeId equals et.Id
                         select new
@@ -219,7 +219,7 @@ public class SolutionService(RapidERPDbContext context, ISharedService shared) :
                             Currency = s.Name,
                             Tenant = t.Name,
                             MenuModule = mm.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Action = at.Name,
                             ExportType = et.Name,
                             sh.ExportTo,
@@ -228,15 +228,15 @@ public class SolutionService(RapidERPDbContext context, ISharedService shared) :
                             sh.Name,
                             sh.Icon,
                             sh.Description,
-                            sh.Browser,
-                            sh.Location,
-                            sh.DeviceIP,
-                            sh.LocationURL,
-                            sh.DeviceName,
-                            sh.Latitude,
-                            sh.Longitude,
-                            sh.ActionBy,
-                            sh.ActionAt
+                            //sh.Browser,
+                            //sh.Location,
+                            //sh.DeviceIP,
+                            //sh.LocationURL,
+                            //sh.DeviceName,
+                            //sh.Latitude,
+                            //sh.Longitude,
+                            //sh.ActionBy,
+                            //sh.ActionAt
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -310,7 +310,7 @@ public class SolutionService(RapidERPDbContext context, ISharedService shared) :
                 await context.Solutions.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.TenantId, masterPUT.TenantId)
                 .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
-                .SetProperty(x => x.LanguageId, masterPUT.LanguageId)
+                //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.Code, masterPUT.Code)
                 .SetProperty(x => x.Name, masterPUT.Name)
@@ -321,7 +321,7 @@ public class SolutionService(RapidERPDbContext context, ISharedService shared) :
                 history.SolutionId = masterPUT.Id;
                 history.TenantId = masterPUT.TenantId;
                 history.MenuModuleId = masterPUT.MenuModuleId;
-                history.LanguageId = masterPUT.LanguageId;
+                //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 history.ExportTypeId = masterPUT.ExportTypeId;
                 history.ExportTo = masterPUT.ExportTo;
@@ -330,15 +330,15 @@ public class SolutionService(RapidERPDbContext context, ISharedService shared) :
                 history.Name = masterPUT.Name;
                 history.Icon = masterPUT.Icon;
                 history.Description = masterPUT.Description;
-                history.Browser = masterPUT.Browser;
-                history.Location = masterPUT.Location;
-                history.DeviceIP = masterPUT.DeviceIP;
-                history.LocationURL = masterPUT.LocationURL;
-                history.DeviceName = masterPUT.DeviceName;
-                history.Latitude = masterPUT.Latitude;
-                history.Longitude = masterPUT.Longitude;
-                history.ActionBy = masterPUT.ActionBy;
-                history.ActionAt = DateTime.Now;
+                //history.Browser = masterPUT.Browser;
+                //history.Location = masterPUT.Location;
+                //history.DeviceIP = masterPUT.DeviceIP;
+                //history.LocationURL = masterPUT.LocationURL;
+                //history.DeviceName = masterPUT.DeviceName;
+                //history.Latitude = masterPUT.Latitude;
+                //history.Longitude = masterPUT.Longitude;
+                //history.ActionBy = masterPUT.ActionBy;
+                //history.ActionAt = DateTime.Now;
 
                 await context.SolutionHistory.AddAsync(history);
                 await context.SaveChangesAsync();
