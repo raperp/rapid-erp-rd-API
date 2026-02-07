@@ -24,7 +24,7 @@ public class GetHistorySolutionHandler(IRepository repository)
                         join mm in repository.Set<MenuModule>() on sh.MenuModuleId equals mm.Id
                         //join l in repository.Set<Language>() on sh.LanguageId equals l.Id
                         join at in repository.Set<ActionType>() on sh.ActionTypeId equals at.Id
-                        join et in repository.Set<ExportType>() on sh.ExportTypeId equals et.Id
+                        //join et in repository.Set<ExportType>() on sh.ExportTypeId equals et.Id
                         select new GetHistorySolutionResponseDTOModel
                         {
                             Id = sh.Id,
@@ -33,9 +33,9 @@ public class GetHistorySolutionHandler(IRepository repository)
                             MenuModule = mm.Name,
                             //Language = l.Name,
                             Action = at.Name,
-                            ExportType = et.Name,
-                            ExportTo = sh.ExportTo,
-                            SourceURL = sh.SourceURL,
+                            //ExportType = et.Name,
+                            //ExportTo = sh.ExportTo,
+                            //SourceURL = sh.SourceURL,
                             Code = sh.Code,
                             Name = sh.Name,
                             Icon = sh.Icon,

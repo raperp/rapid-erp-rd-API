@@ -29,9 +29,9 @@ public class CreateBulkActionTypeCommandHandler(IRepository repository)
                     ActionTypeHistory history = new();
                     history.ActionTypeId = masterData.Id;
                     //history.LanguageId = item.LanguageId;
-                    history.ExportTypeId = item.ExportTypeId;
-                    history.ExportTo = item.ExportTo;
-                    history.SourceURL = item.SourceURL;
+                    //history.ExportTypeId = item.ExportTypeId;
+                    //history.ExportTo = item.ExportTo;
+                    //history.SourceURL = item.SourceURL;
                     history.Name = item.Name;
                     history.Description = item.Description;
                     //history.Browser = item.Browser;

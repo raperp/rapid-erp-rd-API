@@ -20,16 +20,16 @@ public class GetHistoryMessageModuleHandler(IRepository repository)
                         join mm in repository.Set<MessageModule>() on mma.MessageModuleId equals mm.Id
                         join at in repository.Set<ActionType>() on mma.ActionTypeId equals at.Id
                         //join l in repository.Set<Language>() on mma.LanguageId equals l.Id
-                        join et in repository.Set<ExportType>() on mma.ExportTypeId equals et.Id
+                        //join et in repository.Set<ExportType>() on mma.ExportTypeId equals et.Id
                         select new GetHistoryMessageModuleResponseDTOModel
                         {
                             Id = mma.Id,
                             TextModule = mm.Name,
                             //Language = l.Name,
                             Action = at.Name,
-                            ExportType = et.Name,
-                            ExportTo = mma.ExportTo,
-                            SourceURL = mma.SourceURL,
+                            //ExportType = et.Name,
+                            //ExportTo = mma.ExportTo,
+                            //SourceURL = mma.SourceURL,
                             Name = mma.Name,
                             //Browser = mma.Browser,
                             //Location = mma.Location,

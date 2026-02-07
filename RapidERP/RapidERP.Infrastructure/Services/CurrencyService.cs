@@ -72,9 +72,9 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                 history.MenuModuleId = masterPOST.MenuModuleId;
                 //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 history.Code = masterPOST.Code;
                 history.Name = masterPOST.Name;
                 history.IsDefault = masterPOST.IsDefault;
@@ -272,7 +272,7 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                         join mm in context.MenuModules on ca.MenuModuleId equals mm.Id
                         //join l in context.Languages on ca.LanguageId equals l.Id
                         join at in context.ActionTypes on ca.ActionTypeId equals at.Id
-                        join et in context.ExportTypes on ca.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on ca.ExportTypeId equals et.Id
                         select new
                         {
                             ca.Id,
@@ -281,9 +281,9 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                             MenuModule = mm.Name,
                             //Language = l.Name,
                             Action = at.Name,
-                            ExportType = et.Name,
-                            ca.ExportTo,
-                            ca.SourceURL,
+                            //ExportType = et.Name,
+                            //ca.ExportTo,
+                            //ca.SourceURL,
                             ca.Code,
                             ca.Name,
                             ca.IsDefault,
@@ -385,9 +385,9 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                 history.MenuModuleId = masterPUT.MenuModuleId;
                 //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
                 history.Code = masterPUT.Code;
                 history.Name = masterPUT.Name;
                 history.IsDefault = masterPUT.IsDefault;

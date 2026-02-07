@@ -13,9 +13,9 @@ public class StatysTypeHistoryConfiguration : IEntityTypeConfiguration<StatusTyp
         builder.Property(x => x.StatusTypeId).HasColumnOrder(1);
         //builder.Property(x => x.LanguageId).HasColumnOrder(2);
         builder.Property(x => x.ActionTypeId).HasColumnOrder(3);
-        builder.Property(x => x.ExportTypeId).HasColumnOrder(4);
-        builder.Property(x => x.ExportTo).HasColumnOrder(5);
-        builder.Property(x => x.SourceURL).HasColumnOrder(6);
+        //builder.Property(x => x.ExportTypeId).HasColumnOrder(4);
+        //builder.Property(x => x.ExportTo).HasColumnOrder(5);
+        //builder.Property(x => x.SourceURL).HasColumnOrder(6);
         builder.Property(x => x.Name).HasMaxLength(15).IsRequired().HasColumnOrder(7);
         builder.Property(x => x.Description).HasMaxLength(100).IsRequired(false).HasColumnOrder(8);
         //builder.Property(x => x.Browser).HasMaxLength(15).IsRequired().HasColumnOrder(9);

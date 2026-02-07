@@ -72,9 +72,9 @@ public class ActionTypeService(RapidERPDbContext context, ISharedService shared)
                 ActionTypeHistory history = new();
                 history.ActionTypeId = masterData.Id;
                 //history.LanguageId = masterPOST.LanguageId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 history.Name = masterPOST.Name;
                 history.Description = masterPOST.Description;
                 //history.Browser = masterPOST.Browser;
@@ -252,15 +252,15 @@ public class ActionTypeService(RapidERPDbContext context, ISharedService shared)
             var data = (from ath in context.ActionTypeHistory
                         join at in context.ActionTypes on ath.ActionTypeId equals at.Id
                         //join l in context.Languages on ath.LanguageId equals l.Id
-                        join et in context.ExportTypes on ath.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on ath.ExportTypeId equals et.Id
                         select new
                         {
                             ath.Id,
                             ActionType = at.Name,
                             //Language = l.Name,
-                            ExportType = et.Name,
-                            ath.ExportTo,
-                            ath.SourceURL,
+                            //ExportType = et.Name,
+                            //ath.ExportTo,
+                            //ath.SourceURL,
                             ath.Name,
                             ath.Description,
                             //ath.Browser,
@@ -356,9 +356,9 @@ public class ActionTypeService(RapidERPDbContext context, ISharedService shared)
                 ActionTypeHistory history = new();
                 history.ActionTypeId = masterPUT.Id;
                 //history.LanguageId = masterPUT.LanguageId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
                 history.Name = masterPUT.Name;
                 history.Description = masterPUT.Description;
                 //history.Browser = masterPUT.Browser;

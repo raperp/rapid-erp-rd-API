@@ -73,9 +73,9 @@ public class StatusTypeService(RapidERPDbContext context, ISharedService shared)
                 history.StatusTypeId = masterData.Id;
                 //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 history.Name = masterPOST.Name;
                 history.Description = masterPOST.Description;
                 //history.Browser = masterPOST.Browser;
@@ -254,16 +254,16 @@ public class StatusTypeService(RapidERPDbContext context, ISharedService shared)
                         join st in context.StatusTypes on sta.StatusTypeId equals st.Id
                         join at in context.ActionTypes on sta.ActionTypeId equals at.Id
                         //join l in context.Languages on sta.LanguageId equals l.Id
-                        join et in context.ExportTypes on sta.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on sta.ExportTypeId equals et.Id
                         select new 
                         {
                             sta.Id,
                             Status = st.Name,
                             //Language = l.Name,
                             Action = at.Name,
-                            ExportType = et.Name,
-                            sta.ExportTo,
-                            sta.SourceURL,
+                            //ExportType = et.Name,
+                            //sta.ExportTo,
+                            //sta.SourceURL,
                             sta.Name,
                             sta.Description,
                             //sta.Browser,
@@ -360,9 +360,9 @@ public class StatusTypeService(RapidERPDbContext context, ISharedService shared)
                 history.StatusTypeId = masterPUT.Id;
                 //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
                 history.Name = masterPUT.Name;
                 history.Description = masterPUT.Description;
                 //history.Browser = masterPUT.Browser;

@@ -41,9 +41,9 @@ public record UpdateSubModuleCommandHandler(IRepository repository)
                 history.MainModuleId = request.masterPUT.MainModuleId;
                 //history.LanguageId = request.masterPUT.LanguageId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
-                history.ExportTypeId = request.masterPUT.ExportTypeId;
-                history.ExportTo = request.masterPUT.ExportTo;
-                history.SourceURL = request.masterPUT.SourceURL;
+                //history.ExportTypeId = request.masterPUT.ExportTypeId;
+                //history.ExportTo = request.masterPUT.ExportTo;
+                //history.SourceURL = request.masterPUT.SourceURL;
                 history.Name = request.masterPUT.Name;
                 history.IconURL = request.masterPUT.IconURL;
                 history.SetSerial = request.masterPUT.SetSerial;

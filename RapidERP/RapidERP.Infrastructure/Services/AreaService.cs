@@ -80,9 +80,9 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 history.MenuModuleId = masterPOST.MenuModuleId;
                 //history.LanguageId = masterPOST.LanguageId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 history.IsDefault = masterPOST.IsDefault;
                 history.IsDraft = masterPOST.IsDraft;
                 //history.Browser = masterPOST.Browser;
@@ -282,7 +282,7 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                         join t in context.Tenants on aa.TenantId equals t.Id
                         //join l in context.Languages on aa.LanguageId equals l.Id
                         join at in context.ActionTypes on aa.ActionTypeId equals at.Id
-                        join et in context.ExportTypes on aa.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on aa.ExportTypeId equals et.Id
                         select new
                         {
                             aa.Id,
@@ -295,9 +295,9 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                             //Language = l.Name,
                             MenuModule = mm.Name,
                             ActionType = at.Name,
-                            ExportType = et.Name,
-                            aa.ExportTo,
-                            aa.SourceURL,
+                            //ExportType = et.Name,
+                            //aa.ExportTo,
+                            //aa.SourceURL,
                             //aa.Browser,
                             //aa.Location,
                             //aa.DeviceIP,
@@ -400,9 +400,9 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 history.MenuModuleId = masterPUT.MenuModuleId;
                 //history.LanguageId = masterPUT.LanguageId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
                 history.IsDefault = masterPUT.IsDefault;
                 history.IsDraft = masterPUT.IsDraft;
                 //history.Browser = masterPUT.Browser;

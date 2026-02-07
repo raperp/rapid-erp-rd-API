@@ -60,9 +60,9 @@ public class UpdateTenantCommandHandler(IRepository repository)
                 //history.LanguageId = request.masterPUT.LanguageId;
                 history.CalendarId = request.masterPUT.CalendarId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
-                history.ExportTypeId = request.masterPUT.ExportTypeId;
-                history.ExportTo = request.masterPUT.ExportTo;
-                history.SourceURL = request.masterPUT.SourceURL;
+                //history.ExportTypeId = request.masterPUT.ExportTypeId;
+                //history.ExportTo = request.masterPUT.ExportTo;
+                //history.SourceURL = request.masterPUT.SourceURL;
                 history.Name = request.masterPUT.Name;
                 history.Contact = request.masterPUT.Contact;
                 history.Phone = request.masterPUT.Phone;

@@ -52,9 +52,9 @@ public class UpdateCalendarCommandHandler(IRepository repository)
                 history.MenuModuleId = request.masterPUT.MenuModuleId;
                 //history.LanguageId = request.masterPUT.LanguageId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
-                history.ExportTypeId = request.masterPUT.ExportTypeId;
-                history.ExportTo = request.masterPUT.ExportTo;
-                history.SourceURL = request.masterPUT.SourceURL;
+                //history.ExportTypeId = request.masterPUT.ExportTypeId;
+                //history.ExportTo = request.masterPUT.ExportTo;
+                //history.SourceURL = request.masterPUT.SourceURL;
                 history.Code = request.masterPUT.Code;
                 history.Name = request.masterPUT.Name;
                 history.StartDate = request.masterPUT.StartDate;

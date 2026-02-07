@@ -63,10 +63,10 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
                 RoleHistory history = new();
                 history.RoleId = masterData.Id;
                 history.ActionTypeId = masterPOST.ActionTypeId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
                 history.Name = masterPOST.Name;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 //history.Browser = masterPOST.Browser;
                 //history.Location = masterPOST.Location;
                 //history.DeviceIP = masterPOST.DeviceIP;
@@ -76,8 +76,8 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
                 //history.Longitude = masterPOST.Longitude;
                 //history.ActionBy = masterPOST.ActionBy;
                 //history.ActionAt = DateTime.Now;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
 
                 await context.RoleHistory.AddAsync(history);
                 await context.SaveChangesAsync();
@@ -247,16 +247,16 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
             var data = (from rh in context.RoleHistory
                         join r in context.Roles on rh.RoleId equals r.Id
                         join at in context.ActionTypes on rh.ActionTypeId equals at.Id
-                        join et in context.ExportTypes on rh.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on rh.ExportTypeId equals et.Id
                         select new
                         {
                             rh.Id,
                             Role = r.Name,
                             rh.Name,
-                            ExportType = et.Name,
+                            //ExportType = et.Name,
                             Action = at.Name,
-                            rh.ExportTo,
-                            rh.SourceURL,
+                            //rh.ExportTo,
+                            //rh.SourceURL,
                             //rh.Browser,
                             //rh.Location,
                             //rh.DeviceIP,
@@ -342,10 +342,10 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
                 RoleHistory history = new();
                 history.RoleId = masterPUT.Id;
                 history.ActionTypeId = masterPUT.ActionTypeId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
                 history.Name = masterPUT.Name;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
                 //history.Browser = masterPUT.Browser;
                 //history.Location = masterPUT.Location;
                 //history.DeviceIP = masterPUT.DeviceIP;
@@ -355,8 +355,8 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
                 //history.Longitude = masterPUT.Longitude;
                 //history.ActionBy = masterPUT.ActionBy;
                 //history.ActionAt = DateTime.Now;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
 
                 await context.RoleHistory.AddAsync(history);
                 await context.SaveChangesAsync();

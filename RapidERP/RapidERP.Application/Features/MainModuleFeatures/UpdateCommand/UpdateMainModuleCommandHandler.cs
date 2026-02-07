@@ -42,9 +42,9 @@ public class UpdateMainModuleCommandHandler(IRepository repository)
                 history.MainModuleId = masterData.Id;
                 //history.LanguageId = request.masterPUT.LanguageId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
-                history.ExportTypeId = request.masterPUT.ExportTypeId;
-                history.ExportTo = request.masterPUT.ExportTo;
-                history.SourceURL = request.masterPUT.SourceURL;
+                //history.ExportTypeId = request.masterPUT.ExportTypeId;
+                //history.ExportTo = request.masterPUT.ExportTo;
+                //history.SourceURL = request.masterPUT.SourceURL;
                 history.Name = request.masterPUT.Name;
                 history.Prefix = request.masterPUT.Prefix;
                 history.IconURL = request.masterPUT.IconURL;

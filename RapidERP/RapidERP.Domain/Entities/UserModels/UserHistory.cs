@@ -2,7 +2,7 @@
 
 namespace RapidERP.Domain.Entities.UserModels;
 
-public class UserHistory : BaseHistory
+public class UserHistory : BaseAudit
 {
     public User User { get; set; }
     public int UserId { get; set; }

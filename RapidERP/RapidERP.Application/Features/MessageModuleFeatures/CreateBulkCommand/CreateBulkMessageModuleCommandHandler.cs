@@ -31,9 +31,9 @@ public class CreateBulkMessageModuleCommandHandler(IRepository repository)
                     history.TextModuleId = item.TextModuleId;
                     //history.LanguageId = item.LanguageId;
                     history.ActionTypeId = item.ActionTypeId;
-                    history.ExportTypeId = item.ExportTypeId;
-                    history.ExportTo = item.ExportTo;
-                    history.SourceURL = item.SourceURL;
+                    //history.ExportTypeId = item.ExportTypeId;
+                    //history.ExportTo = item.ExportTo;
+                    //history.SourceURL = item.SourceURL;
                     history.Name = item.Name;
                     //history.Browser = item.Browser;
                     //history.Location = item.Location;

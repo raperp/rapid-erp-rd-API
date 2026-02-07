@@ -42,9 +42,9 @@ public class UpdateMenuModuleCommandHandler(IRepository repository)
                 history.SubmoduleId = request.masterPUT.SubmoduleId;
                 //history.LanguageId = request.masterPUT.LanguageId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
-                history.ExportTypeId = request.masterPUT.ExportTypeId;
-                history.ExportTo = request.masterPUT.ExportTo;
-                history.SourceURL = request.masterPUT.SourceURL;
+                //history.ExportTypeId = request.masterPUT.ExportTypeId;
+                //history.ExportTo = request.masterPUT.ExportTo;
+                //history.SourceURL = request.masterPUT.SourceURL;
                 history.Name = request.masterPUT.Name;
                 history.IconURL = request.masterPUT.IconURL;
                 history.SetSerial = request.masterPUT.SetSerial;

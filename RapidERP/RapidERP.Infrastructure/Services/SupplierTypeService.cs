@@ -87,9 +87,9 @@ public class SupplierTypeService(RapidERPDbContext context, ISharedService share
                 history.SupplierTypeId = masterData.Id;
                 //history.StatusTypeId = masterData.StatusTypeId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 //history.IsDefault = masterPOST.IsDefault;
                 //history.Browser = masterPOST.Browser;
                 //history.DeviceName = masterPOST.DeviceName;
@@ -288,8 +288,8 @@ public class SupplierTypeService(RapidERPDbContext context, ISharedService share
                             Country = co.Name,
                             Language = l.Name,
                             //ExportType = et.Name,
-                            sta.ExportTo,
-                            sta.SourceURL,
+                            //sta.ExportTo,
+                            //sta.SourceURL,
                             //sta.IsDefault,
                             //sta.Browser,
                             //sta.DeviceName,
@@ -393,9 +393,9 @@ public class SupplierTypeService(RapidERPDbContext context, ISharedService share
                 history.SupplierTypeId = masterPUT.Id;
                 //history.StatusTypeId = masterPUT.StatusTypeId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
                 //history.IsDefault = masterPUT.IsDefault;
                 //history.Browser = masterPUT.Browser;
                 //history.DeviceName = masterPUT.DeviceName;

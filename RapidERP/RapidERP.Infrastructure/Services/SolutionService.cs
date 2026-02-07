@@ -72,9 +72,9 @@ public class SolutionService(RapidERPDbContext context, ISharedService shared) :
                 history.MenuModuleId = masterPOST.MenuModuleId;
                 //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 history.Code = masterPOST.Code;
                 history.Name = masterPOST.Name;
                 history.Icon = masterPOST.Icon;
@@ -212,7 +212,7 @@ public class SolutionService(RapidERPDbContext context, ISharedService shared) :
                         join mm in context.MenuModules on sh.MenuModuleId equals mm.Id
                         //join l in context.Languages on sh.LanguageId equals l.Id
                         join at in context.ActionTypes on sh.ActionTypeId equals at.Id
-                        join et in context.ExportTypes on sh.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on sh.ExportTypeId equals et.Id
                         select new
                         {
                             sh.Id,
@@ -221,9 +221,9 @@ public class SolutionService(RapidERPDbContext context, ISharedService shared) :
                             MenuModule = mm.Name,
                             //Language = l.Name,
                             Action = at.Name,
-                            ExportType = et.Name,
-                            sh.ExportTo,
-                            sh.SourceURL,
+                            //ExportType = et.Name,
+                            //sh.ExportTo,
+                            //sh.SourceURL,
                             sh.Code,
                             sh.Name,
                             sh.Icon,
@@ -323,9 +323,9 @@ public class SolutionService(RapidERPDbContext context, ISharedService shared) :
                 history.MenuModuleId = masterPUT.MenuModuleId;
                 //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
                 history.Code = masterPUT.Code;
                 history.Name = masterPUT.Name;
                 history.Icon = masterPUT.Icon;

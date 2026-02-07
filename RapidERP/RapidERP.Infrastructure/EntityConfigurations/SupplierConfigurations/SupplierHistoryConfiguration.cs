@@ -23,8 +23,8 @@ public class SupplierHistoryConfiguration : IEntityTypeConfiguration<SupplierHis
         //builder.Property(x => x.Latitude).HasPrecision(9, 6);
         //builder.Property(x => x.Longitude).HasPrecision(9, 6);
         //builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired(false);
-        builder.Property(x => x.ExportTypeId).IsRequired(false);
-        builder.Property(x => x.ExportTo).IsRequired(false);
-        builder.Property(x => x.SourceURL).IsRequired(false);
+        //builder.Property(x => x.ExportTypeId).IsRequired(false);
+        //builder.Property(x => x.ExportTo).IsRequired(false);
+        //builder.Property(x => x.SourceURL).IsRequired(false);
     }
 }

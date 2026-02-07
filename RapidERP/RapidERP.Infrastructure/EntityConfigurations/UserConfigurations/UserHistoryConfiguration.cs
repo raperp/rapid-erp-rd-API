@@ -11,7 +11,7 @@ public class UserHistoryConfiguration : IEntityTypeConfiguration<UserHistory>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).HasColumnOrder(0);
         builder.Property(x => x.ActionTypeId).HasColumnOrder(1);
-        builder.Property(x => x.ExportTypeId).IsRequired(false).HasColumnOrder(2);
+        //builder.Property(x => x.ExportTypeId).IsRequired(false).HasColumnOrder(2);
         builder.Property(x => x.UserId).HasColumnOrder(3);
         builder.Property(x => x.RoleId).HasColumnOrder(4);
         builder.Property(x => x.Name).HasMaxLength(30).IsRequired().HasColumnOrder(5);
@@ -21,8 +21,8 @@ public class UserHistoryConfiguration : IEntityTypeConfiguration<UserHistory>
         builder.Property(x => x.UserName).HasMaxLength(15).IsRequired().HasColumnOrder(9);
         builder.Property(x => x.Password).HasMaxLength(10).IsRequired().HasColumnOrder(10);
         builder.Property(x => x.OTP).HasMaxLength(15).IsRequired(false).HasColumnOrder(11);
-        builder.Property(x => x.ExportTo).IsRequired(false).HasColumnOrder(12);
-        builder.Property(x => x.SourceURL).IsRequired(false).HasColumnOrder(13);
+        //builder.Property(x => x.ExportTo).IsRequired(false).HasColumnOrder(12);
+        //builder.Property(x => x.SourceURL).IsRequired(false).HasColumnOrder(13);
         //builder.Property(x => x.Browser).HasMaxLength(15).IsRequired().HasColumnOrder(14);
         //builder.Property(x => x.Location).HasMaxLength(40).IsRequired().HasColumnOrder(15);
         //builder.Property(x => x.DeviceIP).HasMaxLength(15).IsRequired().HasColumnOrder(16);

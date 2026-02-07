@@ -36,9 +36,9 @@ public class UpdateActionTypeCommandHandler(IRepository repository)
                 ActionTypeHistory history = new();
                 history.ActionTypeId = request.masterPUT.Id;
                 //history.LanguageId = request.masterPUT.LanguageId;
-                history.ExportTypeId = request.masterPUT.ExportTypeId;
-                history.ExportTo = request.masterPUT.ExportTo;
-                history.SourceURL = request.masterPUT.SourceURL;
+                //history.ExportTypeId = request.masterPUT.ExportTypeId;
+                //history.ExportTo = request.masterPUT.ExportTo;
+                //history.SourceURL = request.masterPUT.SourceURL;
                 history.Name = request.masterPUT.Name;
                 history.Description = request.masterPUT.Description;
                 //history.Browser = request.masterPUT.Browser;

@@ -40,9 +40,9 @@ public class CreateBulkDesignationCommandHandler(IRepository repository)
                     history.MenuModuleId = item.MenuModuleId;
                     history.ActionTypeId = item.ActionTypeId;
                     //history.LanguageId = item.LanguageId;
-                    history.ExportTypeId = item.ExportTypeId;
-                    history.ExportTo = item.ExportTo;
-                    history.SourceURL = item.SourceURL;
+                    //history.ExportTypeId = item.ExportTypeId;
+                    //history.ExportTo = item.ExportTo;
+                    //history.SourceURL = item.SourceURL;
                     history.IsDefault = item.IsDefault;
                     history.IsDraft = item.IsDraft;
                     //history.Browser = item.Browser;

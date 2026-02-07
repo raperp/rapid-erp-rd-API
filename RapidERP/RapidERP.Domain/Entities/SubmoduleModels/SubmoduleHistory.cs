@@ -3,7 +3,7 @@ using RapidERP.Domain.Entities.Shared;
 
 namespace RapidERP.Domain.Entities.SubmoduleModels;
 
-public class SubmoduleHistory : BaseHistory
+public class SubmoduleHistory : BaseAudit
 {
     public Submodule Submodule { get; set; }
     public int SubmoduleId { get; set; }

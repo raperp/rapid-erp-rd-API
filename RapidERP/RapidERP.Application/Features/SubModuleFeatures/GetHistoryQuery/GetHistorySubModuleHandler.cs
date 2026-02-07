@@ -21,7 +21,7 @@ public class GetHistorySubModuleHandler(IRepository repository)
                         join s in repository.Set<Submodule>() on sa.SubmoduleId equals s.Id
                         join mm in repository.Set<MainModule>() on sa.MainModuleId equals mm.Id
                         join at in repository.Set<ActionType>() on sa.ActionTypeId equals at.Id
-                        join et in repository.Set<ExportType>() on sa.ExportTypeId equals et.Id
+                        //join et in repository.Set<ExportType>() on sa.ExportTypeId equals et.Id
                         //join l in repository.Set<Language>() on sa.LanguageId equals l.Id
                         select new GetHistorySubModuleResponseDTOModel
                         {
@@ -29,9 +29,9 @@ public class GetHistorySubModuleHandler(IRepository repository)
                             SubModule = s.Name,
                             //Language = l.Name,
                             Action = at.Name,
-                            ExportType = et.Name,
-                            ExportTo = sa.ExportTo,
-                            SourceURL = sa.SourceURL,
+                            //ExportType = et.Name,
+                            //ExportTo = sa.ExportTo,
+                            //SourceURL = sa.SourceURL,
                             Name = sa.Name,
                             IconURL = sa.IconURL,
                             SetSerial = sa.SetSerial,

@@ -2,7 +2,7 @@
 
 namespace RapidERP.Domain.Entities.StatusTypeModels;
 
-public class StatusTypeHistory : BaseHistory
+public class StatusTypeHistory : BaseAudit
 {
     public StatusType StatusType { get; set; }
     public int? StatusTypeId { get; set; }

@@ -1,0 +1,3 @@
+﻿namespace RapidERP.Application.CQRS.CountryModule.Query.CountryLocalizationQueries.GetAllCountryLocalizations;
+
+public record GetAllCountryLocalizationsCommand();

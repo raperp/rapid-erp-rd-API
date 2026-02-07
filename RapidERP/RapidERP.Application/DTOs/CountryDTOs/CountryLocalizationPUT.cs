@@ -1,9 +1,9 @@
-﻿namespace RapidERP.Application.DTOs.CountryDTOs;
+﻿using RapidERP.Application.DTOs.Shared;
 
-public class CountryLocalizationPUT
+namespace RapidERP.Application.DTOs.CountryDTOs;
+
+public record CountryLocalizationPUT : LocalizationDTO
 {
     public int Id { get; set; }
-    public string Name { get; set; }
     public int? CountryId { get; set; }
-    public int? LanguageId { get; set; }
 }

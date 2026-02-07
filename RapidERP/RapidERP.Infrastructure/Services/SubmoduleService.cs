@@ -76,9 +76,9 @@ public class SubmoduleService(RapidERPDbContext context, ISharedService shared) 
                 history.MainModuleId = masterPOST.MainModuleId;
                 //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 history.Name = masterPOST.Name;
                 history.IconURL = masterPOST.IconURL;
                 history.SetSerial = masterPOST.SetSerial;
@@ -265,7 +265,7 @@ public class SubmoduleService(RapidERPDbContext context, ISharedService shared) 
                         join s in context.Submodules on sa.SubmoduleId equals s.Id
                         join mm in context.MainModules on sa.MainModuleId equals mm.Id
                         join at in context.ActionTypes on sa.ActionTypeId equals at.Id
-                        join et in context.ExportTypes on sa.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on sa.ExportTypeId equals et.Id
                         //join l in context.Languages on sa.LanguageId equals l.Id
                         select new
                         {
@@ -273,9 +273,9 @@ public class SubmoduleService(RapidERPDbContext context, ISharedService shared) 
                             SubModule = s.Name,
                             //Language = l.Name,
                             Action = at.Name,
-                            ExportType = et.Name,
-                            sa.ExportTo,
-                            sa.SourceURL,
+                            //ExportType = et.Name,
+                            //sa.ExportTo,
+                            //sa.SourceURL,
                             sa.Name,
                             sa.IconURL,
                             sa.SetSerial,
@@ -376,9 +376,9 @@ public class SubmoduleService(RapidERPDbContext context, ISharedService shared) 
                 history.MainModuleId = masterPUT.MainModuleId;
                 //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
                 history.Name = masterPUT.Name;
                 history.IconURL = masterPUT.IconURL;
                 history.SetSerial = masterPUT.SetSerial;

@@ -43,9 +43,9 @@ public class CreateSingleCountryCommandHandler(IRepository repository)
                 history.MenuModuleId = request.masterPOST.MenuModuleId;
                 history.ActionTypeId = request.masterPOST.ActionTypeId;
                 //history.LanguageId = request.masterPOST.LanguageId;
-                history.ExportTypeId = request.masterPOST.ExportTypeId;
-                history.ExportTo = request.masterPOST.ExportTo;
-                history.SourceURL = request.masterPOST.SourceURL;
+                //history.ExportTypeId = request.masterPOST.ExportTypeId;
+                //history.ExportTo = request.masterPOST.ExportTo;
+                //history.SourceURL = request.masterPOST.SourceURL;
                 history.DialCode = request.masterPOST.DialCode;
                 history.Name = request.masterPOST.Name;
                 history.IsDefault = request.masterPOST.IsDefault;

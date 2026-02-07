@@ -20,16 +20,16 @@ public class GetHistoryStatusTypeHandler(IRepository repository)
                         join st in repository.Set<StatusType>() on sta.StatusTypeId equals st.Id
                         join at in repository.Set<ActionType>() on sta.ActionTypeId equals at.Id
                         //join l in repository.Set<Language>() on sta.LanguageId equals l.Id
-                        join et in repository.Set<ExportType>() on sta.ExportTypeId equals et.Id
+                        //join et in repository.Set<ExportType>() on sta.ExportTypeId equals et.Id
                         select new GetHistoryStatusTypeResponseDTOModel
                         {
                             Id = sta.Id,
                             Status = st.Name,
                             //Language = l.Name,
                             Action = at.Name,
-                            ExportType = et.Name,
-                            ExportTo = sta.ExportTo,
-                            SourceURL = sta.SourceURL,
+                            //ExportType = et.Name,
+                            //ExportTo = sta.ExportTo,
+                            //SourceURL = sta.SourceURL,
                             Name = sta.Name,
                             Description = sta.Description,
                             //Browser = sta.Browser,

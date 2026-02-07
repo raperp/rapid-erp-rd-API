@@ -31,9 +31,9 @@ public class CreateSingleSubModuleCommandHandler(IRepository repository)
                 history.MainModuleId = request.masterPOST.MainModuleId;
                 //history.LanguageId = request.masterPOST.LanguageId;
                 history.ActionTypeId = request.masterPOST.ActionTypeId;
-                history.ExportTypeId = request.masterPOST.ExportTypeId;
-                history.ExportTo = request.masterPOST.ExportTo;
-                history.SourceURL = request.masterPOST.SourceURL;
+                //history.ExportTypeId = request.masterPOST.ExportTypeId;
+                //history.ExportTo = request.masterPOST.ExportTo;
+                //history.SourceURL = request.masterPOST.SourceURL;
                 history.Name = request.masterPOST.Name;
                 history.IconURL = request.masterPOST.IconURL;
                 history.SetSerial = request.masterPOST.SetSerial;

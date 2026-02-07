@@ -25,7 +25,7 @@ public class GetHistoryDesignationHandler(IRepository repository)
             var data = (from dh in repository.Set<DesignationHistory>()
                         join des in repository.Set<Designation>() on dh.DesignationId equals des.Id
                         join dep in repository.Set<Department>() on dh.DepartmentId equals dep.Id
-                        join et in repository.Set<ExportType>() on dh.ExportTypeId equals et.Id
+                        //join et in repository.Set<ExportType>() on dh.ExportTypeId equals et.Id
                         join at in repository.Set<ActionType>() on dh.ActionTypeId equals at.Id
                         join t in repository.Set<Tenant>() on dh.TenantId equals t.Id
                         //join l in repository.Set<Language>() on dh.LanguageId equals l.Id
@@ -41,9 +41,9 @@ public class GetHistoryDesignationHandler(IRepository repository)
                             MenuModule = mm.Name,
                             Action = at.Name,
                             //Language = l.Name,
-                            ExportType = et.Name,
-                            ExportTo = dh.ExportTo,
-                            SourceURL = dh.SourceURL,
+                            //ExportType = et.Name,
+                            //ExportTo = dh.ExportTo,
+                            //SourceURL = dh.SourceURL,
                             IsDefault = dh.IsDefault,
                             IsDraft = dh.IsDraft,
                             //Browser = dh.Browser,

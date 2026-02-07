@@ -17,9 +17,9 @@ public class TenantHistoryConfiguration : IEntityTypeConfiguration<TenantHistory
         //builder.Property(x => x.LanguageId).IsRequired(false).HasColumnOrder(5);
         builder.Property(x => x.CalendarId).IsRequired(false).HasColumnOrder(6);
         builder.Property(x => x.ActionTypeId).IsRequired(false).HasColumnOrder(7);
-        builder.Property(x => x.ExportTypeId).IsRequired(false).HasColumnOrder(8);
-        builder.Property(x => x.ExportTo).IsRequired(false).HasColumnOrder(9);
-        builder.Property(x => x.SourceURL).IsRequired(false).HasColumnOrder(10);
+        //builder.Property(x => x.ExportTypeId).IsRequired(false).HasColumnOrder(8);
+        //builder.Property(x => x.ExportTo).IsRequired(false).HasColumnOrder(9);
+        //builder.Property(x => x.SourceURL).IsRequired(false).HasColumnOrder(10);
         builder.Property(x => x.Name).HasMaxLength(40).IsRequired(false).HasColumnOrder(11);
         builder.Property(x => x.Contact).HasMaxLength(30).IsRequired(false).HasColumnOrder(12);
         builder.Property(x => x.Phone).HasMaxLength(15).IsRequired(false).HasColumnOrder(13);

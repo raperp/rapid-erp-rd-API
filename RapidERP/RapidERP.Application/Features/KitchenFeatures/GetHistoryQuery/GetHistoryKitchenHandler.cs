@@ -21,17 +21,17 @@ public class GetHistoryKitchenHandler(IRepository repository)
             var data = (from ka in repository.Set<KitchenHistory>()
                         join k in repository.Set<Kitchen>() on ka.KitchenId equals k.Id
                         join at in repository.Set<ActionType>() on ka.ActionTypeId equals at.Id
-                        join et in repository.Set<ExportType>() on ka.ExportTypeId equals et.Id
+                        //join et in repository.Set<ExportType>() on ka.ExportTypeId equals et.Id
                         select new GetHistoryKitchenResponseDTOModel
                         {
                             Id = ka.Id,
                             Kitchen = k.Name,
                             Name = ka.Name,
                             Description = ka.Description, 
-                            ExportType = et.Name,
+                            //ExportType = et.Name,
                             ActionType = at.Name,
-                            ExportTo = ka.ExportTo,
-                            SourceURL = ka.SourceURL,
+                            //ExportTo = ka.ExportTo,
+                            //SourceURL = ka.SourceURL,
                             //Browser = ka.Browser,
                             //Location = ka.Location,
                             //DeviceIP = ka.DeviceIP,

@@ -2,7 +2,7 @@
 
 namespace RapidERP.Domain.Entities.UserIPWhitelistModels;
 
-public class UserIPWhitelistHistory : BaseHistory
+public class UserIPWhitelistHistory : BaseAudit
 {
     public UserIPWhitelist UserIPWhitelist { get; set; }
     public int? UserIPWhitelistId { get; set; }

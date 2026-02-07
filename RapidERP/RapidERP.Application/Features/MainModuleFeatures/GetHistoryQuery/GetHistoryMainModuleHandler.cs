@@ -27,16 +27,16 @@ public class GetHistoryMainModuleHandler(IRepository repository)
                         join mm in repository.Set<MainModule>() on mma.MainModuleId equals mm.Id
                         //join l in repository.Set<Language>() on mma.LanguageId equals l.Id
                         join at in repository.Set<ActionType>() on mma.ActionTypeId equals at.Id
-                        join et in repository.Set<ExportType>() on mma.ExportTypeId equals et.Id
+                        //join et in repository.Set<ExportType>() on mma.ExportTypeId equals et.Id
                         select new GetHistoryMainModuleResponseDTOModel
                         {
                             Id = mma.Id,
                             MainModule = mm.Name,
                             //Language = l.Name,
                             Action = at.Name,
-                            ExportType = et.Name,
-                            ExportTo = mma.ExportTo,
-                            SourceURL = mma.SourceURL,
+                            //ExportType = et.Name,
+                            //ExportTo = mma.ExportTo,
+                            //SourceURL = mma.SourceURL,
                             Name = mma.Name,
                             Prefix = mma.Prefix,
                             IconURL = mma.IconURL,

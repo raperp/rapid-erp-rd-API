@@ -2,7 +2,7 @@
 using RapidERP.Domain.Entities.Shared;
 
 namespace RapidERP.Domain.Entities.SalesmanModels;
-public class SalesmanHistory : BaseHistory
+public class SalesmanHistory : BaseAudit
 {
     public Salesman Salesman { get; set; }
     public int SalesmanId { get; set; }

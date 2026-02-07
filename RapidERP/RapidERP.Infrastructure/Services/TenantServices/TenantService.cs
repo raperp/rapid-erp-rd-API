@@ -79,9 +79,9 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
                 //history.LanguageId = masterPOST.LanguageId;
                 history.CalendarId = masterPOST.CalendarId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 history.Name = masterPOST.Name;
                 history.Contact = masterPOST.Contact;
                 history.Phone = masterPOST.Phone;
@@ -285,7 +285,7 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
                         join s in context.States on th.StateId equals s.Id
                         //join l in context.Languages on th.LanguageId equals l.Id
                         join at in context.ActionTypes on th.ActionTypeId equals at.Id
-                        join et in context.ExportTypes on th.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on th.ExportTypeId equals et.Id
                         select new
                         {
                             th.Id,
@@ -295,9 +295,9 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
                             State = s.Name,
                             //Language = l.Name,
                             Action = at.Name,
-                            ExportMedia = et.Name,
-                            th.ExportTo,
-                            th.SourceURL,
+                            //ExportMedia = et.Name,
+                            //th.ExportTo,
+                            //th.SourceURL,
                             th.Name,
                             th.Contact,
                             th.Phone,
@@ -406,9 +406,9 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
                 //history.LanguageId = masterPUT.LanguageId;
                 history.CalendarId = masterPUT.CalendarId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
                 history.Name = masterPUT.Name;
                 history.Contact = masterPUT.Contact;
                 history.Phone = masterPUT.Phone;

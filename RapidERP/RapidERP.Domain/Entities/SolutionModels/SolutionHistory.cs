@@ -2,7 +2,7 @@
 
 namespace RapidERP.Domain.Entities.SolutionModels;
 
-public class SolutionHistory : BaseHistory
+public class SolutionHistory : BaseAudit
 {
     public Solution Solution { get; set; }
     public int? SolutionId { get; set; }

@@ -73,9 +73,9 @@ public class DesignationService(RapidERPDbContext context, ISharedService shared
                 history.MenuModuleId = masterPOST.MenuModuleId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.LanguageId = masterPOST.LanguageId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 history.IsDefault = masterPOST.IsDefault;
                 history.IsDraft = masterPOST.IsDraft;
                 //history.Browser = masterPOST.Browser;
@@ -265,7 +265,7 @@ public class DesignationService(RapidERPDbContext context, ISharedService shared
             var data = (from dh in context.DesignationHistory
                         join des in context.Designations on dh.DesignationId equals des.Id
                         join dep in context.Departments on dh.DepartmentId equals dep.Id
-                        join et in context.ExportTypes on dh.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on dh.ExportTypeId equals et.Id
                         join at in context.ActionTypes on dh.ActionTypeId equals at.Id
                         join t in context.Tenants on dh.TenantId equals t.Id
                         //join l in context.Languages on dh.LanguageId equals l.Id
@@ -281,9 +281,9 @@ public class DesignationService(RapidERPDbContext context, ISharedService shared
                             MenuModule = mm.Name,
                             Action = at.Name,
                             //Language = l.Name,
-                            ExportType = et.Name,
-                            dh.ExportTo,
-                            dh.SourceURL,
+                            //ExportType = et.Name,
+                            //dh.ExportTo,
+                            //dh.SourceURL,
                             dh.IsDefault,
                             dh.IsDraft,
                             //dh.Browser,
@@ -382,9 +382,9 @@ public class DesignationService(RapidERPDbContext context, ISharedService shared
                 history.MenuModuleId = masterPUT.MenuModuleId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.LanguageId = masterPUT.LanguageId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
                 history.IsDefault = masterPUT.IsDefault;
                 history.IsDraft = masterPUT.IsDraft;
                 //history.Browser = masterPUT.Browser;

@@ -1,0 +1,3 @@
+﻿namespace RapidERP.Application.CQRS.CountryModule.Command.CountryLocalizationCommands.DeleteCountryLocalization;
+
+public record DeleteCountryLocalizationCommand(int id);

@@ -2,7 +2,7 @@
 
 namespace RapidERP.Domain.Entities.TextModuleModels;
 
-public class TextModuleHistory : BaseHistory 
+public class TextModuleHistory : BaseAudit 
 {
     public TextModule TextModule { get; set; }
     public int? TextModuleId { get; set; }

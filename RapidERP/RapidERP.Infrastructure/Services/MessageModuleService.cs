@@ -66,9 +66,9 @@ public class MessageModuleService(RapidERPDbContext context, ISharedService shar
                 history.TextModuleId = masterPOST.TextModuleId;
                 //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 history.Name = masterPOST.Name;
                 //history.Browser = masterPOST.Browser;
                 //history.Location = masterPOST.Location;
@@ -193,16 +193,16 @@ public class MessageModuleService(RapidERPDbContext context, ISharedService shar
                         join mm in context.MessageModules on mma.MessageModuleId equals mm.Id
                         join at in context.ActionTypes on mma.ActionTypeId equals at.Id
                         //join l in context.Languages on mma.LanguageId equals l.Id
-                        join et in context.ExportTypes on mma.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on mma.ExportTypeId equals et.Id
                         select new
                         {
                             mma.Id,
                             TextModule = mm.Name,
                             //Language = l.Name,
                             Action = at.Name,
-                            ExportType = et.Name,
-                            mma.ExportTo,
-                            mma.SourceURL,
+                            //ExportType = et.Name,
+                            //mma.ExportTo,
+                            //mma.SourceURL,
                             mma.Name,
                             //mma.Browser,
                             //mma.Location,
@@ -299,9 +299,9 @@ public class MessageModuleService(RapidERPDbContext context, ISharedService shar
                 history.TextModuleId = masterPUT.TextModuleId;
                 //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
                 history.Name = masterPUT.Name;
                 //history.Browser = masterPUT.Browser;
                 //history.Location = masterPUT.Location;

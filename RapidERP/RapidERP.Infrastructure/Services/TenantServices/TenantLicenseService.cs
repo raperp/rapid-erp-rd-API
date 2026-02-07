@@ -74,9 +74,9 @@ public class TenantLicenseService(RapidERPDbContext context, ISharedService shar
             //history.LanguageId = masterPOST.LanguageId;
             history.CalendarId = masterPOST.CalendarId;
             history.ActionTypeId = masterPOST.ActionTypeId;
-            history.ExportTypeId = masterPOST.ExportTypeId;
-            history.ExportTo = masterPOST.ExportTo;
-            history.SourceURL = masterPOST.SourceURL;
+            //history.ExportTypeId = masterPOST.ExportTypeId;
+            //history.ExportTo = masterPOST.ExportTo;
+            //history.SourceURL = masterPOST.SourceURL;
             history.LicenseNumber = masterPOST.LicenseNumber;
             history.LimitUsers = masterPOST.LimitUsers;
             history.ERPPlan = masterPOST.ERPPlan;
@@ -210,7 +210,7 @@ public class TenantLicenseService(RapidERPDbContext context, ISharedService shar
                         join st in context.States on th.StateId equals st.Id
                         //join l in context.Languages on th.LanguageId equals l.Id
                         join at in context.ActionTypes on th.ActionTypeId equals at.Id
-                        join et in context.ExportTypes on th.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on th.ExportTypeId equals et.Id
                         select new
                         {
                             th.Id,
@@ -220,9 +220,9 @@ public class TenantLicenseService(RapidERPDbContext context, ISharedService shar
                             State = st.Name,
                             //Language = l.Name,
                             ActionType = at.Name,
-                            ExportType = et.Name,
-                            th.ExportTo,
-                            th.SourceURL,
+                            //ExportType = et.Name,
+                            //th.ExportTo,
+                            //th.SourceURL,
                             th.Name,
                             th.Contact,
                             th.Phone,
@@ -326,9 +326,9 @@ public class TenantLicenseService(RapidERPDbContext context, ISharedService shar
             //history.LanguageId = masterPUT.LanguageId;
             history.CalendarId = masterPUT.CalendarId;
             history.ActionTypeId = masterPUT.ActionTypeId;
-            history.ExportTypeId = masterPUT.ExportTypeId;
-            history.ExportTo = masterPUT.ExportTo;
-            history.SourceURL = masterPUT.SourceURL;
+            //history.ExportTypeId = masterPUT.ExportTypeId;
+            //history.ExportTo = masterPUT.ExportTo;
+            //history.SourceURL = masterPUT.SourceURL;
             history.LicenseNumber = masterPUT.LicenseNumber;
             history.LimitUsers = masterPUT.LimitUsers;
             history.ERPPlan = masterPUT.ERPPlan;

@@ -75,9 +75,9 @@ public class OrderTypeService(RapidERPDbContext context, ISharedService shared) 
                 history.MenuModuleId = masterPOST.MenuModuleId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.LanguageId = masterPOST.LanguageId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 history.IsDefault = masterPOST.IsDefault;
                 history.IsDraft = masterPOST.IsDraft;
                 //history.Browser = masterPOST.Browser;
@@ -264,7 +264,7 @@ public class OrderTypeService(RapidERPDbContext context, ISharedService shared) 
         {
             var data = (from oth in context.OrderTypeHistory
                         join ot in context.OrderTypes on oth.OrderTypeId equals ot.Id
-                        join et in context.ExportTypes on oth.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on oth.ExportTypeId equals et.Id
                         join at in context.ActionTypes on oth.ActionTypeId equals at.Id
                         join t in context.Tenants on oth.TenantId equals t.Id
                         //join l in context.Languages on oth.LanguageId equals l.Id
@@ -279,9 +279,9 @@ public class OrderTypeService(RapidERPDbContext context, ISharedService shared) 
                             MenuModule = mm.Name,
                             Action = at.Name,
                             //Language = l.Name,
-                            ExportType = et.Name,
-                            oth.ExportTo,
-                            oth.SourceURL,
+                            //ExportType = et.Name,
+                            //oth.ExportTo,
+                            //oth.SourceURL,
                             oth.IsDefault,
                             oth.IsDraft,
                             //oth.Browser,
@@ -381,9 +381,9 @@ public class OrderTypeService(RapidERPDbContext context, ISharedService shared) 
                 history.MenuModuleId = masterPUT.MenuModuleId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.LanguageId = masterPUT.LanguageId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
                 history.IsDefault = masterPUT.IsDefault;
                 history.IsDraft = masterPUT.IsDraft;
                 //history.Browser = masterPUT.Browser;

@@ -73,9 +73,9 @@ public class UpdateCountryCommandHandler(IRepository repository)
                 history.MenuModuleId = request.masterPUT.MenuModuleId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
                 //history.LanguageId = request.masterPUT.LanguageId;
-                history.ExportTypeId = request.masterPUT.ExportTypeId;
-                history.ExportTo = request.masterPUT.ExportTo;
-                history.SourceURL = request.masterPUT.SourceURL;
+                //history.ExportTypeId = request.masterPUT.ExportTypeId;
+                //history.ExportTo = request.masterPUT.ExportTo;
+                //history.SourceURL = request.masterPUT.SourceURL;
                 history.DialCode = request.masterPUT.DialCode;
                 history.Name = request.masterPUT.Name;
                 history.IsDefault = request.masterPUT.IsDefault;

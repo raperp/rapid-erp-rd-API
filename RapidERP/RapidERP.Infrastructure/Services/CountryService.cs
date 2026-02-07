@@ -90,9 +90,9 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                 history.MenuModuleId = masterPOST.MenuModuleId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.LanguageId = masterPOST.LanguageId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 history.DialCode = masterPOST.DialCode;
                 history.Name = masterPOST.Name;
                 history.IsDefault = masterPOST.IsDefault;
@@ -300,7 +300,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
         {
             var data = (from ca in repository.Set<CountryAudit>()
                         join c in repository.Set<Country>() on ca.CountryId equals c.Id
-                        join et in repository.Set<ExportType>() on ca.ExportTypeId equals et.Id
+                        //join et in repository.Set<ExportType>() on ca.ExportTypeId equals et.Id
                         join at in repository.Set<ActionType>() on ca.ActionTypeId equals at.Id
                         join t in repository.Set<Tenant>() on ca.TenantId equals t.Id
                         //join l in repository.Set<Language>() on ca.LanguageId equals l.Id
@@ -314,10 +314,10 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                             MenuModule = mm.Name,
                             Action = at.Name,
                             //Language = l.Name,
-                            ExportType = et.Name,
+                            //ExportType = et.Name,
                             //Currency = cu.Name,
-                            ca.ExportTo,
-                            ca.SourceURL,
+                            //ca.ExportTo,
+                            //ca.SourceURL,
                             ca.DialCode,
                             ca.Name,
                             ca.IsDefault,
@@ -462,9 +462,9 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.LanguageId = masterPUT.LanguageId;
                 //history.CurrencyId = masterPUT.CurrencyId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
                 history.DialCode = masterPUT.DialCode;
                 history.Name = masterPUT.Name;
                 history.IsDefault = masterPUT.IsDefault;

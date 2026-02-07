@@ -70,9 +70,9 @@ public class MenuModuleService(RapidERPDbContext context, ISharedService shared)
                 history.SubmoduleId = masterPOST.SubmoduleId;
                 //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 history.Name = masterPOST.Name;
                 history.IconURL = masterPOST.IconURL;
                 history.SetSerial = masterPOST.SetSerial;
@@ -260,7 +260,7 @@ public class MenuModuleService(RapidERPDbContext context, ISharedService shared)
                         join at in context.ActionTypes on mma.ActionTypeId equals at.Id
                         join sm in context.Submodules on mma.SubmoduleId equals sm.Id
                         //join l in context.Languages on mma.LanguageId equals l.Id
-                        join et in context.ExportTypes on mma.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on mma.ExportTypeId equals et.Id
                         select new
                         {
                             mma.Id,
@@ -268,9 +268,9 @@ public class MenuModuleService(RapidERPDbContext context, ISharedService shared)
                             Submodule = mm.Name,
                             //Language = l.Name,
                             Action = at.Name,
-                            ExportType = et.Name,
-                            mma.ExportTo,
-                            mma.SourceURL,
+                            //ExportType = et.Name,
+                            //mma.ExportTo,
+                            //mma.SourceURL,
                             mma.Name,
                             mma.IconURL,
                             mma.SetSerial,
@@ -371,9 +371,9 @@ public class MenuModuleService(RapidERPDbContext context, ISharedService shared)
                 history.SubmoduleId = masterPUT.SubmoduleId;
                 //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
                 history.Name = masterPUT.Name;
                 history.IconURL = masterPUT.IconURL;
                 history.SetSerial = masterPUT.SetSerial;

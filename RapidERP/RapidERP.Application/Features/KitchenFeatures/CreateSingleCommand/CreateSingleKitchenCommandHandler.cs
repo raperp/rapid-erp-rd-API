@@ -35,9 +35,9 @@ public class CreateSingleKitchenCommandHandler(IRepository repository)
                 history.TenantId = request.masterPOST.TenantId;
                 history.MenuModuleId = request.masterPOST.MenuModuleId;
                 history.ActionTypeId = request.masterPOST.ActionTypeId;
-                history.ExportTypeId = request.masterPOST.ExportTypeId;
-                history.ExportTo = request.masterPOST.ExportTo;
-                history.SourceURL = request.masterPOST.SourceURL;
+                //history.ExportTypeId = request.masterPOST.ExportTypeId;
+                //history.ExportTo = request.masterPOST.ExportTo;
+                //history.SourceURL = request.masterPOST.SourceURL;
                 //history.Browser = request.masterPOST.Browser;
                 //history.Location = request.masterPOST.Location;
                 //history.DeviceIP = request.masterPOST.DeviceIP;

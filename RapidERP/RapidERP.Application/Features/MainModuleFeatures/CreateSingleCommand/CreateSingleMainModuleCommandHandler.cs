@@ -31,9 +31,9 @@ public class CreateSingleMainModuleCommandHandler(IRepository repository)
                 history.MainModuleId = masterData.Id;
                 //history.LanguageId = request.masterPOST.LanguageId;
                 history.ActionTypeId = request.masterPOST.ActionTypeId;
-                history.ExportTypeId = request.masterPOST.ExportTypeId;
-                history.ExportTo = request.masterPOST.ExportTo;
-                history.SourceURL = request.masterPOST.SourceURL;
+                //history.ExportTypeId = request.masterPOST.ExportTypeId;
+                //history.ExportTo = request.masterPOST.ExportTo;
+                //history.SourceURL = request.masterPOST.SourceURL;
                 history.Name = request.masterPOST.Name;
                 history.Prefix = request.masterPOST.Prefix;
                 history.IconURL = request.masterPOST.IconURL;

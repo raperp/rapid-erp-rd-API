@@ -75,9 +75,9 @@ public class MainModuleService(RapidERPDbContext context, ISharedService shared)
                 history.MainModuleId = masterData.Id;
                 //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 history.Name = masterPOST.Name;
                 history.Prefix = masterPOST.Prefix;
                 history.IconURL = masterPOST.IconURL;
@@ -264,16 +264,16 @@ public class MainModuleService(RapidERPDbContext context, ISharedService shared)
                         join mm in context.MainModules on mma.MainModuleId equals mm.Id
                         //join l in context.Languages on mma.LanguageId equals l.Id
                         join at in context.ActionTypes on mma.ActionTypeId equals at.Id
-                        join et in context.ExportTypes on mma.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on mma.ExportTypeId equals et.Id
                         select new
                         {
                             mma.Id,
                             MainModule = mm.Name,
                             //Language = l.Name,
                             Action = at.Name,
-                            ExportType = et.Name,
-                            mma.ExportTo,
-                            mma.SourceURL,
+                            //ExportType = et.Name,
+                            //mma.ExportTo,
+                            //mma.SourceURL,
                             mma.Name,
                             mma.Prefix,
                             mma.IconURL,
@@ -374,9 +374,9 @@ public class MainModuleService(RapidERPDbContext context, ISharedService shared)
                 history.MainModuleId = masterPUT.Id;
                 //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
                 history.Name = masterPUT.Name;
                 history.Prefix = masterPUT.Prefix;
                 history.IconURL = masterPUT.IconURL;

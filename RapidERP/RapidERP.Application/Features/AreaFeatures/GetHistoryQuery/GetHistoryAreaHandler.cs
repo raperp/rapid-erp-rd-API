@@ -30,7 +30,7 @@ public class GetHistoryAreaHandler(IRepository repository)
                         join t in repository.Set<Tenant>() on aa.TenantId equals t.Id
                         //join l in repository.Set<Language>() on aa.LanguageId equals l.Id
                         join at in repository.Set<ActionType>() on aa.ActionTypeId equals at.Id
-                        join et in repository.Set<ExportType>() on aa.ExportTypeId equals et.Id
+                        //join et in repository.Set<ExportType>() on aa.ExportTypeId equals et.Id
                         select new GetHistoryAreaResponseDTOModel
                         {
                             Id = aa.Id,
@@ -43,9 +43,9 @@ public class GetHistoryAreaHandler(IRepository repository)
                             //Language = l.Name,
                             MenuModule = mm.Name,
                             ActionType = at.Name,
-                            ExportType = et.Name,
-                            ExportTo = aa.ExportTo,
-                            SourceURL = aa.SourceURL,
+                            //ExportType = et.Name,
+                            //ExportTo = aa.ExportTo,
+                            //SourceURL = aa.SourceURL,
                             //Browser = aa.Browser,
                             //Location = aa.Location,
                             //DeviceIP = aa.DeviceIP,

@@ -2,7 +2,7 @@
 
 namespace RapidERP.Domain.Entities.MainModuleModels;
 
-public class MainModuleHistory : BaseHistory
+public class MainModuleHistory : BaseAudit
 {
     public MainModule MainModule { get; set; }
     public int? MainModuleId { get; set; }

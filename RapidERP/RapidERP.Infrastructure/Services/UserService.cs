@@ -68,7 +68,7 @@ public class UserService(RapidERPDbContext context, ISharedService shared) : IUs
 
                 UserHistory history = new();
                 history.ActionTypeId = masterPOST.ActionTypeId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
                 history.UserId = masterData.Id;
                 history.RoleId = masterPOST.RoleId;
                 history.Name = masterPOST.Name;
@@ -86,8 +86,8 @@ public class UserService(RapidERPDbContext context, ISharedService shared) : IUs
                 //history.Longitude = masterPOST.Longitude;
                 //history.ActionBy = masterPOST.ActionBy;
                 //history.ActionAt = DateTime.Now;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
 
                 await context.UserHistory.AddAsync(history);
                 await context.SaveChangesAsync();
@@ -262,14 +262,14 @@ public class UserService(RapidERPDbContext context, ISharedService shared) : IUs
         {
             var data = (from uh in context.UserHistory
                         join u in context.Users on uh.UserId equals u.Id
-                        join et in context.ExportTypes on uh.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on uh.ExportTypeId equals et.Id
                         join at in context.ActionTypes on uh.ActionTypeId equals at.Id
                         join r in context.Roles on uh.RoleId equals r.Id
                         select new
                         {
                             uh.Id,
                             User = u.Name,
-                            ExportType = et.Name,
+                            //ExportType = et.Name,
                             ActionType = at.Name,
                             Role = r.Name,
                             uh.Name,
@@ -277,8 +277,8 @@ public class UserService(RapidERPDbContext context, ISharedService shared) : IUs
                             uh.Email,
                             uh.Mobile,
                             uh.Address,
-                            uh.ExportTo,
-                            uh.SourceURL,
+                            //uh.ExportTo,
+                            //uh.SourceURL,
                             //uh.Browser,
                             //uh.Location,
                             //uh.DeviceIP,
@@ -370,7 +370,7 @@ public class UserService(RapidERPDbContext context, ISharedService shared) : IUs
 
                 UserHistory history = new();
                 history.ActionTypeId = masterPUT.ActionTypeId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
                 history.UserId = masterPUT.Id;
                 history.RoleId = masterPUT.RoleId;
                 history.Name = masterPUT.Name;
@@ -388,8 +388,8 @@ public class UserService(RapidERPDbContext context, ISharedService shared) : IUs
                 //history.Longitude = masterPUT.Longitude;
                 //history.ActionBy = masterPUT.ActionBy;
                 //history.ActionAt = DateTime.Now;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
 
                 await context.UserHistory.AddAsync(history);
                 await context.SaveChangesAsync();

@@ -22,7 +22,7 @@ public class GetHistoryTextModuleHandler(IRepository repository)
                         join mm in repository.Set<MenuModule>() on tma.MenuModuleId equals mm.Id
                         join at in repository.Set<ActionType>() on tma.ActionTypeId equals at.Id
                         //join l in repository.Set<Language>() on tma.LanguageId equals l.Id
-                        join et in repository.Set<ExportType>() on tma.ExportTypeId equals et.Id
+                        //join et in repository.Set<ExportType>() on tma.ExportTypeId equals et.Id
                         select new GetHistoryTextModuleResponseDTOModel
                         {
                             Id = tma.Id,
@@ -30,9 +30,9 @@ public class GetHistoryTextModuleHandler(IRepository repository)
                             MenuModule = mm.Name,
                             //Language = l.Name,
                             Action = at.Name,
-                            ExportType = et.Name,
-                            ExportTo = tma.ExportTo,
-                            SourceURL = tma.SourceURL,
+                            //ExportType = et.Name,
+                            //ExportTo = tma.ExportTo,
+                            //SourceURL = tma.SourceURL,
                             Name = tma.Name,
                             //Browser = tma.Browser,
                             //Location = tma.Location,

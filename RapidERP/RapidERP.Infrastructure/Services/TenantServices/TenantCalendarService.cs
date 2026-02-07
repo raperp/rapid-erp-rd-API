@@ -69,9 +69,9 @@ public class TenantCalendarService(RapidERPDbContext context, ISharedService sha
                 //history.LanguageId = masterPOST.LanguageId;
                 history.CalendarId = masterPOST.CalendarId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 history.DefaultCalendarId = masterPOST.DefaultCalendarId;
                 //history.Browser = masterPOST.Browser;
                 //history.Location = masterPOST.Location;
@@ -195,7 +195,7 @@ public class TenantCalendarService(RapidERPDbContext context, ISharedService sha
                         join s in context.States on th.StateId equals s.Id
                         //join l in context.Languages on th.LanguageId equals l.Id
                         join at in context.ActionTypes on th.ActionTypeId equals at.Id
-                        join et in context.ExportTypes on th.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on th.ExportTypeId equals et.Id
                         select new
                         {
                             th.Id,
@@ -205,9 +205,9 @@ public class TenantCalendarService(RapidERPDbContext context, ISharedService sha
                             State = s.Name,
                             //Language = l.Name,
                             Action = at.Name,
-                            ExportMedia = et.Name,
-                            th.ExportTo,
-                            th.SourceURL,
+                            //ExportMedia = et.Name,
+                            //th.ExportTo,
+                            //th.SourceURL,
                             th.CalendarId,
                             th.DefaultCalendarId,
                             //th.Browser,
@@ -300,9 +300,9 @@ public class TenantCalendarService(RapidERPDbContext context, ISharedService sha
             //history.LanguageId = masterPUT.LanguageId;
             history.CalendarId = masterPUT.CalendarId;
             history.ActionTypeId = masterPUT.ActionTypeId;
-            history.ExportTypeId = masterPUT.ExportTypeId;
-            history.ExportTo = masterPUT.ExportTo;
-            history.SourceURL = masterPUT.SourceURL;
+            //history.ExportTypeId = masterPUT.ExportTypeId;
+            //history.ExportTo = masterPUT.ExportTo;
+            //history.SourceURL = masterPUT.SourceURL;
             history.DefaultCalendarId = masterPUT.DefaultCalendarId;
             //history.Browser = masterPUT.Browser;
             //history.Location = masterPUT.Location;

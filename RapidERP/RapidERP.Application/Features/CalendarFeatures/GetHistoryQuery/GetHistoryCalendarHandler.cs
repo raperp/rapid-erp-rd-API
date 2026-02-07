@@ -24,7 +24,7 @@ public class GetHistoryCalendarHandler(IRepository repository)
                         join mm in repository.Set<MenuModule>() on ca.MenuModuleId equals mm.Id
                         //join l in repository.Set<Language>() on ca.LanguageId equals l.Id
                         join at in repository.Set<ActionType>() on ca.ActionTypeId equals at.Id
-                        join et in repository.Set<ExportType>() on ca.ExportTypeId equals et.Id
+                        //join et in repository.Set<ExportType>() on ca.ExportTypeId equals et.Id
                         select new GetHistoryCalendarResponseDTOModel
                         {
                             Id = ca.Id,
@@ -33,9 +33,9 @@ public class GetHistoryCalendarHandler(IRepository repository)
                             MenuModule = mm.Name,
                             //Language = l.Name,
                             Action = at.Name,
-                            ExportType = et.Name,
-                            ExportTo = ca.ExportTo,
-                            SourceURL = ca.SourceURL,
+                            //ExportType = et.Name,
+                            //ExportTo = ca.ExportTo,
+                            //SourceURL = ca.SourceURL,
                             Code = ca.Code,
                             Name = ca.Name,
                             StartDate = ca.StartDate,

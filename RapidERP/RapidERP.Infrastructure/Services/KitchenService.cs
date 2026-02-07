@@ -72,9 +72,9 @@ namespace RapidERP.Infrastructure.Services
                     history.TenantId = masterPOST.TenantId;
                     history.MenuModuleId = masterPOST.MenuModuleId;
                     history.ActionTypeId = masterPOST.ActionTypeId;
-                    history.ExportTypeId = masterPOST.ExportTypeId;
-                    history.ExportTo = masterPOST.ExportTo;
-                    history.SourceURL = masterPOST.SourceURL;
+                    //history.ExportTypeId = masterPOST.ExportTypeId;
+                    //history.ExportTo = masterPOST.ExportTo;
+                    //history.SourceURL = masterPOST.SourceURL;
                     //history.Browser = masterPOST.Browser;
                     //history.Location = masterPOST.Location;
                     //history.DeviceIP = masterPOST.DeviceIP;
@@ -255,7 +255,7 @@ namespace RapidERP.Infrastructure.Services
                 var data = (from ka in context.KitchenHistory
                             join k in context.Kitchens on ka.KitchenId equals k.Id
                             join at in context.ActionTypes on ka.ActionTypeId equals at.Id
-                            join et in context.ExportTypes on ka.ExportTypeId equals et.Id
+                            //join et in context.ExportTypes on ka.ExportTypeId equals et.Id
                             select new
                             {
                                 ka.Id,
@@ -263,10 +263,10 @@ namespace RapidERP.Infrastructure.Services
                                 ka.Name,
                                 ka.Description,
                                 ka.PrinterId,
-                                ExportType = et.Name,
+                                //ExportType = et.Name,
                                 ActionType = at.Name,
-                                ka.ExportTo,
-                                ka.SourceURL,
+                                //ka.ExportTo,
+                                //ka.SourceURL,
                                 //ka.Browser,
                                 //ka.Location,
                                 //ka.DeviceIP,
@@ -362,9 +362,9 @@ namespace RapidERP.Infrastructure.Services
                     history.TenantId = masterPUT.TenantId;
                     history.MenuModuleId = masterPUT.MenuModuleId;
                     history.ActionTypeId = masterPUT.ActionTypeId;
-                    history.ExportTypeId = masterPUT.ExportTypeId;
-                    history.ExportTo = masterPUT.ExportTo;
-                    history.SourceURL = masterPUT.SourceURL;
+                    //history.ExportTypeId = masterPUT.ExportTypeId;
+                    //history.ExportTo = masterPUT.ExportTo;
+                    //history.SourceURL = masterPUT.SourceURL;
                     //history.Browser = masterPUT.Browser;
                     //history.Location = masterPUT.Location;
                     //history.DeviceIP = masterPUT.DeviceIP;

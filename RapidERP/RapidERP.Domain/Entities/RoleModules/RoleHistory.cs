@@ -2,7 +2,7 @@
 
 namespace RapidERP.Domain.Entities.RoleModules;
 
-public class RoleHistory : BaseHistory
+public class RoleHistory : BaseAudit
 {
     public Role Role { get; set; }
     public int RoleId { get; set; }

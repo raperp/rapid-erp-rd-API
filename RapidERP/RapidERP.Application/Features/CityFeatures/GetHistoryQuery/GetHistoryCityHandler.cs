@@ -23,7 +23,7 @@ public class GetHistoryCityHandler(IRepository repository)
 
             var data = (from ch in repository.Set<CityHistory>()
                         join c in repository.Set<City>() on ch.CountryId equals c.Id
-                        join et in repository.Set<ExportType>() on ch.ExportTypeId equals et.Id
+                        //join et in repository.Set<ExportType>() on ch.ExportTypeId equals et.Id
                         join at in repository.Set<ActionType>() on ch.ActionTypeId equals at.Id
                         join t in repository.Set<Tenant>() on ch.TenantId equals t.Id
                         //join l in repository.Set<Language>() on ch.LanguageId equals l.Id
@@ -38,9 +38,9 @@ public class GetHistoryCityHandler(IRepository repository)
                             Menu = m.Name,
                             Action = at.Name,
                             //Language = l.Name,
-                            ExportType = et.Name,
-                            ExportTo = ch.ExportTo,
-                            SourceURL = ch.SourceURL,
+                            //ExportType = et.Name,
+                            //ExportTo = ch.ExportTo,
+                            //SourceURL = ch.SourceURL,
                             IsDefault = ch.IsDefault,
                             IsDraft = ch.IsDraft,
                             //Browser = ch.Browser,

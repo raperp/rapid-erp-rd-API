@@ -51,9 +51,9 @@ public class UpdateDesignationCommandHandler(IRepository repository)
                 history.MenuModuleId = request.masterPUT.MenuModuleId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
                 //history.LanguageId = request.masterPUT.LanguageId;
-                history.ExportTypeId = request.masterPUT.ExportTypeId;
-                history.ExportTo = request.masterPUT.ExportTo;
-                history.SourceURL = request.masterPUT.SourceURL;
+                //history.ExportTypeId = request.masterPUT.ExportTypeId;
+                //history.ExportTo = request.masterPUT.ExportTo;
+                //history.SourceURL = request.masterPUT.SourceURL;
                 history.IsDefault = request.masterPUT.IsDefault;
                 history.IsDraft = request.masterPUT.IsDraft;
                 //history.Browser = request.masterPUT.Browser;

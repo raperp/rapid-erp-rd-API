@@ -24,7 +24,7 @@ public class GetHistoryStateHandler(IRepository repository)
                         join c in repository.Set<Country>() on sa.CountryId equals c.Id
                         join at in repository.Set<ActionType>() on sa.ActionTypeId equals at.Id
                         //join l in repository.Set<Language>() on sa.LanguageId equals l.Id
-                        join et in repository.Set<ExportType>() on sa.ExportTypeId equals et.Id
+                        //join et in repository.Set<ExportType>() on sa.ExportTypeId equals et.Id
                         select new GetHistoryStateResponseDTOModel
                         {
                             Id = sa.Id,
@@ -33,9 +33,9 @@ public class GetHistoryStateHandler(IRepository repository)
                             Country = c.Name,
                             //Language = l.Name,
                             Action = at.Name,
-                            ExportType = et.Name,
-                            ExportTo = sa.ExportTo,
-                            SourceURL = sa.SourceURL,
+                            //ExportType = et.Name,
+                            //ExportTo = sa.ExportTo,
+                            //SourceURL = sa.SourceURL,
                             Code = sa.Code,
                             Name = sa.Name,
                             IsDefault = sa.IsDefault,

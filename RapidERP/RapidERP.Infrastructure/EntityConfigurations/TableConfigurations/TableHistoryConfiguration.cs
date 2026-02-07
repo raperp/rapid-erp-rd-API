@@ -11,9 +11,9 @@ public class TableHistoryConfiguration : IEntityTypeConfiguration<TableHistory>
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).HasMaxLength(5).IsRequired();
         builder.Property(x => x.Description).HasMaxLength(100).IsRequired(false);
-        builder.Property(x => x.ExportTypeId).IsRequired(false);
-        builder.Property(x => x.SourceURL).IsRequired(false);
-        builder.Property(x => x.ExportTo).IsRequired(false);
+        //builder.Property(x => x.ExportTypeId).IsRequired(false);
+        //builder.Property(x => x.SourceURL).IsRequired(false);
+        //builder.Property(x => x.ExportTo).IsRequired(false);
         //builder.Property(x => x.Browser).HasMaxLength(15).IsRequired().HasColumnOrder(8);
         //builder.Property(x => x.Location).HasMaxLength(40).IsRequired().HasColumnOrder(9);
         //builder.Property(x => x.DeviceIP).HasMaxLength(15).IsRequired().HasColumnOrder(10);

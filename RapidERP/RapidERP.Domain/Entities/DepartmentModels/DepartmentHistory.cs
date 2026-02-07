@@ -1,7 +1,7 @@
 ﻿using RapidERP.Domain.Entities.Shared;
 
 namespace RapidERP.Domain.Entities.DepartmentModels;
-public class DepartmentHistory : BaseHistory
+public class DepartmentHistory : BaseAudit
 {
     public Department Department { get; set; }
     public int DepartmentId { get; set; }

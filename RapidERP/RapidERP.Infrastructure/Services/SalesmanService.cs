@@ -87,9 +87,9 @@ public class SalesmanService(RapidERPDbContext context, ISharedService shared) :
                 history.MenuModuleId = masterPOST.MenuModuleId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.LanguageId = masterPOST.LanguageId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 history.IsDefault = masterPOST.IsDefault;
                 history.IsDraft = masterPOST.IsDraft;
                 //history.Browser = masterPOST.Browser;
@@ -284,7 +284,7 @@ public class SalesmanService(RapidERPDbContext context, ISharedService shared) :
             var data = (from sh in context.SalesmanHistory
                         join s in context.Salesmen on sh.SalesmanId equals s.Id
                         join d in context.Departments on sh.DepartmentId equals d.Id
-                        join et in context.ExportTypes on sh.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on sh.ExportTypeId equals et.Id
                         join at in context.ActionTypes on sh.ActionTypeId equals at.Id
                         join t in context.Tenants on sh.TenantId equals t.Id
                         //join l in context.Languages on sh.LanguageId equals l.Id
@@ -306,9 +306,9 @@ public class SalesmanService(RapidERPDbContext context, ISharedService shared) :
                             MenuModule = mm.Name,
                             Action = at.Name,
                             //Language = l.Name,
-                            ExportType = et.Name,
-                            sh.ExportTo,
-                            sh.SourceURL,
+                            //ExportType = et.Name,
+                            //sh.ExportTo,
+                            //sh.SourceURL,
                             sh.IsDefault,
                             sh.IsDraft,
                             //sh.Browser,
@@ -421,9 +421,9 @@ public class SalesmanService(RapidERPDbContext context, ISharedService shared) :
                 history.MenuModuleId = masterPUT.MenuModuleId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.LanguageId = masterPUT.LanguageId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
                 history.IsDefault = masterPUT.IsDefault;
                 history.IsDraft = masterPUT.IsDraft;
                 //history.Browser = masterPUT.Browser;

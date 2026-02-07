@@ -38,9 +38,9 @@ public class CreateBulkCurrencyCommandHandler(IRepository repository)
                     history.MenuModuleId = item.MenuModuleId;
                     //history.LanguageId = item.LanguageId;
                     history.ActionTypeId = item.ActionTypeId;
-                    history.ExportTypeId = item.ExportTypeId;
-                    history.ExportTo = item.ExportTo;
-                    history.SourceURL = item.SourceURL;
+                    //history.ExportTypeId = item.ExportTypeId;
+                    //history.ExportTo = item.ExportTo;
+                    //history.SourceURL = item.SourceURL;
                     history.Code = item.Code;
                     history.Name = item.Name;
                     history.IsDefault = item.IsDefault;

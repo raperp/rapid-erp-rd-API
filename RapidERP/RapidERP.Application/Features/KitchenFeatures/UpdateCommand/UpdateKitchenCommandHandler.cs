@@ -46,9 +46,9 @@ public class UpdateKitchenCommandHandler(IRepository repository)
                 history.TenantId = request.masterPUT.TenantId;
                 history.MenuModuleId = request.masterPUT.MenuModuleId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
-                history.ExportTypeId = request.masterPUT.ExportTypeId;
-                history.ExportTo = request.masterPUT.ExportTo;
-                history.SourceURL = request.masterPUT.SourceURL;
+                //history.ExportTypeId = request.masterPUT.ExportTypeId;
+                //history.ExportTo = request.masterPUT.ExportTo;
+                //history.SourceURL = request.masterPUT.SourceURL;
                 //history.Browser = request.masterPUT.Browser;
                 //history.Location = request.masterPUT.Location;
                 //history.DeviceIP = request.masterPUT.DeviceIP;

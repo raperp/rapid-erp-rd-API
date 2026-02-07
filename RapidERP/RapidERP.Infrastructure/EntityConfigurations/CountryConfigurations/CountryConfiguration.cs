@@ -17,6 +17,10 @@ public class CountryConfiguration : IEntityTypeConfiguration<Country>
         builder.Property(x => x.RegionId).IsRequired(false);
         builder.Property(x => x.StateId).IsRequired(false);
         builder.Property(x => x.TimeZoneId).IsRequired(false);
+        builder.Property(x => x.CreatedAt).IsRequired(false);
+        builder.Property(x => x.DraftedAt).IsRequired(false);
+        builder.Property(x => x.UpdatedAt).IsRequired(false);
+        builder.Property(x => x.DeletedAt).IsRequired(false);
 
         builder.Ignore(x => x.Tenant);
         //builder.Ignore(x => x.Language);

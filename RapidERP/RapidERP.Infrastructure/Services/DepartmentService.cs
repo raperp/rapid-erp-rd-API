@@ -73,9 +73,9 @@ public class DepartmentService(RapidERPDbContext context, ISharedService shared)
                 history.MenuModuleId = masterPOST.MenuModuleId;
                 //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 history.IsDefault = masterPOST.IsDefault;
                 history.IsDraft = masterPOST.IsDraft;
                 //history.Browser = masterPOST.Browser;
@@ -262,7 +262,7 @@ public class DepartmentService(RapidERPDbContext context, ISharedService shared)
         {
             var data = (from dh in context.DepartmentHistory
                         join d in context.Departments on dh.DepartmentId equals d.Id
-                        join et in context.ExportTypes on dh.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on dh.ExportTypeId equals et.Id
                         join at in context.ActionTypes on dh.ActionTypeId equals at.Id
                         join t in context.Tenants on dh.TenantId equals t.Id
                         //join l in context.Languages on dh.LanguageId equals l.Id
@@ -277,9 +277,9 @@ public class DepartmentService(RapidERPDbContext context, ISharedService shared)
                             MenuModule = mm.Name,
                             Action = at.Name,
                             //Language = l.Name,
-                            ExportType = et.Name,
-                            dh.ExportTo,
-                            dh.SourceURL,
+                            //ExportType = et.Name,
+                            //dh.ExportTo,
+                            //dh.SourceURL,
                             dh.IsDefault,
                             dh.IsDraft,
                             //dh.Browser,
@@ -379,9 +379,9 @@ public class DepartmentService(RapidERPDbContext context, ISharedService shared)
                 history.MenuModuleId = masterPUT.MenuModuleId;
                 //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
                 history.IsDefault = masterPUT.IsDefault;
                 history.IsDraft = masterPUT.IsDraft;
                 //history.Browser = masterPUT.Browser;

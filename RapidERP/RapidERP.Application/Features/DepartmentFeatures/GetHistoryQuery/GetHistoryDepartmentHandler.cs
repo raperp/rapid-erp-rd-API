@@ -20,7 +20,7 @@ public class GetHistoryDepartmentHandler(IRepository repository)
         {
             var data = (from dh in repository.Set<DepartmentHistory>()
                         join d in repository.Set<Department>() on dh.DepartmentId equals d.Id
-                        join et in repository.Set<ExportType>() on dh.ExportTypeId equals et.Id
+                        //join et in repository.Set<ExportType>() on dh.ExportTypeId equals et.Id
                         join at in repository.Set<ActionType>() on dh.ActionTypeId equals at.Id
                         join t in repository.Set<Tenant>() on dh.TenantId equals t.Id
                         //join l in repository.Set<Language>() on dh.LanguageId equals l.Id
@@ -35,9 +35,9 @@ public class GetHistoryDepartmentHandler(IRepository repository)
                             MenuModule = mm.Name,
                             Action = at.Name,
                             //Language = l.Name,
-                            ExportType = et.Name,
-                            ExportTo = dh.ExportTo,
-                            SourceURL = dh.SourceURL,
+                            //ExportType = et.Name,
+                            //ExportTo = dh.ExportTo,
+                            //SourceURL = dh.SourceURL,
                             IsDefault = dh.IsDefault,
                             IsDraft = dh.IsDraft,
                             //Browser = dh.Browser,

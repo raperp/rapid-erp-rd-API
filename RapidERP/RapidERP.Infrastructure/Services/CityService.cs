@@ -78,9 +78,9 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                 history.MenuModuleId = masterPOST.MenuModuleId;
                 //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 history.IsDefault = masterPOST.IsDefault;
                 history.IsDraft = masterPOST.IsDraft;
                 //history.Browser = masterPOST.Browser;
@@ -270,7 +270,7 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
         {
             var data = (from ch in context.CityHistory
                         join c in context.Cities on ch.CountryId equals c.Id
-                        join et in context.ExportTypes on ch.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on ch.ExportTypeId equals et.Id
                         join at in context.ActionTypes on ch.ActionTypeId equals at.Id
                         join t in context.Tenants on ch.TenantId equals t.Id
                         //join l in context.Languages on ch.LanguageId equals l.Id
@@ -285,9 +285,9 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                             Menu = m.Name,
                             Action = at.Name,
                             //Language = l.Name,
-                            ExportType = et.Name,
-                            ch.ExportTo,
-                            ch.SourceURL,
+                            //ExportType = et.Name,
+                            //ch.ExportTo,
+                            //ch.SourceURL,
                             ch.IsDefault,
                             ch.IsDraft,
                             //ch.Browser,
@@ -391,9 +391,9 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                 history.MenuModuleId = masterPUT.MenuModuleId;
                 //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
                 history.IsDefault = masterPUT.IsDefault;
                 history.IsDraft = masterPUT.IsDraft;
                 //history.Browser = masterPUT.Browser;

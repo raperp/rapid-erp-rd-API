@@ -35,9 +35,9 @@ public class CreateSingleStateCommandHandler(IRepository repository)
                 history.CountryId = request.masterPOST.CountryId;
                 //history.LanguageId = request.masterPOST.LanguageId;
                 history.ActionTypeId = request.masterPOST.ActionTypeId;
-                history.ExportTypeId = request.masterPOST.ExportTypeId;
-                history.ExportTo = request.masterPOST.ExportTo;
-                history.SourceURL = request.masterPOST.SourceURL;
+                //history.ExportTypeId = request.masterPOST.ExportTypeId;
+                //history.ExportTo = request.masterPOST.ExportTo;
+                //history.SourceURL = request.masterPOST.SourceURL;
                 history.Code = request.masterPOST.Code;
                 history.Name = request.masterPOST.Name;
                 history.IsDefault = request.masterPOST.IsDefault;

@@ -33,9 +33,9 @@ public class CreateBulkMenuModuleCommandHandler(IRepository repository)
                     history.SubmoduleId = item.SubmoduleId;
                     //history.LanguageId = item.LanguageId;
                     history.ActionTypeId = item.ActionTypeId;
-                    history.ExportTypeId = item.ExportTypeId;
-                    history.ExportTo = item.ExportTo;
-                    history.SourceURL = item.SourceURL;
+                    //history.ExportTypeId = item.ExportTypeId;
+                    //history.ExportTo = item.ExportTo;
+                    //history.SourceURL = item.SourceURL;
                     history.Name = item.Name;
                     history.IconURL = item.IconURL;
                     history.SetSerial = item.SetSerial;

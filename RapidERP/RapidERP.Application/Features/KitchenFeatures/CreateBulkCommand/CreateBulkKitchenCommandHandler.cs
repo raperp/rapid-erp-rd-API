@@ -37,9 +37,9 @@ public class CreateBulkKitchenCommandHandler(IRepository repository)
                     history.TenantId = item.TenantId;
                     history.MenuModuleId = item.MenuModuleId;
                     history.ActionTypeId = item.ActionTypeId;
-                    history.ExportTypeId = item.ExportTypeId;
-                    history.ExportTo = item.ExportTo;
-                    history.SourceURL = item.SourceURL;
+                    //history.ExportTypeId = item.ExportTypeId;
+                    //history.ExportTo = item.ExportTo;
+                    //history.SourceURL = item.SourceURL;
                     //history.Browser = item.Browser;
                     //history.Location = item.Location;
                     //history.DeviceIP = item.DeviceIP;

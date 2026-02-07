@@ -2,7 +2,7 @@
 
 namespace RapidERP.Domain.Entities.CountryModels;
 
-public class CountryAudit : BaseHistory
+public class CountryAudit : BaseAudit
 {
     public Country Country { get; set; }
     public int CountryId { get; set; }

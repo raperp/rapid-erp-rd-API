@@ -17,9 +17,9 @@ public class RiderHistoryConfiguration : IEntityTypeConfiguration<RiderHistory>
         builder.Property(x => x.StateId).IsRequired(false);
         builder.Property(x => x.CityId).IsRequired(false);
         builder.Property(x => x.AreaId).IsRequired(false);
-        builder.Property(x => x.ExportTypeId).IsRequired(false);
-        builder.Property(x => x.SourceURL).IsRequired(false);
-        builder.Property(x => x.ExportTo).IsRequired(false);
+        //builder.Property(x => x.ExportTypeId).IsRequired(false);
+        //builder.Property(x => x.SourceURL).IsRequired(false);
+        //builder.Property(x => x.ExportTo).IsRequired(false);
         //builder.Property(x => x.Browser).HasMaxLength(15).IsRequired();
         //builder.Property(x => x.Location).HasMaxLength(40).IsRequired();
         //builder.Property(x => x.DeviceIP).HasMaxLength(15).IsRequired();

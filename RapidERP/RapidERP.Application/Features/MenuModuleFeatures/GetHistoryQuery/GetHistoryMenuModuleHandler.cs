@@ -22,7 +22,7 @@ public class GetHistoryMenuModuleHandler(IRepository repository)
                         join at in repository.Set<ActionType>() on mma.ActionTypeId equals at.Id
                         join sm in repository.Set<Submodule>() on mma.SubmoduleId equals sm.Id
                         //join l in repository.Set<Language>() on mma.LanguageId equals l.Id
-                        join et in repository.Set<ExportType>() on mma.ExportTypeId equals et.Id
+                        //join et in repository.Set<ExportType>() on mma.ExportTypeId equals et.Id
                         select new GetHistoryMenuModuleResponseDTOModel
                         {
                             Id = mma.Id,
@@ -30,9 +30,9 @@ public class GetHistoryMenuModuleHandler(IRepository repository)
                             Submodule = mm.Name,
                             //Language = l.Name,
                             Action = at.Name,
-                            ExportType = et.Name,
-                            ExportTo = mma.ExportTo,
-                            SourceURL = mma.SourceURL,
+                            //ExportType = et.Name,
+                            //ExportTo = mma.ExportTo,
+                            //SourceURL = mma.SourceURL,
                             Name = mma.Name,
                             IconURL = mma.IconURL,
                             SetSerial = mma.SetSerial,

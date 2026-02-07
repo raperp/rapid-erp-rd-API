@@ -41,9 +41,9 @@ public class CreateSingleTenantCommandHandler(IRepository repository)
                 //history.LanguageId = request.masterPOST.LanguageId;
                 history.CalendarId = request.masterPOST.CalendarId;
                 history.ActionTypeId = request.masterPOST.ActionTypeId;
-                history.ExportTypeId = request.masterPOST.ExportTypeId;
-                history.ExportTo = request.masterPOST.ExportTo;
-                history.SourceURL = request.masterPOST.SourceURL;
+                //history.ExportTypeId = request.masterPOST.ExportTypeId;
+                //history.ExportTo = request.masterPOST.ExportTo;
+                //history.SourceURL = request.masterPOST.SourceURL;
                 history.Name = request.masterPOST.Name;
                 history.Contact = request.masterPOST.Contact;
                 history.Phone = request.masterPOST.Phone;

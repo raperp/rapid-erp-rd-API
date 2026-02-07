@@ -64,11 +64,11 @@ public class UserIPWhitelistService(RapidERPDbContext context, ISharedService sh
                 UserIPWhitelistHistory history = new();
                 history.UserIPWhitelistId = masterData.Id;
                 history.ActionTypeId = masterPOST.ActionTypeId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
                 history.UserId = masterPOST.UserId;
                 history.IPAddress = masterPOST.IPAddress;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 //history.Browser = masterPOST.Browser;
                 //history.Location = masterPOST.Location;
                 //history.DeviceIP = masterPOST.DeviceIP;
@@ -191,18 +191,18 @@ public class UserIPWhitelistService(RapidERPDbContext context, ISharedService sh
             var data = (from uiwh in context.UserIPWhitelistHistory
                         join uiw in context.UserIPWhitelists on uiwh.UserId equals uiw.Id
                         join u in context.Users on uiwh.UserId equals u.Id
-                        join et in context.ExportTypes on uiwh.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on uiwh.ExportTypeId equals et.Id
                         join at in context.ActionTypes on uiwh.ActionTypeId equals at.Id
                         select new
                         {
                             uiwh.Id,
                             User = u.Name,
                             IP = uiw.IPAddress,
-                            ExportType = et.Name,
+                            //ExportType = et.Name,
                             ActionType = at.Name,
                             uiwh.IPAddress,
-                            uiwh.ExportTo,
-                            uiwh.SourceURL,
+                            //uiwh.ExportTo,
+                            //uiwh.SourceURL,
                             //uiwh.Browser,
                             //uiwh.Location,
                             //uiwh.DeviceIP,
@@ -290,11 +290,11 @@ public class UserIPWhitelistService(RapidERPDbContext context, ISharedService sh
                 UserIPWhitelistHistory history = new();
                 history.UserIPWhitelistId = masterPUT.Id;
                 history.ActionTypeId = masterPUT.ActionTypeId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
                 history.UserId = masterPUT.UserId;
                 history.IPAddress = masterPUT.IPAddress;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
                 //history.Browser = masterPUT.Browser;
                 //history.Location = masterPUT.Location;
                 //history.DeviceIP = masterPUT.DeviceIP;

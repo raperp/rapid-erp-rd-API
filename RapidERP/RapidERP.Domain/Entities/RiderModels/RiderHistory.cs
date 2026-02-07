@@ -1,7 +1,7 @@
 ﻿using RapidERP.Domain.Entities.Shared;
 
 namespace RapidERP.Domain.Entities.RiderModels;
-public class RiderHistory : BaseHistory
+public class RiderHistory : BaseAudit
 {
     public Rider Rider { get; set; }
     public int RiderId { get; set; }

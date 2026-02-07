@@ -46,9 +46,9 @@ public class CreateBulkCountryCommandHandler(IRepository repository)
                     history.MenuModuleId = item.masterPOST.MenuModuleId;
                     history.ActionTypeId = item.masterPOST.ActionTypeId;
                     //history.LanguageId = item.masterPOST.LanguageId;
-                    history.ExportTypeId = item.masterPOST.ExportTypeId;
-                    history.ExportTo = item.masterPOST.ExportTo;
-                    history.SourceURL = item.masterPOST.SourceURL;
+                    //history.ExportTypeId = item.masterPOST.ExportTypeId;
+                    //history.ExportTo = item.masterPOST.ExportTo;
+                    //history.SourceURL = item.masterPOST.SourceURL;
                     history.DialCode = item.masterPOST.DialCode;
                     history.Name = item.masterPOST.Name;
                     history.IsDefault = item.masterPOST.IsDefault;

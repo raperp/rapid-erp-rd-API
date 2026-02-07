@@ -44,9 +44,9 @@ public class CreateBulkTenantCommandHandler(IRepository repository)
                     //history.LanguageId = item.LanguageId;
                     history.CalendarId = item.CalendarId;
                     history.ActionTypeId = item.ActionTypeId;
-                    history.ExportTypeId = item.ExportTypeId;
-                    history.ExportTo = item.ExportTo;
-                    history.SourceURL = item.SourceURL;
+                    //history.ExportTypeId = item.ExportTypeId;
+                    //history.ExportTo = item.ExportTo;
+                    //history.SourceURL = item.SourceURL;
                     history.Name = item.Name;
                     history.Contact = item.Contact;
                     history.Phone = item.Phone;

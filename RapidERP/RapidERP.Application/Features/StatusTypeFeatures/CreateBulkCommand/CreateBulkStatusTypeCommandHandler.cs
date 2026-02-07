@@ -30,9 +30,9 @@ public class CreateBulkStatusTypeCommandHandler(IRepository repository)
                     history.StatusTypeId = masterData.Id;
                     //history.LanguageId = item.LanguageId;
                     history.ActionTypeId = item.ActionTypeId;
-                    history.ExportTypeId = item.ExportTypeId;
-                    history.ExportTo = item.ExportTo;
-                    history.SourceURL = item.SourceURL;
+                    //history.ExportTypeId = item.ExportTypeId;
+                    //history.ExportTo = item.ExportTo;
+                    //history.SourceURL = item.SourceURL;
                     history.Name = item.Name;
                     history.Description = item.Description;
                     //history.Browser = item.Browser;

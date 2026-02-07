@@ -2,7 +2,7 @@
 
 namespace RapidERP.Domain.Entities.CalendarModels;
 
-public class CalendarHistory : BaseHistory
+public class CalendarHistory : BaseAudit
 {
     public Calendar Calendar { get; set; }
     public int? CalendarId { get; set; }

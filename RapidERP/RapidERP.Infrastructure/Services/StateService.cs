@@ -80,9 +80,9 @@ namespace RapidERP.Infrastructure.Services
                     history.CountryId = masterPOST.CountryId;
                     //history.LanguageId = masterPOST.LanguageId;
                     history.ActionTypeId = masterPOST.ActionTypeId;
-                    history.ExportTypeId = masterPOST.ExportTypeId;
-                    history.ExportTo = masterPOST.ExportTo;
-                    history.SourceURL = masterPOST.SourceURL;
+                    //history.ExportTypeId = masterPOST.ExportTypeId;
+                    //history.ExportTo = masterPOST.ExportTo;
+                    //history.SourceURL = masterPOST.SourceURL;
                     history.Code = masterPOST.Code;
                     history.Name = masterPOST.Name;
                     history.IsDefault = masterPOST.IsDefault;
@@ -278,7 +278,7 @@ namespace RapidERP.Infrastructure.Services
                             join c in context.Countries on sa.CountryId equals c.Id
                             join at in context.ActionTypes on sa.ActionTypeId equals at.Id
                             //join l in context.Languages on sa.LanguageId equals l.Id
-                            join et in context.ExportTypes on sa.ExportTypeId equals et.Id
+                            //join et in context.ExportTypes on sa.ExportTypeId equals et.Id
                             select new
                             {
                                 sa.Id,
@@ -287,9 +287,9 @@ namespace RapidERP.Infrastructure.Services
                                 Country = c.Name,
                                 //Language = l.Name,
                                 Action = at.Name,
-                                ExportType = et.Name,
-                                sa.ExportTo,
-                                sa.SourceURL,
+                                //ExportType = et.Name,
+                                //sa.ExportTo,
+                                //sa.SourceURL,
                                 sa.Code,
                                 sa.Name,
                                 sa.IsDefault,
@@ -389,9 +389,9 @@ namespace RapidERP.Infrastructure.Services
                     history.CountryId = masterPUT.CountryId;
                     //history.LanguageId = masterPUT.LanguageId;
                     history.ActionTypeId = masterPUT.ActionTypeId;
-                    history.ExportTypeId = masterPUT.ExportTypeId;
-                    history.ExportTo = masterPUT.ExportTo;
-                    history.SourceURL = masterPUT.SourceURL;
+                    //history.ExportTypeId = masterPUT.ExportTypeId;
+                    //history.ExportTo = masterPUT.ExportTo;
+                    //history.SourceURL = masterPUT.SourceURL;
                     history.Code = masterPUT.Code;
                     history.Name = masterPUT.Name;
                     history.IsDefault = masterPUT.IsDefault;

@@ -38,9 +38,9 @@ public class UpdateMessageModuleCommandHandler(IRepository repository)
                 history.TextModuleId = request.masterPUT.TextModuleId;
                 //history.LanguageId = request.masterPUT.LanguageId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
-                history.ExportTypeId = request.masterPUT.ExportTypeId;
-                history.ExportTo = request.masterPUT.ExportTo;
-                history.SourceURL = request.masterPUT.SourceURL;
+                //history.ExportTypeId = request.masterPUT.ExportTypeId;
+                //history.ExportTo = request.masterPUT.ExportTo;
+                //history.SourceURL = request.masterPUT.SourceURL;
                 history.Name = request.masterPUT.Name;
                 //history.Browser = request.masterPUT.Browser;
                 //history.Location = request.masterPUT.Location;

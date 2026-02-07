@@ -2,7 +2,7 @@
 
 namespace RapidERP.Domain.Entities.KitchenModels;
 
-public class KitchenHistory : BaseHistory
+public class KitchenHistory : BaseAudit
 {
     public Kitchen Kitchen { get; set; }
     public int KitchenId { get; set; }

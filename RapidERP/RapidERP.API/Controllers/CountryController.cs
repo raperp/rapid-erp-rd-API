@@ -3,13 +3,11 @@ using RapidERP.Application.DTOs.CountryDTOs;
 using RapidERP.Application.Features.CountryFeatures.CreateBulkCommand;
 using RapidERP.Application.Features.CountryFeatures.CreateSingleCommand;
 using RapidERP.Application.Features.CountryFeatures.DeleteCommand;
-using RapidERP.Application.Features.CountryFeatures.GetAllCountryTemplateDataQuery;
 using RapidERP.Application.Features.CountryFeatures.GetAllQuery;
 using RapidERP.Application.Features.CountryFeatures.GetHistoryQuery;
 using RapidERP.Application.Features.CountryFeatures.GetSingleCountryQuery;
 using RapidERP.Application.Features.CountryFeatures.SoftDeleteCommand;
 using RapidERP.Application.Features.CountryFeatures.UpdateCommand;
-using RapidERP.Domain.Entities.CountryModels;
 using Wolverine;
 
 namespace RapidERP.API.Controllers
@@ -46,18 +44,7 @@ namespace RapidERP.API.Controllers
             var result = await bus.InvokeAsync<GetHistoryCountryResponseModel>(query);
             return Ok(result);
         }
-
-        [HttpGet("GetTempleteData")]
-        [ProducesResponseType(typeof(CountryTemplate), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetTempleteData()
-        {
-            int id = 0;
-            logger.LogInformation("Get Templete Data called");
-            var result = await bus.InvokeAsync<GetAllCountryTemplateDataResponseModel>(new GetAllCountryTemplateDataRequestModel());
-            return Ok(result);
-
-        }
-
+         
         [HttpPost("CreateSingle")]
         public async Task<IActionResult> CreateSingle(CountryPOST masterPOST)
         {

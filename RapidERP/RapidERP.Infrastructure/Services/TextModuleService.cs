@@ -66,9 +66,9 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
                 history.MenuModuleId = masterPOST.MenuModuleId;
                 //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
-                history.ExportTypeId = masterPOST.ExportTypeId;
-                history.ExportTo = masterPOST.ExportTo;
-                history.SourceURL = masterPOST.SourceURL;
+                //history.ExportTypeId = masterPOST.ExportTypeId;
+                //history.ExportTo = masterPOST.ExportTo;
+                //history.SourceURL = masterPOST.SourceURL;
                 history.Name = masterPOST.Name;
                 //history.Browser = masterPOST.Browser;
                 //history.Location = masterPOST.Location;
@@ -194,7 +194,7 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
                         join mm in context.MenuModules on tma.MenuModuleId equals mm.Id
                         join at in context.ActionTypes on tma.ActionTypeId equals at.Id
                         //join l in context.Languages on tma.LanguageId equals l.Id
-                        join et in context.ExportTypes on tma.ExportTypeId equals et.Id
+                        //join et in context.ExportTypes on tma.ExportTypeId equals et.Id
                         select new
                         {
                             tma.Id,
@@ -202,9 +202,9 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
                             MenuModule = mm.Name,
                             //Language = l.Name,
                             Action = at.Name,
-                            ExportType = et.Name,
-                            tma.ExportTo,
-                            tma.SourceURL,
+                            //ExportType = et.Name,
+                            //tma.ExportTo,
+                            //tma.SourceURL,
                             tma.Name,
                             //tma.Browser,
                             //tma.Location,
@@ -301,9 +301,9 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
                 history.MenuModuleId = masterPUT.MenuModuleId;
                 //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
-                history.ExportTypeId = masterPUT.ExportTypeId;
-                history.ExportTo = masterPUT.ExportTo;
-                history.SourceURL = masterPUT.SourceURL;
+                //history.ExportTypeId = masterPUT.ExportTypeId;
+                //history.ExportTo = masterPUT.ExportTo;
+                //history.SourceURL = masterPUT.SourceURL;
                 history.Name = masterPUT.Name;
                 //history.Browser = masterPUT.Browser;
                 //history.Location = masterPUT.Location;

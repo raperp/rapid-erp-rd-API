@@ -12,10 +12,10 @@ public class RoleHistoryConfiguration : IEntityTypeConfiguration<RoleHistory>
         builder.Property(x => x.Id).HasColumnOrder(0);
         builder.Property(x => x.RoleId).HasColumnOrder(1);
         builder.Property(x => x.ActionTypeId).IsRequired(false).HasColumnOrder(2);
-        builder.Property(x => x.ExportTypeId).IsRequired(false).HasColumnOrder(3);
+        //builder.Property(x => x.ExportTypeId).IsRequired(false).HasColumnOrder(3);
         builder.Property(x => x.Name).HasMaxLength(40).IsRequired().HasColumnOrder(4);
-        builder.Property(x => x.ExportTo).IsRequired(false).HasColumnOrder(5);
-        builder.Property(x => x.SourceURL).IsRequired(false).HasColumnOrder(6);
+        //builder.Property(x => x.ExportTo).IsRequired(false).HasColumnOrder(5);
+        //builder.Property(x => x.SourceURL).IsRequired(false).HasColumnOrder(6);
         //builder.Property(x => x.Browser).HasMaxLength(15).IsRequired().HasColumnOrder(7);
         //builder.Property(x => x.Location).HasMaxLength(40).IsRequired().HasColumnOrder(8);
         //builder.Property(x => x.DeviceIP).HasMaxLength(15).IsRequired().HasColumnOrder(9);

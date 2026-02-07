@@ -34,9 +34,9 @@ public class CreateBulkSubModuleCommandHandler(IRepository repository)
                     history.MainModuleId = item.MainModuleId;
                     //history.LanguageId = item.LanguageId;
                     history.ActionTypeId = item.ActionTypeId;
-                    history.ExportTypeId = item.ExportTypeId;
-                    history.ExportTo = item.ExportTo;
-                    history.SourceURL = item.SourceURL;
+                    //history.ExportTypeId = item.ExportTypeId;
+                    //history.ExportTo = item.ExportTo;
+                    //history.SourceURL = item.SourceURL;
                     history.Name = item.Name;
                     history.IconURL = item.IconURL;
                     history.SetSerial = item.SetSerial;

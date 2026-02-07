@@ -26,7 +26,7 @@ public class GetHistoryTenantHandler(IRepository repository)
                         join s in repository.Set<State>() on th.StateId equals s.Id
                         //join l in repository.Set<Language>() on th.LanguageId equals l.Id
                         join at in repository.Set<ActionType>() on th.ActionTypeId equals at.Id
-                        join et in repository.Set<ExportType>() on th.ExportTypeId equals et.Id
+                        //join et in repository.Set<ExportType>() on th.ExportTypeId equals et.Id
                         select new GetHistoryTenantResponseDTOModel
                         {
                             Id = th.Id,
@@ -36,9 +36,9 @@ public class GetHistoryTenantHandler(IRepository repository)
                             State = s.Name,
                             //Language = l.Name,
                             Action = at.Name,
-                            ExportMedia = et.Name,
-                            ExportTo = th.ExportTo,
-                            SourceURL = th.SourceURL,
+                            //ExportMedia = et.Name,
+                            //ExportTo = th.ExportTo,
+                            //SourceURL = th.SourceURL,
                             Name = th.Name,
                             Contact = th.Contact,
                             Phone = th.Phone,
