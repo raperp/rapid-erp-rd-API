@@ -33,8 +33,8 @@ public class CreateSingleDepartmentCommandHandler(IRepository repository)
                 history.DepartmentId = masterData.Id;
                 history.Name = request.masterPOST.Name;
                 history.Description = request.masterPOST.Description;
-                history.TenantId = request.masterPOST.TenantId;
-                history.MenuModuleId = request.masterPOST.MenuModuleId;
+                //history.TenantId = request.masterPOST.TenantId;
+                //history.MenuModuleId = request.masterPOST.MenuModuleId;
                 //history.LanguageId = request.masterPOST.LanguageId;
                 history.ActionTypeId = request.masterPOST.ActionTypeId;
                 //history.ExportTypeId = request.masterPOST.ExportTypeId;

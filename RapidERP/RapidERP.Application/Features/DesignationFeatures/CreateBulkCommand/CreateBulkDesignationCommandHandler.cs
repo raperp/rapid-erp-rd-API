@@ -36,8 +36,8 @@ public class CreateBulkDesignationCommandHandler(IRepository repository)
                     history.Name = item.Name;
                     history.Description = item.Description;
                     history.DepartmentId = item.DepartmentId;
-                    history.TenantId = item.TenantId;
-                    history.MenuModuleId = item.MenuModuleId;
+                    //history.TenantId = item.TenantId;
+                    //history.MenuModuleId = item.MenuModuleId;
                     history.ActionTypeId = item.ActionTypeId;
                     //history.LanguageId = item.LanguageId;
                     //history.ExportTypeId = item.ExportTypeId;

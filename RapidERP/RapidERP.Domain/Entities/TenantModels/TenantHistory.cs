@@ -5,7 +5,7 @@ namespace RapidERP.Domain.Entities.TenantModels;
 public class TenantHistory : BaseAudit
 {
     public Tenant Tenant { get; set; }
-    //public int? TenantId { get; set; }
+    public int? TenantId { get; set; }
     public int? CountryId { get; set; }
     public int? StateId { get; set; }
     public int? CalendarId { get; set; }

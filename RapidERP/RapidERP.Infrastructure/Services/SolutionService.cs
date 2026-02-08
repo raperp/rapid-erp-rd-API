@@ -68,8 +68,8 @@ public class SolutionService(RapidERPDbContext context, ISharedService shared) :
 
                 SolutionHistory history = new();
                 history.SolutionId = masterData.Id;
-                history.TenantId = masterPOST.TenantId;
-                history.MenuModuleId = masterPOST.MenuModuleId;
+                //history.TenantId = masterPOST.TenantId;
+                //history.MenuModuleId = masterPOST.MenuModuleId;
                 //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
@@ -208,8 +208,8 @@ public class SolutionService(RapidERPDbContext context, ISharedService shared) :
         {
             var data = (from sh in context.SolutionHistory
                         join s in context.Solutions on sh.SolutionId equals s.Id
-                        join t in context.Tenants on sh.TenantId equals t.Id
-                        join mm in context.MenuModules on sh.MenuModuleId equals mm.Id
+                        //join t in context.Tenants on sh.TenantId equals t.Id
+                        //join mm in context.MenuModules on sh.MenuModuleId equals mm.Id
                         //join l in context.Languages on sh.LanguageId equals l.Id
                         join at in context.ActionTypes on sh.ActionTypeId equals at.Id
                         //join et in context.ExportTypes on sh.ExportTypeId equals et.Id
@@ -217,8 +217,8 @@ public class SolutionService(RapidERPDbContext context, ISharedService shared) :
                         {
                             sh.Id,
                             Currency = s.Name,
-                            Tenant = t.Name,
-                            MenuModule = mm.Name,
+                            //Tenant = t.Name,
+                            //MenuModule = mm.Name,
                             //Language = l.Name,
                             Action = at.Name,
                             //ExportType = et.Name,
@@ -319,8 +319,8 @@ public class SolutionService(RapidERPDbContext context, ISharedService shared) :
 
                 SolutionHistory history = new();
                 history.SolutionId = masterPUT.Id;
-                history.TenantId = masterPUT.TenantId;
-                history.MenuModuleId = masterPUT.MenuModuleId;
+                //history.TenantId = masterPUT.TenantId;
+                //history.MenuModuleId = masterPUT.MenuModuleId;
                 //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;

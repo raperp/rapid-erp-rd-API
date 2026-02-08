@@ -74,8 +74,8 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                 history.Code = masterPOST.Code;
                 history.CountryId = masterPOST.CountryId;
                 history.StateId = masterPOST.StateId;
-                history.TenantId = masterPOST.TenantId;
-                history.MenuModuleId = masterPOST.MenuModuleId;
+                //history.TenantId = masterPOST.TenantId;
+                //history.MenuModuleId = masterPOST.MenuModuleId;
                 //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
@@ -272,17 +272,17 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                         join c in context.Cities on ch.CountryId equals c.Id
                         //join et in context.ExportTypes on ch.ExportTypeId equals et.Id
                         join at in context.ActionTypes on ch.ActionTypeId equals at.Id
-                        join t in context.Tenants on ch.TenantId equals t.Id
+                        //join t in context.Tenants on ch.TenantId equals t.Id
                         //join l in context.Languages on ch.LanguageId equals l.Id
-                        join m in context.MenuModules on ch.MenuModuleId equals m.Id
+                        //join m in context.MenuModules on ch.MenuModuleId equals m.Id
                         select new
                         {
                             ch.Id,
                             City = c.Name,
                             ch.Name,
                             ch.Code,
-                            Tanent = t.Name,
-                            Menu = m.Name,
+                            //Tanent = t.Name,
+                            //Menu = m.Name,
                             Action = at.Name,
                             //Language = l.Name,
                             //ExportType = et.Name,
@@ -387,8 +387,8 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                 history.Code = masterPUT.Code;
                 history.CountryId = masterPUT.CountryId;
                 history.StateId = masterPUT.StateId;
-                history.TenantId = masterPUT.TenantId;
-                history.MenuModuleId = masterPUT.MenuModuleId;
+                //history.TenantId = masterPUT.TenantId;
+                //history.MenuModuleId = masterPUT.MenuModuleId;
                 //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;

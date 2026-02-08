@@ -32,7 +32,7 @@ public class GetSingleCountryHandler(IRepository repository)
                             //Language = l.Name,
                             Status = st.Name,
                             //Currency = cu.Name,
-                            DialCode = c.DialCode,
+                            DialCode = c.DialingCode,
                             Country = c.Name,
                             IsDefault = c.IsDefault,
                             IsDraft = c.IsDraft,

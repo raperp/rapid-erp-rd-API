@@ -20,8 +20,8 @@ public class GetHistoryCalendarHandler(IRepository repository)
         {
             var data = (from ca in repository.Set<CalendarHistory>()
                         join c in repository.Set<Calendar>() on ca.CalendarId equals c.Id
-                        join t in repository.Set<Tenant>() on ca.TenantId equals t.Id
-                        join mm in repository.Set<MenuModule>() on ca.MenuModuleId equals mm.Id
+                        //join t in repository.Set<Tenant>() on ca.TenantId equals t.Id
+                        //join mm in repository.Set<MenuModule>() on ca.MenuModuleId equals mm.Id
                         //join l in repository.Set<Language>() on ca.LanguageId equals l.Id
                         join at in repository.Set<ActionType>() on ca.ActionTypeId equals at.Id
                         //join et in repository.Set<ExportType>() on ca.ExportTypeId equals et.Id
@@ -29,8 +29,8 @@ public class GetHistoryCalendarHandler(IRepository repository)
                         {
                             Id = ca.Id,
                             Currency = c.Name,
-                            Tenant = t.Name,
-                            MenuModule = mm.Name,
+                            //Tenant = t.Name,
+                            //MenuModule = mm.Name,
                             //Language = l.Name,
                             Action = at.Name,
                             //ExportType = et.Name,

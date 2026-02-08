@@ -50,8 +50,8 @@ public class UpdateCityCommandHandler(IRepository repository)
                 history.Code = request.masterPUT.Code;
                 history.CountryId = request.masterPUT.CountryId;
                 history.StateId = request.masterPUT.StateId;
-                history.TenantId = request.masterPUT.TenantId;
-                history.MenuModuleId = request.masterPUT.MenuModuleId;
+                //history.TenantId = request.masterPUT.TenantId;
+                //history.MenuModuleId = request.masterPUT.MenuModuleId;
                 //history.LanguageId = request.masterPUT.LanguageId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
                 //history.ExportTypeId = request.masterPUT.ExportTypeId;

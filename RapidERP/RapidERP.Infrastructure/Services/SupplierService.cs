@@ -94,8 +94,8 @@ public class SupplierService(RapidERPDbContext context, ISharedService shared) :
                 history.Mobile = masterPOST.Mobile;
                 history.Email = masterPOST.Email;
                 history.Website = masterPOST.Website;
-                history.TenantId = masterPOST.TenantId;
-                history.MenuModuleId = masterPOST.MenuModuleId;
+                //history.TenantId = masterPOST.TenantId;
+                //history.MenuModuleId = masterPOST.MenuModuleId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.LanguageId = masterPOST.LanguageId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
@@ -305,9 +305,9 @@ public class SupplierService(RapidERPDbContext context, ISharedService shared) :
                         join cu in context.Currencies on sh.CurrencyId equals cu.Id
                         //join et in context.ExportTypes on sh.ExportTypeId equals et.Id
                         join at in context.ActionTypes on sh.ActionTypeId equals at.Id
-                        join t in context.Tenants on sh.TenantId equals t.Id
+                        //join t in context.Tenants on sh.TenantId equals t.Id
                         //join l in context.Languages on sh.LanguageId equals l.Id
-                        join mm in context.MenuModules on sh.MenuModuleId equals mm.Id
+                        //join mm in context.MenuModules on sh.MenuModuleId equals mm.Id
                         select new
                         {
                             sh.Id,
@@ -324,8 +324,8 @@ public class SupplierService(RapidERPDbContext context, ISharedService shared) :
                             Supplier = s.Name,
                             Country = co.Name,
                             Currency = cu.Name,
-                            Tanent = t.Name,
-                            MenuModule = mm.Name,
+                            //Tanent = t.Name,
+                            //MenuModule = mm.Name,
                             Action = at.Name,
                             //Language = l.Name,
                             //ExportType = et.Name,
@@ -448,8 +448,8 @@ public class SupplierService(RapidERPDbContext context, ISharedService shared) :
                 history.Mobile = masterPUT.Mobile;
                 history.Email = masterPUT.Email;
                 history.Website = masterPUT.Website;
-                history.TenantId = masterPUT.TenantId;
-                history.MenuModuleId = masterPUT.MenuModuleId;
+                //history.TenantId = masterPUT.TenantId;
+                //history.MenuModuleId = masterPUT.MenuModuleId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.LanguageId = masterPUT.LanguageId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;

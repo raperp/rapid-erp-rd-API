@@ -31,8 +31,8 @@ public class CreateSingleSolutionCommandHandler(IRepository repository)
 
                 SolutionHistory history = new();
                 history.SolutionId = masterData.Id;
-                history.TenantId = request.masterPOST.TenantId;
-                history.MenuModuleId = request.masterPOST.MenuModuleId;
+                //history.TenantId = request.masterPOST.TenantId;
+                //history.MenuModuleId = request.masterPOST.MenuModuleId;
                 //history.LanguageId = request.masterPOST.LanguageId;
                 history.ActionTypeId = request.masterPOST.ActionTypeId;
                 //history.ExportTypeId = request.masterPOST.ExportTypeId;

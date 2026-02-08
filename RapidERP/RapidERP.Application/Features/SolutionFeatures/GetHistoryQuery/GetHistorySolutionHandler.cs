@@ -20,8 +20,8 @@ public class GetHistorySolutionHandler(IRepository repository)
         {
             var data = (from sh in repository.Set<SolutionHistory>()
                         join s in repository.Set<Solution>() on sh.SolutionId equals s.Id
-                        join t in repository.Set<Tenant>() on sh.TenantId equals t.Id
-                        join mm in repository.Set<MenuModule>() on sh.MenuModuleId equals mm.Id
+                        //join t in repository.Set<Tenant>() on sh.TenantId equals t.Id
+                        //join mm in repository.Set<MenuModule>() on sh.MenuModuleId equals mm.Id
                         //join l in repository.Set<Language>() on sh.LanguageId equals l.Id
                         join at in repository.Set<ActionType>() on sh.ActionTypeId equals at.Id
                         //join et in repository.Set<ExportType>() on sh.ExportTypeId equals et.Id
@@ -29,8 +29,8 @@ public class GetHistorySolutionHandler(IRepository repository)
                         {
                             Id = sh.Id,
                             Currency = s.Name,
-                            Tenant = t.Name,
-                            MenuModule = mm.Name,
+                            //Tenant = t.Name,
+                            //MenuModule = mm.Name,
                             //Language = l.Name,
                             Action = at.Name,
                             //ExportType = et.Name,

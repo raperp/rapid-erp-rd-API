@@ -37,8 +37,8 @@ public class CreateSingleCityCommandHandler(IRepository repository)
                 history.Code = request.masterPOST.Code;
                 history.CountryId = request.masterPOST.CountryId;
                 history.StateId = request.masterPOST.StateId;
-                history.TenantId = request.masterPOST.TenantId;
-                history.MenuModuleId = request.masterPOST.MenuModuleId;
+                //history.TenantId = request.masterPOST.TenantId;
+                //history.MenuModuleId = request.masterPOST.MenuModuleId;
                 //history.LanguageId = request.masterPOST.LanguageId;
                 history.ActionTypeId = request.masterPOST.ActionTypeId;
                 //history.ExportTypeId = request.masterPOST.ExportTypeId;

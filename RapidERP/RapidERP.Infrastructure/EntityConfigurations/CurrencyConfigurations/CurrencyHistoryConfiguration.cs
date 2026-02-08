@@ -11,8 +11,8 @@ public class CurrencyHistoryConfiguration : IEntityTypeConfiguration<CurrencyHis
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).HasColumnOrder(0);
         builder.Property(x => x.CurrencyId).HasColumnOrder(1);
-        builder.Property(x => x.TenantId).IsRequired(false).HasColumnOrder(2);
-        builder.Property(x => x.MenuModuleId).IsRequired(false).HasColumnOrder(3);
+        //builder.Property(x => x.TenantId).IsRequired(false).HasColumnOrder(2);
+        //builder.Property(x => x.MenuModuleId).IsRequired(false).HasColumnOrder(3);
         //builder.Property(x => x.LanguageId).IsRequired(false).HasColumnOrder(4);
         builder.Property(x => x.ActionTypeId).IsRequired(false).HasColumnOrder(5);
         //builder.Property(x => x.ExportTypeId).IsRequired(false).HasColumnOrder(6);

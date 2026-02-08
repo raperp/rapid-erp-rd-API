@@ -27,9 +27,9 @@ public class GetHistoryDesignationHandler(IRepository repository)
                         join dep in repository.Set<Department>() on dh.DepartmentId equals dep.Id
                         //join et in repository.Set<ExportType>() on dh.ExportTypeId equals et.Id
                         join at in repository.Set<ActionType>() on dh.ActionTypeId equals at.Id
-                        join t in repository.Set<Tenant>() on dh.TenantId equals t.Id
+                        //join t in repository.Set<Tenant>() on dh.TenantId equals t.Id
                         //join l in repository.Set<Language>() on dh.LanguageId equals l.Id
-                        join mm in repository.Set<MenuModule>() on dh.MenuModuleId equals mm.Id
+                        //join mm in repository.Set<MenuModule>() on dh.MenuModuleId equals mm.Id
                         select new GetHistoryDesignationResponseDTOModel
                         {
                             Id = dh.Id,
@@ -37,8 +37,8 @@ public class GetHistoryDesignationHandler(IRepository repository)
                             Designation = des.Name,
                             Name = dh.Name,
                             Description = dh.Description,
-                            Tanent = t.Name,
-                            MenuModule = mm.Name,
+                            //Tanent = t.Name,
+                            //MenuModule = mm.Name,
                             Action = at.Name,
                             //Language = l.Name,
                             //ExportType = et.Name,

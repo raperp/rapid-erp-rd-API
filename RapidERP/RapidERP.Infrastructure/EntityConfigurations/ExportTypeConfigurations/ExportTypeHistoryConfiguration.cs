@@ -23,8 +23,8 @@ public class ExportTypeHistoryConfiguration : IEntityTypeConfiguration<ExportTyp
         //builder.Property(x => x.Longitude).HasPrecision(9, 6).HasColumnOrder(11);
         //builder.Property(x => x.ActionBy).HasColumnOrder(12);
         //builder.Property(x => x.ActionAt).HasColumnOrder(13);
-        builder.Ignore(x => x.TenantId);
-        builder.Ignore(x => x.MenuModuleId);
+        //builder.Ignore(x => x.TenantId);
+        //builder.Ignore(x => x.MenuModuleId);
         builder.Ignore(x => x.ActionTypeId);
         //builder.Ignore(x => x.ExportTo);
         //builder.Ignore(x => x.SourceURL);

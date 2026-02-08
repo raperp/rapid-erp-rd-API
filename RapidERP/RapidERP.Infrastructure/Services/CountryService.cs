@@ -72,7 +72,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 //masterData.LanguageId = masterPOST.LanguageId;
                 //masterData.CurrencyId = masterPOST.CurrencyId;
-                masterData.DialCode = masterPOST.DialCode;
+                masterData.DialingCode = masterPOST.DialCode;
                 masterData.Name = masterPOST.Name;
                 masterData.IsDefault = masterPOST.IsDefault;
                 masterData.IsDraft = masterPOST.IsDraft;
@@ -86,14 +86,14 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                 CountryAudit history = new();
                 history.CountryId = masterData.Id;
                 //history.CurrencyId = masterPOST.CurrencyId;
-                history.TenantId = masterPOST.TenantId;
-                history.MenuModuleId = masterPOST.MenuModuleId;
+                //history.TenantId = masterPOST.TenantId;
+                //history.MenuModuleId = masterPOST.MenuModuleId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.LanguageId = masterPOST.LanguageId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
                 //history.ExportTo = masterPOST.ExportTo;
                 //history.SourceURL = masterPOST.SourceURL;
-                history.DialCode = masterPOST.DialCode;
+                history.DialingCode = masterPOST.DialCode;
                 history.Name = masterPOST.Name;
                 history.IsDefault = masterPOST.IsDefault;
                 history.IsDraft = masterPOST.IsDraft;
@@ -240,7 +240,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                             //Language = l.Name,
                             Status = st.Name,
                             //Currency = cu.Name,
-                            DialCode = c.DialCode,
+                            DialCode = c.DialingCode,
                             Country = c.Name,
                             IsDefault =  c.IsDefault,
                             IsDraft = c.IsDraft,
@@ -302,23 +302,23 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                         join c in repository.Set<Country>() on ca.CountryId equals c.Id
                         //join et in repository.Set<ExportType>() on ca.ExportTypeId equals et.Id
                         join at in repository.Set<ActionType>() on ca.ActionTypeId equals at.Id
-                        join t in repository.Set<Tenant>() on ca.TenantId equals t.Id
+                        //join t in repository.Set<Tenant>() on ca.TenantId equals t.Id
                         //join l in repository.Set<Language>() on ca.LanguageId equals l.Id
-                        join mm in repository.Set<MenuModule>() on ca.MenuModuleId equals mm.Id
+                        //join mm in repository.Set<MenuModule>() on ca.MenuModuleId equals mm.Id
                         //join cu in repository.Set<Currency>() on ca.CurrencyId equals cu.Id
                         select new  
                         {
                             ca.Id,
                             Country = c.Name,
-                            Tanent = t.Name,
-                            MenuModule = mm.Name,
+                            //Tanent = t.Name,
+                            //MenuModule = mm.Name,
                             Action = at.Name,
                             //Language = l.Name,
                             //ExportType = et.Name,
                             //Currency = cu.Name,
                             //ca.ExportTo,
                             //ca.SourceURL,
-                            ca.DialCode,
+                            ca.DialingCode,
                             ca.Name,
                             ca.IsDefault,
                             ca.IsDraft,
@@ -417,7 +417,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
             masterPUT.StatusTypeId = (masterPUT.StatusTypeId != 0) ? masterPUT.StatusTypeId : masterRecord.StatusTypeId;
             //masterPUT.LanguageId = (masterPUT.LanguageId is not null) ? masterPUT.LanguageId : masterRecord.LanguageId;
             //masterPUT.CurrencyId = (masterPUT.CurrencyId != 0) ? masterPUT.CurrencyId : masterRecord.CurrencyId;
-            masterPUT.DialCode = (masterPUT.DialCode is not null) ? masterPUT.DialCode : masterRecord.DialCode;
+            masterPUT.DialCode = (masterPUT.DialCode is not null) ? masterPUT.DialCode : masterRecord.DialingCode;
             masterPUT.FlagURL = (masterPUT.FlagURL is not null) ? masterPUT.FlagURL : masterRecord.FlagURL;
             
              
@@ -445,7 +445,7 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                 masterData.StatusTypeId = masterPUT.StatusTypeId;
                 //masterData.LanguageId = masterPUT.LanguageId;
                 //masterData.CurrencyId = masterPUT.CurrencyId;
-                masterData.DialCode = masterPUT.DialCode;
+                masterData.DialingCode = masterPUT.DialCode;
                 masterData.Name = masterPUT.Name;
                 masterData.IsDefault = masterPUT.IsDefault;
                 masterData.IsDraft = masterPUT.IsDraft;
@@ -457,15 +457,15 @@ public class CountryService(RapidERPDbContext context, IRepository repository) :
                 await repository.Update(masterData);
 
                 history.CountryId = masterPUT.Id;
-                history.TenantId = masterPUT.TenantId;
-                history.MenuModuleId = masterPUT.MenuModuleId;
+                //history.TenantId = masterPUT.TenantId;
+                //history.MenuModuleId = masterPUT.MenuModuleId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.LanguageId = masterPUT.LanguageId;
                 //history.CurrencyId = masterPUT.CurrencyId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;
                 //history.ExportTo = masterPUT.ExportTo;
                 //history.SourceURL = masterPUT.SourceURL;
-                history.DialCode = masterPUT.DialCode;
+                history.DialingCode = masterPUT.DialCode;
                 history.Name = masterPUT.Name;
                 history.IsDefault = masterPUT.IsDefault;
                 history.IsDraft = masterPUT.IsDraft;

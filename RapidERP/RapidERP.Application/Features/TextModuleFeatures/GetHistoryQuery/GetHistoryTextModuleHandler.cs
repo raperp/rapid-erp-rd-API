@@ -19,7 +19,7 @@ public class GetHistoryTextModuleHandler(IRepository repository)
         {
             var data = (from tma in repository.Set<TextModuleHistory>()
                         join tm in repository.Set<TextModule>() on tma.TextModuleId equals tm.Id
-                        join mm in repository.Set<MenuModule>() on tma.MenuModuleId equals mm.Id
+                        //join mm in repository.Set<MenuModule>() on tma.MenuModuleId equals mm.Id
                         join at in repository.Set<ActionType>() on tma.ActionTypeId equals at.Id
                         //join l in repository.Set<Language>() on tma.LanguageId equals l.Id
                         //join et in repository.Set<ExportType>() on tma.ExportTypeId equals et.Id
@@ -27,7 +27,7 @@ public class GetHistoryTextModuleHandler(IRepository repository)
                         {
                             Id = tma.Id,
                             TextModule = tm.Name,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             //Language = l.Name,
                             Action = at.Name,
                             //ExportType = et.Name,

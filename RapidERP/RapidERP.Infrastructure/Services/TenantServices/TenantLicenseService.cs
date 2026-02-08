@@ -68,7 +68,7 @@ public class TenantLicenseService(RapidERPDbContext context, ISharedService shar
 
             TenantHistory history = new();
             history.TenantId = masterPOST.TenantId;
-            history.MenuModuleId = masterPOST.MenuModuleId;
+            //history.MenuModuleId = masterPOST.MenuModuleId;
             history.CountryId = masterPOST.CountryId;
             history.StateId = masterPOST.StateId;
             //history.LanguageId = masterPOST.LanguageId;
@@ -205,7 +205,7 @@ public class TenantLicenseService(RapidERPDbContext context, ISharedService shar
         {
             var data = (from th in context.TenantHistory
                         join t in context.Tenants on th.TenantId equals t.Id
-                        join mm in context.MenuModules on th.MenuModuleId equals mm.Id
+                        //join mm in context.MenuModules on th.MenuModuleId equals mm.Id
                         join c in context.Countries on th.CountryId equals c.Id
                         join st in context.States on th.StateId equals st.Id
                         //join l in context.Languages on th.LanguageId equals l.Id
@@ -215,7 +215,7 @@ public class TenantLicenseService(RapidERPDbContext context, ISharedService shar
                         {
                             th.Id,
                             Tenant = t.Name,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             Country = c.Name,
                             State = st.Name,
                             //Language = l.Name,
@@ -320,7 +320,7 @@ public class TenantLicenseService(RapidERPDbContext context, ISharedService shar
 
             TenantHistory history = new();
             history.TenantId = masterPUT.TenantId;
-            history.MenuModuleId = masterPUT.MenuModuleId;
+            //history.MenuModuleId = masterPUT.MenuModuleId;
             history.CountryId = masterPUT.CountryId;
             history.StateId = masterPUT.StateId;
             //history.LanguageId = masterPUT.LanguageId;

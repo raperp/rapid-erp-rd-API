@@ -27,8 +27,8 @@ public class LanguageHistoryConfiguration : IEntityTypeConfiguration<LanguageHis
 
         builder.Ignore(x => x.IsDefault);
         builder.Ignore(x => x.IsDraft);
-        builder.Ignore(x => x.TenantId);
-        builder.Ignore(x => x.MenuModuleId);
+        //builder.Ignore(x => x.TenantId);
+        //builder.Ignore(x => x.MenuModuleId);
         builder.Ignore(x => x.ActionTypeId);
         //builder.Ignore(x => x.ExportTypeId);
         //builder.Ignore(x => x.ExportTo);

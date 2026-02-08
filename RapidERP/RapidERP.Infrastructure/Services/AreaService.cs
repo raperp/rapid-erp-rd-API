@@ -76,9 +76,9 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                 history.CountryId = masterPOST.CountryId;
                 history.StateId = masterPOST.StateId;
                 history.CityId = masterPOST.CityId;
-                history.TenantId = masterPOST.TenantId;
+                //history.TenantId = masterPOST.TenantId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
-                history.MenuModuleId = masterPOST.MenuModuleId;
+                //history.MenuModuleId = masterPOST.MenuModuleId;
                 //history.LanguageId = masterPOST.LanguageId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
                 //history.ExportTo = masterPOST.ExportTo;
@@ -278,8 +278,8 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                         join c in context.Countries on aa.CountryId equals c.Id
                         join sta in context.States on aa.StateId equals sta.Id
                         join cit in context.Cities on aa.CityId equals cit.Id
-                        join mm in context.MenuModules on aa.MenuModuleId equals mm.Id
-                        join t in context.Tenants on aa.TenantId equals t.Id
+                        //join mm in context.MenuModules on aa.MenuModuleId equals mm.Id
+                        //join t in context.Tenants on aa.TenantId equals t.Id
                         //join l in context.Languages on aa.LanguageId equals l.Id
                         join at in context.ActionTypes on aa.ActionTypeId equals at.Id
                         //join et in context.ExportTypes on aa.ExportTypeId equals et.Id
@@ -291,9 +291,9 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                             Country = c.Name,
                             State = sta.Name,
                             City = cit.Name,
-                            Tanent = t.Name,
+                            //Tanent = t.Name,
                             //Language = l.Name,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             ActionType = at.Name,
                             //ExportType = et.Name,
                             //aa.ExportTo,
@@ -396,9 +396,9 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                 history.CountryId = masterPUT.CountryId;
                 history.StateId = masterPUT.StateId;
                 history.CityId = masterPUT.CityId;
-                history.TenantId = masterPUT.TenantId;
+                //history.TenantId = masterPUT.TenantId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
-                history.MenuModuleId = masterPUT.MenuModuleId;
+                //history.MenuModuleId = masterPUT.MenuModuleId;
                 //history.LanguageId = masterPUT.LanguageId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;
                 //history.ExportTo = masterPUT.ExportTo;

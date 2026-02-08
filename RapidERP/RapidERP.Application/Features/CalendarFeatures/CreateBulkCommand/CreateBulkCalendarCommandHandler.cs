@@ -34,8 +34,8 @@ public class CreateBulkCalendarCommandHandler(IRepository repository)
 
                     CalendarHistory history = new();
                     history.CalendarId = masterData.Id;
-                    history.TenantId = item.TenantId;
-                    history.MenuModuleId = item.MenuModuleId;
+                    //history.TenantId = item.TenantId;
+                    //history.MenuModuleId = item.MenuModuleId;
                     //history.LanguageId = item.LanguageId;
                     history.ActionTypeId = item.ActionTypeId;
                     //history.ExportTypeId = item.ExportTypeId;

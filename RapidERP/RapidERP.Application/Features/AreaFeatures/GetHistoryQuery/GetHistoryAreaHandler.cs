@@ -26,8 +26,8 @@ public class GetHistoryAreaHandler(IRepository repository)
                         join c in repository.Set<Country>() on aa.AreaId equals c.Id
                         join sta in repository.Set<State>() on aa.StateId equals sta.Id
                         join cit in repository.Set<City>() on aa.CityId equals cit.Id
-                        join mm in repository.Set<MenuModule>() on aa.MenuModuleId equals mm.Id
-                        join t in repository.Set<Tenant>() on aa.TenantId equals t.Id
+                        //join mm in repository.Set<MenuModule>() on aa.MenuModuleId equals mm.Id
+                        //join t in repository.Set<Tenant>() on aa.TenantId equals t.Id
                         //join l in repository.Set<Language>() on aa.LanguageId equals l.Id
                         join at in repository.Set<ActionType>() on aa.ActionTypeId equals at.Id
                         //join et in repository.Set<ExportType>() on aa.ExportTypeId equals et.Id
@@ -39,9 +39,9 @@ public class GetHistoryAreaHandler(IRepository repository)
                             Country = c.Name,
                             State = sta.Name,
                             City = cit.Name,
-                            Tanent = t.Name,
+                            //Tanent = t.Name,
                             //Language = l.Name,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             ActionType = at.Name,
                             //ExportType = et.Name,
                             //ExportTo = aa.ExportTo,

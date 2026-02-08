@@ -42,7 +42,7 @@ public class UpdateStateCommandHandler(IRepository repository)
 
                 StateHistory history = new();
                 history.StateId = request.masterPUT.Id;
-                history.MenuModuleId = request.masterPUT.MenuModuleId;
+                //history.MenuModuleId = request.masterPUT.MenuModuleId;
                 history.CountryId = request.masterPUT.CountryId;
                 //history.LanguageId = request.masterPUT.LanguageId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;

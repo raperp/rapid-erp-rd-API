@@ -63,7 +63,7 @@ public class CountryBService(IRepository repository) : ICountryBService
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 //masterData.LanguageId = masterPOST.LanguageId;
                 //masterData.CurrencyId = masterPOST.CurrencyId;
-                masterData.DialCode = masterPOST.DialCode;
+                masterData.DialingCode = masterPOST.DialCode;
                 masterData.Name = masterPOST.Name;
                 masterData.IsDefault = masterPOST.IsDefault;
                 masterData.IsDraft = masterPOST.IsDraft;
@@ -71,23 +71,23 @@ public class CountryBService(IRepository repository) : ICountryBService
                 masterData.ISO2Code = masterPOST.ISO2Code;
                 masterData.ISO3Code = masterPOST.ISO3Code;
                 masterData.FlagURL = masterPOST.FlagURL;
-                masterData.RegionId = masterPOST.RegionId;
-                masterData.StateId = masterPOST.StateId;
-                masterData.TimeZoneId = masterPOST.TimeZoneId;
+                //masterData.RegionId = masterPOST.RegionId;
+                //masterData.StateId = masterPOST.StateId;
+                //masterData.TimeZoneId = masterPOST.TimeZoneId;
 
                 await repository.Add(masterData);
 
                 CountryAudit audit = new();
                 audit.CountryId = masterData.Id;
                 //history.CurrencyId = masterPOST.CurrencyId;
-                audit.TenantId = masterPOST.TenantId;
-                audit.MenuModuleId = masterPOST.MenuModuleId;
+                //audit.TenantId = masterPOST.TenantId;
+                //audit.MenuModuleId = masterPOST.MenuModuleId;
                 audit.ActionTypeId = masterPOST.ActionTypeId;
                 //history.LanguageId = masterPOST.LanguageId;
                 //audit.ExportTypeId = masterPOST.ExportTypeId;
                 //audit.ExportTo = masterPOST.ExportTo;
                 //audit.SourceURL = masterPOST.SourceURL;
-                audit.DialCode = masterPOST.DialCode;
+                audit.DialingCode = masterPOST.DialCode;
                 audit.Name = masterPOST.Name;
                 audit.IsDefault = masterPOST.IsDefault;
                 audit.IsDraft = masterPOST.IsDraft;
@@ -95,9 +95,9 @@ public class CountryBService(IRepository repository) : ICountryBService
                 audit.ISO2Code = masterPOST.ISO2Code;
                 audit.ISO3Code = masterPOST.ISO3Code;
                 audit.FlagURL = masterPOST.FlagURL;
-                audit.RegionId = masterPOST.RegionId;
-                audit.StateId = masterPOST.StateId;
-                audit.TimeZoneId = masterPOST.TimeZoneId;
+                //audit.RegionId = masterPOST.RegionId;
+                //audit.StateId = masterPOST.StateId;
+                //audit.TimeZoneId = masterPOST.TimeZoneId;
                 //history.Browser = masterPOST.Browser;
                 //history.Location = masterPOST.Location;
                 //history.DeviceIP = masterPOST.DeviceIP;
@@ -232,7 +232,7 @@ public class CountryBService(IRepository repository) : ICountryBService
                             //Language = l.Name,
                             Status = st.Name,
                             //Currency = cu.Name,
-                            c.DialCode,
+                            c.DialingCode,
                             c.Name,
                             c.IsDefault,
                             c.IsDraft,
@@ -296,23 +296,23 @@ public class CountryBService(IRepository repository) : ICountryBService
                         join c in repository.Set<Country>() on ch.CountryId equals c.Id
                         //join et in repository.Set<ExportType>() on ca.ExportTypeId equals et.Id
                         join at in repository.Set<ActionType>() on ch.ActionTypeId equals at.Id
-                        join t in repository.Set<Tenant>() on ch.TenantId equals t.Id
+                        //join t in repository.Set<Tenant>() on ch.TenantId equals t.Id
                         //join l in repository.Set<Language>() on ch.LanguageId equals l.Id
-                        join mm in repository.Set<MenuModule>() on ch.MenuModuleId equals mm.Id
+                        //join mm in repository.Set<MenuModule>() on ch.MenuModuleId equals mm.Id
                         //join cu in repository.Set<Currency>() on ch.CurrencyId equals cu.Id
                         select new
                         {
                             ch.Id,
                             Country = c.Name,
-                            Tanent = t.Name,
-                            MenuModule = mm.Name,
+                            //Tanent = t.Name,
+                            //MenuModule = mm.Name,
                             Action = at.Name,
                             //Language = l.Name,
                             //ExportType = et.Name,
                             //Currency = cu.Name,
                             //ch.ExportTo,
                             //ch.SourceURL,
-                            ch.DialCode,
+                            ch.DialingCode,
                             ch.Name,
                             ch.IsDefault,
                             ch.IsDraft,
@@ -398,7 +398,7 @@ public class CountryBService(IRepository repository) : ICountryBService
                             //Language = l.Name,
                             Status = st.Name,
                             //Currency = cu.Name,
-                            c.DialCode,
+                            c.DialingCode,
                             Country = c.Name,
                             c.IsDefault,
                             c.IsDraft,
@@ -490,11 +490,11 @@ public class CountryBService(IRepository repository) : ICountryBService
                 masterPUT.StatusTypeId = (masterPUT.StatusTypeId is not null) ? masterPUT.StatusTypeId : masterRecord.StatusTypeId;
                 //masterPUT.LanguageId = (masterPUT.LanguageId is not null) ? masterPUT.LanguageId : masterRecord.LanguageId;
                 //masterPUT.CurrencyId = (masterPUT.CurrencyId is not null) ? masterPUT.CurrencyId : masterRecord.CurrencyId;
-                masterPUT.DialCode = (masterPUT.DialCode is not null) ? masterPUT.DialCode : masterRecord.DialCode;
+                masterPUT.DialCode = (masterPUT.DialCode is not null) ? masterPUT.DialCode : masterRecord.DialingCode;
                 masterPUT.FlagURL = (masterPUT.FlagURL is not null) ? masterPUT.FlagURL : masterRecord.FlagURL;
-                masterPUT.RegionId = (masterPUT.RegionId != 0) ? masterPUT.RegionId : masterRecord.RegionId;
-                masterPUT.StateId = (masterPUT.StateId != 0) ? masterPUT.StateId : masterRecord.StateId;
-                masterPUT.TimeZoneId = (masterPUT.TimeZoneId != 0) ? masterPUT.TimeZoneId : masterRecord.TimeZoneId;
+                //masterPUT.RegionId = (masterPUT.RegionId != 0) ? masterPUT.RegionId : masterRecord.RegionId;
+                //masterPUT.StateId = (masterPUT.StateId != 0) ? masterPUT.StateId : masterRecord.StateId;
+                //masterPUT.TimeZoneId = (masterPUT.TimeZoneId != 0) ? masterPUT.TimeZoneId : masterRecord.TimeZoneId;
             }
 
             if (isExists == false)
@@ -519,7 +519,7 @@ public class CountryBService(IRepository repository) : ICountryBService
                 masterRecord.StatusTypeId = masterPUT.StatusTypeId;
                 //masterRecord.LanguageId = masterPUT.LanguageId;
                 //masterRecord.CurrencyId = masterPUT.CurrencyId;
-                masterRecord.DialCode = masterPUT.DialCode;
+                masterRecord.DialingCode = masterPUT.DialCode;
                 masterRecord.Name = masterPUT.Name;
                 masterRecord.IsDefault = masterPUT.IsDefault;
                 masterRecord.IsDraft = masterPUT.IsDraft;
@@ -527,32 +527,32 @@ public class CountryBService(IRepository repository) : ICountryBService
                 masterRecord.ISO2Code = masterPUT.ISO2Code;
                 masterRecord.ISO3Code = masterPUT.ISO3Code;
                 masterRecord.FlagURL = masterPUT.FlagURL;
-                masterRecord.RegionId = masterPUT.RegionId;
-                masterRecord.StateId = masterPUT.StateId;
-                masterRecord.TimeZoneId = masterPUT.TimeZoneId;
+                //masterRecord.RegionId = masterPUT.RegionId;
+                //masterRecord.StateId = masterPUT.StateId;
+                //masterRecord.TimeZoneId = masterPUT.TimeZoneId;
 
                 await repository.Update(masterRecord);
 
                 CountryAudit history = new();
                 history.CountryId = masterPUT.Id;
                 //history.CurrencyId = masterPUT.CurrencyId;
-                history.TenantId = masterPUT.TenantId;
-                history.MenuModuleId = masterPUT.MenuModuleId;
+                //history.TenantId = masterPUT.TenantId;
+                //history.MenuModuleId = masterPUT.MenuModuleId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.LanguageId = masterPUT.LanguageId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;
                 //history.ExportTo = masterPUT.ExportTo;
                 //history.SourceURL = masterPUT.SourceURL;
-                history.DialCode = masterPUT.DialCode;
+                history.DialingCode = masterPUT.DialCode;
                 history.Name = masterPUT.Name;
                 history.IsDefault = masterPUT.IsDefault;
                 history.IsDraft = masterPUT.IsDraft;
                 history.ISONumeric = masterPUT.ISONumeric;
                 history.ISO2Code = masterPUT.ISO2Code;
                 history.ISO3Code = masterPUT.ISO3Code;
-                history.RegionId = masterPUT.RegionId;
-                history.StateId = masterPUT.StateId;
-                history.TimeZoneId = masterPUT.TimeZoneId;
+                //history.RegionId = masterPUT.RegionId;
+                //history.StateId = masterPUT.StateId;
+                //history.TimeZoneId = masterPUT.TimeZoneId;
                 history.FlagURL = masterPUT.FlagURL;
                 //history.Browser = masterPUT.Browser;
                 //history.Location = masterPUT.Location;

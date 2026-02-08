@@ -11,7 +11,7 @@ public class TenantHistoryConfiguration : IEntityTypeConfiguration<TenantHistory
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).HasColumnOrder(0);
         builder.Property(x => x.TenantId).HasColumnOrder(1);
-        builder.Property(x => x.MenuModuleId).IsRequired(false).HasColumnOrder(2);
+        //builder.Property(x => x.MenuModuleId).IsRequired(false).HasColumnOrder(2);
         builder.Property(x => x.CountryId).IsRequired(false).HasColumnOrder(3);
         builder.Property(x => x.StateId).IsRequired(false).HasColumnOrder(4);
         //builder.Property(x => x.LanguageId).IsRequired(false).HasColumnOrder(5);

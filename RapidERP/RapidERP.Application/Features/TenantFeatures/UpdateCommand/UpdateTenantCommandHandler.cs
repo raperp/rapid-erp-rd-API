@@ -54,7 +54,7 @@ public class UpdateTenantCommandHandler(IRepository repository)
 
                 TenantHistory history = new();
                 history.TenantId = request.masterPUT.Id;
-                history.MenuModuleId = request.masterPUT.MenuModuleId;
+                //history.MenuModuleId = request.masterPUT.MenuModuleId;
                 history.CountryId = request.masterPUT.CountryId;
                 history.StateId = request.masterPUT.StateId;
                 //history.LanguageId = request.masterPUT.LanguageId;

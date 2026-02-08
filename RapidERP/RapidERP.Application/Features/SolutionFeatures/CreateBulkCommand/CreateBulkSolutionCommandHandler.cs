@@ -33,8 +33,8 @@ public class CreateBulkSolutionCommandHandler(IRepository repository)
 
                     SolutionHistory history = new();
                     history.SolutionId = masterData.Id;
-                    history.TenantId = item.TenantId;
-                    history.MenuModuleId = item.MenuModuleId;
+                    //history.TenantId = item.TenantId;
+                    //history.MenuModuleId = item.MenuModuleId;
                     //history.LanguageId = item.LanguageId;
                     history.ActionTypeId = item.ActionTypeId;
                     //history.ExportTypeId = item.ExportTypeId;

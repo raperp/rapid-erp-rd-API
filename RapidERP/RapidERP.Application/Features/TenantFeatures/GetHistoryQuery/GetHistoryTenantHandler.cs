@@ -21,7 +21,7 @@ public class GetHistoryTenantHandler(IRepository repository)
         {
             var data = (from th in repository.Set<TenantHistory>()
                         join t in repository.Set<Tenant>() on th.TenantId equals t.Id
-                        join mm in repository.Set<MenuModule>() on th.MenuModuleId equals mm.Id
+                        //join mm in repository.Set<MenuModule>() on th.MenuModuleId equals mm.Id
                         join c in repository.Set<Country>() on th.CountryId equals c.Id
                         join s in repository.Set<State>() on th.StateId equals s.Id
                         //join l in repository.Set<Language>() on th.LanguageId equals l.Id
@@ -31,7 +31,7 @@ public class GetHistoryTenantHandler(IRepository repository)
                         {
                             Id = th.Id,
                             Tenant = t.Name,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             Country = c.Name,
                             State = s.Name,
                             //Language = l.Name,

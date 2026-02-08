@@ -68,8 +68,8 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
 
                 CurrencyHistory history = new();
                 history.CurrencyId = masterData.Id;
-                history.TenantId = masterPOST.TenantId;
-                history.MenuModuleId = masterPOST.MenuModuleId;
+                //history.TenantId = masterPOST.TenantId;
+                //history.MenuModuleId = masterPOST.MenuModuleId;
                 //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
@@ -268,8 +268,8 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
         {
             var data = (from ca in context.CurrencyHistory
                         join c in context.Currencies on ca.CurrencyId equals c.Id
-                        join t in context.Tenants on ca.TenantId equals t.Id
-                        join mm in context.MenuModules on ca.MenuModuleId equals mm.Id
+                        //join t in context.Tenants on ca.TenantId equals t.Id
+                        //join mm in context.MenuModules on ca.MenuModuleId equals mm.Id
                         //join l in context.Languages on ca.LanguageId equals l.Id
                         join at in context.ActionTypes on ca.ActionTypeId equals at.Id
                         //join et in context.ExportTypes on ca.ExportTypeId equals et.Id
@@ -277,8 +277,8 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                         {
                             ca.Id,
                             Currency = c.Name,
-                            Tenant = t.Name,
-                            MenuModule = mm.Name,
+                            //Tenant = t.Name,
+                            //MenuModule = mm.Name,
                             //Language = l.Name,
                             Action = at.Name,
                             //ExportType = et.Name,
@@ -381,8 +381,8 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
 
                 CurrencyHistory history = new();
                 history.CurrencyId = masterPUT.Id;
-                history.TenantId = masterPUT.TenantId;
-                history.MenuModuleId = masterPUT.MenuModuleId;
+                //history.TenantId = masterPUT.TenantId;
+                //history.MenuModuleId = masterPUT.MenuModuleId;
                 //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;

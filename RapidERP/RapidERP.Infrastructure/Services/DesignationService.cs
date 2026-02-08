@@ -69,8 +69,8 @@ public class DesignationService(RapidERPDbContext context, ISharedService shared
                 history.Name = masterPOST.Name;
                 history.Description = masterPOST.Description;
                 history.DepartmentId = masterPOST.DepartmentId;
-                history.TenantId = masterPOST.TenantId;
-                history.MenuModuleId = masterPOST.MenuModuleId;
+                //history.TenantId = masterPOST.TenantId;
+                //history.MenuModuleId = masterPOST.MenuModuleId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.LanguageId = masterPOST.LanguageId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
@@ -267,9 +267,9 @@ public class DesignationService(RapidERPDbContext context, ISharedService shared
                         join dep in context.Departments on dh.DepartmentId equals dep.Id
                         //join et in context.ExportTypes on dh.ExportTypeId equals et.Id
                         join at in context.ActionTypes on dh.ActionTypeId equals at.Id
-                        join t in context.Tenants on dh.TenantId equals t.Id
+                        //join t in context.Tenants on dh.TenantId equals t.Id
                         //join l in context.Languages on dh.LanguageId equals l.Id
-                        join mm in context.MenuModules on dh.MenuModuleId equals mm.Id
+                        //join mm in context.MenuModules on dh.MenuModuleId equals mm.Id
                         select new
                         {
                             dh.Id,
@@ -277,8 +277,8 @@ public class DesignationService(RapidERPDbContext context, ISharedService shared
                             Designation = des.Name,
                             dh.Name,
                             dh.Description,
-                            Tanent = t.Name,
-                            MenuModule = mm.Name,
+                            //Tanent = t.Name,
+                            //MenuModule = mm.Name,
                             Action = at.Name,
                             //Language = l.Name,
                             //ExportType = et.Name,
@@ -378,8 +378,8 @@ public class DesignationService(RapidERPDbContext context, ISharedService shared
                 history.Name = masterPUT.Name;
                 history.Description = masterPUT.Description;
                 history.DepartmentId = masterPUT.DepartmentId;
-                history.TenantId = masterPUT.TenantId;
-                history.MenuModuleId = masterPUT.MenuModuleId;
+                //history.TenantId = masterPUT.TenantId;
+                //history.MenuModuleId = masterPUT.MenuModuleId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.LanguageId = masterPUT.LanguageId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;

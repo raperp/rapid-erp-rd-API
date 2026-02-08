@@ -34,8 +34,8 @@ public class CreateBulkKitchenCommandHandler(IRepository repository)
                     history.Description = item.Description;
                     history.PrinterId = item.PrinterId;
                     history.KitchenId = masterData.Id;
-                    history.TenantId = item.TenantId;
-                    history.MenuModuleId = item.MenuModuleId;
+                    //history.TenantId = item.TenantId;
+                    //history.MenuModuleId = item.MenuModuleId;
                     history.ActionTypeId = item.ActionTypeId;
                     //history.ExportTypeId = item.ExportTypeId;
                     //history.ExportTo = item.ExportTo;

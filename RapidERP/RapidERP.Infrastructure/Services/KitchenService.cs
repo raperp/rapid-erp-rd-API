@@ -69,8 +69,8 @@ namespace RapidERP.Infrastructure.Services
                     history.Description = masterPOST.Description;
                     history.PrinterId = masterPOST.PrinterId;
                     history.KitchenId = masterData.Id;
-                    history.TenantId = masterPOST.TenantId;
-                    history.MenuModuleId = masterPOST.MenuModuleId;
+                    //history.TenantId = masterPOST.TenantId;
+                    //history.MenuModuleId = masterPOST.MenuModuleId;
                     history.ActionTypeId = masterPOST.ActionTypeId;
                     //history.ExportTypeId = masterPOST.ExportTypeId;
                     //history.ExportTo = masterPOST.ExportTo;
@@ -359,8 +359,8 @@ namespace RapidERP.Infrastructure.Services
                     history.Description = masterPUT.Description;
                     history.PrinterId = masterPUT.PrinterId;
                     history.KitchenId = masterPUT.Id;
-                    history.TenantId = masterPUT.TenantId;
-                    history.MenuModuleId = masterPUT.MenuModuleId;
+                    //history.TenantId = masterPUT.TenantId;
+                    //history.MenuModuleId = masterPUT.MenuModuleId;
                     history.ActionTypeId = masterPUT.ActionTypeId;
                     //history.ExportTypeId = masterPUT.ExportTypeId;
                     //history.ExportTo = masterPUT.ExportTo;

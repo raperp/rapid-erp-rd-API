@@ -34,7 +34,7 @@ public class UpdateTextModuleCommandHandler(IRepository repository)
 
                 TextModuleHistory history = new();
                 history.TextModuleId = request.masterPUT.Id;
-                history.MenuModuleId = request.masterPUT.MenuModuleId;
+                //history.MenuModuleId = request.masterPUT.MenuModuleId;
                 //history.LanguageId = request.masterPUT.LanguageId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
                 //history.ExportTypeId = request.masterPUT.ExportTypeId;

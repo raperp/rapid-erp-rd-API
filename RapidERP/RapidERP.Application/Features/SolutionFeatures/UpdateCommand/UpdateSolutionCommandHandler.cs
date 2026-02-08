@@ -47,8 +47,8 @@ public class UpdateSolutionCommandHandler(IRepository repository)
 
                 SolutionHistory history = new();
                 history.SolutionId = request.masterPUT.Id;
-                history.TenantId = request.masterPUT.TenantId;
-                history.MenuModuleId = request.masterPUT.MenuModuleId;
+                //history.TenantId = request.masterPUT.TenantId;
+                //history.MenuModuleId = request.masterPUT.MenuModuleId;
                 //history.LanguageId = request.masterPUT.LanguageId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
                 //history.ExportTypeId = request.masterPUT.ExportTypeId;

@@ -43,8 +43,8 @@ public class UpdateKitchenCommandHandler(IRepository repository)
                 history.Name = request.masterPUT.Name;
                 history.Description = request.masterPUT.Description;
                 history.PrinterId = request.masterPUT.PrinterId;
-                history.TenantId = request.masterPUT.TenantId;
-                history.MenuModuleId = request.masterPUT.MenuModuleId;
+                //history.TenantId = request.masterPUT.TenantId;
+                //history.MenuModuleId = request.masterPUT.MenuModuleId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
                 //history.ExportTypeId = request.masterPUT.ExportTypeId;
                 //history.ExportTo = request.masterPUT.ExportTo;

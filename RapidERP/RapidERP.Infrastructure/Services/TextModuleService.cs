@@ -63,7 +63,7 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
 
                 TextModuleHistory history = new();
                 history.TextModuleId = masterData.Id;
-                history.MenuModuleId = masterPOST.MenuModuleId;
+                //history.MenuModuleId = masterPOST.MenuModuleId;
                 //history.LanguageId = masterPOST.LanguageId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
@@ -191,7 +191,7 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
         {
             var data = (from tma in context.TextModuleHistory
                         join tm in context.TextModules on tma.TextModuleId equals tm.Id
-                        join mm in context.MenuModules on tma.MenuModuleId equals mm.Id
+                        //join mm in context.MenuModules on tma.MenuModuleId equals mm.Id
                         join at in context.ActionTypes on tma.ActionTypeId equals at.Id
                         //join l in context.Languages on tma.LanguageId equals l.Id
                         //join et in context.ExportTypes on tma.ExportTypeId equals et.Id
@@ -199,7 +199,7 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
                         {
                             tma.Id,
                             TextModule = tm.Name,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             //Language = l.Name,
                             Action = at.Name,
                             //ExportType = et.Name,
@@ -298,7 +298,7 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
 
                 TextModuleHistory history = new();
                 history.TextModuleId = masterPUT.Id;
-                history.MenuModuleId = masterPUT.MenuModuleId;
+                //history.MenuModuleId = masterPUT.MenuModuleId;
                 //history.LanguageId = masterPUT.LanguageId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;

@@ -80,8 +80,8 @@ public class RiderService(RapidERPDbContext context, ISharedService shared) : IR
                 history.AreaId = masterPOST.AreaId;
                 history.CityId = masterPOST.CityId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
-                history.TenantId = masterPOST.TenantId;
-                history.MenuModuleId = masterPOST.MenuModuleId;
+                //history.TenantId = masterPOST.TenantId;
+                //history.MenuModuleId = masterPOST.MenuModuleId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
                 //history.ExportTo = masterPOST.ExportTo;
                 //history.SourceURL = masterPOST.SourceURL;
@@ -279,8 +279,8 @@ public class RiderService(RapidERPDbContext context, ISharedService shared) : IR
                         join a in context.Areas on rh.AreaId equals a.Id
                         //join et in context.ExportTypes on rh.ExportTypeId equals et.Id
                         join at in context.ActionTypes on rh.ActionTypeId equals at.Id
-                        join t in context.Tenants on rh.TenantId equals t.Id
-                        join mm in context.MenuModules on rh.MenuModuleId equals mm.Id
+                        //join t in context.Tenants on rh.TenantId equals t.Id
+                        //join mm in context.MenuModules on rh.MenuModuleId equals mm.Id
                         select new
                         {
                             rh.Id,
@@ -293,7 +293,7 @@ public class RiderService(RapidERPDbContext context, ISharedService shared) : IR
                             State = sta.Name,
                             City = cit.Name,
                             Area = a.Name,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             //ExportType = et.Name,
                             ActionType = at.Name,
                             //rh.ExportTo,
@@ -401,8 +401,8 @@ public class RiderService(RapidERPDbContext context, ISharedService shared) : IR
                 history.AreaId = masterPUT.AreaId;
                 history.CityId = masterPUT.CityId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
-                history.TenantId = masterPUT.TenantId;
-                history.MenuModuleId = masterPUT.MenuModuleId;
+                //history.TenantId = masterPUT.TenantId;
+                //history.MenuModuleId = masterPUT.MenuModuleId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;
                 //history.ExportTo = masterPUT.ExportTo;
                 //history.SourceURL = masterPUT.SourceURL;

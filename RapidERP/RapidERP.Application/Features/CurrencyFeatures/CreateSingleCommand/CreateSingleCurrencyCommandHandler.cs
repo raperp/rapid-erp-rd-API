@@ -32,8 +32,8 @@ public class CreateSingleCurrencyCommandHandler(IRepository repository)
 
                 CurrencyHistory history = new();
                 history.CurrencyId = masterData.Id;
-                history.TenantId = request.masterPOST.TenantId;
-                history.MenuModuleId = request.masterPOST.MenuModuleId;
+                //history.TenantId = request.masterPOST.TenantId;
+                //history.MenuModuleId = request.masterPOST.MenuModuleId;
                 //history.LanguageId = request.masterPOST.LanguageId;
                 history.ActionTypeId = request.masterPOST.ActionTypeId;
                 //history.ExportTypeId = request.masterPOST.ExportTypeId;

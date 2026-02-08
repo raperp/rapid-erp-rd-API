@@ -48,8 +48,8 @@ public class UpdateCalendarCommandHandler(IRepository repository)
 
                 CalendarHistory history = new();
                 history.CalendarId = request.masterPUT.Id;
-                history.TenantId = request.masterPUT.TenantId;
-                history.MenuModuleId = request.masterPUT.MenuModuleId;
+                //history.TenantId = request.masterPUT.TenantId;
+                //history.MenuModuleId = request.masterPUT.MenuModuleId;
                 //history.LanguageId = request.masterPUT.LanguageId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
                 //history.ExportTypeId = request.masterPUT.ExportTypeId;

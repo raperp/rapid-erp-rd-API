@@ -15,6 +15,7 @@ public class BaseMaster : Master
     public int? LanguageId { get; set; }
     public StatusType StatusType { get; set; }
     public int? StatusTypeId { get; set; }
+    public string Code { get; set; }
     public bool IsDefault { get; set; }
     public bool IsDraft { get; set; }
     public DateTime? CreatedAt { get; set; }

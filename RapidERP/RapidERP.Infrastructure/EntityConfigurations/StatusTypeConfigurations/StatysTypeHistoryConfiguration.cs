@@ -27,8 +27,8 @@ public class StatysTypeHistoryConfiguration : IEntityTypeConfiguration<StatusTyp
         //builder.Property(x => x.Longitude).HasPrecision(9, 6).HasColumnOrder(15);
         //builder.Property(x => x.ActionBy).HasColumnOrder(16);
         //builder.Property(x => x.ActionAt).HasColumnOrder(17);
-        builder.Ignore(x => x.TenantId);
-        builder.Ignore(x => x.MenuModuleId);
+        //builder.Ignore(x => x.TenantId);
+        //builder.Ignore(x => x.MenuModuleId);
         builder.Ignore(x => x.IsDefault);
         builder.Ignore(x => x.IsDraft);
     }

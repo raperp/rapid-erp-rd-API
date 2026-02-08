@@ -35,7 +35,7 @@ public class CreateSingleTenantCommandHandler(IRepository repository)
 
                 TenantHistory history = new();
                 history.TenantId = masterData.Id;
-                history.MenuModuleId = request.masterPOST.MenuModuleId;
+                //history.MenuModuleId = request.masterPOST.MenuModuleId;
                 history.CountryId = request.masterPOST.CountryId;
                 history.StateId = request.masterPOST.StateId;
                 //history.LanguageId = request.masterPOST.LanguageId;

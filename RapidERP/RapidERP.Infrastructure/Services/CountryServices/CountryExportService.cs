@@ -21,9 +21,9 @@ public class CountryExportService(IRepository repository) : ICountryExport
             masterData.ExportMediaId = masterPOST.ExportMediaId; 
             masterData.ExportMediaTo = masterPOST.ExportMediaTo; 
             masterData.ExportMediaURL = masterPOST.ExportMediaURL; 
-            masterData.ActionTypeId = masterPOST.ActionTypeId; 
-            masterData.ActionBy = masterPOST.ActionBy; 
-            masterData.ActionAt = masterPOST.ActionAt;
+            //masterData.ActionTypeId = masterPOST.ActionTypeId; 
+            //masterData.ActionBy = masterPOST.ActionBy; 
+            //masterData.ActionAt = masterPOST.ActionAt;
 
             await repository.Add(masterData);
 
@@ -102,12 +102,9 @@ public class CountryExportService(IRepository repository) : ICountryExport
                         select new
                         {
                             ce.Id,
-                            ce.Name,
                             Country = c.Name,
                             ce.ExportMediaTo,
-                            ce.ExportMediaURL,
-                            ce.ActionAt,
-                            ce.ActionBy
+                            ce.ExportMediaURL
                         }).AsNoTracking().AsQueryable();
 
             var result = await data.ToListAsync();

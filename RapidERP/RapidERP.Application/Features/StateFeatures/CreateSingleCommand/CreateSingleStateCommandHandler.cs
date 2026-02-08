@@ -31,7 +31,7 @@ public class CreateSingleStateCommandHandler(IRepository repository)
 
                 StateHistory history = new();
                 history.StateId = masterData.Id;
-                history.MenuModuleId = request.masterPOST.MenuModuleId;
+                //history.MenuModuleId = request.masterPOST.MenuModuleId;
                 history.CountryId = request.masterPOST.CountryId;
                 //history.LanguageId = request.masterPOST.LanguageId;
                 history.ActionTypeId = request.masterPOST.ActionTypeId;

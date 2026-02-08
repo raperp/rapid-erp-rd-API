@@ -20,7 +20,7 @@ public class GetHistoryStateHandler(IRepository repository)
         {
             var data = (from sa in repository.Set<StateHistory>()
                         join s in repository.Set<State>() on sa.StateId equals s.Id
-                        join mm in repository.Set<MenuModule>() on sa.MenuModuleId equals mm.Id
+                        //join mm in repository.Set<MenuModule>() on sa.MenuModuleId equals mm.Id
                         join c in repository.Set<Country>() on sa.CountryId equals c.Id
                         join at in repository.Set<ActionType>() on sa.ActionTypeId equals at.Id
                         //join l in repository.Set<Language>() on sa.LanguageId equals l.Id
@@ -29,7 +29,7 @@ public class GetHistoryStateHandler(IRepository repository)
                         {
                             Id = sa.Id,
                             State = s.Name,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             Country = c.Name,
                             //Language = l.Name,
                             Action = at.Name,

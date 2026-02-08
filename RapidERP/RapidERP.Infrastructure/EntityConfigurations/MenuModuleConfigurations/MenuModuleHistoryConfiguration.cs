@@ -15,7 +15,7 @@ public class MenuModuleHistoryConfiguration : IEntityTypeConfiguration<MenuModul
         //builder.Property(x => x.Latitude).HasPrecision(9, 6);
         //builder.Property(x => x.Longitude).HasPrecision(9, 6);
         //builder.Property(x => x.DeviceName).HasMaxLength(10).IsRequired(false);
-        builder.Ignore(x => x.TenantId);
+        //builder.Ignore(x => x.TenantId);
         builder.Ignore(x => x.IsDefault);
         builder.Ignore(x => x.IsDraft);
     }

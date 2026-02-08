@@ -71,8 +71,8 @@ public class TableService(RapidERPDbContext context, ISharedService shared) : IT
                 history.TotalPersons = masterPOST.TotalPersons;
                 history.TableId = masterData.Id;
                 history.ActionTypeId = masterPOST.ActionTypeId;
-                history.TenantId = masterPOST.TenantId;
-                history.MenuModuleId = masterPOST.MenuModuleId;
+                //history.TenantId = masterPOST.TenantId;
+                //history.MenuModuleId = masterPOST.MenuModuleId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
                 //history.ExportTo = masterPOST.ExportTo;
                 //history.SourceURL = masterPOST.SourceURL;
@@ -257,8 +257,8 @@ public class TableService(RapidERPDbContext context, ISharedService shared) : IT
                         join t in context.Tables on ta.TableId equals t.Id
                         join at in context.ActionTypes on ta.ActionTypeId equals at.Id
                         //join et in context.ExportTypes on ta.ExportTypeId equals et.Id
-                        join mm in context.MenuModules on ta.MenuModuleId equals mm.Id
-                        join tt in context.Tenants on ta.TenantId equals tt.Id
+                        //join mm in context.MenuModules on ta.MenuModuleId equals mm.Id
+                        //join tt in context.Tenants on ta.TenantId equals tt.Id
                         select new
                         {
                             ta.Id,
@@ -268,8 +268,8 @@ public class TableService(RapidERPDbContext context, ISharedService shared) : IT
                             Table = t.Name,
                             //ExportType = et.Name,
                             Action = at.Name,
-                            MemuModule = mm.Name,
-                            Tenant = tt.Name,
+                            //MemuModule = mm.Name,
+                            //Tenant = tt.Name,
                             //ta.ExportTo,
                             //ta.SourceURL,
                             //ta.Browser,
@@ -365,8 +365,8 @@ public class TableService(RapidERPDbContext context, ISharedService shared) : IT
                 history.TotalPersons = masterPUT.TotalPersons;
                 history.TableId = masterPUT.Id;
                 history.ActionTypeId = masterPUT.ActionTypeId;
-                history.TenantId = masterPUT.TenantId;
-                history.MenuModuleId = masterPUT.MenuModuleId;
+                //history.TenantId = masterPUT.TenantId;
+                //history.MenuModuleId = masterPUT.MenuModuleId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;
                 //history.ExportTo = masterPUT.ExportTo;
                 //history.SourceURL = masterPUT.SourceURL;

@@ -32,8 +32,8 @@ public class CreateBulkStateCommandHandler(IRepository repository)
                     await repository.Add(masterData);
 
                     StateHistory history = new();
-                    history.StateId = masterData.Id;
-                    history.MenuModuleId = item.MenuModuleId;
+                    //history.StateId = masterData.Id;
+                    //history.MenuModuleId = item.MenuModuleId;
                     history.CountryId = item.CountryId;
                     //history.LanguageId = item.LanguageId;
                     history.ActionTypeId = item.ActionTypeId;

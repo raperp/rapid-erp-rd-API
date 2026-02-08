@@ -71,8 +71,8 @@ public class OrderTypeService(RapidERPDbContext context, ISharedService shared) 
                 history.OrderTypeId = masterData.Id;
                 history.Name = masterPOST.Name;
                 history.Description = masterPOST.Description;
-                history.TenantId = masterPOST.TenantId;
-                history.MenuModuleId = masterPOST.MenuModuleId;
+                //history.TenantId = masterPOST.TenantId;
+                //history.MenuModuleId = masterPOST.MenuModuleId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.LanguageId = masterPOST.LanguageId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
@@ -266,17 +266,17 @@ public class OrderTypeService(RapidERPDbContext context, ISharedService shared) 
                         join ot in context.OrderTypes on oth.OrderTypeId equals ot.Id
                         //join et in context.ExportTypes on oth.ExportTypeId equals et.Id
                         join at in context.ActionTypes on oth.ActionTypeId equals at.Id
-                        join t in context.Tenants on oth.TenantId equals t.Id
+                        //join t in context.Tenants on oth.TenantId equals t.Id
                         //join l in context.Languages on oth.LanguageId equals l.Id
-                        join mm in context.MenuModules on oth.MenuModuleId equals mm.Id
+                        //join mm in context.MenuModules on oth.MenuModuleId equals mm.Id
                         select new
                         {
                             oth.Id,
                             oth.Name,
                             oth.Description,
                             OrderType = ot.Name,
-                            Tanent = t.Name,
-                            MenuModule = mm.Name,
+                            //Tanent = t.Name,
+                            //MenuModule = mm.Name,
                             Action = at.Name,
                             //Language = l.Name,
                             //ExportType = et.Name,
@@ -377,8 +377,8 @@ public class OrderTypeService(RapidERPDbContext context, ISharedService shared) 
                 history.OrderTypeId = masterPUT.Id;
                 history.Name = masterPUT.Name;
                 history.Description = masterPUT.Description;
-                history.TenantId = masterPUT.TenantId;
-                history.MenuModuleId = masterPUT.MenuModuleId;
+                //history.TenantId = masterPUT.TenantId;
+                //history.MenuModuleId = masterPUT.MenuModuleId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.LanguageId = masterPUT.LanguageId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;

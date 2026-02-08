@@ -39,9 +39,9 @@ public record CreateSingleAreaCommandHandler(IRepository repository)
                 history.CountryId = request.masterPOST.CountryId;
                 history.StateId = request.masterPOST.StateId;
                 history.CityId = request.masterPOST.CityId;
-                history.TenantId = request.masterPOST.TenantId;
+                //history.TenantId = request.masterPOST.TenantId;
                 history.ActionTypeId = request.masterPOST.ActionTypeId;
-                history.MenuModuleId = request.masterPOST.MenuModuleId;
+                //history.MenuModuleId = request.masterPOST.MenuModuleId;
                 //history.LanguageId = request.masterPOST.LanguageId;
                 //history.ExportTypeId = request.masterPOST.ExportTypeId;
                 //history.ExportTo = request.masterPOST.ExportTo;

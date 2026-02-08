@@ -11,7 +11,7 @@ namespace RapidERP.Infrastructure.EntityConfiguration.StateConfigurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnOrder(0);
             builder.Property(x => x.StateId).HasColumnOrder(1);
-            builder.Property(x => x.MenuModuleId).HasColumnOrder(2);
+            //builder.Property(x => x.MenuModuleId).HasColumnOrder(2);
             builder.Property(x => x.CountryId).HasColumnOrder(3);
             //builder.Property(x => x.LanguageId).HasColumnOrder(4);
             builder.Property(x => x.ActionTypeId).HasColumnOrder(5);
@@ -31,7 +31,7 @@ namespace RapidERP.Infrastructure.EntityConfiguration.StateConfigurations
             //builder.Property(x => x.Longitude).HasPrecision(9, 6).IsRequired().HasColumnOrder(19);
             //builder.Property(x => x.ActionBy).IsRequired().HasColumnOrder(20);
             //builder.Property(x => x.ActionAt).IsRequired().HasColumnOrder(21);
-            builder.Ignore(x => x.TenantId);
+            //builder.Ignore(x => x.TenantId);
         }
     }
 }

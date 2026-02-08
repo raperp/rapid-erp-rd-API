@@ -25,17 +25,17 @@ public class GetHistoryCityHandler(IRepository repository)
                         join c in repository.Set<City>() on ch.CountryId equals c.Id
                         //join et in repository.Set<ExportType>() on ch.ExportTypeId equals et.Id
                         join at in repository.Set<ActionType>() on ch.ActionTypeId equals at.Id
-                        join t in repository.Set<Tenant>() on ch.TenantId equals t.Id
+                        //join t in repository.Set<Tenant>() on ch.TenantId equals t.Id
                         //join l in repository.Set<Language>() on ch.LanguageId equals l.Id
-                        join m in repository.Set<MenuModule>() on ch.MenuModuleId equals m.Id
+                        //join m in repository.Set<MenuModule>() on ch.MenuModuleId equals m.Id
                         select new GetHistoryCityResponseDTOModel
                         {
                             Id = ch.Id,
                             City = c.Name,
                             Name = ch.Name,
                             Code = ch.Code,
-                            Tanent = t.Name,
-                            Menu = m.Name,
+                            //Tanent = t.Name,
+                            //Menu = m.Name,
                             Action = at.Name,
                             //Language = l.Name,
                             //ExportType = et.Name,

@@ -33,8 +33,8 @@ public class CreateSingleDesignationCommandHandler(IRepository repository)
                 history.Name = request.masterPOST.Name;
                 history.Description = request.masterPOST.Description;
                 history.DepartmentId = request.masterPOST.DepartmentId;
-                history.TenantId = request.masterPOST.TenantId;
-                history.MenuModuleId = request.masterPOST.MenuModuleId;
+                //history.TenantId = request.masterPOST.TenantId;
+                //history.MenuModuleId = request.masterPOST.MenuModuleId;
                 history.ActionTypeId = request.masterPOST.ActionTypeId;
                 //history.LanguageId = request.masterPOST.LanguageId;
                 //history.ExportTypeId = request.masterPOST.ExportTypeId;

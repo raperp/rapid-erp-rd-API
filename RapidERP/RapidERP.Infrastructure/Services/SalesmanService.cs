@@ -83,8 +83,8 @@ public class SalesmanService(RapidERPDbContext context, ISharedService shared) :
                 history.Phone = masterPOST.Phone;
                 history.Email = masterPOST.Email;
                 history.Description = masterPOST.Description;
-                history.TenantId = masterPOST.TenantId;
-                history.MenuModuleId = masterPOST.MenuModuleId;
+                //history.TenantId = masterPOST.TenantId;
+                //history.MenuModuleId = masterPOST.MenuModuleId;
                 history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.LanguageId = masterPOST.LanguageId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
@@ -286,9 +286,9 @@ public class SalesmanService(RapidERPDbContext context, ISharedService shared) :
                         join d in context.Departments on sh.DepartmentId equals d.Id
                         //join et in context.ExportTypes on sh.ExportTypeId equals et.Id
                         join at in context.ActionTypes on sh.ActionTypeId equals at.Id
-                        join t in context.Tenants on sh.TenantId equals t.Id
+                        //join t in context.Tenants on sh.TenantId equals t.Id
                         //join l in context.Languages on sh.LanguageId equals l.Id
-                        join mm in context.MenuModules on sh.MenuModuleId equals mm.Id
+                        //join mm in context.MenuModules on sh.MenuModuleId equals mm.Id
                         select new
                         {
                             sh.Id,
@@ -302,8 +302,8 @@ public class SalesmanService(RapidERPDbContext context, ISharedService shared) :
                             sh.Phone,
                             sh.Email,
                             sh.Description,
-                            Tanent = t.Name,
-                            MenuModule = mm.Name,
+                            //Tanent = t.Name,
+                            //MenuModule = mm.Name,
                             Action = at.Name,
                             //Language = l.Name,
                             //ExportType = et.Name,
@@ -417,8 +417,8 @@ public class SalesmanService(RapidERPDbContext context, ISharedService shared) :
                 history.Phone = masterPUT.Phone;
                 history.Email = masterPUT.Email;
                 history.Description = masterPUT.Description;
-                history.TenantId = masterPUT.TenantId;
-                history.MenuModuleId = masterPUT.MenuModuleId;
+                //history.TenantId = masterPUT.TenantId;
+                //history.MenuModuleId = masterPUT.MenuModuleId;
                 history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.LanguageId = masterPUT.LanguageId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;

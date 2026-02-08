@@ -76,7 +76,7 @@ namespace RapidERP.Infrastructure.Services
 
                     StateHistory history = new();
                     history.StateId = masterData.Id;
-                    history.MenuModuleId = masterPOST.MenuModuleId;
+                    //history.MenuModuleId = masterPOST.MenuModuleId;
                     history.CountryId = masterPOST.CountryId;
                     //history.LanguageId = masterPOST.LanguageId;
                     history.ActionTypeId = masterPOST.ActionTypeId;
@@ -274,7 +274,7 @@ namespace RapidERP.Infrastructure.Services
             {
                 var data = (from sa in context.StateHistory
                             join s in context.States on sa.StateId equals s.Id
-                            join mm in context.MenuModules on sa.MenuModuleId equals mm.Id
+                            //join mm in context.MenuModules on sa.MenuModuleId equals mm.Id
                             join c in context.Countries on sa.CountryId equals c.Id
                             join at in context.ActionTypes on sa.ActionTypeId equals at.Id
                             //join l in context.Languages on sa.LanguageId equals l.Id
@@ -283,7 +283,7 @@ namespace RapidERP.Infrastructure.Services
                             {
                                 sa.Id,
                                 State = s.Name,
-                                MenuModule = mm.Name,
+                                //MenuModule = mm.Name,
                                 Country = c.Name,
                                 //Language = l.Name,
                                 Action = at.Name,
@@ -385,7 +385,7 @@ namespace RapidERP.Infrastructure.Services
 
                     StateHistory history = new();
                     history.StateId = masterPUT.Id;
-                    history.MenuModuleId = masterPUT.MenuModuleId;
+                    //history.MenuModuleId = masterPUT.MenuModuleId;
                     history.CountryId = masterPUT.CountryId;
                     //history.LanguageId = masterPUT.LanguageId;
                     history.ActionTypeId = masterPUT.ActionTypeId;

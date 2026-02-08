@@ -39,8 +39,8 @@ public class CreateBulkCityCommandHandler(IRepository repository)
                     history.Code = item.Code;
                     history.CountryId = item.CountryId;
                     history.StateId = item.StateId;
-                    history.TenantId = item.TenantId;
-                    history.MenuModuleId = item.MenuModuleId;
+                    //history.TenantId = item.TenantId;
+                    //history.MenuModuleId = item.MenuModuleId;
                     //history.LanguageId = item.LanguageId;
                     history.ActionTypeId = item.ActionTypeId;
                     //history.ExportTypeId = item.ExportTypeId;

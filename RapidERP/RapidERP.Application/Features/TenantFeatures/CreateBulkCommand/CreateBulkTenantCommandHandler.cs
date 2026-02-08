@@ -37,8 +37,8 @@ public class CreateBulkTenantCommandHandler(IRepository repository)
                     await repository.Add(masterData);
 
                     TenantHistory history = new();
-                    history.TenantId = masterData.Id;
-                    history.MenuModuleId = item.MenuModuleId;
+                    //history.TenantId = masterData.Id;
+                    //history.MenuModuleId = item.MenuModuleId;
                     history.CountryId = item.CountryId;
                     history.StateId = item.StateId;
                     //history.LanguageId = item.LanguageId;

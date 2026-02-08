@@ -53,9 +53,9 @@ public class UpdateAreaCommandHandler(IRepository repository)
                 history.CountryId = request.masterPUT.CountryId;
                 history.StateId = request.masterPUT.StateId;
                 history.CityId = request.masterPUT.CityId;
-                history.TenantId = request.masterPUT.TenantId;
+                //history.TenantId = request.masterPUT.TenantId;
                 history.ActionTypeId = request.masterPUT.ActionTypeId;
-                history.MenuModuleId = request.masterPUT.MenuModuleId;
+                //history.MenuModuleId = request.masterPUT.MenuModuleId;
                 //history.LanguageId = request.masterPUT.LanguageId;
                 //history.ExportTypeId = request.masterPUT.ExportTypeId;
                 //history.ExportTo = request.masterPUT.ExportTo;

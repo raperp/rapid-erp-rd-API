@@ -26,7 +26,7 @@ public class CreateSingleTextModuleCommandHandler(IRepository repository)
 
                 TextModuleHistory history = new();
                 history.TextModuleId = masterData.Id;
-                history.MenuModuleId = request.masterPOST.MenuModuleId;
+                //history.MenuModuleId = request.masterPOST.MenuModuleId;
                 //history.LanguageId = request.masterPOST.LanguageId;
                 history.ActionTypeId = request.masterPOST.ActionTypeId;
                 //history.ExportTypeId = request.masterPOST.ExportTypeId;

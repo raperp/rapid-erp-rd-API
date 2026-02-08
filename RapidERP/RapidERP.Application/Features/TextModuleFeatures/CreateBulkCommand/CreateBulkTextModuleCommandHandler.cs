@@ -28,7 +28,7 @@ public class CreateBulkTextModuleCommandHandler(IRepository repository)
 
                     TextModuleHistory history = new();
                     history.TextModuleId = masterData.Id;
-                    history.MenuModuleId = item.MenuModuleId;
+                    //history.MenuModuleId = item.MenuModuleId;
                     //history.LanguageId = item.LanguageId;
                     history.ActionTypeId = item.ActionTypeId;
                     //history.ExportTypeId = item.ExportTypeId;

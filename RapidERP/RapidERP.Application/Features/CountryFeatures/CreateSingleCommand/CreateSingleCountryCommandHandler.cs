@@ -24,7 +24,7 @@ public class CreateSingleCountryCommandHandler(IRepository repository)
                 masterData.StatusTypeId = request.masterPOST.StatusTypeId;
                 //masterData.LanguageId = request.masterPOST.LanguageId;
                 //masterData.CurrencyId = request.masterPOST.CurrencyId;
-                masterData.DialCode = request.masterPOST.DialCode;
+                masterData.DialingCode = request.masterPOST.DialCode;
                 masterData.Name = request.masterPOST.Name;
                 masterData.IsDefault = request.masterPOST.IsDefault;
                 masterData.IsDraft = request.masterPOST.IsDraft;
@@ -39,14 +39,14 @@ public class CreateSingleCountryCommandHandler(IRepository repository)
                 CountryAudit history = new();
                 history.CountryId = masterData.Id;
                 //history.CurrencyId = request.masterPOST.CurrencyId;
-                history.TenantId = request.masterPOST.TenantId;
-                history.MenuModuleId = request.masterPOST.MenuModuleId;
+                //history.TenantId = request.masterPOST.TenantId;
+                //history.MenuModuleId = request.masterPOST.MenuModuleId;
                 history.ActionTypeId = request.masterPOST.ActionTypeId;
                 //history.LanguageId = request.masterPOST.LanguageId;
                 //history.ExportTypeId = request.masterPOST.ExportTypeId;
                 //history.ExportTo = request.masterPOST.ExportTo;
                 //history.SourceURL = request.masterPOST.SourceURL;
-                history.DialCode = request.masterPOST.DialCode;
+                history.DialingCode = request.masterPOST.DialCode;
                 history.Name = request.masterPOST.Name;
                 history.IsDefault = request.masterPOST.IsDefault;
                 history.IsDraft = request.masterPOST.IsDraft;
