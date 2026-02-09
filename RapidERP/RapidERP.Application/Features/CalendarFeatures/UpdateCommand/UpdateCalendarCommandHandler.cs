@@ -20,9 +20,9 @@ public class UpdateCalendarCommandHandler(IRepository repository)
             if (masterRecord is not null)
             {
                 request.masterPUT.TenantId = (request.masterPUT.TenantId != 0) ? request.masterPUT.TenantId : masterRecord.TenantId;
-                request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId != 0) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
+                //request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId != 0) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
                 //request.masterPUT.LanguageId = (request.masterPUT.LanguageId is not null) ? request.masterPUT.LanguageId : masterRecord.LanguageId;
-                request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;
+                //request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;
                 request.masterPUT.Code = (request.masterPUT.Code is not null) ? request.masterPUT.Code : masterRecord.Code;
                 request.masterPUT.Name = (request.masterPUT.Name is not null) ? request.masterPUT.Name : masterRecord.Name;
                 request.masterPUT.StartDate = (request.masterPUT.StartDate is not null) ? request.masterPUT.StartDate : masterRecord.StartDate;
@@ -33,9 +33,9 @@ public class UpdateCalendarCommandHandler(IRepository repository)
             if (isExists == false)
             {
                 masterRecord.TenantId = request.masterPUT.TenantId;
-                masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
+                //masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
                 //masterRecord.LanguageId = request.masterPUT.LanguageId;
-                masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
+                //masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
                 masterRecord.Code = request.masterPUT.Code;
                 masterRecord.Name = request.masterPUT.Name;
                 masterRecord.StartDate = request.masterPUT.StartDate;

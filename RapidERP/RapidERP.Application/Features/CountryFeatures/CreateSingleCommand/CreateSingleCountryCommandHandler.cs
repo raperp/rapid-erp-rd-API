@@ -19,12 +19,12 @@ public class CreateSingleCountryCommandHandler(IRepository repository)
             if (isExists == false)
             {
                 Country masterData = new();
-                masterData.MenuModuleId = request.masterPOST.MenuModuleId;
+                //masterData.MenuModuleId = request.masterPOST.MenuModuleId;
                 masterData.TenantId = request.masterPOST.TenantId;
-                masterData.StatusTypeId = request.masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = request.masterPOST.StatusTypeId;
                 //masterData.LanguageId = request.masterPOST.LanguageId;
                 //masterData.CurrencyId = request.masterPOST.CurrencyId;
-                masterData.DialingCode = request.masterPOST.DialCode;
+                //masterData.DialingCode = request.masterPOST.DialCode;
                 masterData.Name = request.masterPOST.Name;
                 masterData.IsDefault = request.masterPOST.IsDefault;
                 masterData.IsDraft = request.masterPOST.IsDraft;
@@ -41,12 +41,12 @@ public class CreateSingleCountryCommandHandler(IRepository repository)
                 //history.CurrencyId = request.masterPOST.CurrencyId;
                 //history.TenantId = request.masterPOST.TenantId;
                 //history.MenuModuleId = request.masterPOST.MenuModuleId;
-                history.ActionTypeId = request.masterPOST.ActionTypeId;
+                //history.ActionTypeId = request.masterPOST.ActionTypeId;
                 //history.LanguageId = request.masterPOST.LanguageId;
                 //history.ExportTypeId = request.masterPOST.ExportTypeId;
                 //history.ExportTo = request.masterPOST.ExportTo;
                 //history.SourceURL = request.masterPOST.SourceURL;
-                history.DialingCode = request.masterPOST.DialCode;
+                //history.DialingCode = request.masterPOST.DialCode;
                 history.Name = request.masterPOST.Name;
                 history.IsDefault = request.masterPOST.IsDefault;
                 history.IsDraft = request.masterPOST.IsDraft;

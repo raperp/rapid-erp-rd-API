@@ -23,27 +23,27 @@ public class GetAllCityHandler(IRepository repository)
             GetAllDTO result = new();
 
             var data = (from c in repository.Set<City>()
-                        join st in repository.Set<StatusType>() on c.StatusTypeId equals st.Id
+                        //join st in repository.Set<StatusType>() on c.StatusTypeId equals st.Id
                         join co in repository.Set<Country>() on c.CountryId equals co.Id
                         join sta in repository.Set<State>() on c.StateId equals sta.Id
                         join t in repository.Set<Tenant>() on c.TenantId equals t.Id
                         //join l in repository.Set<Language>() on c.LanguageId equals l.Id
-                        join m in repository.Set<MenuModule>() on c.MenuModuleId equals m.Id
+                        //join m in repository.Set<MenuModule>() on c.MenuModuleId equals m.Id
                         select new GetAllCityResponseDTOModel
                         {
                             Id = c.Id,
                             Name = c.Name,
-                            Tanent = st.Name,
-                            MenuModule = m.Name,
+                            //Tanent = st.Name,
+                            //MenuModule = m.Name,
                             Country = co.Name,
                             //Language = l.Name,
                             State = sta.Name,
-                            Status = st.Name
+                            //Status = st.Name
                         }).AsNoTracking().AsQueryable();
 
             if (query.skip == 0 || query.take == 0)
             {
-                result.Count = await repository.GetCounts<City>(query.pageSize);
+                result.Count = await repository.GetCounts<City>();
                 result.Data = await data.ToListAsync();
 
                 _response = new()
@@ -57,7 +57,7 @@ public class GetAllCityHandler(IRepository repository)
 
             else
             {
-                result.Count = await repository.GetCounts<City>(query.pageSize);
+                result.Count = await repository.GetCounts<City>();
                 result.Data = await data.Skip(query.skip).Take(query.take).ToListAsync();
 
                 _response = new()

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.DTOs.TenantDTOs.TenantLicenseDTOs;
 using RapidERP.Application.Interfaces;
 using RapidERP.Application.Interfaces.Tenant;
@@ -199,6 +200,11 @@ public class TenantLicenseService(RapidERPDbContext context, ISharedService shar
         }
     }
 
+    public Task<RequestResponse> GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
     {
         try
@@ -384,4 +390,16 @@ public class TenantLicenseService(RapidERPDbContext context, ISharedService shar
             return requestResponse;
         }
     }
+
+    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<TenantLicensePOST, TenantLicensePUT>.GetSingle(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    
 }

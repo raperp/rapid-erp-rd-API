@@ -20,7 +20,7 @@ public class CreateBulkTextModuleCommandHandler(IRepository repository)
                 if (isExists == false)
                 {
                     TextModule masterData = new();
-                    masterData.MenuModuleId = item.MenuModuleId;
+                    //masterData.MenuModuleId = item.MenuModuleId;
                     //masterData.LanguageId = item.LanguageId;
                     masterData.Name = item.Name;
 

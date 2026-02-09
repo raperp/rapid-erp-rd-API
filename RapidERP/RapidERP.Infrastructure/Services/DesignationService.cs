@@ -56,8 +56,8 @@ public class DesignationService(RapidERPDbContext context, ISharedService shared
                 masterData.Name = masterPOST.Name;
                 masterData.Description = masterPOST.Description;
                 masterData.DepartmentId = masterPOST.DepartmentId;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
-                masterData.MenuModuleId = masterPOST.MenuModuleId;
+                //masterData.StatusTypeId = masterPOST.StatusTypeId;
+                //masterData.MenuModuleId = masterPOST.MenuModuleId;
                 masterData.TenantId = masterPOST.TenantId;
                 //masterData.LanguageId = masterPOST.LanguageId;
 
@@ -71,7 +71,7 @@ public class DesignationService(RapidERPDbContext context, ISharedService shared
                 history.DepartmentId = masterPOST.DepartmentId;
                 //history.TenantId = masterPOST.TenantId;
                 //history.MenuModuleId = masterPOST.MenuModuleId;
-                history.ActionTypeId = masterPOST.ActionTypeId;
+                //history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.LanguageId = masterPOST.LanguageId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
                 //history.ExportTo = masterPOST.ExportTo;
@@ -198,20 +198,20 @@ public class DesignationService(RapidERPDbContext context, ISharedService shared
 
             var data = (from d in context.Designations
                         join dep in context.Departments on d.DepartmentId equals dep.Id
-                        join st in context.StatusTypes on d.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on d.StatusTypeId equals st.Id
                         join t in context.Tenants on d.TenantId equals t.Id
                         //join l in context.Languages on d.LanguageId equals l.Id
-                        join mm in context.MenuModules on d.MenuModuleId equals mm.Id
+                        //join mm in context.MenuModules on d.MenuModuleId equals mm.Id
                         select new
                         {
                             d.Id,
                             d.Name,
                             d.Description,
                             Department = dep.Name,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             Tanent = t.Name,
                             //Language = l.Name,
-                            Status = st.Name
+                            //Status = st.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -256,6 +256,11 @@ public class DesignationService(RapidERPDbContext context, ISharedService shared
 
             return requestResponse;
         }
+    }
+
+    public Task<RequestResponse> GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
@@ -369,8 +374,8 @@ public class DesignationService(RapidERPDbContext context, ISharedService shared
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description)
                 .SetProperty(x => x.DepartmentId, masterPUT.DepartmentId)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                 .SetProperty(x => x.TenantId, masterPUT.TenantId));
 
                 DesignationHistory history = new();
@@ -380,7 +385,7 @@ public class DesignationService(RapidERPDbContext context, ISharedService shared
                 history.DepartmentId = masterPUT.DepartmentId;
                 //history.TenantId = masterPUT.TenantId;
                 //history.MenuModuleId = masterPUT.MenuModuleId;
-                history.ActionTypeId = masterPUT.ActionTypeId;
+                //history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.LanguageId = masterPUT.LanguageId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;
                 //history.ExportTo = masterPUT.ExportTo;
@@ -435,4 +440,16 @@ public class DesignationService(RapidERPDbContext context, ISharedService shared
             return requestResponse;
         }
     }
+
+    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<DesignationPOST, DesignationPUT>.GetSingle(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    
 }

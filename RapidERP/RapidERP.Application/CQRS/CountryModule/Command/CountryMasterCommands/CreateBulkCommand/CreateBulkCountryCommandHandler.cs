@@ -4,11 +4,11 @@ using RapidERP.Domain.Utilities;
 namespace RapidERP.Application.CQRS.CountryModule.Command.CountryMasterCommands.CreateBulkCommand;
 
 //public class CreateBulkCountryCommandHandler(IRepository repository)
-public class CreateBulkCountryCommandHandler(ICountryBService service)
+public class CreateBulkCountryCommandHandler(ICountryService service)
 {
     public async Task<RequestResponse> Handle(CreateBulkCountryCommand command)
     {
-        //RequestResponse requestResponse = new();
+        RequestResponse requestResponse = new();
 
         //try
         //{
@@ -108,7 +108,7 @@ public class CreateBulkCountryCommandHandler(ICountryBService service)
         //    return requestResponse;
         //}
 
-        var result = await service.CreateBulk(command.masterPOSTs);
-        return result;
+        //var result = await service.CreateBulk(command.masterPOSTs);
+        return requestResponse;
     }
 }

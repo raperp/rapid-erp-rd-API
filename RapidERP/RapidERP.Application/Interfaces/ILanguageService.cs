@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface ILanguageService : IBaseService<LanguagePOST, LanguagePUT> { }
+public interface ILanguageService : IBase<LanguagePOST, LanguagePUT> { }

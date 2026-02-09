@@ -34,7 +34,7 @@ public class GetAllSubModuleHandler(IRepository repository)
 
             if (query.skip == 0 || query.take == 0)
             {
-                result.Count = await repository.GetCounts<Submodule>(query.pageSize);
+                result.Count = await repository.GetCounts<Submodule>();
                 result.Data = await data.ToListAsync();
 
                 _response = new()
@@ -48,7 +48,7 @@ public class GetAllSubModuleHandler(IRepository repository)
 
             else
             {
-                result.Count = await repository.GetCounts<Submodule>(query.pageSize);
+                result.Count = await repository.GetCounts<Submodule>();
                 result.Data = await data.Skip(query.skip).Take(query.take).ToListAsync();
 
                 _response = new()

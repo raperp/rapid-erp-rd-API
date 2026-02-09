@@ -19,7 +19,7 @@ public class DeleteDepartmentCommandHandler(IRepository repository)
 
                 foreach (var item in histories)
                 {
-                    await repository.DeleteQueryable(item);
+                    //await repository.DeleteQueryable(item);
                 }
 
                 await repository.Delete<Department>(request.id);

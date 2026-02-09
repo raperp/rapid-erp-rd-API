@@ -56,42 +56,35 @@ public class SharedServices(RapidERPDbContext context) : ISharedService
 
     public async Task<dynamic> GetCounts<T>(int pageSize) where T : BaseMaster
     {
-        float totalCount = await context.Set<T>().CountAsync();
-        int activeCount = await context.Set<T>().Where(x => x.StatusTypeId == 3).CountAsync();
-        int inActiveCount = await context.Set<T>().Where(x => x.StatusTypeId == 10).CountAsync();
-        int draftCount = await context.Set<T>().Where(x => x.StatusTypeId == 5).CountAsync();
-        //int updatedCount = await context.Set<T>().Where(x => x.UpdatedAt != null).CountAsync();
-        int deletedCount = await context.Set<T>().Where(x => x.StatusTypeId == 7).CountAsync();
-        int softDeletedCount = await context.Set<T>().Where(x => x.StatusTypeId == 6).CountAsync();
+        //float totalCount = await context.Set<T>().CountAsync();
+        //int activeCount = await context.Set<T>().Where(x => x.StatusTypeId == 3).CountAsync();
+        //int inActiveCount = await context.Set<T>().Where(x => x.StatusTypeId == 10).CountAsync();
+        //int draftCount = await context.Set<T>().Where(x => x.StatusTypeId == 5).CountAsync();
+        ////int updatedCount = await context.Set<T>().Where(x => x.UpdatedAt != null).CountAsync();
+        //int deletedCount = await context.Set<T>().Where(x => x.StatusTypeId == 7).CountAsync();
+        //int softDeletedCount = await context.Set<T>().Where(x => x.StatusTypeId == 6).CountAsync();
 
-        float totalPercentage = totalCount / totalCount * 100;
-        float activePercentage = activeCount / totalCount * 100;
-        float inActivePercentage = inActiveCount / totalCount * 100;
-        float draftPercentage = draftCount / totalCount * 100;
-        //float updatedPercentage = updatedCount / totalCount * 100;
-        float deletedPercentage = deletedCount / totalCount * 100;
+        //float totalPercentage = totalCount / totalCount * 100;
+        //float activePercentage = activeCount / totalCount * 100;
+        //float inActivePercentage = inActiveCount / totalCount * 100;
+        //float draftPercentage = draftCount / totalCount * 100;
+        ////float updatedPercentage = updatedCount / totalCount * 100;
+        //float deletedPercentage = deletedCount / totalCount * 100;
 
-        int totalItems = await context.Set<T>().CountAsync();
-        int totalPages = (totalItems + pageSize - 1) / pageSize;
+        //int totalItems = await context.Set<T>().CountAsync();
+        //int totalPages = (totalItems + pageSize - 1) / pageSize;
 
         var result = new
         {
-            totalCount,
-            activeCount,
-            inActiveCount,
-            draftCount,
-            //updatedCount,
-            deletedCount,
-            totalItems,
-            totalPages,
-
-            totalPercentage = $"{totalPercentage.ToString()}%",
-            activePercentage = $"{activePercentage.ToString()}%",
-            inActivePercentage = $"{inActivePercentage.ToString()}%",
-            draftPercentage = $"{draftPercentage.ToString()}%",
-            //updatedPercentage = $"{updatedPercentage.ToString()}%",
-            deletedPercentage = $"{deletedPercentage.ToString()}%"
         };
+
+        //    totalPercentage = $"{totalPercentage.ToString()}%",
+        //    activePercentage = $"{activePercentage.ToString()}%",
+        //    inActivePercentage = $"{inActivePercentage.ToString()}%",
+        //    draftPercentage = $"{draftPercentage.ToString()}%",
+        //    //updatedPercentage = $"{updatedPercentage.ToString()}%",
+        //    deletedPercentage = $"{deletedPercentage.ToString()}%"
+        //};
 
         return result;
     }
@@ -147,8 +140,8 @@ public class SharedServices(RapidERPDbContext context) : ISharedService
                 int statusTypeId = await context.StatusTypes.Where(x => x.Name == "Deleted")
                     .AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
 
-                await context.Set<T>().Where(x => x.Id == id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.StatusTypeId, statusTypeId));
+                //await context.Set<T>().Where(x => x.Id == id).ExecuteUpdateAsync(x => x
+                //.SetProperty(x => x.StatusTypeId, statusTypeId));
             }
 
             requestResponse = new()

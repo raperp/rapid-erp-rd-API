@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface IRiderService : IBaseService<RiderPOST, RiderPUT> { }
+public interface IRiderService : IBase<RiderPOST, RiderPUT> { }

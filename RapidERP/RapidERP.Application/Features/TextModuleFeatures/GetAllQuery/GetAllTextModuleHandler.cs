@@ -19,19 +19,19 @@ public class GetAllTextModuleHandler(IRepository repository)
             GetAllDTO result = new();
 
             var data = (from tm in repository.Set<TextModule>()
-                        join mm in repository.Set<MenuModule>() on tm.MenuModuleId equals mm.Id
+                        //join mm in repository.Set<MenuModule>() on tm.MenuModuleId equals mm.Id
                         //join l in repository.Set<Language>() on tm.LanguageId equals l.Id
                         select new GetAllTextModuleResponseDTOModel
                         {
                             Id = tm.Id,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             //Language = l.Name,
                             Name = tm.Name
                         }).AsNoTracking().AsQueryable();
 
             if (query.skip == 0 || query.take == 0)
             {
-                result.Count = await repository.GetCounts<TextModule>(query.pageSize);
+                result.Count = await repository.GetCounts<TextModule>();
                 result.Data = await data.ToListAsync();
 
                 _response = new()
@@ -45,7 +45,7 @@ public class GetAllTextModuleHandler(IRepository repository)
 
             else
             {
-                result.Count = await repository.GetCounts<TextModule>(query.pageSize);
+                result.Count = await repository.GetCounts<TextModule>();
                 result.Data = await data.Skip(query.skip).Take(query.take).ToListAsync();
 
                 _response = new()

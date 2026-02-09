@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface IActionTypeService : IBaseService<ActionTypePOST, ActionTypePUT> { }
+public interface IActionTypeService : IBase<ActionTypePOST, ActionTypePUT> { }

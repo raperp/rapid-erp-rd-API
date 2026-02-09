@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface IDepartmentService : IBaseService<DepartmentPOST, DepartmentPUT> { }
+public interface IDepartmentService : IBase<DepartmentPOST, DepartmentPUT> { }

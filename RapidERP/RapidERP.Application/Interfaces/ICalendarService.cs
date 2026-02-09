@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface ICalendarService : IBaseService<CalendarPOST, CalendarPUT> { }
+public interface ICalendarService : IBase<CalendarPOST, CalendarPUT> { }

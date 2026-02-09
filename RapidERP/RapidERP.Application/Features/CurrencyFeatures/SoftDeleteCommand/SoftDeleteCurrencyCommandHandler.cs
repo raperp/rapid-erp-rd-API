@@ -12,14 +12,14 @@ public class SoftDeleteCurrencyCommandHandler(IRepository repository)
     {
         try
         {
-            var result = await repository.SoftDelete<Currency>(request.id);
+            //var result = await repository.UpdateStatus<Currency>(request.id);
 
             _response = new()
             {
                 StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
                 IsSuccess = true,
                 Message = ResponseMessage.UpdateSuccess,
-                Data = result
+                //Data = result
             };
 
             return _response;

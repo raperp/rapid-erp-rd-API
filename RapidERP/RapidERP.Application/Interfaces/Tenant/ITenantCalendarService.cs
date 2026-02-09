@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces.Tenant;
 
-public interface ITenantCalendarService : IBaseService<TenantCalendarPOST, TenantCalendarPUT> { }
+public interface ITenantCalendarService : IBase<TenantCalendarPOST, TenantCalendarPUT> { }

@@ -25,9 +25,9 @@ public class CreateBulkCityCommandHandler(IRepository repository)
                     masterData.CountryId = item.CountryId;
                     masterData.StateId = item.StateId;
                     masterData.TenantId = item.TenantId;
-                    masterData.MenuModuleId = item.MenuModuleId;
+                    //masterData.MenuModuleId = item.MenuModuleId;
                     //masterData.LanguageId = item.LanguageId;
-                    masterData.StatusTypeId = item.StatusTypeId;
+                    //masterData.StatusTypeId = item.StatusTypeId;
                     masterData.IsDefault = item.IsDefault;
                     masterData.IsDraft = item.IsDraft;
 
@@ -42,7 +42,7 @@ public class CreateBulkCityCommandHandler(IRepository repository)
                     //history.TenantId = item.TenantId;
                     //history.MenuModuleId = item.MenuModuleId;
                     //history.LanguageId = item.LanguageId;
-                    history.ActionTypeId = item.ActionTypeId;
+                    //history.ActionTypeId = item.ActionTypeId;
                     //history.ExportTypeId = item.ExportTypeId;
                     //history.ExportTo = item.ExportTo;
                     //history.SourceURL = item.SourceURL;

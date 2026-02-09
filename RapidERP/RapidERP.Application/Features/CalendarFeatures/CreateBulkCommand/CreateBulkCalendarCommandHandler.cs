@@ -21,9 +21,9 @@ public class CreateBulkCalendarCommandHandler(IRepository repository)
                 {
                     Calendar masterData = new();
                     masterData.TenantId = item.TenantId;
-                    masterData.MenuModuleId = item.MenuModuleId;
+                    //masterData.MenuModuleId = item.MenuModuleId;
                     //masterData.LanguageId = item.LanguageId;
-                    masterData.StatusTypeId = item.StatusTypeId;
+                    //masterData.StatusTypeId = item.StatusTypeId;
                     masterData.Code = item.Code;
                     masterData.Name = item.Name;
                     masterData.StartDate = item.StartDate;

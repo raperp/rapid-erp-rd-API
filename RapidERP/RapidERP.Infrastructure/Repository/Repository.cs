@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Repository;
-using RapidERP.Domain.Entities.LoginModels;
 using RapidERP.Domain.Entities.Shared;
 using RapidERP.Infrastructure.Data;
+using UpdateStatus = RapidERP.Application.DTOs.Shared.UpdateStatus;
 using System.Data;
-using System.Threading.Tasks;
 
 namespace RapidERP.Infrastructure.Repository;
 
@@ -41,33 +41,36 @@ public class Repository : IRepository
         await context.SaveChangesAsync();
     }
 
-    //public async Task<dynamic> FindById<TEntity>(TEntity entity) where TEntity : Master
-    //{
-    //    var record = await context.Set<TEntity>().FindAsync(entity.Id) ?? 
-    //        throw new ApplicationException("Record not found");
-    //    return record;
-    //}
-
     public async Task<TEntity> FindById<TEntity>(int id) where TEntity : Master
     {
         var record = await context.Set<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
         return record;
     }
 
-    public async Task<string> SoftDelete<TEntity>(int id) where TEntity : BaseMaster
+    public async Task<string> UpdateStatus<TEntity>(UpdateStatus updateStatus) where TEntity : BaseMaster
     {
-        int softDeletedStatusTypeId = await context.StatusTypes.Where(x => x.Name == "SoftDeleted")
-                    .AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        string message = "Status Updated";
 
-        await context.Set<TEntity>().Where(x => x.Id == id)
-            .ExecuteUpdateAsync(x => x.SetProperty(x => x.StatusTypeId, softDeletedStatusTypeId));
+        if (updateStatus.IsActive == true)
+        {
+            await context.Set<TEntity>().Where(x => x.Id == updateStatus.Id).ExecuteUpdateAsync(x => x.SetProperty(x => x.IsActive, true));
+        }
 
-        return "Soft deleted successful.";
+        if (updateStatus.IsActive == false)
+        {
+            await context.Set<TEntity>().Where(x => x.Id == updateStatus.Id).ExecuteUpdateAsync(x => x.SetProperty(x => x.IsActive, false));
+        }
+
+        if (updateStatus.IsDelete == true)
+        {
+            await context.Set<TEntity>().Where(x => x.Id == updateStatus.Id).ExecuteUpdateAsync(x => x.SetProperty(x => x.IsDeleted, true));
+        }
+
+        return message;
     }
 
     public async Task<TEntity> GetSingle<TEntity>(int id) where TEntity : Master
     {
-        //return await context.Set<TEntity>().FindAsync(id);
         var record = await context.Set<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
         return record;
     }
@@ -82,20 +85,20 @@ public class Repository : IRepository
         context.Set<TEntity>().Remove(entity);
     }
 
-    public async Task<dynamic> GetCounts<T>(int pageSize) where T : BaseMaster
+    public async Task<dynamic> GetCounts<T>() where T : BaseMaster
     {
-        var activeStatusId = await context.StatusTypes.Where(x => x.Name == "Active").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
-        var inActiveStatusId = await context.StatusTypes.Where(x => x.Name == "InActive").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
-        var draftedStatusId = await context.StatusTypes.Where(x => x.Name == "Drafted").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
-        var updatedStatusId = await context.StatusTypes.Where(x => x.Name == "Updated").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
-        var softDeletedStatusId = await context.StatusTypes.Where(x => x.Name == "SoftDeleted").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        //var activeStatusId = await context.StatusTypes.Where(x => x.Name == "Active").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        //var inActiveStatusId = await context.StatusTypes.Where(x => x.Name == "InActive").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        //var draftedStatusId = await context.StatusTypes.Where(x => x.Name == "Drafted").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        //var updatedStatusId = await context.StatusTypes.Where(x => x.Name == "Updated").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        //var softDeletedStatusId = await context.StatusTypes.Where(x => x.Name == "SoftDeleted").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
 
         float totalCount = await context.Set<T>().CountAsync();
-        int activeCount = await context.Set<T>().Where(x => x.StatusTypeId == activeStatusId).CountAsync();
-        int inActiveCount = await context.Set<T>().Where(x => x.StatusTypeId == inActiveStatusId).CountAsync();
-        int draftCount = await context.Set<T>().Where(x => x.StatusTypeId == draftedStatusId).CountAsync();
-        int updatedCount = await context.Set<T>().Where(x => x.StatusTypeId == updatedStatusId).CountAsync();
-        int softDeletedCount = await context.Set<T>().Where(x => x.StatusTypeId == softDeletedStatusId).CountAsync();
+        int activeCount = await context.Set<T>().Where(x => x.IsActive == true).CountAsync();
+        int inActiveCount = await context.Set<T>().Where(x => x.IsActive == false).CountAsync();
+        int draftCount = await context.Set<T>().Where(x => x.IsDraft == true).CountAsync();
+        int updatedCount = await context.Set<T>().Where(x => x.UpdatedAt != null).CountAsync();
+        int softDeletedCount = await context.Set<T>().Where(x => x.IsDeleted == true).CountAsync();
 
         float totalPercentage = totalCount / totalCount * 100;
         float activePercentage = activeCount / totalCount * 100;
@@ -104,8 +107,8 @@ public class Repository : IRepository
         float updatedPercentage = updatedCount / totalCount * 100;
         float softdeletedPercentage = softDeletedCount / totalCount * 100;
 
-        int totalItems = await context.Set<T>().CountAsync();
-        int totalPages = (totalItems + pageSize - 1) / pageSize;
+        //int totalItems = await context.Set<T>().CountAsync();
+        //int totalPages = (totalItems + pageSize - 1) / pageSize;
 
         var result = new
         {
@@ -115,8 +118,6 @@ public class Repository : IRepository
             draftCount,
             updatedCount,
             softDeletedCount,
-            totalItems,
-            totalPages,
 
             totalPercentage = $"{totalPercentage.ToString()}%",
             activePercentage = $"{activePercentage.ToString()}%",

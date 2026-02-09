@@ -12,11 +12,7 @@ public class CreateSingleCountryValidator : AbstractValidator<CountryPOST>
             .WithMessage("Name can't be empty")
             .MaximumLength(40);
 
-        RuleFor(x => x.DialCode)
-            .NotEmpty()
-            .WithMessage("Dial Code can't be empty")
-            .MaximumLength(4);
-
+        
         RuleFor(x => x.ISO3Code)
             .NotEmpty()
             .WithMessage("ISO3Code can't be empty")
@@ -32,18 +28,12 @@ public class CreateSingleCountryValidator : AbstractValidator<CountryPOST>
             .WithMessage("ISONumeric can't be empty")
             .MaximumLength(4);
 
-        RuleFor(x => x.MenuModuleId)
-            .NotEmpty()
-            .WithMessage("MenuModuleId can't be empty");
-
+        
         RuleFor(x => x.TenantId)
             .NotEmpty()
             .WithMessage("TenantId can't be empty");
 
-        RuleFor(x => x.StatusTypeId)
-            .NotEmpty()
-            .WithMessage("StatusTypeId can't be empty");
-
+      
         //RuleFor(x => x.LanguageId)
         //    .NotEmpty()
         //    .WithMessage("LanguageId can't be empty");

@@ -23,20 +23,20 @@ public class GetAllCountryHandler(IRepository repository)
             GetAllDTO result = new();
 
             var data = (from c in repository.Set<Country>()
-                        join st in repository.Set<StatusType>() on c.StatusTypeId equals st.Id
+                        //join st in repository.Set<StatusType>() on c.StatusTypeId equals st.Id
                         join t in repository.Set<Tenant>() on c.TenantId equals t.Id
                         //join l in repository.Set<Language>() on c.LanguageId equals l.Id
-                        join mm in repository.Set<MenuModule>() on c.MenuModuleId equals mm.Id
+                        //join mm in repository.Set<MenuModule>() on c.MenuModuleId equals mm.Id
                         //join cu in repository.Set<Currency>() on c.CurrencyId equals cu.Id
-                        select new GetSingleCountryResponseDTOModel
+                        select new  
                         {
                             Id = c.Id,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             Tanent = t.Name,
                             //Language = l.Name,
-                            Status = st.Name,
+                            //Status = st.Name,
                             //Currency = cu.Name,
-                            DialCode = c.DialingCode,
+                            //DialCode = c.DialingCode,
                             Country = c.Name,
                             IsDefault = c.IsDefault,
                             IsDraft = c.IsDraft,

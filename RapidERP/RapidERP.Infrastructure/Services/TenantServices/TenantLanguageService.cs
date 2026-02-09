@@ -186,6 +186,11 @@ public class TenantLanguageService(RapidERPDbContext context, ISharedService sha
         }
     }
 
+    public Task<RequestResponse> GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
     {
         try
@@ -358,4 +363,16 @@ public class TenantLanguageService(RapidERPDbContext context, ISharedService sha
             return requestResponse;
         }
     }
+
+    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<TenantLanguagePOST, TenantLanguagePUT>.GetSingle(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    
 }

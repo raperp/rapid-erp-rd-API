@@ -9,9 +9,9 @@ namespace RapidERP.API.Controllers.TenantControllers;
 public class TenantLicenseController(ITenantLicenseService tenantLicense) : ControllerBase
 {
     [HttpGet("GetAll")]
-    public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
+    public async Task<IActionResult> GetAll(int skip, int take)
     {
-        var result = await tenantLicense.GetAll(skip, take, pageSize);
+        var result = await tenantLicense.GetAll(skip, take);
         return Ok(result);
     }
 
@@ -22,12 +22,12 @@ public class TenantLicenseController(ITenantLicenseService tenantLicense) : Cont
         return Ok(result);
     }
 
-    [HttpGet("GetHistory")]
-    public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
-    {
-        var result = await tenantLicense.GetHistory(skip, take, pageSize);
-        return Ok(result);
-    }
+    //[HttpGet("GetHistory")]
+    //public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
+    //{
+    //    var result = await tenantLicense.GetHistory(skip, take, pageSize);
+    //    return Ok(result);
+    //}
 
     [HttpPost("CreateSingle")]
     public async Task<IActionResult> CreateSingle(TenantLicensePOST masterPOST)
@@ -36,12 +36,12 @@ public class TenantLicenseController(ITenantLicenseService tenantLicense) : Cont
         return Ok(result);
     }
 
-    [HttpPost("CreateBulk")]
-    public async Task<IActionResult> CreateBulk(List<TenantLicensePOST> masterPOSTs)
-    {
-        var result = await tenantLicense.CreateBulk(masterPOSTs);
-        return Ok(result);
-    }
+    //[HttpPost("CreateBulk")]
+    //public async Task<IActionResult> CreateBulk(List<TenantLicensePOST> masterPOSTs)
+    //{
+    //    var result = await tenantLicense.CreateBulk(masterPOSTs);
+    //    return Ok(result);
+    //}
 
     [HttpPut("Update")]
     public async Task<IActionResult> Update(TenantLicensePUT masterPUT)

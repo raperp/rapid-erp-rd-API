@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface ICityService : IBaseService<CityPOST, CityPUT> { }
+public interface ICityService : IBase<CityPOST, CityPUT> { }

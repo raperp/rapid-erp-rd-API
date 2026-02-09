@@ -21,9 +21,9 @@ public class CreateSingleKitchenCommandHandler(IRepository repository)
                 masterData.Name = request.masterPOST.Name;
                 masterData.Description = request.masterPOST.Description;
                 masterData.PrinterId = request.masterPOST.PrinterId;
-                masterData.StatusTypeId = request.masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = request.masterPOST.StatusTypeId;
                 masterData.TenantId = request.masterPOST.TenantId;
-                masterData.MenuModuleId = request.masterPOST.MenuModuleId;
+                //masterData.MenuModuleId = request.masterPOST.MenuModuleId;
 
                 await repository.Add(masterData);
 
@@ -34,7 +34,7 @@ public class CreateSingleKitchenCommandHandler(IRepository repository)
                 history.KitchenId = masterData.Id;
                 //history.TenantId = request.masterPOST.TenantId;
                 //history.MenuModuleId = request.masterPOST.MenuModuleId;
-                history.ActionTypeId = request.masterPOST.ActionTypeId;
+                //history.ActionTypeId = request.masterPOST.ActionTypeId;
                 //history.ExportTypeId = request.masterPOST.ExportTypeId;
                 //history.ExportTo = request.masterPOST.ExportTo;
                 //history.SourceURL = request.masterPOST.SourceURL;

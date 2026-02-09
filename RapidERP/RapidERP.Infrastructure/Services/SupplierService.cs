@@ -69,9 +69,9 @@ public class SupplierService(RapidERPDbContext context, ISharedService shared) :
                 masterData.Mobile = masterPOST.Mobile;
                 masterData.Email = masterPOST.Email;
                 masterData.Website = masterPOST.Website;
-                masterData.MenuModuleId = masterPOST.MenuModuleId;
+                //masterData.MenuModuleId = masterPOST.MenuModuleId;
                 masterData.TenantId = masterPOST.TenantId;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = masterPOST.StatusTypeId;
                 //masterData.LanguageId = masterPOST.LanguageId;
 
                 await context.Suppliers.AddAsync(masterData);
@@ -96,7 +96,7 @@ public class SupplierService(RapidERPDbContext context, ISharedService shared) :
                 history.Website = masterPOST.Website;
                 //history.TenantId = masterPOST.TenantId;
                 //history.MenuModuleId = masterPOST.MenuModuleId;
-                history.ActionTypeId = masterPOST.ActionTypeId;
+                //history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.LanguageId = masterPOST.LanguageId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
                 //history.ExportTo = masterPOST.ExportTo;
@@ -222,12 +222,12 @@ public class SupplierService(RapidERPDbContext context, ISharedService shared) :
             GetAllDTO result = new();
 
             var data = (from s in context.Suppliers
-                        join st in context.StatusTypes on s.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on s.StatusTypeId equals st.Id
                         join cu in context.Currencies on s.CurrencyId equals cu.Id
                         join co in context.Countries on s.CountryId equals co.Id
                         join t in context.Tenants on s.TenantId equals t.Id
                         //join l in context.Languages on s.LanguageId equals l.Id
-                        join mm in context.MenuModules on s.MenuModuleId equals mm.Id
+                        //join mm in context.MenuModules on s.MenuModuleId equals mm.Id
                         select new
                         {
                             s.Id,
@@ -243,10 +243,10 @@ public class SupplierService(RapidERPDbContext context, ISharedService shared) :
                             s.ContactPersonName,
                             s.Mobile,
                             s.Email,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             Tanent = t.Name,
                             //Language = l.Name,
-                            Status = st.Name,
+                            //Status = st.Name,
                             Country = co.Name,
                             Currency = cu.Name
                         }).AsNoTracking().AsQueryable();
@@ -293,6 +293,11 @@ public class SupplierService(RapidERPDbContext context, ISharedService shared) :
 
             return requestResponse;
         }
+    }
+
+    public Task<RequestResponse> GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
@@ -427,9 +432,8 @@ public class SupplierService(RapidERPDbContext context, ISharedService shared) :
                 .SetProperty(x => x.Mobile, masterPUT.Mobile)
                 .SetProperty(x => x.Email, masterPUT.Email)
                 .SetProperty(x => x.Website, masterPUT.Website)
-                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
-                .SetProperty(x => x.TenantId, masterPUT.TenantId)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId));
+                //.SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                .SetProperty(x => x.TenantId, masterPUT.TenantId));
 
                 SupplierHistory history = new();
                 history.SupplierId = masterPUT.Id;
@@ -450,7 +454,7 @@ public class SupplierService(RapidERPDbContext context, ISharedService shared) :
                 history.Website = masterPUT.Website;
                 //history.TenantId = masterPUT.TenantId;
                 //history.MenuModuleId = masterPUT.MenuModuleId;
-                history.ActionTypeId = masterPUT.ActionTypeId;
+                //history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.LanguageId = masterPUT.LanguageId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;
                 //history.ExportTo = masterPUT.ExportTo;
@@ -505,4 +509,16 @@ public class SupplierService(RapidERPDbContext context, ISharedService shared) :
             return requestResponse;
         }
     }
+
+    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<SupplierPOST, SupplierPUT>.GetSingle(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    
 }

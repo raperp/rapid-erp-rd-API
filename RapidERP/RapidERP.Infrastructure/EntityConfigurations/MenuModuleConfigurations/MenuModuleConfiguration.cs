@@ -14,12 +14,12 @@ public class MenuModuleConfiguration : IEntityTypeConfiguration<MenuModule>
         builder.Property(x => x.SubmoduleId).IsRequired(false);
         builder.Ignore(x => x.IsDefault);
         builder.Ignore(x => x.IsDraft);
-        builder.Ignore(x => x.MenuModule);
-        builder.Ignore(x => x.MenuModuleId);
+        //builder.Ignore(x => x.MenuModule);
+        //builder.Ignore(x => x.MenuModuleId);
         builder.Ignore(x => x.Tenant);
         builder.Ignore(x => x.TenantId);
-        builder.Ignore(x => x.StatusType);
-        builder.Ignore(x => x.StatusTypeId);
+        //builder.Ignore(x => x.StatusType);
+        //builder.Ignore(x => x.StatusTypeId);
         
         //builder.Ignore(x => x.SubmoduleId);
 

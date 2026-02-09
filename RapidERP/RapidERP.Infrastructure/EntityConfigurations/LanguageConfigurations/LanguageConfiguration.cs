@@ -15,12 +15,12 @@ public class LanguageConfiguration : IEntityTypeConfiguration<Language>
         builder.Property(x => x.ISO2Code).HasMaxLength(2).IsRequired().HasColumnOrder(3);
         builder.Property(x => x.ISO3Code).HasMaxLength(3).IsRequired().HasColumnOrder(4);
         builder.Property(x => x.IconURL).HasMaxLength(15).IsRequired().HasColumnOrder(5);
-        builder.Ignore(x => x.MenuModule);
-        builder.Ignore(x => x.MenuModuleId);
+        //builder.Ignore(x => x.MenuModule);
+        //builder.Ignore(x => x.MenuModuleId);
         builder.Ignore(x => x.Tenant);
         builder.Ignore(x => x.TenantId);
-        builder.Ignore(x => x.StatusType);
-        builder.Ignore(x => x.StatusTypeId);
+        //builder.Ignore(x => x.StatusType);
+        //builder.Ignore(x => x.StatusTypeId);
         //builder.Ignore(x => x.Language);
         //builder.Ignore(x => x.LanguageId);
         builder.Ignore(x => x.IsDefault);

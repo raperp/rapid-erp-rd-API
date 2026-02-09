@@ -7,7 +7,7 @@ using RapidERP.Domain.Utilities;
 namespace RapidERP.Application.CQRS.CountryModule.Command.CountryMasterCommands.DeleteCommand;
 
 //public class DeleteCountryCommandHandler(IRepository repository)
-public class DeleteCountryCommandHandler(ICountryBService service)
+public class DeleteCountryCommandHandler(ICountryService service)
 {
     //RequestResponse requestResponse;
 

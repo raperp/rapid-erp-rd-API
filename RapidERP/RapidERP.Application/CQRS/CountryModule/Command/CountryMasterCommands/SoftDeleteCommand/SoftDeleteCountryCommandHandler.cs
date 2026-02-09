@@ -6,9 +6,9 @@ using RapidERP.Domain.Utilities;
 namespace RapidERP.Application.CQRS.CountryModule.Command.CountryMasterCommands.SoftDeleteCommand;
 
 //public class SoftDeleteCountryCommandHandler(IRepository repository)
-public class SoftDeleteCountryCommandHandler(ICountryBService service)
+public class SoftDeleteCountryCommandHandler(ICountryService service)
 {
-    //RequestResponse requestResponse;
+    RequestResponse requestResponse;
 
     public async Task<RequestResponse> Handle(SoftDeleteCountryCommand command)
     {
@@ -38,7 +38,7 @@ public class SoftDeleteCountryCommandHandler(ICountryBService service)
 
         //    return requestResponse;
         //}
-        var result = await service.SoftDelete(command.id);
-        return result;
+        //var result = await service.UpdateStatus(command.id);
+        return requestResponse;
     }
 }

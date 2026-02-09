@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface ITableService : IBaseService<TablePOST, TablePUT> { }
+public interface ITableService : IBase<TablePOST, TablePUT> { }

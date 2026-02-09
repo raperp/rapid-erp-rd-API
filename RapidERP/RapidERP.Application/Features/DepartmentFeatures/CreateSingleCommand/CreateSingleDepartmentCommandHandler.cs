@@ -20,9 +20,9 @@ public class CreateSingleDepartmentCommandHandler(IRepository repository)
                 Department masterData = new();
                 masterData.Name = request.masterPOST.Name;
                 masterData.Description = request.masterPOST.Description;
-                masterData.StatusTypeId = request.masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = request.masterPOST.StatusTypeId;
                 masterData.TenantId = request.masterPOST.TenantId;
-                masterData.MenuModuleId = request.masterPOST.MenuModuleId;
+                //masterData.MenuModuleId = request.masterPOST.MenuModuleId;
                 //masterData.LanguageId = request.masterPOST.LanguageId;
                 masterData.IsDefault = request.masterPOST.IsDefault;
                 masterData.IsDraft = request.masterPOST.IsDraft;
@@ -36,7 +36,7 @@ public class CreateSingleDepartmentCommandHandler(IRepository repository)
                 //history.TenantId = request.masterPOST.TenantId;
                 //history.MenuModuleId = request.masterPOST.MenuModuleId;
                 //history.LanguageId = request.masterPOST.LanguageId;
-                history.ActionTypeId = request.masterPOST.ActionTypeId;
+                //history.ActionTypeId = request.masterPOST.ActionTypeId;
                 //history.ExportTypeId = request.masterPOST.ExportTypeId;
                 //history.ExportTo = request.masterPOST.ExportTo;
                 //history.SourceURL = request.masterPOST.SourceURL;

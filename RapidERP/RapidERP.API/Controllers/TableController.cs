@@ -9,9 +9,9 @@ namespace RapidERP.API.Controllers
     public class TableController(ITableService table) : ControllerBase
     {
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
+        public async Task<IActionResult> GetAll(int skip, int take)
         {
-            var result = await table.GetAll(skip, take, pageSize);
+            var result = await table.GetAll(skip, take);
             return Ok(result);
         }
 
@@ -22,12 +22,12 @@ namespace RapidERP.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("GetHistory")]
-        public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
-        {
-            var result = await table.GetHistory(skip, take, pageSize);
-            return Ok(result);
-        }
+        //[HttpGet("GetHistory")]
+        //public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
+        //{
+        //    var result = await table.GetHistory(skip, take, pageSize);
+        //    return Ok(result);
+        //}
 
         [HttpPost("CreateSingle")]
         public async Task<IActionResult> CreateSingle(TablePOST masterPOST)
@@ -36,12 +36,12 @@ namespace RapidERP.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("CreateBulk")]
-        public async Task<IActionResult> CreateBulk(List<TablePOST> masterPOSTs)
-        {
-            var result = await table.CreateBulk(masterPOSTs);
-            return Ok(result);
-        }
+        //[HttpPost("CreateBulk")]
+        //public async Task<IActionResult> CreateBulk(List<TablePOST> masterPOSTs)
+        //{
+        //    var result = await table.CreateBulk(masterPOSTs);
+        //    return Ok(result);
+        //}
 
         [HttpPut("Update")]
         public async Task<IActionResult> Update(TablePUT masterPUT)
@@ -53,7 +53,7 @@ namespace RapidERP.API.Controllers
         [HttpPut("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await table.SoftDelete(id);
+            var result = await table.Delete(id);
             return Ok(result);
         }
     }

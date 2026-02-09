@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface IAreaService : IBaseService<AreaPOST, AreaPUT> { }
+public interface IAreaService : IBase<AreaPOST, AreaPUT> { }

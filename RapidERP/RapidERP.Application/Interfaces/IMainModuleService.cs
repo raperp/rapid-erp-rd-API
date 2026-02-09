@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface IMainModuleService : IBaseService<MainModulePOST, MainModulePUT> { }
+public interface IMainModuleService : IBase<MainModulePOST, MainModulePUT> { }

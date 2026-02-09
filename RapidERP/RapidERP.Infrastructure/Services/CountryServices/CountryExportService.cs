@@ -20,10 +20,7 @@ public class CountryExportService(IRepository repository) : ICountryExport
             masterData.CountryId = masterPOST.CountryId; 
             masterData.ExportMediaId = masterPOST.ExportMediaId; 
             masterData.ExportMediaTo = masterPOST.ExportMediaTo; 
-            masterData.ExportMediaURL = masterPOST.ExportMediaURL; 
-            //masterData.ActionTypeId = masterPOST.ActionTypeId; 
-            //masterData.ActionBy = masterPOST.ActionBy; 
-            //masterData.ActionAt = masterPOST.ActionAt;
+            masterData.ExportMediaURL = masterPOST.ExportMediaURL;  
 
             await repository.Add(masterData);
 

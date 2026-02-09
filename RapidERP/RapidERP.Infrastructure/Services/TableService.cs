@@ -58,9 +58,9 @@ public class TableService(RapidERPDbContext context, ISharedService shared) : IT
                 masterData.Name = masterPOST.Name;
                 masterData.Description = masterPOST.Description;
                 masterData.TotalPersons = masterPOST.TotalPersons;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.TenantId = masterPOST.TenantId;
-                masterData.MenuModuleId = masterPOST.MenuModuleId;
+                //masterData.MenuModuleId = masterPOST.MenuModuleId;
 
                 await context.Tables.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -70,7 +70,7 @@ public class TableService(RapidERPDbContext context, ISharedService shared) : IT
                 history.Description = masterPOST.Description;
                 history.TotalPersons = masterPOST.TotalPersons;
                 history.TableId = masterData.Id;
-                history.ActionTypeId = masterPOST.ActionTypeId;
+                //history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.TenantId = masterPOST.TenantId;
                 //history.MenuModuleId = masterPOST.MenuModuleId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
@@ -195,14 +195,14 @@ public class TableService(RapidERPDbContext context, ISharedService shared) : IT
             GetAllDTO result = new();
 
             var data = (from t in context.Tables
-                        join st in context.StatusTypes on t.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on t.StatusTypeId equals st.Id
                         select new
                         {
                             t.Id,
                             t.Name,
                             t.Description,
-                            t.TotalPersons,
-                            Status = st.Name
+                            t.TotalPersons
+                            //Status = st.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -247,6 +247,11 @@ public class TableService(RapidERPDbContext context, ISharedService shared) : IT
 
             return requestResponse;
         }
+    }
+
+    public Task<RequestResponse> GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
@@ -354,8 +359,8 @@ public class TableService(RapidERPDbContext context, ISharedService shared) : IT
                 await context.Tables.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.TenantId, masterPUT.TenantId)
-                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.Description, masterPUT.Description)
                 .SetProperty(x => x.TotalPersons, masterPUT.TotalPersons));
 
@@ -364,7 +369,7 @@ public class TableService(RapidERPDbContext context, ISharedService shared) : IT
                 history.Description = masterPUT.Description;
                 history.TotalPersons = masterPUT.TotalPersons;
                 history.TableId = masterPUT.Id;
-                history.ActionTypeId = masterPUT.ActionTypeId;
+                //history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.TenantId = masterPUT.TenantId;
                 //history.MenuModuleId = masterPUT.MenuModuleId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;
@@ -418,4 +423,16 @@ public class TableService(RapidERPDbContext context, ISharedService shared) : IT
             return requestResponse;
         }
     }
+
+    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<TablePOST, TablePUT>.GetSingle(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    
 }

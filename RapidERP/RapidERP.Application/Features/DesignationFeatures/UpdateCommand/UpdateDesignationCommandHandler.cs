@@ -23,9 +23,9 @@ public class UpdateDesignationCommandHandler(IRepository repository)
                 request.masterPUT.Description = (request.masterPUT.Description is not null) ? request.masterPUT.Description : masterRecord.Description;
                 request.masterPUT.Name = (request.masterPUT.Name is not null) ? request.masterPUT.Name : masterRecord.Name;
                 request.masterPUT.TenantId = (request.masterPUT.TenantId is not null) ? request.masterPUT.TenantId : masterRecord.TenantId;
-                request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId is not null) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
+                //request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId is not null) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
                 //request.masterPUT.LanguageId = (request.masterPUT.LanguageId is not null) ? request.masterPUT.LanguageId : masterRecord.LanguageId;
-                request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;               
+                //request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;               
             }
 
             if (isExists == false)
@@ -33,8 +33,8 @@ public class UpdateDesignationCommandHandler(IRepository repository)
                 masterRecord.Name = request.masterPUT.Name;
                 masterRecord.Description = request.masterPUT.Description;
                 masterRecord.DepartmentId = request.masterPUT.DepartmentId;
-                masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
-                masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
+                //masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
+                //masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
                 masterRecord.TenantId = request.masterPUT.TenantId;
                 //masterRecord.LanguageId = request.masterPUT.LanguageId;
                 masterRecord.IsDefault = request.masterPUT.IsDefault;
@@ -49,7 +49,7 @@ public class UpdateDesignationCommandHandler(IRepository repository)
                 history.DepartmentId = request.masterPUT.DepartmentId;
                 //history.TenantId = request.masterPUT.TenantId;
                 //history.MenuModuleId = request.masterPUT.MenuModuleId;
-                history.ActionTypeId = request.masterPUT.ActionTypeId;
+                //history.ActionTypeId = request.masterPUT.ActionTypeId;
                 //history.LanguageId = request.masterPUT.LanguageId;
                 //history.ExportTypeId = request.masterPUT.ExportTypeId;
                 //history.ExportTo = request.masterPUT.ExportTo;

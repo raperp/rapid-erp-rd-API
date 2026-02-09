@@ -1,6 +1,7 @@
 ﻿using RapidERP.Application.DTOs.Shared;
 using RapidERP.Domain.Entities.Shared;
 using System.Data;
+using UpdateStatus = RapidERP.Application.DTOs.Shared.UpdateStatus;
 
 namespace RapidERP.Application.Repository;
 
@@ -22,13 +23,13 @@ public interface IRepository
     Task Update<TEntity>(TEntity entity) where TEntity : class;
     Task CommitChanges();
     IQueryable<TEntity> Set<TEntity>() where TEntity : class;
-    Task<string> SoftDelete<TEntity>(int id) where TEntity : BaseMaster;
+    Task<string> UpdateStatus<TEntity>(UpdateStatus updateStatus) where TEntity : BaseMaster;
     Task Delete<TEntity>(int id) where TEntity : Master; 
-    Task DeleteQueryable<TEntity>(TEntity entity) where TEntity : class; 
+    //Task DeleteQueryable<TEntity>(TEntity entity) where TEntity : class; 
     Task<TEntity> GetSingle<TEntity>(int id) where TEntity : Master;
     Task<List<TEntity>> GetAll<TEntity>() where TEntity : class;
     IDbTransaction BeginTransaction();
-    Task<dynamic> GetCounts<T>(int pageSize) where T : BaseMaster;
+    Task<dynamic> GetCounts<T>() where T : BaseMaster;
     Task<bool> IsExists<T>(string name) where T : Master;
     Task<bool> IsExistsById<T>(int id, string name) where T : Master;
 }

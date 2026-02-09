@@ -62,9 +62,9 @@ public class RiderService(RapidERPDbContext context, ISharedService shared) : IR
                 masterData.StateId = masterPOST.StateId;
                 masterData.AreaId = masterPOST.AreaId;
                 masterData.CityId = masterPOST.CityId;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.TenantId = masterPOST.TenantId;
-                masterData.MenuModuleId = masterPOST.MenuModuleId;
+                //masterData.MenuModuleId = masterPOST.MenuModuleId;
 
                 await context.Riders.AddAsync(masterData);
                 //await context.SaveChangesAsync();
@@ -79,7 +79,7 @@ public class RiderService(RapidERPDbContext context, ISharedService shared) : IR
                 history.StateId = masterPOST.StateId;
                 history.AreaId = masterPOST.AreaId;
                 history.CityId = masterPOST.CityId;
-                history.ActionTypeId = masterPOST.ActionTypeId;
+                //history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.TenantId = masterPOST.TenantId;
                 //history.MenuModuleId = masterPOST.MenuModuleId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
@@ -204,7 +204,7 @@ public class RiderService(RapidERPDbContext context, ISharedService shared) : IR
             GetAllDTO result = new();
 
             var data = (from r in context.Riders
-                        join st in context.StatusTypes on r.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on r.StatusTypeId equals st.Id
                         join c in context.Countries on r.CountryId equals c.Id
                         join a in context.Areas on r.AreaId equals a.Id
                         join sta in context.States on r.StateId equals sta.Id
@@ -265,6 +265,11 @@ public class RiderService(RapidERPDbContext context, ISharedService shared) : IR
 
             return requestResponse;
         }
+    }
+
+    public Task<RequestResponse> GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
@@ -384,9 +389,9 @@ public class RiderService(RapidERPDbContext context, ISharedService shared) : IR
                 .SetProperty(x => x.Description, masterPUT.Description)
                 .SetProperty(x => x.CountryId, masterPUT.CountryId)
                 .SetProperty(x => x.StateId, masterPUT.StateId)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.TenantId, masterPUT.TenantId)
-                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                //.SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                 .SetProperty(x => x.CityId, masterPUT.CityId)
                 .SetProperty(x => x.AreaId, masterPUT.AreaId));
 
@@ -400,7 +405,7 @@ public class RiderService(RapidERPDbContext context, ISharedService shared) : IR
                 history.StateId = masterPUT.StateId;
                 history.AreaId = masterPUT.AreaId;
                 history.CityId = masterPUT.CityId;
-                history.ActionTypeId = masterPUT.ActionTypeId;
+                //history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.TenantId = masterPUT.TenantId;
                 //history.MenuModuleId = masterPUT.MenuModuleId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;
@@ -454,4 +459,16 @@ public class RiderService(RapidERPDbContext context, ISharedService shared) : IR
             return requestResponse;
         }
     }
+
+    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<RiderPOST, RiderPUT>.GetSingle(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    
 }

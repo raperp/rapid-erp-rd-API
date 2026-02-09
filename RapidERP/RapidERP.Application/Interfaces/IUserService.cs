@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface IUserService : IBaseService<UserPOST, UserPUT> { }
+public interface IUserService : IBase<UserPOST, UserPUT> { }

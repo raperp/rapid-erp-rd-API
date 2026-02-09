@@ -18,9 +18,9 @@ public class CreateSingleStateCommandHandler(IRepository repository)
             if (isExists == false)
             {
                 State masterData = new();
-                masterData.MenuModuleId = request.masterPOST.MenuModuleId;
+                //masterData.MenuModuleId = request.masterPOST.MenuModuleId;
                 masterData.CountryId = request.masterPOST.CountryId;
-                masterData.StatusTypeId = request.masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = request.masterPOST.StatusTypeId;
                 //masterData.LanguageId = request.masterPOST.LanguageId;
                 masterData.Code = request.masterPOST.Code;
                 masterData.Name = request.masterPOST.Name;
@@ -34,7 +34,7 @@ public class CreateSingleStateCommandHandler(IRepository repository)
                 //history.MenuModuleId = request.masterPOST.MenuModuleId;
                 history.CountryId = request.masterPOST.CountryId;
                 //history.LanguageId = request.masterPOST.LanguageId;
-                history.ActionTypeId = request.masterPOST.ActionTypeId;
+                //history.ActionTypeId = request.masterPOST.ActionTypeId;
                 //history.ExportTypeId = request.masterPOST.ExportTypeId;
                 //history.ExportTo = request.masterPOST.ExportTo;
                 //history.SourceURL = request.masterPOST.SourceURL;

@@ -4,7 +4,7 @@ using RapidERP.Domain.Utilities;
 namespace RapidERP.Application.CQRS.CountryModule.Command.CountryMasterCommands.UpdateCommand;
 
 //public class UpdateCountryrequestHandler(IRepository repository)
-public class UpdateCountryrequestHandler(ICountryBService service)
+public class UpdateCountryrequestHandler(ICountryService service)
 {
     RequestResponse requestResponse;
 

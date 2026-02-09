@@ -21,9 +21,9 @@ public class CreateBulkSolutionCommandHandler(IRepository repository)
                 {
                     Solution masterData = new();
                     masterData.TenantId = item.TenantId;
-                    masterData.MenuModuleId = item.MenuModuleId;
+                    //masterData.MenuModuleId = item.MenuModuleId;
                     //masterData.LanguageId = item.LanguageId;
-                    masterData.StatusTypeId = item.StatusTypeId;
+                    //masterData.StatusTypeId = item.StatusTypeId;
                     masterData.Code = item.Code;
                     masterData.Name = item.Name;
                     masterData.Icon = item.Icon;

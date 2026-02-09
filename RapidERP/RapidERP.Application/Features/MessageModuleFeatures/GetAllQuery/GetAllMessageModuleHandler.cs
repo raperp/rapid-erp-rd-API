@@ -31,7 +31,7 @@ public class GetAllMessageModuleHandler(IRepository repository)
 
             if (query.skip == 0 || query.take == 0)
             {
-                result.Count = await repository.GetCounts<MessageModule>(query.pageSize);
+                result.Count = await repository.GetCounts<MessageModule>();
                 result.Data = await data.ToListAsync();
 
                 _response = new()
@@ -45,7 +45,7 @@ public class GetAllMessageModuleHandler(IRepository repository)
 
             else
             {
-                result.Count = await repository.GetCounts<MessageModule>(query.pageSize);
+                result.Count = await repository.GetCounts<MessageModule>();
                 result.Data = await data.Skip(query.skip).Take(query.take).ToListAsync();
 
                 _response = new()

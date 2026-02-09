@@ -20,13 +20,13 @@ public class UpdateTextModuleCommandHandler(IRepository repository)
             if (masterRecord is not null)
             {
                 request.masterPUT.Name = (request.masterPUT.Name is not null) ? request.masterPUT.Name : masterRecord.Name;                 
-                request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId != 0) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
+                //request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId != 0) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
                 //request.masterPUT.LanguageId = (request.masterPUT.LanguageId != 0) ? request.masterPUT.LanguageId : masterRecord.LanguageId;                
             }
             
             if (isExists == false)
             {
-                masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
+                //masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
                 //masterRecord.LanguageId = request.masterPUT.LanguageId;
                 masterRecord.Name = request.masterPUT.Name;
 

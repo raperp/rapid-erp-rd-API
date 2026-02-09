@@ -22,12 +22,12 @@ public class CreateBulkCountryCommandHandler(IRepository repository)
                 if (isExists == false)
                 {
                     Country masterData = new();
-                    masterData.MenuModuleId = item.masterPOST.MenuModuleId;
+                    //masterData.MenuModuleId = item.masterPOST.MenuModuleId;
                     masterData.TenantId = item.masterPOST.TenantId;
-                    masterData.StatusTypeId = item.masterPOST.StatusTypeId;
+                    //masterData.StatusTypeId = item.masterPOST.StatusTypeId;
                     //masterData.LanguageId = item.masterPOST.LanguageId;
                     //masterData.CurrencyId = item.masterPOST.CurrencyId;
-                    masterData.DialingCode = item.masterPOST.DialCode;
+                    //masterData.DialingCode = item.masterPOST.DialCode;
                     masterData.Name = item.masterPOST.Name;
                     masterData.IsDefault = item.masterPOST.IsDefault;
                     masterData.IsDraft = item.masterPOST.IsDraft;
@@ -44,12 +44,12 @@ public class CreateBulkCountryCommandHandler(IRepository repository)
                     //history.CurrencyId = item.masterPOST.CurrencyId;
                     //history.TenantId = item.masterPOST.TenantId;
                     //history.MenuModuleId = item.masterPOST.MenuModuleId;
-                    history.ActionTypeId = item.masterPOST.ActionTypeId;
+                    //history.ActionTypeId = item.masterPOST.ActionTypeId;
                     //history.LanguageId = item.masterPOST.LanguageId;
                     //history.ExportTypeId = item.masterPOST.ExportTypeId;
                     //history.ExportTo = item.masterPOST.ExportTo;
                     //history.SourceURL = item.masterPOST.SourceURL;
-                    history.DialingCode = item.masterPOST.DialCode;
+                    //history.DialingCode = item.masterPOST.DialCode;
                     history.Name = item.masterPOST.Name;
                     history.IsDefault = item.masterPOST.IsDefault;
                     history.IsDraft = item.masterPOST.IsDraft;

@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface IDesignationService : IBaseService<DesignationPOST, DesignationPUT> { }
+public interface IDesignationService : IBase<DesignationPOST, DesignationPUT> { }

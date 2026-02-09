@@ -4,7 +4,7 @@ using RapidERP.Domain.Utilities;
 namespace RapidERP.Application.CQRS.CountryModule.Query.CountryMasterQueries.GetAllQuery;
 
 //public class GetAllCountryHandler(IRepository repository)
-public class GetAllCountryHandler(ICountryBService service)
+public class GetAllCountryHandler(ICountryService service)
 {
     //RequestResponse requestResponse;
 
@@ -80,7 +80,7 @@ public class GetAllCountryHandler(ICountryBService service)
 
         //    return requestResponse;
         //}
-        var result = await service.GetAll(query.skip, query.take, query.pageSize);
+        var result = await service.GetAll(query.skip, query.take);
         return result;
     }
 }

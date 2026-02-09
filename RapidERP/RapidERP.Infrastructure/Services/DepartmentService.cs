@@ -55,9 +55,9 @@ public class DepartmentService(RapidERPDbContext context, ISharedService shared)
                 Department masterData = new();
                 masterData.Name = masterPOST.Name;
                 masterData.Description = masterPOST.Description;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.TenantId = masterPOST.TenantId;
-                masterData.MenuModuleId = masterPOST.MenuModuleId;
+                //masterData.MenuModuleId = masterPOST.MenuModuleId;
                 //masterData.LanguageId = masterPOST.LanguageId;
                 masterData.IsDefault = masterPOST.IsDefault;
                 masterData.IsDraft = masterPOST.IsDraft;
@@ -72,7 +72,7 @@ public class DepartmentService(RapidERPDbContext context, ISharedService shared)
                 //history.TenantId = masterPOST.TenantId;
                 //history.MenuModuleId = masterPOST.MenuModuleId;
                 //history.LanguageId = masterPOST.LanguageId;
-                history.ActionTypeId = masterPOST.ActionTypeId;
+                //history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
                 //history.ExportTo = masterPOST.ExportTo;
                 //history.SourceURL = masterPOST.SourceURL;
@@ -197,19 +197,19 @@ public class DepartmentService(RapidERPDbContext context, ISharedService shared)
             GetAllDTO result = new();
 
             var data = (from d in context.Departments
-                        join st in context.StatusTypes on d.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on d.StatusTypeId equals st.Id
                         join t in context.Tenants on d.TenantId equals t.Id
                         //join l in context.Languages on d.LanguageId equals l.Id
-                        join mm in context.MenuModules on d.MenuModuleId equals mm.Id
+                        //join mm in context.MenuModules on d.MenuModuleId equals mm.Id
                         select new
                         {
                             d.Id,
                             d.Name,
                             d.Description,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             Tanent = t.Name,
                             //Language = l.Name,
-                            Status = st.Name
+                            //Status = st.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -254,6 +254,11 @@ public class DepartmentService(RapidERPDbContext context, ISharedService shared)
 
             return requestResponse;
         }
+    }
+
+    public Task<RequestResponse> GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
@@ -364,9 +369,9 @@ public class DepartmentService(RapidERPDbContext context, ISharedService shared)
                 await context.Departments.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.TenantId, masterPUT.TenantId)
-                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                //.SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                 //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
                 .SetProperty(x => x.IsDraft, masterPUT.IsDraft));
@@ -378,7 +383,7 @@ public class DepartmentService(RapidERPDbContext context, ISharedService shared)
                 //history.TenantId = masterPUT.TenantId;
                 //history.MenuModuleId = masterPUT.MenuModuleId;
                 //history.LanguageId = masterPUT.LanguageId;
-                history.ActionTypeId = masterPUT.ActionTypeId;
+                //history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;
                 //history.ExportTo = masterPUT.ExportTo;
                 //history.SourceURL = masterPUT.SourceURL;
@@ -432,4 +437,16 @@ public class DepartmentService(RapidERPDbContext context, ISharedService shared)
             return requestResponse;
         }
     }
+
+    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<DepartmentPOST, DepartmentPUT>.GetSingle(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    
 }

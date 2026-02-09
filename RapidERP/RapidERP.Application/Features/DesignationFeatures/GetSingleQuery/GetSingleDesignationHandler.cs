@@ -20,20 +20,20 @@ public class GetSingleDesignationHandler(IRepository repository)
         {
             var data = (from d in repository.Set<Designation>()
                         join dep in repository.Set<Department>() on d.DepartmentId equals dep.Id
-                        join st in repository.Set<StatusType>() on d.StatusTypeId equals st.Id
+                        //join st in repository.Set<StatusType>() on d.StatusTypeId equals st.Id
                         join t in repository.Set<Tenant>() on d.TenantId equals t.Id
                         //join l in repository.Set<Language>() on d.LanguageId equals l.Id
-                        join mm in repository.Set<MenuModule>() on d.MenuModuleId equals mm.Id
+                        //join mm in repository.Set<MenuModule>() on d.MenuModuleId equals mm.Id
                         select new GetSingleDesignationResponseDTOModel
                         {
                             Id = d.Id,
                             Name = d.Name,
                             Description = d.Description,
                             Department = dep.Name,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             Tanent = t.Name,
                             //Language = l.Name,
-                            Status = st.Name
+                            //Status = st.Name
                         }).AsNoTracking().AsQueryable();
 
             var result  = await data.ToListAsync();

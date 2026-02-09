@@ -21,17 +21,17 @@ public class UpdateStateCommandHandler(IRepository repository)
             { 
                 request.masterPUT.Name = (request.masterPUT.Name is not null) ? request.masterPUT.Name : masterRecord.Name;    
                 request.masterPUT.Code = (request.masterPUT.Code is not null) ? request.masterPUT.Code : masterRecord.Code;    
-                request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId is not null) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
-                request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;
+                //request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId is not null) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
+                //request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;
                 //request.masterPUT.LanguageId = (request.masterPUT.LanguageId is not null) ? request.masterPUT.LanguageId : masterRecord.LanguageId;          
                 request.masterPUT.CountryId = (request.masterPUT.CountryId != 0) ? request.masterPUT.CountryId : masterRecord.CountryId;          
             }
 
             if (isExists == false)
             {
-                masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
+                //masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
                 masterRecord.CountryId = request.masterPUT.CountryId;
-                masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
+                //masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
                 //masterRecord.LanguageId = request.masterPUT.LanguageId; 
                 masterRecord.Name = request.masterPUT.Name;
                 masterRecord.Code = request.masterPUT.Code;
@@ -45,7 +45,7 @@ public class UpdateStateCommandHandler(IRepository repository)
                 //history.MenuModuleId = request.masterPUT.MenuModuleId;
                 history.CountryId = request.masterPUT.CountryId;
                 //history.LanguageId = request.masterPUT.LanguageId;
-                history.ActionTypeId = request.masterPUT.ActionTypeId;
+                //history.ActionTypeId = request.masterPUT.ActionTypeId;
                 //history.ExportTypeId = request.masterPUT.ExportTypeId;
                 //history.ExportTo = request.masterPUT.ExportTo;
                 //history.SourceURL = request.masterPUT.SourceURL;

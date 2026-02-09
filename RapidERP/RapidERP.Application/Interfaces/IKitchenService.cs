@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface IKitchenService : IBaseService<KitchenPOST, KitchenPUT> { }
+public interface IKitchenService : IBase<KitchenPOST, KitchenPUT> { }

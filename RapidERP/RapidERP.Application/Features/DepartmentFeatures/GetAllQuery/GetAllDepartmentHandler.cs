@@ -21,24 +21,24 @@ public class GetAllDepartmentHandler(IRepository repository)
             GetAllDTO result = new();
 
             var data = (from d in repository.Set<Department>()
-                        join st in repository.Set<StatusType>() on d.StatusTypeId equals st.Id
+                        //join st in repository.Set<StatusType>() on d.StatusTypeId equals st.Id
                         join t in repository.Set<Tenant>() on d.TenantId equals t.Id
                         //join l in repository.Set<Language>() on d.LanguageId equals l.Id
-                        join mm in repository.Set<MenuModule>() on d.MenuModuleId equals mm.Id
+                        //join mm in repository.Set<MenuModule>() on d.MenuModuleId equals mm.Id
                         select new GetAllDepartmentResponseDTOModel
                         {
                             Id = d.Id,
                             Name = d.Name,
                             Description = d.Description,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             Tanent = t.Name,
                             //Language = l.Name,
-                            Status = st.Name
+                            //Status = st.Name
                         }).AsNoTracking().AsQueryable();
 
             if (query.skip == 0 || query.take == 0)
             {
-                result.Count = await repository.GetCounts<Department>(query.pageSize);
+                result.Count = await repository.GetCounts<Department>();
                 result.Data = await data.ToListAsync();
 
                 _response = new()
@@ -52,7 +52,7 @@ public class GetAllDepartmentHandler(IRepository repository)
 
             else
             {
-                result.Count = await repository.GetCounts<Department>(query.pageSize);
+                result.Count = await repository.GetCounts<Department>();
                 result.Data = await data.Skip(query.skip).Take(query.take).ToListAsync();
 
                 _response = new()

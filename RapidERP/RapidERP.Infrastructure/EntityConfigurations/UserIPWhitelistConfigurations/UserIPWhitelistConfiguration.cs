@@ -10,11 +10,11 @@ public class UserIPWhitelistConfiguration : IEntityTypeConfiguration<UserIPWhite
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).HasColumnOrder(0);
-        builder.Property(x => x.StatusTypeId).HasColumnOrder(1);
+        //builder.Property(x => x.StatusTypeId).HasColumnOrder(1);
         builder.Property(x => x.UserId).IsRequired().HasColumnOrder(2);
         builder.Property(x => x.IPAddress).HasMaxLength(15).IsRequired(false).HasColumnOrder(3);
-        builder.Ignore(x => x.MenuModule);
-        builder.Ignore(x => x.MenuModuleId);
+        //builder.Ignore(x => x.MenuModule);
+        //builder.Ignore(x => x.MenuModuleId);
         builder.Ignore(x => x.Tenant);
         builder.Ignore(x => x.TenantId);
         //builder.Ignore(x => x.Language);

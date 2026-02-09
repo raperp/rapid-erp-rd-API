@@ -2,9 +2,8 @@
 
 namespace RapidERP.Domain.Entities.Shared;
 
-public class MultiCurrency
+public class MultiCurrency : Master
 {
-    public int Id { get; set; }
     public Currency Currency { get; set; }
     public int? CurrencyId { get; set; }
 }

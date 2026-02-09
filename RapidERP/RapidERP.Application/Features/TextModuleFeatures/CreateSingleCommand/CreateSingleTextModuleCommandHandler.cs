@@ -18,7 +18,7 @@ public class CreateSingleTextModuleCommandHandler(IRepository repository)
             if (isExists == false)
             {
                 TextModule masterData = new();
-                masterData.MenuModuleId = request.masterPOST.MenuModuleId;
+                //masterData.MenuModuleId = request.masterPOST.MenuModuleId;
                 //masterData.LanguageId = request.masterPOST.LanguageId;
                 masterData.Name = request.masterPOST.Name;
 

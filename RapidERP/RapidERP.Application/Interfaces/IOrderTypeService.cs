@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface IOrderTypeService : IBaseService<OrderTypePOST, OrderTypePUT> { }
+public interface IOrderTypeService : IBase<OrderTypePOST, OrderTypePUT> { }

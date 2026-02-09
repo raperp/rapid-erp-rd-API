@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface IStatusTypeService : IBaseService<StatusTypePOST, StatusTypePUT> { }
+public interface IStatusTypeService : IBase<StatusTypePOST, StatusTypePUT> { }

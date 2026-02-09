@@ -18,19 +18,19 @@ public class GetAllKitchenHandler(IRepository repository)
             GetAllDTO result = new();
 
             var data = (from k in repository.Set<Kitchen>()
-                        join st in repository.Set<StatusType>() on k.StatusTypeId equals st.Id
+                        //join st in repository.Set<StatusType>() on k.StatusTypeId equals st.Id
                         select new GetKitchenResponseDTOModel
                         {
                             Id = k.Id,
                             Name = k.Name,
                             Description = k.Description,
                             PrinterId = k.PrinterId,
-                            Status = st.Name
+                            //Status = st.Name
                         }).AsNoTracking().AsQueryable();
 
             if (query.skip == 0 || query.take == 0)
             {
-                result.Count = await repository.GetCounts<Kitchen>(query.pageSize);
+                result.Count = await repository.GetCounts<Kitchen>();
                 result.Data = await data.ToListAsync();
 
                 _response = new()
@@ -44,7 +44,7 @@ public class GetAllKitchenHandler(IRepository repository)
 
             else
             {
-                result.Count = await repository.GetCounts<Kitchen>(query.pageSize);
+                result.Count = await repository.GetCounts<Kitchen>();
                 result.Data = await data.Skip(query.skip).Take(query.take).ToListAsync();
 
                 _response = new()

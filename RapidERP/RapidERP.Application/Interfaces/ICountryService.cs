@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface ICountryService : IBaseService<CountryPOST, CountryPUT> { }
+public interface ICountryService : IBase<CountryPOST,  CountryPUT> { }  

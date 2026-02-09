@@ -245,6 +245,11 @@ public class ActionTypeService(RapidERPDbContext context, ISharedService shared)
         }
     }
 
+    public Task<RequestResponse> GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
     {
         try
@@ -408,5 +413,46 @@ public class ActionTypeService(RapidERPDbContext context, ISharedService shared)
 
             return requestResponse;
         }
+    }
+
+     
+
+    Task<RequestResponse> IBase<ActionTypePOST, ActionTypePUT>.CreateSingle(ActionTypePOST masterPOST)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<ActionTypePOST, ActionTypePUT>.Delete(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<ActionTypePOST, ActionTypePUT>.GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
+    }
+
+    //Task<RequestResponse> IBase<ActionTypePOST, ActionTypePUT>.GetHistory()
+    //{
+    //    throw new NotImplementedException();
+    //}
+
+    Task<RequestResponse> IBase<ActionTypePOST, ActionTypePUT>.GetSingle(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    
+
+    
+
+    Task<RequestResponse> IBase<ActionTypePOST, ActionTypePUT>.Update(ActionTypePUT masterPUT)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
     }
 }

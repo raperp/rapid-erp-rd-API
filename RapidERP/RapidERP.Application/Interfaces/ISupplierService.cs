@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface ISupplierService : IBaseService<SupplierPOST, SupplierPUT> { }
+public interface ISupplierService : IBase<SupplierPOST, SupplierPUT> { }

@@ -22,18 +22,18 @@ public class UpdateDepartmentCommandHandler(IRepository repository)
                 request.masterPUT.Description = (request.masterPUT.Description is not null) ? request.masterPUT.Description : masterRecord.Description;
                 request.masterPUT.Name = (request.masterPUT.Name is not null) ? request.masterPUT.Name : masterRecord.Name;
                 request.masterPUT.TenantId = (request.masterPUT.TenantId is not null) ? request.masterPUT.TenantId : masterRecord.TenantId;
-                request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId is not null) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
+                //request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId is not null) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
                 //request.masterPUT.LanguageId = (request.masterPUT.LanguageId is not null) ? request.masterPUT.LanguageId : masterRecord.LanguageId;
-                request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;                 
+                //request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;                 
             }
 
             if (isExists == false)
             {
                 masterRecord.Name = request.masterPUT.Name;
                 masterRecord.Description = request.masterPUT.Description;
-                masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
+                //masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
                 masterRecord.TenantId = request.masterPUT.TenantId;
-                masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
+                //masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
                 //masterRecord.LanguageId = request.masterPUT.LanguageId;
                 masterRecord.IsDefault = request.masterPUT.IsDefault;
                 masterRecord.IsDraft = request.masterPUT.IsDraft;
@@ -47,7 +47,7 @@ public class UpdateDepartmentCommandHandler(IRepository repository)
                 //history.TenantId = request.masterPUT.TenantId;
                 //history.MenuModuleId = request.masterPUT.MenuModuleId;
                 //history.LanguageId = request.masterPUT.LanguageId;
-                history.ActionTypeId = request.masterPUT.ActionTypeId;
+                //history.ActionTypeId = request.masterPUT.ActionTypeId;
                 //history.ExportTypeId = request.masterPUT.ExportTypeId;
                 //history.ExportTo = request.masterPUT.ExportTo;
                 //history.SourceURL = request.masterPUT.SourceURL;

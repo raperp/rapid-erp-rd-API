@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface ISolutionService : IBaseService<SolutionPOST, SolutionPUT> { }
+public interface ISolutionService : IBase<SolutionPOST, SolutionPUT> { }

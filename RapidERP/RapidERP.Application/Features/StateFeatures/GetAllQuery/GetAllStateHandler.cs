@@ -23,14 +23,14 @@ public class GetAllStateHandler(IRepository repository)
             var data = (from s in repository.Set<State>()
                         join mm in repository.Set<MenuModule>() on s.CountryId equals mm.Id
                         join c in repository.Set<Country>() on s.CountryId equals c.Id
-                        join st in repository.Set<StatusType>() on s.StatusTypeId equals st.Id
+                        //join st in repository.Set<StatusType>() on s.StatusTypeId equals st.Id
                         //join l in repository.Set<Language>() on s.LanguageId equals l.Id
-                        select new GetAllStateResponseDTOModel
+                        select new  
                         {
                             Id = s.Id,
                             Menu = mm.Name,
                             Country = c.Name,
-                            Status = st.Name,
+                            //Status = st.Name,
                             //Language = l.Name,
                             Name = s.Name,
                             Code = s.Code,
@@ -40,7 +40,7 @@ public class GetAllStateHandler(IRepository repository)
 
             if (query.skip == 0 || query.take == 0)
             {
-                result.Count = await repository.GetCounts<State>(query.pageSize);
+                result.Count = await repository.GetCounts<State>();
                 result.Data = await data.ToListAsync();
 
                 _response = new()
@@ -54,7 +54,7 @@ public class GetAllStateHandler(IRepository repository)
 
             else
             {
-                result.Count = await repository.GetCounts<State>(query.pageSize);
+                result.Count = await repository.GetCounts<State>();
                 result.Data = await data.Skip(query.skip).Take(query.take).ToListAsync();
 
                 _response = new()

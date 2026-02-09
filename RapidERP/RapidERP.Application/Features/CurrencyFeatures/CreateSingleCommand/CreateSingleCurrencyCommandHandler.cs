@@ -19,9 +19,9 @@ public class CreateSingleCurrencyCommandHandler(IRepository repository)
             {
                 Currency masterData = new();
                 masterData.TenantId = request.masterPOST.TenantId;
-                masterData.MenuModuleId = request.masterPOST.MenuModuleId;
+                //masterData.MenuModuleId = request.masterPOST.MenuModuleId;
                 //masterData.LanguageId = request.masterPOST.LanguageId;
-                masterData.StatusTypeId = request.masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = request.masterPOST.StatusTypeId;
                 masterData.Code = request.masterPOST.Code;
                 masterData.Name = request.masterPOST.Name;
                 masterData.Icon = request.masterPOST.Icon;
@@ -35,7 +35,7 @@ public class CreateSingleCurrencyCommandHandler(IRepository repository)
                 //history.TenantId = request.masterPOST.TenantId;
                 //history.MenuModuleId = request.masterPOST.MenuModuleId;
                 //history.LanguageId = request.masterPOST.LanguageId;
-                history.ActionTypeId = request.masterPOST.ActionTypeId;
+                //history.ActionTypeId = request.masterPOST.ActionTypeId;
                 //history.ExportTypeId = request.masterPOST.ExportTypeId;
                 //history.ExportTo = request.masterPOST.ExportTo;
                 //history.SourceURL = request.masterPOST.SourceURL;

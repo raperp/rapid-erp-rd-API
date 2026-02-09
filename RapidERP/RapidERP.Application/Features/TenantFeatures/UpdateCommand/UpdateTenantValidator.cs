@@ -7,13 +7,13 @@ public class UpdateTenantValidator : AbstractValidator<TenantPUT>
 {
     public UpdateTenantValidator()
     {
-        RuleFor(x => x.MenuModuleId)
-            .GreaterThan(0)
-            .WithMessage("Menu module is required.");
+        //RuleFor(x => x.MenuModuleId)
+        //    .GreaterThan(0)
+        //    .WithMessage("Menu module is required.");
 
-        RuleFor(x => x.StatusTypeId)
-            .GreaterThan(0)
-            .WithMessage("Status type is required.");
+        //RuleFor(x => x.StatusTypeId)
+        //    .GreaterThan(0)
+        //    .WithMessage("Status type is required.");
 
         //RuleFor(x => x.LanguageId)
         //    .GreaterThan(0)

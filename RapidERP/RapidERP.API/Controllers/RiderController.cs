@@ -9,9 +9,9 @@ namespace RapidERP.API.Controllers
     public class RiderController(IRiderService rider) : ControllerBase
     {
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
+        public async Task<IActionResult> GetAll(int skip, int take)
         {
-            var result = await rider.GetAll(skip, take, pageSize);
+            var result = await rider.GetAll(skip, take);
             return Ok(result);
         }
 
@@ -22,12 +22,12 @@ namespace RapidERP.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("GetHistory")]
-        public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
-        {
-            var result = await rider.GetHistory(skip, take, pageSize);
-            return Ok(result);
-        }
+        //[HttpGet("GetHistory")]
+        //public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
+        //{
+        //    var result = await rider.GetHistory(skip, take, pageSize);
+        //    return Ok(result);
+        //}
 
         [HttpPost("CreateSingle")]
         public async Task<IActionResult> CreateSingle(RiderPOST masterPOST)
@@ -36,12 +36,12 @@ namespace RapidERP.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost("CreateBulk")]
-        public async Task<IActionResult> CreateBulk(List<RiderPOST> masterPOSTs)
-        {
-            var result = await rider.CreateBulk(masterPOSTs);
-            return Ok(result);
-        }
+        //[HttpPost("CreateBulk")]
+        //public async Task<IActionResult> CreateBulk(List<RiderPOST> masterPOSTs)
+        //{
+        //    var result = await rider.CreateBulk(masterPOSTs);
+        //    return Ok(result);
+        //}
 
         [HttpPut("Update")]
         public async Task<IActionResult> Update(RiderPUT masterPUT)
@@ -53,7 +53,7 @@ namespace RapidERP.API.Controllers
         [HttpPut("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await rider.SoftDelete(id);
+            var result = await rider.Delete(id);
             return Ok(result);
         }
     }

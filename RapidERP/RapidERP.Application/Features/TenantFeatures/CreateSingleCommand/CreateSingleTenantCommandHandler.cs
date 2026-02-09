@@ -18,10 +18,10 @@ public class CreateSingleTenantCommandHandler(IRepository repository)
             if (isExists == false)
             {
                 Tenant masterData = new();
-                masterData.MenuModuleId = request.masterPOST.MenuModuleId;
+                //masterData.MenuModuleId = request.masterPOST.MenuModuleId;
                 masterData.CountryId = request.masterPOST.CountryId;
                 masterData.StateId = request.masterPOST.StateId;
-                masterData.StatusTypeId = request.masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = request.masterPOST.StatusTypeId;
                 //masterData.LanguageId = request.masterPOST.LanguageId;
                 masterData.Name = request.masterPOST.Name;
                 masterData.Contact = request.masterPOST.Contact;

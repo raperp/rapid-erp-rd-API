@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.DTOs.SupplierTypeDTOs;
 using RapidERP.Application.Interfaces;
 using RapidERP.Domain.Entities.SupplierTypeModels;
@@ -67,7 +68,7 @@ public class SupplierTypeService(RapidERPDbContext context, ISharedService share
                 masterData.Street = masterPOST.Street;
                 masterData.PostCode = masterPOST.PostCode;
                 masterData.LanguageId = masterPOST.LanguageId;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.CurrencyId = masterPOST.CurrencyId;
                 masterData.CountryId = masterPOST.CountryId;
 
@@ -86,7 +87,7 @@ public class SupplierTypeService(RapidERPDbContext context, ISharedService share
                 history.CountryId = masterPOST.CountryId;
                 history.SupplierTypeId = masterData.Id;
                 //history.StatusTypeId = masterData.StatusTypeId;
-                history.ActionTypeId = masterPOST.ActionTypeId;
+                //history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
                 //history.ExportTo = masterPOST.ExportTo;
                 //history.SourceURL = masterPOST.SourceURL;
@@ -267,6 +268,11 @@ public class SupplierTypeService(RapidERPDbContext context, ISharedService share
         }
     }
 
+    public Task<RequestResponse> GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
     {
         try
@@ -392,7 +398,7 @@ public class SupplierTypeService(RapidERPDbContext context, ISharedService share
                 history.CountryId = masterPUT.CountryId;
                 history.SupplierTypeId = masterPUT.Id;
                 //history.StatusTypeId = masterPUT.StatusTypeId;
-                history.ActionTypeId = masterPUT.ActionTypeId;
+                //history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;
                 //history.ExportTo = masterPUT.ExportTo;
                 //history.SourceURL = masterPUT.SourceURL;
@@ -445,4 +451,16 @@ public class SupplierTypeService(RapidERPDbContext context, ISharedService share
             return requestResponse;
         }
     }
+
+    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<SupplierTypePOST, SupplierTypePUT>.GetSingle(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    
 }

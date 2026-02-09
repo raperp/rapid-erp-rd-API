@@ -21,8 +21,8 @@ public class CreateSingleDesignationCommandHandler(IRepository repository)
                 masterData.Name = request.masterPOST.Name;
                 masterData.Description = request.masterPOST.Description;
                 masterData.DepartmentId = request.masterPOST.DepartmentId;
-                masterData.StatusTypeId = request.masterPOST.StatusTypeId;
-                masterData.MenuModuleId = request.masterPOST.MenuModuleId;
+                //masterData.StatusTypeId = request.masterPOST.StatusTypeId;
+                //masterData.MenuModuleId = request.masterPOST.MenuModuleId;
                 masterData.TenantId = request.masterPOST.TenantId;
                 //masterData.LanguageId = request.masterPOST.LanguageId;
 
@@ -35,7 +35,7 @@ public class CreateSingleDesignationCommandHandler(IRepository repository)
                 history.DepartmentId = request.masterPOST.DepartmentId;
                 //history.TenantId = request.masterPOST.TenantId;
                 //history.MenuModuleId = request.masterPOST.MenuModuleId;
-                history.ActionTypeId = request.masterPOST.ActionTypeId;
+                //history.ActionTypeId = request.masterPOST.ActionTypeId;
                 //history.LanguageId = request.masterPOST.LanguageId;
                 //history.ExportTypeId = request.masterPOST.ExportTypeId;
                 //history.ExportTo = request.masterPOST.ExportTo;

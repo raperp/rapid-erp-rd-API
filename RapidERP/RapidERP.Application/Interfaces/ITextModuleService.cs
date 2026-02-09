@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface ITextModuleService : IBaseService<TextModulePOST, TextModulePUT> { }
+public interface ITextModuleService : IBase<TextModulePOST, TextModulePUT> { }

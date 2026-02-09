@@ -23,9 +23,9 @@ public class UpdateSolutionCommandHandler(IRepository repository)
                 request.masterPUT.Code = (request.masterPUT.Code is not null) ? request.masterPUT.Code : masterRecord.Code;                 
                 request.masterPUT.Icon = (request.masterPUT.Icon is not null) ? request.masterPUT.Icon : masterRecord.Icon;                 
                 request.masterPUT.Description = (request.masterPUT.Description is not null) ? request.masterPUT.Description : masterRecord.Description;                 
-                request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId is not null) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
+                //request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId is not null) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
                 request.masterPUT.TenantId = (request.masterPUT.TenantId is not null) ? request.masterPUT.TenantId : masterRecord.TenantId;
-                request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;
+                //request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;
                 //request.masterPUT.LanguageId = (request.masterPUT.LanguageId is not null) ? request.masterPUT.LanguageId : masterRecord.LanguageId;                
             }
 
@@ -35,9 +35,9 @@ public class UpdateSolutionCommandHandler(IRepository repository)
                 masterRecord.Code = request.masterPUT.Code;
                 masterRecord.Icon = request.masterPUT.Icon;
                 masterRecord.Description = request.masterPUT.Description;
-                masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
+                //masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
                 masterRecord.TenantId = request.masterPUT.TenantId;
-                masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
+                //masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
                 //masterRecord.LanguageId = request.masterPUT.LanguageId;                
                 
                 //masterRecord.IsDefault = request.masterPUT.IsDefault;

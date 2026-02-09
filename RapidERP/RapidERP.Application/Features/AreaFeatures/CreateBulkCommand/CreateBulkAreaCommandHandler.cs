@@ -25,9 +25,9 @@ public class CreateBulkAreaCommandHandler(IRepository repository)
                     masterData.CountryId = item.CountryId;
                     masterData.StateId = item.StateId;
                     masterData.CityId = item.CityId;
-                    masterData.StatusTypeId = item.StatusTypeId;
+                    //masterData.StatusTypeId = item.StatusTypeId;
                     masterData.TenantId = item.TenantId;
-                    masterData.MenuModuleId = item.MenuModuleId;
+                    //masterData.MenuModuleId = item.MenuModuleId;
                     //masterData.LanguageId = item.LanguageId;
                     masterData.IsDefault = item.IsDefault;
                     masterData.IsDraft = item.IsDraft;
@@ -42,7 +42,7 @@ public class CreateBulkAreaCommandHandler(IRepository repository)
                     history.StateId = item.StateId;
                     history.CityId = item.CityId;
                     //history.TenantId = item.TenantId;
-                    history.ActionTypeId = item.ActionTypeId;
+                    //history.ActionTypeId = item.ActionTypeId;
                     //history.MenuModuleId = item.MenuModuleId;
                     //history.LanguageId = item.LanguageId;
                     //history.ExportTypeId = item.ExportTypeId;

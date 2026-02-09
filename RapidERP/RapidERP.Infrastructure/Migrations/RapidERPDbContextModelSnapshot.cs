@@ -48,8 +48,11 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<DateTime?>("DraftedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -61,8 +64,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
 
                     b.ToTable("ActionTypes");
                 });
@@ -159,17 +160,17 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<DateTime?>("DraftedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsDefault")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDraft")
+                    b.Property<bool?>("IsDefault")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
-                    b.Property<int?>("MenuModuleId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsDraft")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -177,9 +178,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(40)");
 
                     b.Property<int>("StateId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StatusTypeId")
                         .HasColumnType("int");
 
                     b.Property<int?>("TenantId")
@@ -194,13 +192,7 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("MenuModuleId");
-
                     b.HasIndex("StateId");
-
-                    b.HasIndex("StatusTypeId");
 
                     b.HasIndex("TenantId");
 
@@ -312,12 +304,11 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnOrder(8);
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
 
-                    b.Property<int?>("MenuModuleId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(2);
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -328,10 +319,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<DateTime?>("StartDate")
                         .HasColumnType("datetime2")
                         .HasColumnOrder(7);
-
-                    b.Property<int?>("StatusTypeId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(4);
 
                     b.Property<int?>("TenantId")
                         .HasColumnType("int")
@@ -345,12 +332,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("MenuModuleId");
-
-                    b.HasIndex("StatusTypeId");
 
                     b.ToTable("Calendars");
                 });
@@ -467,17 +448,17 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<DateTime?>("DraftedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsDefault")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDraft")
+                    b.Property<bool?>("IsDefault")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
-                    b.Property<int?>("MenuModuleId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsDraft")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -485,9 +466,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(40)");
 
                     b.Property<int>("StateId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StatusTypeId")
                         .HasColumnType("int");
 
                     b.Property<int?>("TenantId")
@@ -500,13 +478,7 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("MenuModuleId");
-
                     b.HasIndex("StateId");
-
-                    b.HasIndex("StatusTypeId");
 
                     b.HasIndex("TenantId");
 
@@ -599,16 +571,8 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("CurrencyId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("DialingCode")
-                        .IsRequired()
-                        .HasMaxLength(4)
-                        .HasColumnType("nvarchar(4)");
 
                     b.Property<DateTime?>("DraftedAt")
                         .HasColumnType("datetime2");
@@ -631,25 +595,17 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasMaxLength(4)
                         .HasColumnType("nvarchar(4)");
 
-                    b.Property<bool>("IsDefault")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDraft")
+                    b.Property<bool?>("IsDefault")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
-                    b.Property<int?>("MenuModuleId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)");
-
-                    b.Property<int?>("StatusTypeId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsDraft")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
@@ -658,14 +614,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CurrencyId");
-
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("MenuModuleId");
-
-                    b.HasIndex("StatusTypeId");
 
                     b.ToTable("Countries");
                 });
@@ -776,30 +724,25 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnOrder(7);
 
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDefault")
                         .HasColumnType("bit")
                         .HasColumnOrder(8);
 
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit")
                         .HasColumnOrder(9);
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MenuModuleId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(2);
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
                         .HasColumnOrder(6);
-
-                    b.Property<int?>("StatusTypeId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(4);
 
                     b.Property<int?>("TenantId")
                         .HasColumnType("int")
@@ -809,12 +752,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("MenuModuleId");
-
-                    b.HasIndex("StatusTypeId");
 
                     b.HasIndex("TenantId");
 
@@ -927,25 +864,22 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<DateTime?>("DraftedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsDefault")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDraft")
+                    b.Property<bool?>("IsDefault")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
-                    b.Property<int?>("MenuModuleId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsDraft")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<int?>("StatusTypeId")
-                        .HasColumnType("int");
 
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
@@ -954,12 +888,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("MenuModuleId");
-
-                    b.HasIndex("StatusTypeId");
 
                     b.HasIndex("TenantId");
 
@@ -1064,25 +992,22 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<DateTime?>("DraftedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsDefault")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDraft")
+                    b.Property<bool?>("IsDefault")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
-                    b.Property<int?>("MenuModuleId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsDraft")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<int?>("StatusTypeId")
-                        .HasColumnType("int");
 
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
@@ -1093,12 +1018,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
-
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("MenuModuleId");
-
-                    b.HasIndex("StatusTypeId");
 
                     b.HasIndex("TenantId");
 
@@ -1205,8 +1124,11 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<DateTime?>("DraftedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1218,8 +1140,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
 
                     b.ToTable("ExportTypes");
                 });
@@ -1313,11 +1233,11 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<DateTime?>("DraftedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
 
-                    b.Property<int?>("MenuModuleId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1327,9 +1247,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<int?>("PrinterId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("StatusTypeId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
 
@@ -1337,12 +1254,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("MenuModuleId");
-
-                    b.HasIndex("StatusTypeId");
 
                     b.HasIndex("TenantId");
 
@@ -1461,11 +1372,11 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(15)")
                         .HasColumnOrder(5);
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
 
-                    b.Property<int?>("LanguageId1")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1477,8 +1388,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId1");
 
                     b.ToTable("Languages");
                 });
@@ -1597,8 +1506,11 @@ namespace RapidERP.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1617,8 +1529,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
 
                     b.ToTable("MainModules");
                 });
@@ -1719,8 +1629,11 @@ namespace RapidERP.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1737,8 +1650,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
 
                     b.ToTable("MenuModules");
                 });
@@ -1830,8 +1741,11 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<DateTime?>("DraftedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1845,8 +1759,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
 
                     b.HasIndex("TextModuleId");
 
@@ -1937,25 +1849,22 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<DateTime?>("DraftedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsDefault")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDraft")
+                    b.Property<bool?>("IsDefault")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
-                    b.Property<int?>("MenuModuleId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsDraft")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
-
-                    b.Property<int?>("StatusTypeId")
-                        .HasColumnType("int");
 
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
@@ -1964,12 +1873,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("MenuModuleId");
-
-                    b.HasIndex("StatusTypeId");
 
                     b.HasIndex("TenantId");
 
@@ -2064,11 +1967,11 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
 
-                    b.Property<int?>("MenuModuleId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("MobileNumber")
                         .HasMaxLength(15)
@@ -2080,9 +1983,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<int>("StateId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StatusTypeId")
                         .HasColumnType("int");
 
                     b.Property<int?>("TenantId")
@@ -2099,13 +1999,7 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("MenuModuleId");
-
                     b.HasIndex("StateId");
-
-                    b.HasIndex("StatusTypeId");
 
                     b.HasIndex("TenantId");
 
@@ -2197,8 +2091,11 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<DateTime?>("DraftedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -2206,18 +2103,10 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(40)")
                         .HasColumnOrder(2);
 
-                    b.Property<int?>("StatusTypeId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("StatusTypeId");
 
                     b.ToTable("Roles");
                 });
@@ -2306,19 +2195,19 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<bool>("IsDefault")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDraft")
+                    b.Property<bool?>("IsDefault")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDraft")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("ManagerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -2329,9 +2218,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("StatusTypeId")
-                        .HasColumnType("int");
 
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
@@ -2345,12 +2231,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
-
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("MenuModuleId");
-
-                    b.HasIndex("StatusTypeId");
 
                     b.HasIndex("TenantId");
 
@@ -2461,20 +2341,19 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<DateTime?>("DraftedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsDefault")
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDefault")
                         .HasColumnType("bit")
                         .HasColumnOrder(7);
 
-                    b.Property<bool>("IsDraft")
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDraft")
                         .HasColumnType("bit")
                         .HasColumnOrder(8);
-
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MenuModuleId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -2482,22 +2361,12 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(40)")
                         .HasColumnOrder(6);
 
-                    b.Property<int?>("StatusTypeId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(3);
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CountryId");
-
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("MenuModuleId");
-
-                    b.HasIndex("StatusTypeId");
 
                     b.ToTable("States");
                 });
@@ -2613,22 +2482,17 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnOrder(7);
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
 
-                    b.Property<int?>("MenuModuleId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(2);
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)")
                         .HasColumnOrder(6);
-
-                    b.Property<int?>("StatusTypeId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(4);
 
                     b.Property<int?>("TenantId")
                         .HasColumnType("int")
@@ -2638,12 +2502,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("MenuModuleId");
-
-                    b.HasIndex("StatusTypeId");
 
                     b.ToTable("Solutions");
                 });
@@ -2755,8 +2613,11 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<DateTime?>("DraftedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -2768,8 +2629,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
 
                     b.ToTable("StatusTypes");
                 });
@@ -2864,8 +2723,11 @@ namespace RapidERP.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("MainModuleId")
                         .HasColumnType("int");
@@ -2882,8 +2744,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
 
                     b.HasIndex("MainModuleId");
 
@@ -3004,21 +2864,21 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<bool>("IsDefault")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDraft")
+                    b.Property<bool?>("IsDefault")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDraft")
+                        .HasColumnType("bit");
 
                     b.Property<decimal?>("LocalAmount")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("MenuModuleId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Mobile")
                         .HasColumnType("nvarchar(max)");
@@ -3032,9 +2892,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("PaymentTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StatusTypeId")
                         .HasColumnType("int");
 
                     b.Property<int?>("TenantId")
@@ -3051,12 +2908,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasIndex("CountryId");
 
                     b.HasIndex("CurrencyId");
-
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("MenuModuleId");
-
-                    b.HasIndex("StatusTypeId");
 
                     b.HasIndex("TenantId");
 
@@ -3179,16 +3030,19 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<DateTime?>("DraftedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsDefault")
+                    b.Property<bool?>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsDraft")
+                    b.Property<bool?>("IsDefault")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDraft")
                         .HasColumnType("bit");
 
                     b.Property<int>("LanguageId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MenuModuleId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -3201,9 +3055,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Property<string>("PostCode")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("StatusTypeId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
@@ -3229,10 +3080,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.HasIndex("CurrencyId");
 
                     b.HasIndex("LanguageId");
-
-                    b.HasIndex("MenuModuleId");
-
-                    b.HasIndex("StatusTypeId");
 
                     b.HasIndex("TenantId");
 
@@ -3333,19 +3180,16 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<DateTime?>("DraftedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
 
-                    b.Property<int?>("MenuModuleId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(5)
                         .HasColumnType("nvarchar(5)");
-
-                    b.Property<int?>("StatusTypeId")
-                        .HasColumnType("int");
 
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
@@ -3357,12 +3201,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("MenuModuleId");
-
-                    b.HasIndex("StatusTypeId");
 
                     b.HasIndex("TenantId");
 
@@ -3460,6 +3298,12 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(20)")
                         .HasColumnOrder(11);
 
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("LanguageId")
                         .HasColumnType("int");
 
@@ -3490,8 +3334,7 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnOrder(3);
 
                     b.Property<int?>("StatusTypeId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(4);
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -3811,11 +3654,11 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<DateTime?>("DraftedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
 
-                    b.Property<int?>("MenuModuleId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -3826,10 +3669,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("MenuModuleId");
 
                     b.ToTable("TextModules");
                 });
@@ -3917,12 +3756,11 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(15)")
                         .HasColumnOrder(3);
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
 
-                    b.Property<int?>("StatusTypeId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -3932,10 +3770,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnOrder(2);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LanguageId");
-
-                    b.HasIndex("StatusTypeId");
 
                     b.HasIndex("UserId");
 
@@ -4022,8 +3856,11 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("nvarchar(20)")
                         .HasColumnOrder(6);
 
-                    b.Property<int?>("LanguageId")
-                        .HasColumnType("int");
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Mobile")
                         .HasMaxLength(15)
@@ -4051,10 +3888,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasColumnOrder(1);
 
-                    b.Property<int?>("StatusTypeId")
-                        .HasColumnType("int")
-                        .HasColumnOrder(2);
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -4066,11 +3899,7 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LanguageId");
-
                     b.HasIndex("RoleId");
-
-                    b.HasIndex("StatusTypeId");
 
                     b.ToTable("Users");
                 });
@@ -4157,15 +3986,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.ToTable("UserHistory");
                 });
 
-            modelBuilder.Entity("RapidERP.Domain.Entities.ActionTypeModels.ActionType", b =>
-                {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.Navigation("Language");
-                });
-
             modelBuilder.Entity("RapidERP.Domain.Entities.ActionTypeModels.ActionTypeHistory", b =>
                 {
                     b.HasOne("RapidERP.Domain.Entities.ActionTypeModels.ActionType", "ActionType")
@@ -4189,23 +4009,11 @@ namespace RapidERP.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
-                        .WithMany()
-                        .HasForeignKey("MenuModuleId");
-
                     b.HasOne("RapidERP.Domain.Entities.SateModules.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId");
 
                     b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
                         .WithMany()
@@ -4215,13 +4023,7 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Navigation("Country");
 
-                    b.Navigation("Language");
-
-                    b.Navigation("MenuModule");
-
                     b.Navigation("State");
-
-                    b.Navigation("StatusType");
 
                     b.Navigation("Tenant");
                 });
@@ -4235,27 +4037,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Area");
-                });
-
-            modelBuilder.Entity("RapidERP.Domain.Entities.CalendarModels.Calendar", b =>
-                {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
-                        .WithMany()
-                        .HasForeignKey("MenuModuleId");
-
-                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId");
-
-                    b.Navigation("Language");
-
-                    b.Navigation("MenuModule");
-
-                    b.Navigation("StatusType");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.CalendarModels.CalendarHistory", b =>
@@ -4275,23 +4056,11 @@ namespace RapidERP.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
-                        .WithMany()
-                        .HasForeignKey("MenuModuleId");
-
                     b.HasOne("RapidERP.Domain.Entities.SateModules.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId");
 
                     b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
                         .WithMany()
@@ -4299,13 +4068,7 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Navigation("Country");
 
-                    b.Navigation("Language");
-
-                    b.Navigation("MenuModule");
-
                     b.Navigation("State");
-
-                    b.Navigation("StatusType");
 
                     b.Navigation("Tenant");
                 });
@@ -4319,33 +4082,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("City");
-                });
-
-            modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.Country", b =>
-                {
-                    b.HasOne("RapidERP.Domain.Entities.CurrencyModels.Currency", "Currency")
-                        .WithMany("Countries")
-                        .HasForeignKey("CurrencyId");
-
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
-                        .WithMany()
-                        .HasForeignKey("MenuModuleId");
-
-                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId");
-
-                    b.Navigation("Currency");
-
-                    b.Navigation("Language");
-
-                    b.Navigation("MenuModule");
-
-                    b.Navigation("StatusType");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.CountryCurrency", b =>
@@ -4389,27 +4125,9 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.CurrencyModels.Currency", b =>
                 {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
-                        .WithMany()
-                        .HasForeignKey("MenuModuleId");
-
-                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId");
-
                     b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId");
-
-                    b.Navigation("Language");
-
-                    b.Navigation("MenuModule");
-
-                    b.Navigation("StatusType");
 
                     b.Navigation("Tenant");
                 });
@@ -4427,27 +4145,9 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.DepartmentModels.Department", b =>
                 {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
-                        .WithMany()
-                        .HasForeignKey("MenuModuleId");
-
-                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId");
-
                     b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId");
-
-                    b.Navigation("Language");
-
-                    b.Navigation("MenuModule");
-
-                    b.Navigation("StatusType");
 
                     b.Navigation("Tenant");
                 });
@@ -4471,29 +4171,11 @@ namespace RapidERP.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
-                        .WithMany()
-                        .HasForeignKey("MenuModuleId");
-
-                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId");
-
                     b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId");
 
                     b.Navigation("Department");
-
-                    b.Navigation("Language");
-
-                    b.Navigation("MenuModule");
-
-                    b.Navigation("StatusType");
 
                     b.Navigation("Tenant");
                 });
@@ -4509,15 +4191,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Navigation("Designation");
                 });
 
-            modelBuilder.Entity("RapidERP.Domain.Entities.ExportTypeModels.ExportType", b =>
-                {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.Navigation("Language");
-                });
-
             modelBuilder.Entity("RapidERP.Domain.Entities.ExportTypeModels.ExportTypeHistory", b =>
                 {
                     b.HasOne("RapidERP.Domain.Entities.ExportTypeModels.ExportType", "ExportType")
@@ -4529,27 +4202,9 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.KitchenModels.Kitchen", b =>
                 {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
-                        .WithMany()
-                        .HasForeignKey("MenuModuleId");
-
-                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId");
-
                     b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId");
-
-                    b.Navigation("Language");
-
-                    b.Navigation("MenuModule");
-
-                    b.Navigation("StatusType");
 
                     b.Navigation("Tenant");
                 });
@@ -4565,15 +4220,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Navigation("Kitchen");
                 });
 
-            modelBuilder.Entity("RapidERP.Domain.Entities.LanguageModels.Language", b =>
-                {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId1");
-
-                    b.Navigation("Language");
-                });
-
             modelBuilder.Entity("RapidERP.Domain.Entities.LanguageModels.LanguageHistory", b =>
                 {
                     b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
@@ -4581,15 +4227,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Language");
-                });
-
-            modelBuilder.Entity("RapidERP.Domain.Entities.MainModuleModels.MainModule", b =>
-                {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
 
                     b.Navigation("Language");
                 });
@@ -4603,15 +4240,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Navigation("MainModule");
                 });
 
-            modelBuilder.Entity("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", b =>
-                {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.Navigation("Language");
-                });
-
             modelBuilder.Entity("RapidERP.Domain.Entities.MenuModuleModels.MenuModuleHistory", b =>
                 {
                     b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
@@ -4623,15 +4251,9 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.MessageModuleModels.MessageModule", b =>
                 {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
                     b.HasOne("RapidERP.Domain.Entities.TextModuleModels.TextModule", "TextModule")
                         .WithMany()
                         .HasForeignKey("TextModuleId");
-
-                    b.Navigation("Language");
 
                     b.Navigation("TextModule");
                 });
@@ -4647,27 +4269,9 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.OrderTypeModels.OrderType", b =>
                 {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
-                        .WithMany()
-                        .HasForeignKey("MenuModuleId");
-
-                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId");
-
                     b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId");
-
-                    b.Navigation("Language");
-
-                    b.Navigation("MenuModule");
-
-                    b.Navigation("StatusType");
 
                     b.Navigation("Tenant");
                 });
@@ -4703,23 +4307,11 @@ namespace RapidERP.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
-                        .WithMany()
-                        .HasForeignKey("MenuModuleId");
-
                     b.HasOne("RapidERP.Domain.Entities.SateModules.State", "State")
                         .WithMany()
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId");
 
                     b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
                         .WithMany()
@@ -4731,13 +4323,7 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Navigation("Country");
 
-                    b.Navigation("Language");
-
-                    b.Navigation("MenuModule");
-
                     b.Navigation("State");
-
-                    b.Navigation("StatusType");
 
                     b.Navigation("Tenant");
                 });
@@ -4751,21 +4337,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Rider");
-                });
-
-            modelBuilder.Entity("RapidERP.Domain.Entities.RoleModules.Role", b =>
-                {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId");
-
-                    b.Navigation("Language");
-
-                    b.Navigation("StatusType");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.RoleModules.RoleHistory", b =>
@@ -4787,29 +4358,11 @@ namespace RapidERP.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
-                        .WithMany()
-                        .HasForeignKey("MenuModuleId");
-
-                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId");
-
                     b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId");
 
                     b.Navigation("Department");
-
-                    b.Navigation("Language");
-
-                    b.Navigation("MenuModule");
-
-                    b.Navigation("StatusType");
 
                     b.Navigation("Tenant");
                 });
@@ -4833,25 +4386,7 @@ namespace RapidERP.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
-                        .WithMany()
-                        .HasForeignKey("MenuModuleId");
-
-                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId");
-
                     b.Navigation("Country");
-
-                    b.Navigation("Language");
-
-                    b.Navigation("MenuModule");
-
-                    b.Navigation("StatusType");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.SateModules.StateHistory", b =>
@@ -4865,27 +4400,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Navigation("State");
                 });
 
-            modelBuilder.Entity("RapidERP.Domain.Entities.SolutionModels.Solution", b =>
-                {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
-                        .WithMany()
-                        .HasForeignKey("MenuModuleId");
-
-                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId");
-
-                    b.Navigation("Language");
-
-                    b.Navigation("MenuModule");
-
-                    b.Navigation("StatusType");
-                });
-
             modelBuilder.Entity("RapidERP.Domain.Entities.SolutionModels.SolutionHistory", b =>
                 {
                     b.HasOne("RapidERP.Domain.Entities.SolutionModels.Solution", "Solution")
@@ -4893,15 +4407,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasForeignKey("SolutionId");
 
                     b.Navigation("Solution");
-                });
-
-            modelBuilder.Entity("RapidERP.Domain.Entities.StatusTypeModels.StatusType", b =>
-                {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.Navigation("Language");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.StatusTypeModels.StatusTypeHistory", b =>
@@ -4915,17 +4420,11 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.SubmoduleModels.Submodule", b =>
                 {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
                     b.HasOne("RapidERP.Domain.Entities.MainModuleModels.MainModule", "MainModule")
                         .WithMany()
                         .HasForeignKey("MainModuleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Language");
 
                     b.Navigation("MainModule");
                 });
@@ -4955,18 +4454,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
-                        .WithMany()
-                        .HasForeignKey("MenuModuleId");
-
-                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId");
-
                     b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId");
@@ -4974,12 +4461,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Navigation("Country");
 
                     b.Navigation("Currency");
-
-                    b.Navigation("Language");
-
-                    b.Navigation("MenuModule");
-
-                    b.Navigation("StatusType");
 
                     b.Navigation("Tenant");
                 });
@@ -5015,14 +4496,6 @@ namespace RapidERP.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
-                        .WithMany()
-                        .HasForeignKey("MenuModuleId");
-
-                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId");
-
                     b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId");
@@ -5032,10 +4505,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Navigation("Currency");
 
                     b.Navigation("Language");
-
-                    b.Navigation("MenuModule");
-
-                    b.Navigation("StatusType");
 
                     b.Navigation("Tenant");
                 });
@@ -5053,27 +4522,9 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.TableModules.Table", b =>
                 {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
-                        .WithMany()
-                        .HasForeignKey("MenuModuleId");
-
-                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId");
-
                     b.HasOne("RapidERP.Domain.Entities.TenantModels.Tenant", "Tenant")
                         .WithMany()
                         .HasForeignKey("TenantId");
-
-                    b.Navigation("Language");
-
-                    b.Navigation("MenuModule");
-
-                    b.Navigation("StatusType");
 
                     b.Navigation("Tenant");
                 });
@@ -5091,7 +4542,7 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.TenantModels.Tenant", b =>
                 {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
+                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", null)
                         .WithMany("Tenants")
                         .HasForeignKey("LanguageId");
 
@@ -5100,16 +4551,11 @@ namespace RapidERP.Infrastructure.Migrations
                         .HasForeignKey("MenuModuleId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
+                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", null)
                         .WithMany("Tenants")
-                        .HasForeignKey("StatusTypeId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("Language");
+                        .HasForeignKey("StatusTypeId");
 
                     b.Navigation("MenuModule");
-
-                    b.Navigation("StatusType");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.TenantModels.TenantCalendar", b =>
@@ -5148,21 +4594,6 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Navigation("Tenant");
                 });
 
-            modelBuilder.Entity("RapidERP.Domain.Entities.TextModuleModels.TextModule", b =>
-                {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.HasOne("RapidERP.Domain.Entities.MenuModuleModels.MenuModule", "MenuModule")
-                        .WithMany()
-                        .HasForeignKey("MenuModuleId");
-
-                    b.Navigation("Language");
-
-                    b.Navigation("MenuModule");
-                });
-
             modelBuilder.Entity("RapidERP.Domain.Entities.TextModuleModels.TextModuleHistory", b =>
                 {
                     b.HasOne("RapidERP.Domain.Entities.TextModuleModels.TextModule", "TextModule")
@@ -5174,23 +4605,11 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.UserIPWhitelistModels.UserIPWhitelist", b =>
                 {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId");
-
                     b.HasOne("RapidERP.Domain.Entities.UserModels.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Language");
-
-                    b.Navigation("StatusType");
 
                     b.Navigation("User");
                 });
@@ -5206,23 +4625,11 @@ namespace RapidERP.Infrastructure.Migrations
 
             modelBuilder.Entity("RapidERP.Domain.Entities.UserModels.User", b =>
                 {
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
                     b.HasOne("RapidERP.Domain.Entities.RoleModules.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId");
 
-                    b.HasOne("RapidERP.Domain.Entities.StatusTypeModels.StatusType", "StatusType")
-                        .WithMany()
-                        .HasForeignKey("StatusTypeId");
-
-                    b.Navigation("Language");
-
                     b.Navigation("Role");
-
-                    b.Navigation("StatusType");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.UserModels.UserHistory", b =>
@@ -5239,11 +4646,6 @@ namespace RapidERP.Infrastructure.Migrations
             modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.Country", b =>
                 {
                     b.Navigation("States");
-                });
-
-            modelBuilder.Entity("RapidERP.Domain.Entities.CurrencyModels.Currency", b =>
-                {
-                    b.Navigation("Countries");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.LanguageModels.Language", b =>

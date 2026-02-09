@@ -58,9 +58,9 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                 masterData.CountryId = masterPOST.CountryId;
                 masterData.StateId = masterPOST.StateId;
                 masterData.TenantId = masterPOST.TenantId;
-                masterData.MenuModuleId = masterPOST.MenuModuleId;
+                //masterData.MenuModuleId = masterPOST.MenuModuleId;
                 //masterData.LanguageId = masterPOST.LanguageId;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.IsDefault = masterPOST.IsDefault;
                 masterData.IsDraft = masterPOST.IsDraft;
                 
@@ -77,7 +77,7 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                 //history.TenantId = masterPOST.TenantId;
                 //history.MenuModuleId = masterPOST.MenuModuleId;
                 //history.LanguageId = masterPOST.LanguageId;
-                history.ActionTypeId = masterPOST.ActionTypeId;
+                //history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
                 //history.ExportTo = masterPOST.ExportTo;
                 //history.SourceURL = masterPOST.SourceURL;
@@ -202,22 +202,22 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
             GetAllDTO result = new();
 
             var data = (from c in context.Cities
-                        join st in context.StatusTypes on c.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on c.StatusTypeId equals st.Id
                         join co in context.Countries on c.CountryId equals co.Id
                         join sta in context.States on c.StateId equals sta.Id
                         join t in context.Tenants on c.TenantId equals t.Id
                         //join l in context.Languages on c.LanguageId equals l.Id
-                        join m in context.MenuModules on c.MenuModuleId equals m.Id
+                        //join m in context.MenuModules on c.MenuModuleId equals m.Id
                         select new
                         {
                             c.Id,
                             c.Name,
-                            Tanent = st.Name,
-                            MenuModule = m.Name,
+                            //Tanent = st.Name,
+                            //MenuModule = m.Name,
                             Country = co.Name,
                             //Language = l.Name,
                             State = sta.Name,
-                            Status = st.Name
+                            //Status = st.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -375,9 +375,9 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                 .SetProperty(x => x.CountryId, masterPUT.CountryId)
                 .SetProperty(x => x.StateId, masterPUT.StateId)
                 .SetProperty(x => x.TenantId, masterPUT.TenantId)
-                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                //.SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                 //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
                 .SetProperty(x => x.IsDraft, masterPUT.IsDraft));
 
@@ -390,7 +390,7 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                 //history.TenantId = masterPUT.TenantId;
                 //history.MenuModuleId = masterPUT.MenuModuleId;
                 //history.LanguageId = masterPUT.LanguageId;
-                history.ActionTypeId = masterPUT.ActionTypeId;
+                //history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;
                 //history.ExportTo = masterPUT.ExportTo;
                 //history.SourceURL = masterPUT.SourceURL;
@@ -443,5 +443,43 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
 
             return requestResponse;
         }
+    }
+
+     
+
+    Task<RequestResponse> IBase<CityPOST, CityPUT>.CreateSingle(CityPOST masterPOST)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<CityPOST, CityPUT>.Delete(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<CityPOST, CityPUT>.GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
+    }
+
+    
+
+    Task<RequestResponse> IBase<CityPOST, CityPUT>.GetSingle(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    
+
+    
+
+    Task<RequestResponse> IBase<CityPOST, CityPUT>.Update(CityPUT masterPUT)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
     }
 }

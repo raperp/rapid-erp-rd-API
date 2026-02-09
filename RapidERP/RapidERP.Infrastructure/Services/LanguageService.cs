@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.LanguageDTOs;
+using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
 using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Utilities;
@@ -238,6 +239,11 @@ public class LanguageService(RapidERPDbContext context, ISharedService shared) :
         }
     }
 
+    public Task<RequestResponse> GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
     {
         try
@@ -394,4 +400,16 @@ public class LanguageService(RapidERPDbContext context, ISharedService shared) :
             return requestResponse;
         }
     }
+
+    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<LanguagePOST, LanguagePUT>.GetSingle(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    
 }

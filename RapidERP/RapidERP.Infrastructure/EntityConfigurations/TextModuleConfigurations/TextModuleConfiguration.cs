@@ -14,7 +14,7 @@ public class TextModuleConfiguration : IEntityTypeConfiguration<TextModule>
         builder.Ignore(x => x.IsDraft);
         builder.Ignore(x => x.Tenant);
         builder.Ignore(x => x.TenantId);
-        builder.Ignore(x => x.StatusType);
-        builder.Ignore(x => x.StatusTypeId);
+        //builder.Ignore(x => x.StatusType);
+        //builder.Ignore(x => x.StatusTypeId);
     }
 }

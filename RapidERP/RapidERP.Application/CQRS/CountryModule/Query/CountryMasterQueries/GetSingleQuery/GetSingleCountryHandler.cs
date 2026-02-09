@@ -12,7 +12,7 @@ using RapidERP.Domain.Utilities;
 namespace RapidERP.Application.CQRS.CountryModule.Query.CountryMasterQueries.GetSingleQuery;
 
 //public class GetSingleCountryHandler(IRepository repository)
-public class GetSingleCountryHandler(ICountryBService service)
+public class GetSingleCountryHandler(ICountryService service)
 {
     //RequestResponse requestResponse;
 

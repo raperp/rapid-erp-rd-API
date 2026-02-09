@@ -62,9 +62,9 @@ namespace RapidERP.Infrastructure.Services
                 if (isExists == false)
                 {
                     State masterData = new();
-                    masterData.MenuModuleId = masterPOST.MenuModuleId;
+                    //masterData.MenuModuleId = masterPOST.MenuModuleId;
                     masterData.CountryId = masterPOST.CountryId;
-                    masterData.StatusTypeId = masterPOST.StatusTypeId;
+                    //masterData.StatusTypeId = masterPOST.StatusTypeId;
                     //masterData.LanguageId = masterPOST.LanguageId;
                     masterData.Code = masterPOST.Code;
                     masterData.Name = masterPOST.Name;
@@ -79,7 +79,7 @@ namespace RapidERP.Infrastructure.Services
                     //history.MenuModuleId = masterPOST.MenuModuleId;
                     history.CountryId = masterPOST.CountryId;
                     //history.LanguageId = masterPOST.LanguageId;
-                    history.ActionTypeId = masterPOST.ActionTypeId;
+                    //history.ActionTypeId = masterPOST.ActionTypeId;
                     //history.ExportTypeId = masterPOST.ExportTypeId;
                     //history.ExportTo = masterPOST.ExportTo;
                     //history.SourceURL = masterPOST.SourceURL;
@@ -208,7 +208,7 @@ namespace RapidERP.Infrastructure.Services
                 var data = (from s in context.States
                             join mm in context.MenuModules on s.CountryId equals mm.Id
                             join c in context.Countries on s.CountryId equals c.Id
-                            join st in context.StatusTypes on s.StatusTypeId equals st.Id
+                            //join st in context.StatusTypes on s.StatusTypeId equals st.Id
                             //join l in context.Languages on s.LanguageId equals l.Id
                             
                             select new
@@ -216,7 +216,7 @@ namespace RapidERP.Infrastructure.Services
                                 s.Id,
                                 Menu = mm.Name,
                                 Country = c.Name,
-                                Status = st.Name,
+                                //Status = st.Name,
                                 //Language = l.Name,
                                 s.Name,
                                 s.Code,
@@ -266,6 +266,11 @@ namespace RapidERP.Infrastructure.Services
 
                 return requestResponse;
             }
+        }
+
+        public Task<RequestResponse> GetAll(int skip, int take)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
@@ -374,9 +379,9 @@ namespace RapidERP.Infrastructure.Services
                 if (isExists == false)
                 {
                     await context.States.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                    .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                    //.SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                     .SetProperty(x => x.CountryId, masterPUT.CountryId)
-                    .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                    //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                     //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                     .SetProperty(x => x.Code, masterPUT.Code)
                     .SetProperty(x => x.Name, masterPUT.Name)
@@ -388,7 +393,7 @@ namespace RapidERP.Infrastructure.Services
                     //history.MenuModuleId = masterPUT.MenuModuleId;
                     history.CountryId = masterPUT.CountryId;
                     //history.LanguageId = masterPUT.LanguageId;
-                    history.ActionTypeId = masterPUT.ActionTypeId;
+                    //history.ActionTypeId = masterPUT.ActionTypeId;
                     //history.ExportTypeId = masterPUT.ExportTypeId;
                     //history.ExportTo = masterPUT.ExportTo;
                     //history.SourceURL = masterPUT.SourceURL;
@@ -444,5 +449,17 @@ namespace RapidERP.Infrastructure.Services
                 return requestResponse;
             }
         }
+
+        public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<RequestResponse> IBase<StatePOST, StatePUT>.GetSingle(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        
     }
 }

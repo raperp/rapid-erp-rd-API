@@ -21,10 +21,10 @@ public class CreateBulkTenantCommandHandler(IRepository repository)
                 if (isExists == false)
                 {
                     Tenant masterData = new();
-                    masterData.MenuModuleId = item.MenuModuleId;
+                    //masterData.MenuModuleId = item.MenuModuleId;
                     masterData.CountryId = item.CountryId;
                     masterData.StateId = item.StateId;
-                    masterData.StatusTypeId = item.StatusTypeId;
+                    //masterData.StatusTypeId = item.StatusTypeId;
                     //masterData.LanguageId = item.LanguageId;
                     masterData.Name = item.Name;
                     masterData.Contact = item.Contact;

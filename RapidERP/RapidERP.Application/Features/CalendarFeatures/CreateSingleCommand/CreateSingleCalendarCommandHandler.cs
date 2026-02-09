@@ -19,9 +19,9 @@ public class CreateSingleCalendarCommandHandler(IRepository repository)
             {
                 Calendar masterData = new();
                 masterData.TenantId = request.masterPOST.TenantId;
-                masterData.MenuModuleId = request.masterPOST.MenuModuleId;
+                //masterData.MenuModuleId = request.masterPOST.MenuModuleId;
                 //masterData.LanguageId = request.masterPOST.LanguageId;
-                masterData.StatusTypeId = request.masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = request.masterPOST.StatusTypeId;
                 masterData.Code = request.masterPOST.Code;
                 masterData.Name = request.masterPOST.Name;
                 masterData.StartDate = request.masterPOST.StartDate;

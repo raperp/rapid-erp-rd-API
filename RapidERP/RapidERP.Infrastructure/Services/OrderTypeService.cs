@@ -56,10 +56,10 @@ public class OrderTypeService(RapidERPDbContext context, ISharedService shared) 
                 OrderType masterData = new();
                 masterData.Name = masterPOST.Name;
                 masterData.Description = masterPOST.Description;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
-                masterData.MenuModuleId = masterPOST.MenuModuleId;
+                //masterData.StatusTypeId = masterPOST.StatusTypeId;
+                //masterData.MenuModuleId = masterPOST.MenuModuleId;
                 masterData.TenantId = masterPOST.TenantId;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = masterPOST.StatusTypeId;
                 //masterData.LanguageId = masterPOST.LanguageId;
                 masterData.IsDefault = masterPOST.IsDefault;
                 masterData.IsDraft = masterPOST.IsDraft;
@@ -73,7 +73,7 @@ public class OrderTypeService(RapidERPDbContext context, ISharedService shared) 
                 history.Description = masterPOST.Description;
                 //history.TenantId = masterPOST.TenantId;
                 //history.MenuModuleId = masterPOST.MenuModuleId;
-                history.ActionTypeId = masterPOST.ActionTypeId;
+                //history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.LanguageId = masterPOST.LanguageId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
                 //history.ExportTo = masterPOST.ExportTo;
@@ -199,19 +199,19 @@ public class OrderTypeService(RapidERPDbContext context, ISharedService shared) 
             GetAllDTO result = new();
 
             var data = (from ot in context.OrderTypes
-                        join st in context.StatusTypes on ot.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on ot.StatusTypeId equals st.Id
                         join t in context.Tenants on ot.TenantId equals t.Id
                         //join l in context.Languages on ot.LanguageId equals l.Id
-                        join mm in context.MenuModules on ot.MenuModuleId equals mm.Id
+                        //join mm in context.MenuModules on ot.MenuModuleId equals mm.Id
                         select new
                         {
                             ot.Id,
                             ot.Name,
                             ot.Description,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             Tanent = t.Name,
                             //Language = l.Name,
-                            Status = st.Name,
+                            //Status = st.Name,
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -256,6 +256,11 @@ public class OrderTypeService(RapidERPDbContext context, ISharedService shared) 
 
             return requestResponse;
         }
+    }
+
+    public Task<RequestResponse> GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
@@ -366,8 +371,8 @@ public class OrderTypeService(RapidERPDbContext context, ISharedService shared) 
                 await context.OrderTypes.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Description, masterPUT.Description)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                 .SetProperty(x => x.TenantId, masterPUT.TenantId)
                 //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
@@ -379,7 +384,7 @@ public class OrderTypeService(RapidERPDbContext context, ISharedService shared) 
                 history.Description = masterPUT.Description;
                 //history.TenantId = masterPUT.TenantId;
                 //history.MenuModuleId = masterPUT.MenuModuleId;
-                history.ActionTypeId = masterPUT.ActionTypeId;
+                //history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.LanguageId = masterPUT.LanguageId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;
                 //history.ExportTo = masterPUT.ExportTo;
@@ -434,4 +439,16 @@ public class OrderTypeService(RapidERPDbContext context, ISharedService shared) 
             return requestResponse;
         }
     }
+
+    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<OrderTypePOST, OrderTypePUT>.GetSingle(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    
 }

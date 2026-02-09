@@ -57,9 +57,9 @@ namespace RapidERP.Infrastructure.Services
                     masterData.Name = masterPOST.Name;
                     masterData.Description = masterPOST.Description;
                     masterData.PrinterId = masterPOST.PrinterId;
-                    masterData.StatusTypeId = masterPOST.StatusTypeId;
+                    //masterData.StatusTypeId = masterPOST.StatusTypeId;
                     masterData.TenantId = masterPOST.TenantId;
-                    masterData.MenuModuleId = masterPOST.MenuModuleId;
+                    //masterData.MenuModuleId = masterPOST.MenuModuleId;
 
                     await context.Kitchens.AddAsync(masterData);
                     //await context.SaveChangesAsync();
@@ -71,7 +71,7 @@ namespace RapidERP.Infrastructure.Services
                     history.KitchenId = masterData.Id;
                     //history.TenantId = masterPOST.TenantId;
                     //history.MenuModuleId = masterPOST.MenuModuleId;
-                    history.ActionTypeId = masterPOST.ActionTypeId;
+                    //history.ActionTypeId = masterPOST.ActionTypeId;
                     //history.ExportTypeId = masterPOST.ExportTypeId;
                     //history.ExportTo = masterPOST.ExportTo;
                     //history.SourceURL = masterPOST.SourceURL;
@@ -194,14 +194,14 @@ namespace RapidERP.Infrastructure.Services
                 GetAllDTO result = new();
 
                 var data = (from k in context.Kitchens
-                            join st in context.StatusTypes on k.StatusTypeId equals st.Id
+                            //join st in context.StatusTypes on k.StatusTypeId equals st.Id
                             select new
                             {
                                 k.Id,
                                 k.Name,
                                 k.Description,
                                 k.PrinterId,
-                                Status = st.Name
+                                //Status = st.Name
                             }).AsNoTracking().AsQueryable();
 
                 if (skip == 0 || take == 0)
@@ -246,6 +246,11 @@ namespace RapidERP.Infrastructure.Services
 
                 return requestResponse;
             }
+        }
+
+        public Task<RequestResponse> GetAll(int skip, int take)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
@@ -349,9 +354,9 @@ namespace RapidERP.Infrastructure.Services
                     await context.Kitchens.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                     .SetProperty(x => x.Name, masterPUT.Name)
                     .SetProperty(x => x.Description, masterPUT.Description)
-                    .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                    //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                     .SetProperty(x => x.TenantId, masterPUT.TenantId)
-                    .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                    //.SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                     .SetProperty(x => x.PrinterId, masterPUT.PrinterId));
 
                     KitchenHistory history = new();
@@ -361,7 +366,7 @@ namespace RapidERP.Infrastructure.Services
                     history.KitchenId = masterPUT.Id;
                     //history.TenantId = masterPUT.TenantId;
                     //history.MenuModuleId = masterPUT.MenuModuleId;
-                    history.ActionTypeId = masterPUT.ActionTypeId;
+                    //history.ActionTypeId = masterPUT.ActionTypeId;
                     //history.ExportTypeId = masterPUT.ExportTypeId;
                     //history.ExportTo = masterPUT.ExportTo;
                     //history.SourceURL = masterPUT.SourceURL;
@@ -413,5 +418,17 @@ namespace RapidERP.Infrastructure.Services
                 return requestResponse;
             }
         }
+
+        public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<RequestResponse> IBase<KitchenPOST, KitchenPUT>.GetSingle(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        
     }
 }

@@ -24,8 +24,8 @@ public class CreateBulkDesignationCommandHandler(IRepository repository)
                     masterData.Name = item.Name;
                     masterData.Description = item.Description;
                     masterData.DepartmentId = item.DepartmentId;
-                    masterData.StatusTypeId = item.StatusTypeId;
-                    masterData.MenuModuleId = item.MenuModuleId;
+                    //masterData.StatusTypeId = item.StatusTypeId;
+                    //masterData.MenuModuleId = item.MenuModuleId;
                     masterData.TenantId = item.TenantId;
                     //masterData.LanguageId = item.LanguageId;
 
@@ -38,7 +38,7 @@ public class CreateBulkDesignationCommandHandler(IRepository repository)
                     history.DepartmentId = item.DepartmentId;
                     //history.TenantId = item.TenantId;
                     //history.MenuModuleId = item.MenuModuleId;
-                    history.ActionTypeId = item.ActionTypeId;
+                    //history.ActionTypeId = item.ActionTypeId;
                     //history.LanguageId = item.LanguageId;
                     //history.ExportTypeId = item.ExportTypeId;
                     //history.ExportTo = item.ExportTo;

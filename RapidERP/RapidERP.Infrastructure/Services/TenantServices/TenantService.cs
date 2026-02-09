@@ -58,7 +58,7 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
                 masterData.MenuModuleId = masterPOST.MenuModuleId;
                 masterData.CountryId = masterPOST.CountryId;
                 masterData.StateId = masterPOST.StateId;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = masterPOST.StatusTypeId;
                 //masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Name = masterPOST.Name;
                 masterData.Contact = masterPOST.Contact;
@@ -212,14 +212,14 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
                         join c in context.Countries on t.CountryId equals c.Id
                         join s in context.States on t.StateId equals s.Id
                         //join l in context.Languages on t.LanguageId equals l.Id
-                        join st in context.StatusTypes on t.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on t.StatusTypeId equals st.Id
                         select new
                         {
                             t.Id,
                             MenuModule = mm.Name,
                             Country = c.Name,
                             State = s.Name,
-                            Status = st.Name,
+                            //Status = st.Name,
                             //Language = l.Name,
                             t.Name,
                             t.Contact,
@@ -272,6 +272,11 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
 
             return requestResponse;
         }
+    }
+
+    public Task<RequestResponse> GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
@@ -385,10 +390,10 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
             if (isExists == false)
             {
                 await context.Tenants.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                //.SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                 .SetProperty(x => x.CountryId, masterPUT.CountryId)
                 .SetProperty(x => x.StateId, masterPUT.StateId)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Contact, masterPUT.Contact)
@@ -405,7 +410,7 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
                 history.StateId = masterPUT.StateId;
                 //history.LanguageId = masterPUT.LanguageId;
                 history.CalendarId = masterPUT.CalendarId;
-                history.ActionTypeId = masterPUT.ActionTypeId;
+                //history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;
                 //history.ExportTo = masterPUT.ExportTo;
                 //history.SourceURL = masterPUT.SourceURL;
@@ -464,4 +469,16 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
             return requestResponse;
         }
     }
+
+    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<TenantPOST, TenantPUT>.GetSingle(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    
 }

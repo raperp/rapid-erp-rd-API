@@ -12,14 +12,14 @@ public class SoftDeleteLanguageCommandHandler(IRepository repository)
     {    
         try
         {
-            var result = await repository.SoftDelete<Language>(request.id);
+            //var result = await repository.UpdateStatus<Language>(request.id);
 
             _response = new()
             {
                 StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
                 IsSuccess = true,
                 Message = ResponseMessage.UpdateSuccess,
-                Data = result
+                //Data = result
             };
 
             return _response;

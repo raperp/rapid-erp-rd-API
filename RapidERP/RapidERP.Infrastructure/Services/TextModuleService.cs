@@ -54,7 +54,7 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
             if (isExists == false)
             {
                 TextModule masterData = new();
-                masterData.MenuModuleId = masterPOST.MenuModuleId;
+                //masterData.MenuModuleId = masterPOST.MenuModuleId;
                 //masterData.LanguageId = masterPOST.LanguageId;
                 masterData.Name = masterPOST.Name;
 
@@ -131,12 +131,12 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
             GetAllDTO result = new();
 
             var data = (from tm in context.TextModules
-                        join mm in context.MenuModules on tm.MenuModuleId equals mm.Id
+                        //join mm in context.MenuModules on tm.MenuModuleId equals mm.Id
                         //join l in context.Languages on tm.LanguageId equals l.Id
                         select new
                         {
                             tm.Id,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             //Language = l.Name,
                             tm.Name
                         }).AsNoTracking().AsQueryable();
@@ -183,6 +183,11 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
 
             return requestResponse;
         }
+    }
+
+    public Task<RequestResponse> GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
@@ -292,7 +297,7 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
                 //actionDTO.DraftedAt = (masterPUT.IsDraft == true) ? DateTime.Now : null;
 
                 await context.TextModules.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                //.SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                 //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.Name, masterPUT.Name));
 
@@ -353,4 +358,16 @@ public class TextModuleService(RapidERPDbContext context, ISharedService shared)
             return requestResponse;
         }
     }
+
+    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<TextModulePOST, TextModulePUT>.GetSingle(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    
 }

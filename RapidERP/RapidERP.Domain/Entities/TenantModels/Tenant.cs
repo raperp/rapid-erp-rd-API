@@ -1,4 +1,5 @@
 ﻿using RapidERP.Domain.Entities.CountryModels;
+using RapidERP.Domain.Entities.MenuModuleModels;
 using RapidERP.Domain.Entities.SateModules;
 using RapidERP.Domain.Entities.Shared;
 
@@ -16,4 +17,6 @@ public class Tenant : BaseMaster
     public string Address { get; set; }
     public string Email { get; set; }
     public string Website { get; set; }
+    public MenuModule MenuModule { get; set; }
+    public int? MenuModuleId { get; set; }
 }

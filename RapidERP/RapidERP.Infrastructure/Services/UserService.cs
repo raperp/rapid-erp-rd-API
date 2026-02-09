@@ -55,7 +55,7 @@ public class UserService(RapidERPDbContext context, ISharedService shared) : IUs
             {
                 User masterData = new();
                 masterData.RoleId = masterPOST.RoleId;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.Name = masterPOST.Name;
                 masterData.Address = masterPOST.Address;
                 masterData.Mobile = masterPOST.Mobile;
@@ -199,7 +199,7 @@ public class UserService(RapidERPDbContext context, ISharedService shared) : IUs
 
             var data = (from u in context.Users
                         join r in context.Roles on u.RoleId equals r.Id
-                        join st in context.StatusTypes on u.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on u.StatusTypeId equals st.Id
                         select new
                         {
                             u.Id,
@@ -208,7 +208,7 @@ public class UserService(RapidERPDbContext context, ISharedService shared) : IUs
                             u.Email,
                             u.Mobile,
                             u.Address,
-                            Status = st.Name,
+                            //Status = st.Name,
                             Role = r.Name
                         }).AsNoTracking().AsQueryable();
 
@@ -254,6 +254,11 @@ public class UserService(RapidERPDbContext context, ISharedService shared) : IUs
 
             return requestResponse;
         }
+    }
+
+    public Task<RequestResponse> GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
@@ -360,7 +365,7 @@ public class UserService(RapidERPDbContext context, ISharedService shared) : IUs
             {
                 await context.Users.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                  .SetProperty(x => x.RoleId, masterPUT.RoleId)
-                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                 //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                  .SetProperty(x => x.Name, masterPUT.Name)
                  .SetProperty(x => x.Address, masterPUT.Address)
                  .SetProperty(x => x.Mobile, masterPUT.Mobile)
@@ -429,4 +434,16 @@ public class UserService(RapidERPDbContext context, ISharedService shared) : IUs
             return requestResponse;
         }
     }
+
+    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<UserPOST, UserPUT>.GetSingle(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    
 }

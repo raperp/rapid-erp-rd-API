@@ -21,9 +21,9 @@ public class UpdateAreaCommandHandler(IRepository repository)
             {
                 request.masterPUT.Name = (request.masterPUT.Name is not null) ? request.masterPUT.Name : masterRecord.Name;
                 request.masterPUT.Code = (request.masterPUT.Code is not null) ? request.masterPUT.Code : masterRecord.Code;
-                request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId is not null) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
+                //request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId is not null) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
                 request.masterPUT.TenantId = (request.masterPUT.TenantId is not null) ? request.masterPUT.TenantId : masterRecord.TenantId;
-                request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;
+                //request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;
                 //request.masterPUT.LanguageId = (request.masterPUT.LanguageId is not null) ? request.masterPUT.LanguageId : masterRecord.LanguageId;
                 request.masterPUT.CountryId = (request.masterPUT.CountryId != 0) ? request.masterPUT.CountryId : masterRecord.CountryId;
                 request.masterPUT.CityId = (request.masterPUT.CityId != 0) ? request.masterPUT.CityId : masterRecord.CityId;
@@ -37,9 +37,9 @@ public class UpdateAreaCommandHandler(IRepository repository)
                 masterRecord.CountryId = request.masterPUT.CountryId;
                 masterRecord.StateId = request.masterPUT.StateId;
                 masterRecord.CityId = request.masterPUT.CityId;
-                masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
+                //masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
                 masterRecord.TenantId = request.masterPUT.TenantId;
-                masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
+                //masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
                 //masterRecord.LanguageId = request.masterPUT.LanguageId;
                 masterRecord.IsDefault = request.masterPUT.IsDefault;
                 masterRecord.IsDraft = request.masterPUT.IsDraft;
@@ -54,7 +54,7 @@ public class UpdateAreaCommandHandler(IRepository repository)
                 history.StateId = request.masterPUT.StateId;
                 history.CityId = request.masterPUT.CityId;
                 //history.TenantId = request.masterPUT.TenantId;
-                history.ActionTypeId = request.masterPUT.ActionTypeId;
+                //history.ActionTypeId = request.masterPUT.ActionTypeId;
                 //history.MenuModuleId = request.masterPUT.MenuModuleId;
                 //history.LanguageId = request.masterPUT.LanguageId;
                 //history.ExportTypeId = request.masterPUT.ExportTypeId;

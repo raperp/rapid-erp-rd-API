@@ -19,7 +19,7 @@ public class DeleteAreaCommandHandler(IRepository repository)
 
                 foreach (var item in histories)
                 {
-                    await repository.DeleteQueryable(item);
+                    //await repository.DeleteQueryable(item);
                 }
 
                 await repository.Delete<Area>(request.id);

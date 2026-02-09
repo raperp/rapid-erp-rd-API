@@ -19,7 +19,7 @@ public class DeleteSubModuleCommandHandler(IRepository repository)
 
                 foreach (var item in histories)
                 {
-                    await repository.DeleteQueryable(item);
+                    //await repository.DeleteQueryable(item);
                 }
 
                 await repository.Delete<Submodule>(request.id);

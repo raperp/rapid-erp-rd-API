@@ -13,7 +13,7 @@ using RapidERP.Domain.Utilities;
 namespace RapidERP.Application.CQRS.CountryModule.Query.CountryMasterQueries.GetHistoryQuery;
 
 //public class GetHistoryCountryHandler(IRepository repository)
-public class GetHistoryCountryHandler(ICountryBService service)
+public class GetHistoryCountryHandler(ICountryService service)
 {
     RequestResponse requestResponse;
 
@@ -110,7 +110,7 @@ public class GetHistoryCountryHandler(ICountryBService service)
         //    return requestResponse;
         //}
 
-        var result = await service.GetHistory(query.skip, query.take, query.pageSize);
-        return result;
+        
+        return requestResponse;
     }
 }

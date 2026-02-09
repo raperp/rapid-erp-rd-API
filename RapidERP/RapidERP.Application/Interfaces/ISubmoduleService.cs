@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface ISubmoduleService : IBaseService<SubmodulePOST, SubmodulePUT> { }
+public interface ISubmoduleService : IBase<SubmodulePOST, SubmodulePUT> { }

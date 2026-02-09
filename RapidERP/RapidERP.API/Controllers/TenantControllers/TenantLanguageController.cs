@@ -10,9 +10,9 @@ namespace RapidERP.API.Controllers.TenantControllers;
 public class TenantLanguageController(ITenantLanguageService tenantLanguage) : ControllerBase
 {
     [HttpGet("GetAll")]
-    public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
+    public async Task<IActionResult> GetAll(int skip, int take)
     {
-        var result = await tenantLanguage.GetAll(skip, take, pageSize);
+        var result = await tenantLanguage.GetAll(skip, take);
         return Ok(result);
     }
 
@@ -23,12 +23,12 @@ public class TenantLanguageController(ITenantLanguageService tenantLanguage) : C
         return Ok(result);
     }
 
-    [HttpGet("GetHistory")]
-    public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
-    {
-        var result = await tenantLanguage.GetHistory(skip, take, pageSize);
-        return Ok(result);
-    }
+    //[HttpGet("GetHistory")]
+    //public async Task<IActionResult> GetHistory(int skip, int take)
+    //{
+    //    var result = await tenantLanguage.GetHistory(skip, take);
+    //    return Ok(result);
+    //}
 
     [HttpPost("CreateSingle")]
     public async Task<IActionResult> CreateSingle(TenantLanguagePOST masterPOST)
@@ -37,12 +37,12 @@ public class TenantLanguageController(ITenantLanguageService tenantLanguage) : C
         return Ok(result);
     }
 
-    [HttpPost("CreateBulk")]
-    public async Task<IActionResult> CreateBulk(List<TenantLanguagePOST> masterPOSTs)
-    {
-        var result = await tenantLanguage.CreateBulk(masterPOSTs);
-        return Ok(result);
-    }
+    //[HttpPost("CreateBulk")]
+    //public async Task<IActionResult> CreateBulk(List<TenantLanguagePOST> masterPOSTs)
+    //{
+    //    var result = await tenantLanguage.CreateBulk(masterPOSTs);
+    //    return Ok(result);
+    //}
 
     [HttpPut("Update")]
     public async Task<IActionResult> Update(TenantLanguagePUT masterPUT)

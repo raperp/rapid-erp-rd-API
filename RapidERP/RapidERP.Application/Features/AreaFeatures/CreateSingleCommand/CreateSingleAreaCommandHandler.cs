@@ -23,9 +23,9 @@ public record CreateSingleAreaCommandHandler(IRepository repository)
                 masterData.CountryId = request.masterPOST.CountryId;
                 masterData.StateId = request.masterPOST.StateId;
                 masterData.CityId = request.masterPOST.CityId;
-                masterData.StatusTypeId = request.masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = request.masterPOST.StatusTypeId;
                 masterData.TenantId = request.masterPOST.TenantId;
-                masterData.MenuModuleId = request.masterPOST.MenuModuleId;
+                //masterData.MenuModuleId = request.masterPOST.MenuModuleId;
                 //masterData.LanguageId = request.masterPOST.LanguageId;
                 masterData.IsDefault = request.masterPOST.IsDefault;
                 masterData.IsDraft = request.masterPOST.IsDraft;
@@ -40,7 +40,7 @@ public record CreateSingleAreaCommandHandler(IRepository repository)
                 history.StateId = request.masterPOST.StateId;
                 history.CityId = request.masterPOST.CityId;
                 //history.TenantId = request.masterPOST.TenantId;
-                history.ActionTypeId = request.masterPOST.ActionTypeId;
+                //history.ActionTypeId = request.masterPOST.ActionTypeId;
                 //history.MenuModuleId = request.masterPOST.MenuModuleId;
                 //history.LanguageId = request.masterPOST.LanguageId;
                 //history.ExportTypeId = request.masterPOST.ExportTypeId;

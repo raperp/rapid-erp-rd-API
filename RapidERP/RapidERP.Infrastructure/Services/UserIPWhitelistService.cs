@@ -54,7 +54,7 @@ public class UserIPWhitelistService(RapidERPDbContext context, ISharedService sh
             if (isExists == false)
             {
                 UserIPWhitelist masterData = new();
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.UserId = masterPOST.UserId;
                 masterData.IPAddress = masterPOST.IPAddress;
 
@@ -131,13 +131,13 @@ public class UserIPWhitelistService(RapidERPDbContext context, ISharedService sh
 
             var data = (from uiw in context.UserIPWhitelists
                         join u in context.Users on uiw.UserId equals u.Id
-                        join st in context.StatusTypes on uiw.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on uiw.StatusTypeId equals st.Id
                         select new
                         {
                             uiw.Id,
                             User = u.Name,
                             uiw.IPAddress,
-                            Status = st.Name
+                            //Status = st.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -182,6 +182,11 @@ public class UserIPWhitelistService(RapidERPDbContext context, ISharedService sh
 
             return requestResponse;
         }
+    }
+
+    public Task<RequestResponse> GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
@@ -284,7 +289,7 @@ public class UserIPWhitelistService(RapidERPDbContext context, ISharedService sh
             {
                 await context.UserIPWhitelists.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                  .SetProperty(x => x.UserId, masterPUT.UserId)
-                 .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                 //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                  .SetProperty(x => x.IPAddress, masterPUT.IPAddress));
 
                 UserIPWhitelistHistory history = new();
@@ -343,4 +348,16 @@ public class UserIPWhitelistService(RapidERPDbContext context, ISharedService sh
             return requestResponse;
         }
     }
+
+    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<UserIPWhitelistPOST, UserIPWhitelistPUT>.GetSingle(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+   
 }

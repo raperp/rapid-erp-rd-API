@@ -46,7 +46,7 @@ public static class RegisterLifetimeServices
         services.AddScoped<ICommunicationService, CommunicationService>();
         services.AddScoped<IUserIPWhitelistService, UserIPWhitelistService>();
         services.AddScoped<IRepository, Repository.Repository>();
-        services.AddScoped<ICountryBService, CountryBService>();
+        services.AddScoped<ICountryService, CountryService>();
         services.AddScoped<ICountryLocalization, CountryLocalizationService>();
         services.AddScoped<ICountryExport, CountryExportService>();
 

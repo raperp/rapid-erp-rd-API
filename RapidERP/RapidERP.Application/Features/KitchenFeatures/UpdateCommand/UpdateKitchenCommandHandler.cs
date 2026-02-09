@@ -22,9 +22,9 @@ public class UpdateKitchenCommandHandler(IRepository repository)
                 request.masterPUT.Name = (request.masterPUT.Name is not null) ? request.masterPUT.Name : masterRecord.Name;
                 request.masterPUT.Description = (request.masterPUT.Description is not null) ? request.masterPUT.Description : masterRecord.Description;
                 request.masterPUT.PrinterId = (request.masterPUT.PrinterId != 0) ? request.masterPUT.PrinterId : masterRecord.PrinterId;
-                request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId != 0) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;
+                //request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId != 0) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;
                 request.masterPUT.TenantId = (request.masterPUT.TenantId != 0) ? request.masterPUT.TenantId : masterRecord.TenantId;
-                request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId != 0) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
+                //request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId != 0) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
             }
 
             if (isExists == false)
@@ -32,9 +32,9 @@ public class UpdateKitchenCommandHandler(IRepository repository)
                 masterRecord.Name = request.masterPUT.Name;
                 masterRecord.Description = request.masterPUT.Description;
                 masterRecord.PrinterId = request.masterPUT.PrinterId;
-                masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
+                //masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
                 masterRecord.TenantId = request.masterPUT.TenantId;
-                masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
+                //masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
 
                 await repository.Update(masterRecord);
 
@@ -45,7 +45,7 @@ public class UpdateKitchenCommandHandler(IRepository repository)
                 history.PrinterId = request.masterPUT.PrinterId;
                 //history.TenantId = request.masterPUT.TenantId;
                 //history.MenuModuleId = request.masterPUT.MenuModuleId;
-                history.ActionTypeId = request.masterPUT.ActionTypeId;
+                //history.ActionTypeId = request.masterPUT.ActionTypeId;
                 //history.ExportTypeId = request.masterPUT.ExportTypeId;
                 //history.ExportTo = request.masterPUT.ExportTo;
                 //history.SourceURL = request.masterPUT.SourceURL;

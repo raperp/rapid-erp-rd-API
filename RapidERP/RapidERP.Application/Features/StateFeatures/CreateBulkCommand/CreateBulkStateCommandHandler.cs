@@ -20,9 +20,9 @@ public class CreateBulkStateCommandHandler(IRepository repository)
                 if (isExists == false)
                 {
                     State masterData = new();
-                    masterData.MenuModuleId = item.MenuModuleId;
+                    //masterData.MenuModuleId = item.MenuModuleId;
                     masterData.CountryId = item.CountryId;
-                    masterData.StatusTypeId = item.StatusTypeId;
+                    //masterData.StatusTypeId = item.StatusTypeId;
                     //masterData.LanguageId = item.LanguageId;
                     masterData.Code = item.Code;
                     masterData.Name = item.Name;
@@ -36,7 +36,7 @@ public class CreateBulkStateCommandHandler(IRepository repository)
                     //history.MenuModuleId = item.MenuModuleId;
                     history.CountryId = item.CountryId;
                     //history.LanguageId = item.LanguageId;
-                    history.ActionTypeId = item.ActionTypeId;
+                    //history.ActionTypeId = item.ActionTypeId;
                     //history.ExportTypeId = item.ExportTypeId;
                     //history.ExportTo = item.ExportTo;
                     //history.SourceURL = item.SourceURL;

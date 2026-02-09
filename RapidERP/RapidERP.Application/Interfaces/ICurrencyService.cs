@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface ICurrencyService : IBaseService<CurrencyPOST, CurrencyPUT> { }
+public interface ICurrencyService : IBase<CurrencyPOST, CurrencyPUT> { }

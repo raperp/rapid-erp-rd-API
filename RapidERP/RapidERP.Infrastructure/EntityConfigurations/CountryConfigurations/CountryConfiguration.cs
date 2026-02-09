@@ -8,20 +8,21 @@ public class CountryConfiguration : IEntityTypeConfiguration<Country>
     public void Configure(EntityTypeBuilder<Country> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.Name).HasMaxLength(40).IsRequired();
-        builder.Property(x => x.DialingCode).HasMaxLength(4).IsRequired();
+        //builder.Property(x => x.Name).HasMaxLength(40).IsRequired();
+        //builder.Property(x => x.DialingCode).HasMaxLength(4).IsRequired();
         builder.Property(x => x.ISO3Code).HasMaxLength(3).IsRequired();
         builder.Property(x => x.ISO2Code).HasMaxLength(2).IsRequired();
         builder.Property(x => x.ISONumeric).HasMaxLength(4).IsRequired();
         builder.Property(x => x.Code).HasMaxLength(4).IsRequired(false);
         builder.Property(x => x.FlagURL).IsRequired(false);
         //builder.Property(x => x.TenantId).IsRequired(false);
-        builder.Property(x => x.CreatedAt).IsRequired(false);
+        //builder.Property(x => x.CreatedAt).IsRequired();
         builder.Property(x => x.DraftedAt).IsRequired(false);
         builder.Property(x => x.UpdatedAt).IsRequired(false);
         builder.Property(x => x.DeletedAt).IsRequired(false);
 
         builder.Ignore(x => x.Tenant);
+        builder.Ignore(x => x.Name);
         //builder.Ignore(x => x.Language);
         //builder.Ignore(x => x.LanguageId);
 

@@ -22,14 +22,14 @@ public class GetSingleStateHandler(IRepository repository)
             var data = (from s in repository.Set<State>()
                         join mm in repository.Set<MenuModule>() on s.CountryId equals mm.Id
                         join c in repository.Set<Country>() on s.CountryId equals c.Id
-                        join st in repository.Set<StatusType>() on s.StatusTypeId equals st.Id
+                        //join st in repository.Set<StatusType>() on s.StatusTypeId equals st.Id
                         //join l in repository.Set<Language>() on s.LanguageId equals l.Id
-                        select new GetSingleStateResponseDTOModel
+                        select new  
                         {
                             Id = s.Id,
                             Menu = mm.Name,
                             Country = c.Name,
-                            Status = st.Name,
+                            //Status = st.Name,
                             //Language = l.Name,
                             Name = s.Name,
                             Code = s.Code,

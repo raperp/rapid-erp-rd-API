@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface IRoleService : IBaseService<RolePOST, RolePUT> { }
+public interface IRoleService : IBase<RolePOST, RolePUT> { }

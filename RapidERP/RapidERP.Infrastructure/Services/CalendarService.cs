@@ -55,9 +55,9 @@ public class CalendarService(RapidERPDbContext context, ISharedService shared) :
             {
                 Calendar masterData = new();
                 masterData.TenantId = masterPOST.TenantId;
-                masterData.MenuModuleId = masterPOST.MenuModuleId;
+                //masterData.MenuModuleId = masterPOST.MenuModuleId;
                 //masterData.LanguageId = masterPOST.LanguageId;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.Code = masterPOST.Code;
                 masterData.Name = masterPOST.Name;
                 masterData.StartDate = masterPOST.StartDate;
@@ -143,17 +143,17 @@ public class CalendarService(RapidERPDbContext context, ISharedService shared) :
 
             var data = (from c in context.Calendars
                         join t in context.Tenants on c.TenantId equals t.Id
-                        join mm in context.MenuModules on c.MenuModuleId equals mm.Id
+                        //join mm in context.MenuModules on c.MenuModuleId equals mm.Id
                         //join l in context.Languages on c.LanguageId equals l.Id
-                        join st in context.StatusTypes on c.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on c.StatusTypeId equals st.Id
 
                         select new
                         {
                             c.Id,
                             Tenant = t.Name,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             //Language = l.Name,
-                            Status = st.Name,
+                            //Status = st.Name,
                             c.Code,
                             c.Name,
                             c.StartDate,
@@ -203,6 +203,11 @@ public class CalendarService(RapidERPDbContext context, ISharedService shared) :
 
             return requestResponse;
         }
+    }
+
+    public Task<RequestResponse> GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
@@ -313,9 +318,9 @@ public class CalendarService(RapidERPDbContext context, ISharedService shared) :
             {
                 await context.Calendars.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.TenantId, masterPUT.TenantId)
-                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                //.SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                 //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.Code, masterPUT.Code)
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.StartDate, masterPUT.StartDate)
@@ -383,5 +388,43 @@ public class CalendarService(RapidERPDbContext context, ISharedService shared) :
 
             return requestResponse;
         }
+    }
+
+     
+
+    Task<RequestResponse> IBase<CalendarPOST, CalendarPUT>.CreateSingle(CalendarPOST masterPOST)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<CalendarPOST, CalendarPUT>.Delete(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<CalendarPOST, CalendarPUT>.GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
+    }
+
+    
+
+    Task<RequestResponse> IBase<CalendarPOST, CalendarPUT>.GetSingle(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    
+
+    
+
+    Task<RequestResponse> IBase<CalendarPOST, CalendarPUT>.Update(CalendarPUT masterPUT)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
     }
 }

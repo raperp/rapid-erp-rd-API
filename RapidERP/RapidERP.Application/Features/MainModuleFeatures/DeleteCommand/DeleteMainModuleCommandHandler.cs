@@ -19,7 +19,7 @@ public class DeleteMainModuleCommandHandler(IRepository repository)
 
                 foreach (var item in histories)
                 {
-                    await repository.DeleteQueryable(item);
+                    //await repository.DeleteQueryable(item);
                 }
 
                 await repository.Delete<MainModule>(request.id);

@@ -16,12 +16,12 @@ public record GetSingleTextModuleHandler(IRepository repository)
         try
         { 
             var data = (from tm in repository.Set<TextModule>()
-                        join mm in repository.Set<MenuModule>() on tm.MenuModuleId equals mm.Id
+                        //join mm in repository.Set<MenuModule>() on tm.MenuModuleId equals mm.Id
                         //join l in repository.Set<Language>() on tm.LanguageId equals l.Id
                         select new GetSingleTextModuleResponseDTOModel
                         {
                             Id = tm.Id,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             //Language = l.Name,
                             Name = tm.Name
                         }).AsNoTracking().AsQueryable();

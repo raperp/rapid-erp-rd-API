@@ -6,7 +6,7 @@ using RapidERP.Application.Interfaces;
 namespace RapidERP.Application.CQRS.CountryModule.Command.CountryMasterCommands.CreateSingleCommand;
 
 //public class CreateSingleCountryCommandHandler(IRepository repository)
-public class CreateSingleCountryCommandHandler(ICountryBService service)
+public class CreateSingleCountryCommandHandler(ICountryService service)
 {
     public async Task<RequestResponse> Handle(CreateSingleCountryCommand command)
     {

@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces.Tenant;
 
-public interface ITenantLicenseService : IBaseService<TenantLicensePOST, TenantLicensePUT> { }
+public interface ITenantLicenseService : IBase<TenantLicensePOST, TenantLicensePUT> { }

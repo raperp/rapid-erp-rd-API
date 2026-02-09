@@ -7,17 +7,17 @@ public class CreateSingleStateValidator : AbstractValidator<StatePOST>
 {
     public CreateSingleStateValidator()
     {
-        RuleFor(x => x.MenuModuleId)
-            .GreaterThan(0)
-            .WithMessage("Menu module is required.");
+        //RuleFor(x => x.MenuModuleId)
+        //    .GreaterThan(0)
+        //    .WithMessage("Menu module is required.");
 
         RuleFor(x => x.CountryId)
             .GreaterThan(0)
             .WithMessage("Country is required.");
 
-        RuleFor(x => x.StatusTypeId)
-            .GreaterThan(0)
-            .WithMessage("Status type is required.");
+        //RuleFor(x => x.StatusTypeId)
+        //    .GreaterThan(0)
+        //    .WithMessage("Status type is required.");
 
         RuleFor(x => x.LanguageId)
             .GreaterThan(0)

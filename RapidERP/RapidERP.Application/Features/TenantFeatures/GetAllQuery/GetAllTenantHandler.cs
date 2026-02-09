@@ -22,18 +22,18 @@ public class GetAllTenantHandler(IRepository repository)
             GetAllDTO result = new();
 
             var data = (from t in repository.Set<Tenant>()
-                        join mm in repository.Set<MenuModule>() on t.MenuModuleId equals mm.Id
+                        //join mm in repository.Set<MenuModule>() on t.MenuModuleId equals mm.Id
                         join c in repository.Set<Country>() on t.CountryId equals c.Id
                         join s in repository.Set<State>() on t.StateId equals s.Id
                         //join l in repository.Set<Language>() on t.LanguageId equals l.Id
-                        join st in repository.Set<StatusType>() on t.StatusTypeId equals st.Id
+                        //join st in repository.Set<StatusType>() on t.StatusTypeId equals st.Id
                         select new GetAllTenantResponseDTOModel
                         {
                             Id = t.Id,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             Country = c.Name,
                             State = s.Name,
-                            Status = st.Name,
+                            //Status = st.Name,
                             //Language = l.Name,
                             Name = t.Name,
                             Contact = t.Contact,
@@ -46,7 +46,7 @@ public class GetAllTenantHandler(IRepository repository)
 
             if (query.skip == 0 || query.take == 0)
             {
-                result.Count = await repository.GetCounts<Tenant>(query.pageSize);
+                result.Count = await repository.GetCounts<Tenant>();
                 result.Data = await data.ToListAsync();
 
                 _response = new()
@@ -60,7 +60,7 @@ public class GetAllTenantHandler(IRepository repository)
 
             else
             {
-                result.Count = await repository.GetCounts<Tenant>(query.pageSize);
+                result.Count = await repository.GetCounts<Tenant>();
                 result.Data = await data.Skip(query.skip).Take(query.take).ToListAsync();
 
                 _response = new()

@@ -33,7 +33,7 @@ public class GetAllMenuModuleHandler(IRepository repository)
 
             if (query.skip == 0 || query.take == 0)
             {
-                result.Count = await repository.GetCounts<MenuModule>(query.pageSize);
+                result.Count = await repository.GetCounts<MenuModule>();
                 result.Data = await data.ToListAsync();
 
                 _response = new()
@@ -47,7 +47,7 @@ public class GetAllMenuModuleHandler(IRepository repository)
 
             else
             {
-                result.Count = await repository.GetCounts<MenuModule>(query.pageSize);
+                result.Count = await repository.GetCounts<MenuModule>();
                 result.Data = await data.Skip(query.skip).Take(query.take).ToListAsync();
 
                 _response = new()

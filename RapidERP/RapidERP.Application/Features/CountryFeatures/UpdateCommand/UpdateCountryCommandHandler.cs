@@ -24,12 +24,12 @@ public class UpdateCountryCommandHandler(IRepository repository)
                 request.masterPUT.Name = (request.masterPUT.Name is not null) ? request.masterPUT.Name : masterRecord.Name;
                 request.masterPUT.ISO2Code = (request.masterPUT.ISO2Code is not null) ? request.masterPUT.ISO2Code : masterRecord.ISO2Code;
                 request.masterPUT.ISO3Code = (request.masterPUT.ISO3Code is not null) ? request.masterPUT.ISO3Code : masterRecord.ISO3Code;
-                request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId is not null) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
+                //request.masterPUT.MenuModuleId = (request.masterPUT.MenuModuleId is not null) ? request.masterPUT.MenuModuleId : masterRecord.MenuModuleId;
                 request.masterPUT.TenantId = (request.masterPUT.TenantId is not null) ? request.masterPUT.TenantId : masterRecord.TenantId;
-                request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;
+                //request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;
                 //request.masterPUT.LanguageId = (request.masterPUT.LanguageId is not null) ? request.masterPUT.LanguageId : masterRecord.LanguageId;
                 //request.masterPUT.CurrencyId = (request.masterPUT.CurrencyId is not null) ? request.masterPUT.CurrencyId : masterRecord.CurrencyId;
-                request.masterPUT.DialCode = (request.masterPUT.DialCode is not null) ? request.masterPUT.DialCode : masterRecord.DialingCode;
+                //request.masterPUT.DialCode = (request.masterPUT.DialCode is not null) ? request.masterPUT.DialCode : masterRecord.DialingCode;
                 request.masterPUT.FlagURL = (request.masterPUT.FlagURL is not null) ? request.masterPUT.FlagURL : masterRecord.FlagURL;
             }
 
@@ -50,12 +50,12 @@ public class UpdateCountryCommandHandler(IRepository repository)
                 //.SetProperty(x => x.ISO3Code, masterPUT.ISO3Code)
                 //.SetProperty(x => x.FlagURL, masterPUT.FlagURL));
 
-                masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
+                //masterRecord.MenuModuleId = request.masterPUT.MenuModuleId;
                 masterRecord.TenantId = request.masterPUT.TenantId;
-                masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
+                //masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
                 //masterRecord.LanguageId = request.masterPUT.LanguageId;
                 //masterRecord.CurrencyId = request.masterPUT.CurrencyId;
-                masterRecord.DialingCode = request.masterPUT.DialCode;
+                //masterRecord.DialingCode = request.masterPUT.DialCode;
                 masterRecord.Name = request.masterPUT.Name;
                 masterRecord.IsDefault = request.masterPUT.IsDefault;
                 masterRecord.IsDraft = request.masterPUT.IsDraft;
@@ -71,15 +71,15 @@ public class UpdateCountryCommandHandler(IRepository repository)
                 //history.CurrencyId = request.masterPUT.CurrencyId;
                 //history.TenantId = request.masterPUT.TenantId;
                 //history.MenuModuleId = request.masterPUT.MenuModuleId;
-                history.ActionTypeId = request.masterPUT.ActionTypeId;
+                //history.ActionTypeId = request.masterPUT.ActionTypeId;
                 //history.LanguageId = request.masterPUT.LanguageId;
                 //history.ExportTypeId = request.masterPUT.ExportTypeId;
                 //history.ExportTo = request.masterPUT.ExportTo;
                 //history.SourceURL = request.masterPUT.SourceURL;
-                history.DialingCode = request.masterPUT.DialCode;
+                //history.DialingCode = request.masterPUT.DialCode;
                 history.Name = request.masterPUT.Name;
-                history.IsDefault = request.masterPUT.IsDefault;
-                history.IsDraft = request.masterPUT.IsDraft;
+                //history.IsDefault = request.masterPUT.IsDefault;
+                //history.IsDraft = request.masterPUT.IsDraft;
                 history.ISONumeric = request.masterPUT.ISONumeric;
                 history.ISO2Code = request.masterPUT.ISO2Code;
                 history.ISO3Code = request.masterPUT.ISO3Code;

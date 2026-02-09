@@ -9,9 +9,9 @@ namespace RapidERP.API.Controllers;
 public class UserIPWhitelistController(IUserIPWhitelistService userIPWhitelist) : ControllerBase
 {
     [HttpGet("GetAll")]
-    public async Task<IActionResult> GetAll(int skip, int take, int pageSize)
+    public async Task<IActionResult> GetAll(int skip, int take)
     {
-        var result = await userIPWhitelist.GetAll(skip, take, pageSize);
+        var result = await userIPWhitelist.GetAll(skip, take);
         return Ok(result);
     }
 
@@ -22,12 +22,12 @@ public class UserIPWhitelistController(IUserIPWhitelistService userIPWhitelist) 
         return Ok(result);
     }
 
-    [HttpGet("GetHistory")]
-    public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
-    {
-        var result = await userIPWhitelist.GetHistory(skip, take, pageSize);
-        return Ok(result);
-    }
+    //[HttpGet("GetHistory")]
+    //public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
+    //{
+    //    var result = await userIPWhitelist.GetHistory(skip, take, pageSize);
+    //    return Ok(result);
+    //}
 
     [HttpPost("CreateSingle")]
     public async Task<IActionResult> CreateSingle(UserIPWhitelistPOST masterPOST)
@@ -36,12 +36,12 @@ public class UserIPWhitelistController(IUserIPWhitelistService userIPWhitelist) 
         return Ok(result);
     }
 
-    [HttpPost("CreateBulk")]
-    public async Task<IActionResult> CreateBulk(List<UserIPWhitelistPOST> masterPOSTs)
-    {
-        var result = await userIPWhitelist.CreateBulk(masterPOSTs);
-        return Ok(result);
-    }
+    //[HttpPost("CreateBulk")]
+    //public async Task<IActionResult> CreateBulk(List<UserIPWhitelistPOST> masterPOSTs)
+    //{
+    //    var result = await userIPWhitelist.CreateBulk(masterPOSTs);
+    //    return Ok(result);
+    //}
 
     [HttpPut("Update")]
     public async Task<IActionResult> Update(UserIPWhitelistPUT masterPUT)
@@ -50,10 +50,10 @@ public class UserIPWhitelistController(IUserIPWhitelistService userIPWhitelist) 
         return Ok(result);
     }
 
-    [HttpPut("Delete")]
-    public async Task<IActionResult> SoftDelete(int id)
-    {
-        var result = await userIPWhitelist.SoftDelete(id);
-        return Ok(result);
-    }
+    //[HttpPut("Delete")]
+    //public async Task<IActionResult> SoftDelete(int id)
+    //{
+    //    var result = await userIPWhitelist.UpdateStatus(id);
+    //    return Ok(result);
+    //}
 }

@@ -54,9 +54,9 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
             {
                 Currency masterData = new();
                 masterData.TenantId = masterPOST.TenantId;
-                masterData.MenuModuleId = masterPOST.MenuModuleId;
+                //masterData.MenuModuleId = masterPOST.MenuModuleId;
                 //masterData.LanguageId = masterPOST.LanguageId;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.Code = masterPOST.Code;
                 masterData.Name = masterPOST.Name;
                 masterData.Icon = masterPOST.Icon;
@@ -71,7 +71,7 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                 //history.TenantId = masterPOST.TenantId;
                 //history.MenuModuleId = masterPOST.MenuModuleId;
                 //history.LanguageId = masterPOST.LanguageId;
-                history.ActionTypeId = masterPOST.ActionTypeId;
+                //history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
                 //history.ExportTo = masterPOST.ExportTo;
                 //history.SourceURL = masterPOST.SourceURL;
@@ -200,17 +200,17 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
 
             var data = (from c in context.Currencies
                         join t in context.Tenants on c.TenantId equals t.Id
-                        join mm in context.MenuModules on c.MenuModuleId equals mm.Id
+                        //join mm in context.MenuModules on c.MenuModuleId equals mm.Id
                         //join l in context.Languages on c.LanguageId equals l.Id
-                        join st in context.StatusTypes on c.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on c.StatusTypeId equals st.Id
                         
                         select new
                         {
                             c.Id,
                             Tenant = t.Name,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             //Language = l.Name,
-                            Status = st.Name,
+                            //Status = st.Name,
                             c.Code,
                             c.Name,
                             c.Icon,
@@ -260,6 +260,11 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
 
             return requestResponse;
         }
+    }
+
+    public Task<RequestResponse> GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
@@ -370,9 +375,9 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
             {
                 await context.Currencies.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
                 .SetProperty(x => x.TenantId, masterPUT.TenantId)
-                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                //.SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                 //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.Code, masterPUT.Code)
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Icon, masterPUT.Icon)
@@ -384,7 +389,7 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                 //history.TenantId = masterPUT.TenantId;
                 //history.MenuModuleId = masterPUT.MenuModuleId;
                 //history.LanguageId = masterPUT.LanguageId;
-                history.ActionTypeId = masterPUT.ActionTypeId;
+                //history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;
                 //history.ExportTo = masterPUT.ExportTo;
                 //history.SourceURL = masterPUT.SourceURL;
@@ -441,4 +446,16 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
             return requestResponse;
         }
     }
+
+    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<CurrencyPOST, CurrencyPUT>.GetSingle(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    
 }

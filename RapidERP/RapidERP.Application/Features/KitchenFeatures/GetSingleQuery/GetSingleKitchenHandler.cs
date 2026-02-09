@@ -15,14 +15,14 @@ public class GetSingleKitchenHandler(IRepository repository)
         try
         { 
             var data = (from k in repository.Set<Kitchen>()
-                        join st in repository.Set<StatusType>() on k.StatusTypeId equals st.Id
+                        //join st in repository.Set<StatusType>() on k.StatusTypeId equals st.Id
                         select new GetSingleKitchenResponseDTOModel
                         {
                             Id = k.Id,
                             Name = k.Name,
                             Description = k.Description,
                             PrinterId = k.PrinterId,
-                            Status = st.Name
+                            //Status = st.Name
                         }).AsNoTracking().AsQueryable(); 
             
             var result = await data.Where(x => x.Id == query.id).ToListAsync();

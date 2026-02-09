@@ -21,16 +21,16 @@ public class GetSingleCurrencyHandler(IRepository repository)
         {
             var data = (from c in repository.Set<Currency>()
                         join t in repository.Set<Tenant>() on c.TenantId equals t.Id
-                        join mm in repository.Set<MenuModule>() on c.MenuModuleId equals mm.Id
+                        //join mm in repository.Set<MenuModule>() on c.MenuModuleId equals mm.Id
                         //join l in repository.Set<Language>() on c.LanguageId equals l.Id
-                        join st in repository.Set<StatusType>() on c.StatusTypeId equals st.Id
-                        select new GetSingleCurrencyResponseDTOModel
+                        //join st in repository.Set<StatusType>() on c.StatusTypeId equals st.Id
+                        select new  
                         {
                             Id = c.Id,
                             Tenant = t.Name,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             //Language = l.Name,
-                            Status = st.Name,
+                            //Status = st.Name,
                             Code = c.Code,
                             Name = c.Name,
                             Icon = c.Icon,

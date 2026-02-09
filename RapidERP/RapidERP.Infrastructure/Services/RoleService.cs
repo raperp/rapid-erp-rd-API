@@ -55,14 +55,14 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
             {
                 Role masterData = new();
                 masterData.Name = masterPOST.Name;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = masterPOST.StatusTypeId;
 
                 await context.Roles.AddAsync(masterData);
                 //await context.SaveChangesAsync();
 
                 RoleHistory history = new();
                 history.RoleId = masterData.Id;
-                history.ActionTypeId = masterPOST.ActionTypeId;
+                //history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
                 history.Name = masterPOST.Name;
                 //history.ExportTo = masterPOST.ExportTo;
@@ -188,12 +188,12 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
             GetAllDTO result = new();
 
             var data = (from r in context.Roles
-                        join st in context.StatusTypes on r.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on r.StatusTypeId equals st.Id
                         select new
                         {
                             r.Id,
-                            r.Name,
-                            Status = st.Name
+                            r.Name
+                            //Status = st.Name
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -238,6 +238,11 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
 
             return requestResponse;
         }
+    }
+
+    public Task<RequestResponse> GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
@@ -336,12 +341,12 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
             if (isExists == false)
             {
                 await context.Roles.Where(x => x.Id == masterPUT.Id).ExecuteUpdateAsync(x => x
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.Name, masterPUT.Name));
 
                 RoleHistory history = new();
                 history.RoleId = masterPUT.Id;
-                history.ActionTypeId = masterPUT.ActionTypeId;
+                //history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;
                 history.Name = masterPUT.Name;
                 //history.ExportTo = masterPUT.ExportTo;
@@ -396,4 +401,16 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
             return requestResponse;
         }
     }
+
+    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<RolePOST, RolePUT>.GetSingle(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    
 }

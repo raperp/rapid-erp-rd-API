@@ -58,9 +58,9 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                 masterData.CountryId = masterPOST.CountryId;
                 masterData.StateId = masterPOST.StateId;
                 masterData.CityId = masterPOST.CityId;
-                masterData.StatusTypeId = masterPOST.StatusTypeId;
+                //masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.TenantId = masterPOST.TenantId;
-                masterData.MenuModuleId = masterPOST.MenuModuleId;
+                //masterData.MenuModuleId = masterPOST.MenuModuleId;
                 //masterData.LanguageId = masterPOST.LanguageId;
                 masterData.IsDefault = masterPOST.IsDefault;
                 masterData.IsDraft = masterPOST.IsDraft;
@@ -77,7 +77,7 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                 history.StateId = masterPOST.StateId;
                 history.CityId = masterPOST.CityId;
                 //history.TenantId = masterPOST.TenantId;
-                history.ActionTypeId = masterPOST.ActionTypeId;
+                //history.ActionTypeId = masterPOST.ActionTypeId;
                 //history.MenuModuleId = masterPOST.MenuModuleId;
                 //history.LanguageId = masterPOST.LanguageId;
                 //history.ExportTypeId = masterPOST.ExportTypeId;
@@ -204,11 +204,11 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
             GetAllDTO result = new();
 
             var data = (from a in context.Areas
-                        join st in context.StatusTypes on a.StatusTypeId equals st.Id
+                        //join st in context.StatusTypes on a.StatusTypeId equals st.Id
                         join co in context.Countries on a.CountryId equals co.Id
                         join sta in context.States on a.StateId equals sta.Id
                         join ci in context.Cities on a.CityId equals ci.Id
-                        join mm in context.MenuModules on a.MenuModuleId equals mm.Id
+                        //join mm in context.MenuModules on a.MenuModuleId equals mm.Id
                         join t in context.Tenants on a.TenantId equals t.Id
                         //join l in context.Languages on a.LanguageId equals l.Id
                         select new
@@ -218,10 +218,10 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                             a.Code,
                             Tanent = t.Name,
                             //Language = l.Name,
-                            MenuModule = mm.Name,
+                            //MenuModule = mm.Name,
                             Country = co.Name,
                             State = sta.Name,
-                            Status = st.Name,
+                            //Status = st.Name,
                             City = ci.Name
                         }).AsNoTracking().AsQueryable();
 
@@ -267,6 +267,11 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
 
             return requestResponse;
         }
+    }
+
+    public Task<RequestResponse> GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<RequestResponse> GetHistory(int skip, int take, int pageSize)
@@ -382,9 +387,9 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                 .SetProperty(x => x.CountryId, masterPUT.CountryId)
                 .SetProperty(x => x.StateId, masterPUT.StateId)
                 .SetProperty(x => x.CityId, masterPUT.CityId)
-                .SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
+                //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
                 .SetProperty(x => x.TenantId, masterPUT.TenantId)
-                .SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
+                //.SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                 //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
                 .SetProperty(x => x.IsDraft, masterPUT.IsDraft));
@@ -397,7 +402,7 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                 history.StateId = masterPUT.StateId;
                 history.CityId = masterPUT.CityId;
                 //history.TenantId = masterPUT.TenantId;
-                history.ActionTypeId = masterPUT.ActionTypeId;
+                //history.ActionTypeId = masterPUT.ActionTypeId;
                 //history.MenuModuleId = masterPUT.MenuModuleId;
                 //history.LanguageId = masterPUT.LanguageId;
                 //history.ExportTypeId = masterPUT.ExportTypeId;
@@ -452,5 +457,39 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
 
             return requestResponse;
         }
+    }
+
+    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<AreaPOST, AreaPUT>.CreateSingle(AreaPOST masterPOST)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<AreaPOST, AreaPUT>.Delete(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    Task<RequestResponse> IBase<AreaPOST, AreaPUT>.GetAll(int skip, int take)
+    {
+        throw new NotImplementedException();
+    }
+
+    
+
+    Task<RequestResponse> IBase<AreaPOST, AreaPUT>.GetSingle(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    
+
+    Task<RequestResponse> IBase<AreaPOST, AreaPUT>.Update(AreaPUT masterPUT)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -13,7 +13,7 @@ public class TenantConfiguration : IEntityTypeConfiguration<Tenant>
         builder.Property(x => x.MenuModuleId).HasColumnOrder(1);
         builder.Property(x => x.CountryId).IsRequired(false).HasColumnOrder(2);
         builder.Property(x => x.StateId).IsRequired(false).HasColumnOrder(3);
-        builder.Property(x => x.StatusTypeId).HasColumnOrder(4);
+        //builder.Property(x => x.StatusTypeId).HasColumnOrder(4);
         //builder.Property(x => x.LanguageId).HasColumnOrder(5);
         builder.Property(x => x.Name).HasMaxLength(40).IsRequired().HasColumnOrder(6);
         builder.Property(x => x.Contact).HasMaxLength(30).IsRequired().HasColumnOrder(7);

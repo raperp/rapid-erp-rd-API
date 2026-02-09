@@ -22,9 +22,9 @@ public class CreateBulkDepartmentCommandHandler(IRepository repository)
                     Department masterData = new();
                     masterData.Name = item.Name;
                     masterData.Description = item.Description;
-                    masterData.StatusTypeId = item.StatusTypeId;
+                    //masterData.StatusTypeId = item.StatusTypeId;
                     masterData.TenantId = item.TenantId;
-                    masterData.MenuModuleId = item.MenuModuleId;
+                    //masterData.MenuModuleId = item.MenuModuleId;
                     //masterData.LanguageId = item.LanguageId;
                     masterData.IsDefault = item.IsDefault;
                     masterData.IsDraft = item.IsDraft;
@@ -38,7 +38,7 @@ public class CreateBulkDepartmentCommandHandler(IRepository repository)
                     //history.TenantId = item.TenantId;
                     //history.MenuModuleId = item.MenuModuleId;
                     //history.LanguageId = item.LanguageId;
-                    history.ActionTypeId = item.ActionTypeId;
+                    //history.ActionTypeId = item.ActionTypeId;
                     //history.ExportTypeId = item.ExportTypeId;
                     //history.ExportTo = item.ExportTo;
                     //history.SourceURL = item.SourceURL;
