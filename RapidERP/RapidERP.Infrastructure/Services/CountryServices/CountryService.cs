@@ -6,8 +6,11 @@ using RapidERP.Application.Interfaces;
 using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.ActionTypeModels;
 using RapidERP.Domain.Entities.CountryModels;
+using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Entities.TenantModels;
 using RapidERP.Domain.Utilities;
+using System.Data;
+using UpdateStatus = RapidERP.Application.DTOs.Shared.UpdateStatus;
 
 namespace RapidERP.Infrastructure.Services.CountryServices;
 
@@ -15,39 +18,7 @@ public class CountryService(IRepository repository) : ICountryService
 {
     RequestResponse requestResponse;
 
-    public async Task<RequestResponse> CreateBulk(List<CountryPOST> masterPOSTs)
-    {
-        try
-        {
-            requestResponse = new();
-
-            foreach (var masterPOST in masterPOSTs)
-            {
-                var task = CreateSingle(masterPOST);
-                var result = await Task.WhenAll(task);
-                requestResponse.Message = result.FirstOrDefault().Message;
-                requestResponse.IsSuccess = result.FirstOrDefault().IsSuccess;
-                requestResponse.StatusCode = result.FirstOrDefault().StatusCode;
-                requestResponse.Data = result.FirstOrDefault().Data;
-            }
-
-            return requestResponse;
-        }
-
-        catch
-        {
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
-                IsSuccess = false,
-                Message = ResponseMessage.WrongDataInput
-            };
-
-            return requestResponse;
-        }
-    } 
-
-    public async Task<RequestResponse> CreateSingle(CountryPOST masterPOST)
+    public async Task<RequestResponse> Create(CountryPOST masterPOST)
     {
         try
         {
@@ -256,7 +227,7 @@ public class CountryService(IRepository repository) : ICountryService
         }
     }
 
-    public async Task<RequestResponse> GetSingle(int id)
+    public async Task<RequestResponse> GetById(int id)
     {
         try
         {
@@ -308,9 +279,34 @@ public class CountryService(IRepository repository) : ICountryService
         }
     }
 
-    public Task<RequestResponse> Restore(int id)
+    public async Task<RequestResponse> Restore(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var result = await repository.Restore<Country>(id);
+
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                IsSuccess = true,
+                Message = ResponseMessage.UpdateSuccess,
+                Data = result
+            };
+
+            return requestResponse;
+        }
+
+        catch (Exception ex)
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ex.Message
+            };
+
+            return requestResponse;
+        }
     }
 
     public async Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
@@ -438,6 +434,94 @@ public class CountryService(IRepository repository) : ICountryService
                 StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
                 IsSuccess = false,
                 Message = ResponseMessage.WrongDataInput
+            };
+
+            return requestResponse;
+        }
+    }
+
+    public async Task<RequestResponse> Lookup()
+    {
+        try
+        {
+            var data = (from cl in repository.Set<CountryLocalization>()
+                        join c in repository.Set<Country>() on cl.CountryId equals c.Id
+                        join l in repository.Set<Language>() on cl.LanguageId equals l.Id
+                        select new
+                        {
+                            c.Id,
+                            Country = c.Name,
+                            Language = l.Name,
+                            Localization = cl.Name,
+                            c.ISONumeric,
+                            c.ISO2Code,
+                            c.ISO3Code
+                        }).AsNoTracking().AsQueryable();
+
+            var result = await data.ToListAsync();
+
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                IsSuccess = true,
+                Message = ResponseMessage.FetchSuccess,
+                Data = result 
+            };
+
+            return requestResponse;
+        }
+
+        catch (Exception ex)
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ex.Message
+            };
+
+            return requestResponse;
+        }
+    }
+
+    public async Task<RequestResponse> GetAllLookupsLocalization()
+    {
+        try
+        {
+            var data = (from cl in repository.Set<CountryLocalization>()
+                        join c in repository.Set<Country>() on cl.CountryId equals c.Id
+                        join l in repository.Set<Language>() on cl.LanguageId equals l.Id
+                        select new
+                        {
+                            c.Id,
+                            Country = c.Name,
+                            Language = l.Name,
+                            Localization = cl.Name,
+                            c.ISONumeric,
+                            c.ISO2Code,
+                            c.ISO3Code
+                        }).AsNoTracking().AsQueryable();
+
+            var result = await data.ToListAsync();
+
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                IsSuccess = true,
+                Message = ResponseMessage.FetchSuccess,
+                Data = result
+            };
+
+            return requestResponse;
+        }
+
+        catch (Exception ex)
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ex.Message
             };
 
             return requestResponse;

@@ -11,7 +11,6 @@ namespace RapidERP.API.Controllers;
 public class CountryController(ICountryService service, ICountryLocalization localizationService, ICountryExport exportService, ILogger<CountryController> logger) : ControllerBase
 {  
     [HttpGet("GetAll")]
-    //[ProducesResponseType(typeof(GetAllCountryResponseDTOModel), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll(int skip, int take)
     {
         logger.LogInformation("GetAll called with skip: {skip}, take: {take}", skip, take);
@@ -21,55 +20,31 @@ public class CountryController(ICountryService service, ICountryLocalization loc
         return Ok(result);
     }
 
-    [HttpGet("GetSingle")]
-    //[ProducesResponseType(typeof(GetSingleCountryResponseDTOModel), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetSingle(int id)
+    [HttpGet("GetById")]
+    public async Task<IActionResult> GetById(int id)
     {
         logger.LogInformation("GetSingle called with id: {id}", id);
         //var result = await bus.InvokeAsync<RequestResponse>(new GetSingleCountryCommand(id));
-        var result = await service.GetSingle(id);
+        var result = await service.GetById(id);
         return Ok(result);
     }
 
-    //[HttpGet("GetHistory")]
-    ////[ProducesResponseType(typeof(GetHistoryCountryResponseDTOModel), StatusCodes.Status200OK)]
-    //public async Task<IActionResult> GetHistory(int skip, int take, int pageSize)
-    //{
-    //    logger.LogInformation("GetHistory called with skip: {skip}, take: {take}, pageSize: {pageSize}", skip, take, pageSize);
-    //    var query = new GetHistoryCountryCommand(skip, take, pageSize);
-    //    var result = await bus.InvokeAsync<RequestResponse>(query);
-    //    //var result = await service.GetHistory(skip, take, pageSize);
-    //    return Ok(result);
-    //}
+    [HttpGet("Lookup")]
+    public async Task<IActionResult> Lookup()
+    {
+        logger.LogInformation("Lookup called");
+        var result = await service.Lookup();
+        return Ok(result);
+    }
 
-    
-
-    [HttpPost("CreateSingle")]
-    public async Task<IActionResult> CreateSingle(CountryPOST masterPOST)
+    [HttpPost("Create")]
+    public async Task<IActionResult> Create(CountryPOST masterPOST)
     {
         logger.LogInformation("CreateSingle called");
         //var result = await bus.InvokeAsync<RequestResponse>(new CreateSingleCountryCommand(masterPOST));
-        var result = await service.CreateSingle(masterPOST);
+        var result = await service.Create(masterPOST);
         return Ok(result);
     }
-
-    //[HttpPost("CreateCountryLocalization")]
-    //public async Task<IActionResult> CreateCountryLocalization(CountryLocalizationPOST localization)
-    //{
-    //    logger.LogInformation("Create Country Localization called");
-    //    var result = await bus.InvokeAsync<RequestResponse>(new CreateCountryLocalizationCommand(localization));
-    //    //var result = await localizationService.Create(localization);
-    //    return Ok(result);
-    //}
-
-    //[HttpPost("CreateBulk")]
-    //public async Task<IActionResult> CreateBulk(List<CountryPOST> masterPOSTs)
-    //{
-    //    logger.LogInformation("CreateBulk called");
-    //    //var result = await bus.InvokeAsync<RequestResponse>(new CreateBulkCountryCommand(masterPOSTs));
-    //    var result = await service.CreateBulk(masterPOSTs);
-    //    return Ok(result);
-    //}
 
     [HttpPut("Update")]
     public async Task<IActionResult> Update(CountryPUT masterPUT)
@@ -80,21 +55,21 @@ public class CountryController(ICountryService service, ICountryLocalization loc
         return Ok(result);
     }
 
-    //[HttpPut("UpdateCountryLocalization")]
-    //public async Task<IActionResult> UpdateCountryLocalization(CountryLocalizationPUT localization)
-    //{
-    //    logger.LogInformation("Update called");
-    //    //var result = await bus.InvokeAsync<RequestResponse>(new UpdateCountryLocalizationCommand(localization));
-    //    var result = await localizationService.Update(localization);
-    //    return Ok(result);
-    //}
-
     [HttpPut("UpdateStatus")]
-    public async Task<IActionResult> SoftDelete(UpdateStatus updateStatus)
+    public async Task<IActionResult> UpdateStatus(UpdateStatus updateStatus)
     {
         logger.LogInformation("Update Status action performed");
         //var result = await bus.InvokeAsync<RequestResponse>(new SoftDeleteCountryCommand(id));
         var result = await service.UpdateStatus(updateStatus);
+        return Ok(result);
+    }
+
+    [HttpPut("Restore")]
+    public async Task<IActionResult> Restore(int id)
+    {
+        logger.LogInformation("Restore performed");
+        //var result = await bus.InvokeAsync<RequestResponse>(new SoftDeleteCountryCommand(id));
+        var result = await service.Restore(id);
         return Ok(result);
     }
 
@@ -108,7 +83,6 @@ public class CountryController(ICountryService service, ICountryLocalization loc
     }
 
     [HttpGet("GetAllCountryLocalizations")]
-    //[ProducesResponseType(typeof(CountryTemplate), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllCountryLocalizations()
     {
         logger.LogInformation("Get All Country Localizations called");

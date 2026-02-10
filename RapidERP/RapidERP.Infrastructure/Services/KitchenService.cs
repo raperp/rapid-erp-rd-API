@@ -20,7 +20,7 @@ namespace RapidERP.Infrastructure.Services
 
                 foreach (var masterPOST in masterPOSTs)
                 {
-                    var task = CreateSingle(masterPOST);
+                    var task = Create(masterPOST);
                     var result = await Task.WhenAll(task);
                     requestResponse.Message = result.FirstOrDefault().Message;
                     requestResponse.IsSuccess = result.FirstOrDefault().IsSuccess;
@@ -44,7 +44,7 @@ namespace RapidERP.Infrastructure.Services
             }
         }
 
-        public async Task<RequestResponse> CreateSingle(KitchenPOST masterPOST)
+        public async Task<RequestResponse> Create(KitchenPOST masterPOST)
         {
             try
             {
@@ -424,11 +424,19 @@ namespace RapidERP.Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        Task<RequestResponse> IBase<KitchenPOST, KitchenPUT>.GetSingle(int id)
+        Task<RequestResponse> IBase<KitchenPOST, KitchenPUT>.GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        
+        public Task<RequestResponse> Lookup()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<RequestResponse> Restore(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

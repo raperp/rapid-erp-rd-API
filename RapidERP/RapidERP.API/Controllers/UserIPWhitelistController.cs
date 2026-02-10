@@ -18,7 +18,7 @@ public class UserIPWhitelistController(IUserIPWhitelistService userIPWhitelist) 
     [HttpGet("GetSingle")]
     public async Task<IActionResult> GetSingle(int id)
     {
-        var result = await userIPWhitelist.GetSingle(id);
+        var result = await userIPWhitelist.GetById(id);
         return Ok(result);
     }
 
@@ -32,7 +32,7 @@ public class UserIPWhitelistController(IUserIPWhitelistService userIPWhitelist) 
     [HttpPost("CreateSingle")]
     public async Task<IActionResult> CreateSingle(UserIPWhitelistPOST masterPOST)
     {
-        var result = await userIPWhitelist.CreateSingle(masterPOST);
+        var result = await userIPWhitelist.Create(masterPOST);
         return Ok(result);
     }
 

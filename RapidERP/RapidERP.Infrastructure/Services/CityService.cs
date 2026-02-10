@@ -447,7 +447,7 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
 
      
 
-    Task<RequestResponse> IBase<CityPOST, CityPUT>.CreateSingle(CityPOST masterPOST)
+    Task<RequestResponse> IBase<CityPOST, CityPUT>.Create(CityPOST masterPOST)
     {
         throw new NotImplementedException();
     }
@@ -464,7 +464,7 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
 
     
 
-    Task<RequestResponse> IBase<CityPOST, CityPUT>.GetSingle(int id)
+    Task<RequestResponse> IBase<CityPOST, CityPUT>.GetById(int id)
     {
         throw new NotImplementedException();
     }
@@ -479,6 +479,16 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
     }
 
     public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> Lookup()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> Restore(int id)
     {
         throw new NotImplementedException();
     }

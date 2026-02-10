@@ -18,7 +18,7 @@ public class TenantCalendarController(ITenantCalendarService tenantCalendar) : C
     [HttpGet("GetSingle")]
     public async Task<IActionResult> GetSingle(int id)
     {
-        var result = await tenantCalendar.GetSingle(id);
+        var result = await tenantCalendar.GetById(id);
         return Ok(result);
     }
 
@@ -32,7 +32,7 @@ public class TenantCalendarController(ITenantCalendarService tenantCalendar) : C
     [HttpPost("CreateSingle")]
     public async Task<IActionResult> CreateSingle(TenantCalendarPOST masterPOST)
     {
-        var result = await tenantCalendar.CreateSingle(masterPOST);
+        var result = await tenantCalendar.Create(masterPOST);
         return Ok(result);
     }
 

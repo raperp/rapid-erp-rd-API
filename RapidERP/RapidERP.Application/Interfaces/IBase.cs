@@ -6,10 +6,11 @@ namespace RapidERP.Application.Interfaces;
 public interface IBase<POSTEntity, PUTEntity> where POSTEntity : class
 {
     Task<RequestResponse> GetAll(int skip, int take);
-    Task<RequestResponse> GetSingle(int id); 
-    Task<RequestResponse> CreateSingle(POSTEntity masterPOST);
-    //Task<RequestResponse> CreateBulk(List<POSTEntity> masterPOSTs);
+    Task<RequestResponse> GetById(int id); 
+    Task<RequestResponse> Create(POSTEntity masterPOST);
+    Task<RequestResponse> Lookup();
     Task<RequestResponse> Update(PUTEntity masterPUT);
     Task<RequestResponse> Delete(int id);
     Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus); 
+    Task<RequestResponse> Restore(int id); 
 }

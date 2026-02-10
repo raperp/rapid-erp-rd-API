@@ -68,7 +68,7 @@ public class GetSingleCountryHandler(ICountryService service)
 
         //    return requestResponse;
         //}
-        var result = await service.GetSingle(request.id);
+        var result = await service.GetById(request.id);
         return result;
     }
 }

@@ -367,6 +367,16 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
         throw new NotImplementedException();
     }
 
+    public Task<RequestResponse> Lookup()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> Restore(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<dynamic> SoftDelete(int id)
     {
         throw new NotImplementedException();
@@ -464,7 +474,7 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
         throw new NotImplementedException();
     }
 
-    Task<RequestResponse> IBase<AreaPOST, AreaPUT>.CreateSingle(AreaPOST masterPOST)
+    Task<RequestResponse> IBase<AreaPOST, AreaPUT>.Create(AreaPOST masterPOST)
     {
         throw new NotImplementedException();
     }
@@ -481,7 +491,7 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
 
     
 
-    Task<RequestResponse> IBase<AreaPOST, AreaPUT>.GetSingle(int id)
+    Task<RequestResponse> IBase<AreaPOST, AreaPUT>.GetById(int id)
     {
         throw new NotImplementedException();
     }

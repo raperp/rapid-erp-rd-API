@@ -21,7 +21,7 @@ public class TenantLanguageService(RapidERPDbContext context, ISharedService sha
 
             foreach (var masterPOST in masterPOSTs)
             {
-                var task = CreateSingle(masterPOST);
+                var task = Create(masterPOST);
                 var result = await Task.WhenAll(task);
                 requestResponse.Message = result.FirstOrDefault().Message;
                 requestResponse.IsSuccess = result.FirstOrDefault().IsSuccess;
@@ -45,7 +45,7 @@ public class TenantLanguageService(RapidERPDbContext context, ISharedService sha
         }
     }
 
-    public async Task<RequestResponse> CreateSingle(TenantLanguagePOST masterPOST)
+    public async Task<RequestResponse> Create(TenantLanguagePOST masterPOST)
     {
         try
         {
@@ -369,10 +369,18 @@ public class TenantLanguageService(RapidERPDbContext context, ISharedService sha
         throw new NotImplementedException();
     }
 
-    Task<RequestResponse> IBase<TenantLanguagePOST, TenantLanguagePUT>.GetSingle(int id)
+    Task<RequestResponse> IBase<TenantLanguagePOST, TenantLanguagePUT>.GetById(int id)
     {
         throw new NotImplementedException();
     }
 
-    
+    public Task<RequestResponse> Lookup()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> Restore(int id)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -19,7 +19,7 @@ public class DepartmentService(RapidERPDbContext context, ISharedService shared)
 
             foreach (var masterPOST in masterPOSTs)
             {
-                var task = CreateSingle(masterPOST);
+                var task = Create(masterPOST);
                 var result = await Task.WhenAll(task);
                 requestResponse.Message = result.FirstOrDefault().Message;
                 requestResponse.IsSuccess = result.FirstOrDefault().IsSuccess;
@@ -43,7 +43,7 @@ public class DepartmentService(RapidERPDbContext context, ISharedService shared)
         }
     }
 
-    public async Task<RequestResponse> CreateSingle(DepartmentPOST masterPOST)
+    public async Task<RequestResponse> Create(DepartmentPOST masterPOST)
     {
         try
         {
@@ -443,10 +443,18 @@ public class DepartmentService(RapidERPDbContext context, ISharedService shared)
         throw new NotImplementedException();
     }
 
-    Task<RequestResponse> IBase<DepartmentPOST, DepartmentPUT>.GetSingle(int id)
+    Task<RequestResponse> IBase<DepartmentPOST, DepartmentPUT>.GetById(int id)
     {
         throw new NotImplementedException();
     }
 
-    
+    public Task<RequestResponse> Lookup()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> Restore(int id)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -108,7 +108,7 @@ public class CreateSingleCountryCommandHandler(ICountryService service)
         //    return requestResponse;
         //}
 
-        var result = await service.CreateSingle(command.masterPOST);
+        var result = await service.Create(command.masterPOST);
         return result;
     }
 }

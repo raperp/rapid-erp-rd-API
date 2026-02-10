@@ -21,7 +21,7 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
 
             foreach (var masterPOST in masterPOSTs)
             {
-                var task = CreateSingle(masterPOST);
+                var task = Create(masterPOST);
                 var result = await Task.WhenAll(task);
                 requestResponse.Message = result.FirstOrDefault().Message;
                 requestResponse.IsSuccess = result.FirstOrDefault().IsSuccess;
@@ -45,7 +45,7 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
         }
     }
 
-    public async Task<RequestResponse> CreateSingle(TenantPOST masterPOST)
+    public async Task<RequestResponse> Create(TenantPOST masterPOST)
     {
         try
         {
@@ -475,10 +475,18 @@ public class TenantService(RapidERPDbContext context, ISharedService shared) : I
         throw new NotImplementedException();
     }
 
-    Task<RequestResponse> IBase<TenantPOST, TenantPUT>.GetSingle(int id)
+    Task<RequestResponse> IBase<TenantPOST, TenantPUT>.GetById(int id)
     {
         throw new NotImplementedException();
     }
 
-    
+    public Task<RequestResponse> Lookup()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> Restore(int id)
+    {
+        throw new NotImplementedException();
+    }
 }

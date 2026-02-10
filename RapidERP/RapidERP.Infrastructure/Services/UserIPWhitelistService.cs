@@ -20,7 +20,7 @@ public class UserIPWhitelistService(RapidERPDbContext context, ISharedService sh
 
             foreach (var masterPOST in masterPOSTs)
             {
-                var task = CreateSingle(masterPOST);
+                var task = Create(masterPOST);
                 var result = await Task.WhenAll(task);
                 requestResponse.Message = result.FirstOrDefault().Message;
                 requestResponse.IsSuccess = result.FirstOrDefault().IsSuccess;
@@ -44,7 +44,7 @@ public class UserIPWhitelistService(RapidERPDbContext context, ISharedService sh
         }
     }
 
-    public async Task<RequestResponse> CreateSingle(UserIPWhitelistPOST masterPOST)
+    public async Task<RequestResponse> Create(UserIPWhitelistPOST masterPOST)
     {
         try
         {
@@ -354,10 +354,18 @@ public class UserIPWhitelistService(RapidERPDbContext context, ISharedService sh
         throw new NotImplementedException();
     }
 
-    Task<RequestResponse> IBase<UserIPWhitelistPOST, UserIPWhitelistPUT>.GetSingle(int id)
+    Task<RequestResponse> IBase<UserIPWhitelistPOST, UserIPWhitelistPUT>.GetById(int id)
     {
         throw new NotImplementedException();
     }
 
-   
+    public Task<RequestResponse> Lookup()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> Restore(int id)
+    {
+        throw new NotImplementedException();
+    }
 }

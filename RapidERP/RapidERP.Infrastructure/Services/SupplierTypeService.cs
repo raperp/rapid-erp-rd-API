@@ -19,7 +19,7 @@ public class SupplierTypeService(RapidERPDbContext context, ISharedService share
 
             foreach (var masterPOST in masterPOSTs)
             {
-                var task = CreateSingle(masterPOST);
+                var task = Create(masterPOST);
                 var result = await Task.WhenAll(task);
                 requestResponse.Message = result.FirstOrDefault().Message;
                 requestResponse.IsSuccess = result.FirstOrDefault().IsSuccess;
@@ -51,7 +51,7 @@ public class SupplierTypeService(RapidERPDbContext context, ISharedService share
         }
     }
 
-    public async Task<RequestResponse> CreateSingle(SupplierTypePOST masterPOST)
+    public async Task<RequestResponse> Create(SupplierTypePOST masterPOST)
     {
         try
         {
@@ -457,10 +457,18 @@ public class SupplierTypeService(RapidERPDbContext context, ISharedService share
         throw new NotImplementedException();
     }
 
-    Task<RequestResponse> IBase<SupplierTypePOST, SupplierTypePUT>.GetSingle(int id)
+    Task<RequestResponse> IBase<SupplierTypePOST, SupplierTypePUT>.GetById(int id)
     {
         throw new NotImplementedException();
     }
 
-    
+    public Task<RequestResponse> Lookup()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> Restore(int id)
+    {
+        throw new NotImplementedException();
+    }
 }

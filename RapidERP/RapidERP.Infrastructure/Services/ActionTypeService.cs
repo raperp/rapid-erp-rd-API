@@ -417,7 +417,7 @@ public class ActionTypeService(RapidERPDbContext context, ISharedService shared)
 
      
 
-    Task<RequestResponse> IBase<ActionTypePOST, ActionTypePUT>.CreateSingle(ActionTypePOST masterPOST)
+    Task<RequestResponse> IBase<ActionTypePOST, ActionTypePUT>.Create(ActionTypePOST masterPOST)
     {
         throw new NotImplementedException();
     }
@@ -437,7 +437,7 @@ public class ActionTypeService(RapidERPDbContext context, ISharedService shared)
     //    throw new NotImplementedException();
     //}
 
-    Task<RequestResponse> IBase<ActionTypePOST, ActionTypePUT>.GetSingle(int id)
+    Task<RequestResponse> IBase<ActionTypePOST, ActionTypePUT>.GetById(int id)
     {
         throw new NotImplementedException();
     }
@@ -452,6 +452,16 @@ public class ActionTypeService(RapidERPDbContext context, ISharedService shared)
     }
 
     public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> Lookup()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> Restore(int id)
     {
         throw new NotImplementedException();
     }

@@ -20,7 +20,7 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
 
             foreach (var masterPOST in masterPOSTs)
             {
-                var task = CreateSingle(masterPOST);
+                var task = Create(masterPOST);
                 var result = await Task.WhenAll(task);
                 requestResponse.Message = result.FirstOrDefault().Message;
                 requestResponse.IsSuccess = result.FirstOrDefault().IsSuccess;
@@ -44,7 +44,7 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
         }
     }
 
-    public async Task<RequestResponse> CreateSingle(RolePOST masterPOST)
+    public async Task<RequestResponse> Create(RolePOST masterPOST)
     {
         try
         {
@@ -407,10 +407,18 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
         throw new NotImplementedException();
     }
 
-    Task<RequestResponse> IBase<RolePOST, RolePUT>.GetSingle(int id)
+    Task<RequestResponse> IBase<RolePOST, RolePUT>.GetById(int id)
     {
         throw new NotImplementedException();
     }
 
-    
+    public Task<RequestResponse> Lookup()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> Restore(int id)
+    {
+        throw new NotImplementedException();
+    }
 }

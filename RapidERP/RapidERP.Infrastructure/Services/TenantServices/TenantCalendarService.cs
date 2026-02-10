@@ -21,7 +21,7 @@ public class TenantCalendarService(RapidERPDbContext context, ISharedService sha
 
             foreach (var masterPOST in masterPOSTs)
             {
-                var task = CreateSingle(masterPOST);
+                var task = Create(masterPOST);
                 var result = await Task.WhenAll(task);
                 requestResponse.Message = result.FirstOrDefault().Message;
                 requestResponse.IsSuccess = result.FirstOrDefault().IsSuccess;
@@ -45,7 +45,7 @@ public class TenantCalendarService(RapidERPDbContext context, ISharedService sha
         }
     }
 
-    public async Task<RequestResponse> CreateSingle(TenantCalendarPOST masterPOST)
+    public async Task<RequestResponse> Create(TenantCalendarPOST masterPOST)
     {
         try
         {
@@ -364,10 +364,18 @@ public class TenantCalendarService(RapidERPDbContext context, ISharedService sha
         throw new NotImplementedException();
     }
 
-    Task<RequestResponse> IBase<TenantCalendarPOST, TenantCalendarPUT>.GetSingle(int id)
+    Task<RequestResponse> IBase<TenantCalendarPOST, TenantCalendarPUT>.GetById(int id)
     {
         throw new NotImplementedException();
     }
 
-    
+    public Task<RequestResponse> Lookup()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> Restore(int id)
+    {
+        throw new NotImplementedException();
+    }
 }

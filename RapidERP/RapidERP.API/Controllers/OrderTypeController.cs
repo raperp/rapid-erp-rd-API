@@ -18,7 +18,7 @@ namespace RapidERP.API.Controllers
         [HttpGet("GetSingle")]
         public async Task<IActionResult> GetSingle(int id)
         {
-            var result = await order.GetSingle(id);
+            var result = await order.GetById(id);
             return Ok(result);
         }
 
@@ -32,7 +32,7 @@ namespace RapidERP.API.Controllers
         [HttpPost("CreateSingle")]
         public async Task<IActionResult> CreateSingle(OrderTypePOST masterPOST)
         {
-            var result = await order.CreateSingle(masterPOST);
+            var result = await order.Create(masterPOST);
             return Ok(result);
         }
 

@@ -18,7 +18,7 @@ public class TenantLicenseController(ITenantLicenseService tenantLicense) : Cont
     [HttpGet("GetSingle")]
     public async Task<IActionResult> GetSingle(int id)
     {
-        var result = await tenantLicense.GetSingle(id);
+        var result = await tenantLicense.GetById(id);
         return Ok(result);
     }
 
@@ -32,7 +32,7 @@ public class TenantLicenseController(ITenantLicenseService tenantLicense) : Cont
     [HttpPost("CreateSingle")]
     public async Task<IActionResult> CreateSingle(TenantLicensePOST masterPOST)
     {
-        var result = await tenantLicense.CreateSingle(masterPOST);
+        var result = await tenantLicense.Create(masterPOST);
         return Ok(result);
     }
 

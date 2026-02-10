@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RapidERP.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using RapidERP.Infrastructure.Data;
 namespace RapidERP.Infrastructure.Migrations
 {
     [DbContext(typeof(RapidERPDbContext))]
-    partial class RapidERPDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260210175556_Createlokalizationlookups")]
+    partial class Createlokalizationlookups
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -704,8 +707,13 @@ namespace RapidERP.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(34)
+                        .HasColumnType("nvarchar(34)");
 
                     b.Property<string>("ISO2Code")
                         .HasColumnType("nvarchar(max)");
@@ -716,35 +724,19 @@ namespace RapidERP.Infrastructure.Migrations
                     b.Property<string>("ISONumeric")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("CountryLookups");
-                });
-
-            modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.CountryLookupLocalization", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("CountryId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("LanguageId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Localization")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CountryId");
+                    b.ToTable("CountryLookups");
 
-                    b.HasIndex("LanguageId");
+                    b.HasDiscriminator().HasValue("CountryLookup");
 
-                    b.ToTable("CountryLookupLocalizations");
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.CurrencyModels.Currency", b =>
@@ -4037,6 +4029,13 @@ namespace RapidERP.Infrastructure.Migrations
                     b.ToTable("UserHistory");
                 });
 
+            modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.CountryLookupLocalization", b =>
+                {
+                    b.HasBaseType("RapidERP.Domain.Entities.CountryModels.CountryLookup");
+
+                    b.HasDiscriminator().HasValue("CountryLookupLocalization");
+                });
+
             modelBuilder.Entity("RapidERP.Domain.Entities.ActionTypeModels.ActionTypeHistory", b =>
                 {
                     b.HasOne("RapidERP.Domain.Entities.ActionTypeModels.ActionType", "ActionType")
@@ -4160,21 +4159,6 @@ namespace RapidERP.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.CountryLocalization", b =>
-                {
-                    b.HasOne("RapidERP.Domain.Entities.CountryModels.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryId");
-
-                    b.HasOne("RapidERP.Domain.Entities.LanguageModels.Language", "Language")
-                        .WithMany()
-                        .HasForeignKey("LanguageId");
-
-                    b.Navigation("Country");
-
-                    b.Navigation("Language");
-                });
-
-            modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.CountryLookupLocalization", b =>
                 {
                     b.HasOne("RapidERP.Domain.Entities.CountryModels.Country", "Country")
                         .WithMany()

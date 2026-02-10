@@ -80,10 +80,10 @@ public class Repository : IRepository
         await context.Set<TEntity>().Where(x => x.Id == id).ExecuteDeleteAsync();
     }
 
-    public async Task DeleteQueryable<TEntity>(TEntity entity) where TEntity : class
-    {
-        context.Set<TEntity>().Remove(entity);
-    }
+    //public async Task DeleteQueryable<TEntity>(TEntity entity) where TEntity : class
+    //{
+    //    context.Set<TEntity>().Remove(entity);
+    //}
 
     public async Task<dynamic> GetCounts<T>() where T : BaseMaster
     {
@@ -151,5 +151,15 @@ public class Repository : IRepository
     public async Task<List<TEntity>> GetAll<TEntity>() where TEntity : class
     {
         return await context.Set<TEntity>().AsNoTracking().ToListAsync();
+    }
+
+    public async Task<string> Restore<TEntity>(int id) where TEntity : BaseMaster
+    {
+        string message = "Restoring completed."; 
+
+        //await context.Set<TEntity>().Where(x => x.Id == id).ExecuteUpdateAsync(x => x.SetProperty(x => x.IsActive, true));
+        await context.Set<TEntity>().Where(x => x.Id == id).ExecuteUpdateAsync(x => x.SetProperty(x => x.IsDeleted, false));
+
+        return message;
     }
 }

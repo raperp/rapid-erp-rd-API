@@ -24,6 +24,7 @@ public interface IRepository
     Task CommitChanges();
     IQueryable<TEntity> Set<TEntity>() where TEntity : class;
     Task<string> UpdateStatus<TEntity>(UpdateStatus updateStatus) where TEntity : BaseMaster;
+    Task<string> Restore<TEntity>(int id) where TEntity : BaseMaster;
     Task Delete<TEntity>(int id) where TEntity : Master; 
     //Task DeleteQueryable<TEntity>(TEntity entity) where TEntity : class; 
     Task<TEntity> GetSingle<TEntity>(int id) where TEntity : Master;

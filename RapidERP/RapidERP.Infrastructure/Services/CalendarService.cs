@@ -392,7 +392,7 @@ public class CalendarService(RapidERPDbContext context, ISharedService shared) :
 
      
 
-    Task<RequestResponse> IBase<CalendarPOST, CalendarPUT>.CreateSingle(CalendarPOST masterPOST)
+    Task<RequestResponse> IBase<CalendarPOST, CalendarPUT>.Create(CalendarPOST masterPOST)
     {
         throw new NotImplementedException();
     }
@@ -409,7 +409,7 @@ public class CalendarService(RapidERPDbContext context, ISharedService shared) :
 
     
 
-    Task<RequestResponse> IBase<CalendarPOST, CalendarPUT>.GetSingle(int id)
+    Task<RequestResponse> IBase<CalendarPOST, CalendarPUT>.GetById(int id)
     {
         throw new NotImplementedException();
     }
@@ -424,6 +424,16 @@ public class CalendarService(RapidERPDbContext context, ISharedService shared) :
     }
 
     public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> Lookup()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> Restore(int id)
     {
         throw new NotImplementedException();
     }

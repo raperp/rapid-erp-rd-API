@@ -19,7 +19,7 @@ public class TenantLanguageController(ITenantLanguageService tenantLanguage) : C
     [HttpGet("GetSingle")]
     public async Task<IActionResult> GetSingle(int id)
     {
-        var result = await tenantLanguage.GetSingle(id);
+        var result = await tenantLanguage.GetById(id);
         return Ok(result);
     }
 
@@ -33,7 +33,7 @@ public class TenantLanguageController(ITenantLanguageService tenantLanguage) : C
     [HttpPost("CreateSingle")]
     public async Task<IActionResult> CreateSingle(TenantLanguagePOST masterPOST)
     {
-        var result = await tenantLanguage.CreateSingle(masterPOST);
+        var result = await tenantLanguage.Create(masterPOST);
         return Ok(result);
     }
 
