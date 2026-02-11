@@ -34,6 +34,7 @@ public class CountryService(IRepository repository) : ICountryService
             {
                 Country masterData = new();
                 masterData.TenantId = masterPOST.TenantId;
+                masterData.DefaultLanguageId = masterPOST.DefaultLanguageId;
                 masterData.Name = masterPOST.Name;
                 masterData.Code = masterPOST.Code;
                 masterData.IsDefault = masterPOST.IsDefault;
@@ -51,18 +52,18 @@ public class CountryService(IRepository repository) : ICountryService
 
                 await repository.Add(masterData);
 
-                CountryLocalization localization = new();
-                localization.CountryId = masterData.Id;
-                localization.LanguageId = masterPOST.LanguageId;
-                localization.Name = masterPOST.Name;
+                //CountryLocalization localization = new();
+                //localization.CountryId = masterData.Id;
+                //localization.LanguageId = masterPOST.LanguageId;
+                //localization.Name = masterPOST.Name;
                  
-                await repository.Add(localization);
+                //await repository.Add(localization);
 
-                CountryCurrency currency = new();
-                currency.CountryId = masterData.Id;
-                currency.CurrencyId = masterPOST.CurrencyId;
+                //CountryCurrency currency = new();
+                //currency.CountryId = masterData.Id;
+                //currency.CurrencyId = masterPOST.CurrencyId;
 
-                await repository.Add(currency);
+                //await repository.Add(currency);
 
                 transaction.Commit();
 
@@ -139,6 +140,8 @@ public class CountryService(IRepository repository) : ICountryService
                     Message = ResponseMessage.NoRecordFound
                 };
             }
+
+            return requestResponse;
         }
 
         catch (Exception ex)
@@ -149,9 +152,9 @@ public class CountryService(IRepository repository) : ICountryService
                 IsSuccess = false,
                 Message = ex.Message
             };
-        }
 
-        return requestResponse;
+            return requestResponse;
+        }
     }
 
     public async Task<RequestResponse> GetAll(int skip, int take)
@@ -557,6 +560,152 @@ public class CountryService(IRepository repository) : ICountryService
                 StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
                 IsSuccess = false,
                 Message = ex.Message
+            };
+
+            return requestResponse;
+        }
+    }
+
+    public async Task<RequestResponse> CreateCurrency(CountryCurrencyPOST currencyPOST)
+    {
+        try
+        {
+            //var isExists = await repository.IsExists<CountryLocalization>(masterPOST.Name);
+
+            //if (isExists == false)
+            //{
+                CountryCurrency masterData = new(); 
+                masterData.CountryId = currencyPOST.CountryId;
+                masterData.CurrencyId = currencyPOST.CurrencyId;
+
+                await repository.Add(masterData);
+
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
+                    IsSuccess = true,
+                    Message = ResponseMessage.CreateSuccess,
+                    Data = currencyPOST
+                };
+            //}
+
+            //else
+            //{
+            //    requestResponse = new()
+            //    {
+            //        StatusCode = $"{HTTPStatusCode.Conflict} {HTTPStatusCode.StatusCode409}",
+            //        IsSuccess = false,
+            //        Message = $"{ResponseMessage.RecordExists} {masterPOST.Name}"
+            //    };
+            //}
+
+            return requestResponse;
+        }
+
+        catch
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
+                IsSuccess = false,
+                Message = ResponseMessage.WrongDataInput
+            };
+
+            return requestResponse;
+        }
+    }
+
+    public async Task<RequestResponse> DeleteCurrency(int id)
+    {
+        try
+        {
+            if (id is not 0)
+            {
+                await repository.Delete<CountryCurrency>(id);
+
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                    IsSuccess = true,
+                    Message = ResponseMessage.DeleteSuccess
+                };
+            }
+
+            else
+            {
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
+                    IsSuccess = false,
+                    Message = ResponseMessage.NoRecordFound
+                };
+            }
+
+            return requestResponse;
+        }
+
+        catch (Exception ex)
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ex.Message
+            };
+
+            return requestResponse;
+        }
+    }
+
+    public async Task<RequestResponse> UpdateCurrency(CountryCurrencyPUT currencyPUT)
+    {
+        try
+        {
+            //var isExists = await repository.IsExistsById<CountryLocalization>(masterPUT.Id, masterPUT.Name);
+            var masterRecord = await repository.FindById<CountryCurrency>(currencyPUT.Id);
+
+            if (masterRecord is not null)
+            {
+                currencyPUT.CountryId = (currencyPUT.CountryId != 0) ? currencyPUT.CountryId : masterRecord.CountryId;
+                currencyPUT.CurrencyId = (currencyPUT.CurrencyId != 0) ? currencyPUT.CurrencyId : masterRecord.CurrencyId;
+            }
+
+            //if (isExists == false)
+            //{ 
+                masterRecord.CountryId = currencyPUT.CountryId;
+                masterRecord.CurrencyId = currencyPUT.CurrencyId;
+
+                await repository.Update(masterRecord);
+
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
+                    IsSuccess = true,
+                    Message = ResponseMessage.CreateSuccess,
+                    Data = currencyPUT
+                };
+            //}
+
+            //else
+            //{
+            //    requestResponse = new()
+            //    {
+            //        StatusCode = $"{HTTPStatusCode.Conflict} {HTTPStatusCode.StatusCode409}",
+            //        IsSuccess = false,
+            //        Message = $"{ResponseMessage.RecordExists} {masterPUT.Name}"
+            //    };
+            //}
+
+            return requestResponse;
+        }
+
+        catch
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
+                IsSuccess = false,
+                Message = ResponseMessage.WrongDataInput
             };
 
             return requestResponse;

@@ -82,12 +82,30 @@ public class CountryController(ICountryService service, ICountryLocalization loc
         return Ok(result);
     }
 
-    [HttpGet("GetAllCountryLocalizations")]
+    [HttpGet("GetAllLocalizations")]
     public async Task<IActionResult> GetAllCountryLocalizations()
     {
         logger.LogInformation("Get All Country Localizations called");
         //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
         var result = await localizationService.GetAll();
+        return Ok(result);
+    }
+
+    [HttpGet("GetAllLookupsLocalization")]
+    public async Task<IActionResult> GetAllLookupsLocalization()
+    {
+        logger.LogInformation("Get All Country Localizations called");
+        //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
+        var result = await service.GetAllLookupsLocalization();
+        return Ok(result);
+    }
+
+    [HttpPost("CreateLocalization")]
+    public async Task<IActionResult> CreateLocalization(CountryLocalizationPOST localizationPOST)
+    {
+        logger.LogInformation("Create Localization called");
+        //var result = await bus.InvokeAsync<RequestResponse>(new CreateSingleCountryCommand(masterPOST));
+        var result = await localizationService.Create(localizationPOST);
         return Ok(result);
     }
 
@@ -106,6 +124,33 @@ public class CountryController(ICountryService service, ICountryLocalization loc
         logger.LogInformation("Get All Country Localizations called");
         //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
         var result = await service.GetAllCurrencies();
+        return Ok(result);
+    }
+
+    [HttpPost("CreateCurrency")]
+    public async Task<IActionResult> CreateCurrency(CountryCurrencyPOST currencyPOST)
+    {
+        logger.LogInformation("Create Currency called");
+        //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
+        var result = await service.CreateCurrency(currencyPOST);
+        return Ok(result);
+    }
+
+    [HttpPut("UpdateCurrency")]
+    public async Task<IActionResult> UpdateCurrency(CountryCurrencyPUT currencyPUT)
+    {
+        logger.LogInformation("Update Currency called");
+        //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
+        var result = await service.UpdateCurrency(currencyPUT);
+        return Ok(result);
+    }
+
+    [HttpPut("DeleteCurrency")]
+    public async Task<IActionResult> DeleteCurrency(int id)
+    {
+        logger.LogInformation("Update Currency called");
+        //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
+        var result = await service.DeleteCurrency(id);
         return Ok(result);
     }
 
