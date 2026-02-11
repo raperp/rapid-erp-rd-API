@@ -51,19 +51,23 @@ public class Repository : IRepository
     {
         string message = "Status Updated";
 
+        var activeStatusId = await context.StatusTypes.Where(x => x.Name == "Active").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        var inActiveStatusId = await context.StatusTypes.Where(x => x.Name == "InActive").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        var softDeletedStatusId = await context.StatusTypes.Where(x => x.Name == "SoftDeleted").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+
         if (updateStatus.IsActive == true)
         {
-            await context.Set<TEntity>().Where(x => x.Id == updateStatus.Id).ExecuteUpdateAsync(x => x.SetProperty(x => x.IsActive, true));
+            await context.Set<TEntity>().Where(x => x.Id == updateStatus.Id).ExecuteUpdateAsync(x => x.SetProperty(x => x.StatusTypeId, activeStatusId));
         }
 
         if (updateStatus.IsActive == false)
         {
-            await context.Set<TEntity>().Where(x => x.Id == updateStatus.Id).ExecuteUpdateAsync(x => x.SetProperty(x => x.IsActive, false));
+            await context.Set<TEntity>().Where(x => x.Id == updateStatus.Id).ExecuteUpdateAsync(x => x.SetProperty(x => x.StatusTypeId, inActiveStatusId));
         }
 
         if (updateStatus.IsDelete == true)
         {
-            await context.Set<TEntity>().Where(x => x.Id == updateStatus.Id).ExecuteUpdateAsync(x => x.SetProperty(x => x.IsDeleted, true));
+            await context.Set<TEntity>().Where(x => x.Id == updateStatus.Id).ExecuteUpdateAsync(x => x.SetProperty(x => x.StatusTypeId, softDeletedStatusId));
         }
 
         return message;
@@ -87,18 +91,18 @@ public class Repository : IRepository
 
     public async Task<dynamic> GetCounts<T>() where T : BaseMaster
     {
-        //var activeStatusId = await context.StatusTypes.Where(x => x.Name == "Active").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
-        //var inActiveStatusId = await context.StatusTypes.Where(x => x.Name == "InActive").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
-        //var draftedStatusId = await context.StatusTypes.Where(x => x.Name == "Drafted").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
-        //var updatedStatusId = await context.StatusTypes.Where(x => x.Name == "Updated").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
-        //var softDeletedStatusId = await context.StatusTypes.Where(x => x.Name == "SoftDeleted").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        var activeStatusId = await context.StatusTypes.Where(x => x.Name == "Active").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        var inActiveStatusId = await context.StatusTypes.Where(x => x.Name == "InActive").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        var draftedStatusId = await context.StatusTypes.Where(x => x.Name == "Drafted").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        var updatedStatusId = await context.StatusTypes.Where(x => x.Name == "Updated").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        var softDeletedStatusId = await context.StatusTypes.Where(x => x.Name == "SoftDeleted").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
 
         float totalCount = await context.Set<T>().CountAsync();
-        int activeCount = await context.Set<T>().Where(x => x.IsActive == true).CountAsync();
-        int inActiveCount = await context.Set<T>().Where(x => x.IsActive == false).CountAsync();
+        int activeCount = await context.Set<T>().Where(x => x.StatusTypeId == activeStatusId).CountAsync();
+        int inActiveCount = await context.Set<T>().Where(x => x.StatusTypeId == inActiveStatusId).CountAsync();
         int draftCount = await context.Set<T>().Where(x => x.IsDraft == true).CountAsync();
         int updatedCount = await context.Set<T>().Where(x => x.UpdatedAt != null).CountAsync();
-        int softDeletedCount = await context.Set<T>().Where(x => x.IsDeleted == true).CountAsync();
+        int softDeletedCount = await context.Set<T>().Where(x => x.StatusTypeId == softDeletedStatusId).CountAsync();
 
         float totalPercentage = totalCount / totalCount * 100;
         float activePercentage = activeCount / totalCount * 100;
@@ -155,11 +159,12 @@ public class Repository : IRepository
 
     public async Task<string> Restore<TEntity>(int id) where TEntity : BaseMaster
     {
-        string message = "Restoring completed."; 
-
-        //await context.Set<TEntity>().Where(x => x.Id == id).ExecuteUpdateAsync(x => x.SetProperty(x => x.IsActive, true));
-        await context.Set<TEntity>().Where(x => x.Id == id).ExecuteUpdateAsync(x => x.SetProperty(x => x.IsDeleted, false));
+        string message = "Restoring completed.";
+        var activeStatusId = await context.StatusTypes.Where(x => x.Name == "Active").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        
+        await context.Set<TEntity>().Where(x => x.Id == id).ExecuteUpdateAsync(x => x.SetProperty(x => x.StatusTypeId, activeStatusId));
 
         return message;
+
     }
 }

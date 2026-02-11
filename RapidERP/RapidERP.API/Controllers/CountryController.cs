@@ -100,6 +100,15 @@ public class CountryController(ICountryService service, ICountryLocalization loc
         return Ok(result);
     }
 
+    [HttpGet("GetAllCurrencies")]
+    public async Task<IActionResult> GetAllCurrencies()
+    {
+        logger.LogInformation("Get All Country Localizations called");
+        //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
+        var result = await service.GetAllCurrencies();
+        return Ok(result);
+    }
+
     [HttpPost("CreateExport")]
     public async Task<IActionResult> CreateExport(CountryExportDTO export)
     {

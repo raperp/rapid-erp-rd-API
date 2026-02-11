@@ -1,11 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.CountryDTOs;
 using RapidERP.Application.DTOs.Shared;
-using RapidERP.Application.DTOs.UserDTOs;
 using RapidERP.Application.Interfaces;
 using RapidERP.Application.Repository;
-using RapidERP.Domain.Entities.ActionTypeModels;
 using RapidERP.Domain.Entities.CountryModels;
+using RapidERP.Domain.Entities.CurrencyModels;
 using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Entities.TenantModels;
 using RapidERP.Domain.Utilities;
@@ -39,8 +38,8 @@ public class CountryService(IRepository repository) : ICountryService
                 masterData.Code = masterPOST.Code;
                 masterData.IsDefault = masterPOST.IsDefault;
                 masterData.IsDraft = masterPOST.IsDraft;
-                masterData.IsActive = true;
-                masterData.IsDeleted = false;
+                //masterData.IsActive = true;
+                //masterData.IsDeleted = false;
                 masterData.ISONumeric = masterPOST.ISONumeric;
                 masterData.ISO2Code = masterPOST.ISO2Code;
                 masterData.ISO3Code = masterPOST.ISO3Code;
@@ -171,8 +170,8 @@ public class CountryService(IRepository repository) : ICountryService
                             c.Code,
                             c.IsDefault,
                             c.IsDraft,
-                            c.IsActive,
-                            c.IsDeleted,
+                            //c.IsActive,
+                            //c.IsDeleted,
                             c.ISONumeric,
                             c.ISO2Code,
                             c.ISO3Code,
@@ -241,8 +240,8 @@ public class CountryService(IRepository repository) : ICountryService
                             c.Code,
                             c.IsDefault,
                             c.IsDraft,
-                            c.IsActive,
-                            c.IsDeleted,
+                            //c.IsActive,
+                            //c.IsDeleted,
                             c.ISONumeric,
                             c.ISO2Code,
                             c.ISO3Code,
@@ -383,13 +382,13 @@ public class CountryService(IRepository repository) : ICountryService
                 masterPUT.TenantId = (masterPUT.TenantId is not null) ? masterPUT.TenantId : masterRecord.TenantId;
                 masterPUT.IsDefault = (masterPUT.IsDefault is not null) ? masterPUT.IsDefault : masterRecord.IsDefault;
                 masterPUT.IsDraft = (masterPUT.IsDraft is not null) ? masterPUT.IsDraft : masterRecord.IsDraft;
-                masterPUT.IsActive = (masterPUT.IsActive is not null) ? masterPUT.IsActive : masterRecord.IsActive;
-                masterPUT.IsDeleted = (masterPUT.IsDeleted is not null) ? masterPUT.IsDeleted : masterRecord.IsDeleted;
+                //masterPUT.IsActive = (masterPUT.IsActive is not null) ? masterPUT.IsActive : masterRecord.IsActive;
+                //masterPUT.IsDeleted = (masterPUT.IsDeleted is not null) ? masterPUT.IsDeleted : masterRecord.IsDeleted;
             }
 
             if (isExists == false)
             {
-                masterRecord.TenantId = masterPUT.TenantId;
+                masterRecord.TenantId = masterPUT.TenantId; 
                 masterRecord.Name = masterPUT.Name;
                 masterRecord.Code = masterPUT.Code;
                 masterRecord.IsDefault = masterPUT.IsDefault;
@@ -444,18 +443,14 @@ public class CountryService(IRepository repository) : ICountryService
     {
         try
         {
-            var data = (from cl in repository.Set<CountryLocalization>()
-                        join c in repository.Set<Country>() on cl.CountryId equals c.Id
-                        join l in repository.Set<Language>() on cl.LanguageId equals l.Id
+            var data = (from cl in repository.Set<CountryLookup>()
                         select new
                         {
-                            c.Id,
-                            Country = c.Name,
-                            Language = l.Name,
-                            Localization = cl.Name,
-                            c.ISONumeric,
-                            c.ISO2Code,
-                            c.ISO3Code
+                            cl.Id,
+                            cl.Code,
+                            cl.ISONumeric,
+                            cl.ISO2Code,
+                            cl.ISO3Code
                         }).AsNoTracking().AsQueryable();
 
             var result = await data.ToListAsync();
@@ -488,7 +483,7 @@ public class CountryService(IRepository repository) : ICountryService
     {
         try
         {
-            var data = (from cl in repository.Set<CountryLocalization>()
+            var data = (from cl in repository.Set<CountryLookupLocalization>()
                         join c in repository.Set<Country>() on cl.CountryId equals c.Id
                         join l in repository.Set<Language>() on cl.LanguageId equals l.Id
                         select new
@@ -500,6 +495,46 @@ public class CountryService(IRepository repository) : ICountryService
                             c.ISONumeric,
                             c.ISO2Code,
                             c.ISO3Code
+                        }).AsNoTracking().AsQueryable();
+
+            var result = await data.ToListAsync();
+
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                IsSuccess = true,
+                Message = ResponseMessage.FetchSuccess,
+                Data = result
+            };
+
+            return requestResponse;
+        }
+
+        catch (Exception ex)
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ex.Message
+            };
+
+            return requestResponse;
+        }
+    }
+
+    public async Task<RequestResponse> GetAllCurrencies()
+    {
+        try
+        {
+            var data = (from cc in repository.Set<CountryCurrency>()
+                        join c in repository.Set<Country>() on cc.CountryId equals c.Id
+                        join cu in repository.Set<Currency>() on cc.CurrencyId equals cu.Id
+                        select new
+                        {
+                            cc.Id,
+                            Country = c.Name,
+                            Currency = cu.Name
                         }).AsNoTracking().AsQueryable();
 
             var result = await data.ToListAsync();

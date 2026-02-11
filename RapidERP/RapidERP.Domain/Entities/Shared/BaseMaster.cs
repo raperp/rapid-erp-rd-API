@@ -1,6 +1,4 @@
-﻿using RapidERP.Domain.Entities.LanguageModels;
-using RapidERP.Domain.Entities.MenuModuleModels;
-using RapidERP.Domain.Entities.StatusTypeModels;
+﻿using RapidERP.Domain.Entities.StatusTypeModels;
 using RapidERP.Domain.Entities.TenantModels;
 
 namespace RapidERP.Domain.Entities.Shared;

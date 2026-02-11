@@ -8,7 +8,7 @@ public class CountryConfiguration : IEntityTypeConfiguration<Country>
     public void Configure(EntityTypeBuilder<Country> builder)
     {
         builder.HasKey(x => x.Id);
-        //builder.Property(x => x.Name).HasMaxLength(40).IsRequired();
+        builder.Property(x => x.Name).HasMaxLength(40).IsRequired();
         //builder.Property(x => x.DialingCode).HasMaxLength(4).IsRequired();
         builder.Property(x => x.ISO3Code).HasMaxLength(3).IsRequired();
         builder.Property(x => x.ISO2Code).HasMaxLength(2).IsRequired();
@@ -22,7 +22,7 @@ public class CountryConfiguration : IEntityTypeConfiguration<Country>
         builder.Property(x => x.DeletedAt).IsRequired(false);
 
         builder.Ignore(x => x.Tenant);
-        builder.Ignore(x => x.Name);
+        //builder.Ignore(x => x.Name);
         //builder.Ignore(x => x.Language);
         //builder.Ignore(x => x.LanguageId);
 
