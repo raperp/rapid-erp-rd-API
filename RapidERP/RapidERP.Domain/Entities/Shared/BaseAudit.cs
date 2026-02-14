@@ -10,8 +10,8 @@ public class BaseAudit : Master
     //public string ExportTo { get; set; }
     //public string SourceURL { get; set; }
     public string Code { get; set; }
-    public bool IsDefault { get; set; }
-    public bool IsDraft { get; set; }
+    public bool? IsDefault { get; set; }
+    public bool? IsDraft { get; set; }
     public int ActionBy { get; set; }
     public DateTime ActionAt { get; set; }
 }

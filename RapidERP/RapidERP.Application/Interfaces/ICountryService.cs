@@ -10,4 +10,5 @@ public interface ICountryService : IBase<CountryPOST, CountryPUT>
     Task<RequestResponse> CreateCurrency(CountryCurrencyPOST currencyPOST);
     Task<RequestResponse> UpdateCurrency(CountryCurrencyPUT currencyPUT);
     Task<RequestResponse> DeleteCurrency(int id);
+    Task<RequestResponse> CreateCountryCapture(CountryCapturedPOST captured);
 }  

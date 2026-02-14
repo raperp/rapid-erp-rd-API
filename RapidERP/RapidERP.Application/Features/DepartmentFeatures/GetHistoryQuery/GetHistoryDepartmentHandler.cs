@@ -25,7 +25,7 @@ public class GetHistoryDepartmentHandler(IRepository repository)
                         //join t in repository.Set<Tenant>() on dh.TenantId equals t.Id
                         //join l in repository.Set<Language>() on dh.LanguageId equals l.Id
                         //join mm in repository.Set<MenuModule>() on dh.MenuModuleId equals mm.Id
-                        select new GetHistoryDepartmentResponseDTOModel
+                        select new  
                         {
                             Id = dh.Id,
                             Department = d.Name,

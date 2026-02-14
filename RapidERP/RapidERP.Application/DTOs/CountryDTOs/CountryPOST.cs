@@ -10,7 +10,5 @@ public record CountryPOST : BasePOST
     public string FlagURL { get; set; }
     public bool IsDefault { get; set; }
     public bool IsDraft { get; set; }
-    public int CurrencyId { get; set; }
-    public int? DefaultLanguageId { get; set; }
-    //public int? ActionTypeId { get; set; } 
+    public int CurrencyId { get; set; }  
 }

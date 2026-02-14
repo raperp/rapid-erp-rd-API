@@ -28,7 +28,7 @@ public class GetHistoryCurrencyHandler(IRepository repository)
                         //join l in repository.Set<Language>() on ca.LanguageId equals l.Id
                         //join mm in repository.Set<MenuModule>() on ca.MenuModuleId equals mm.Id
                         //join cu in repository.Set<Currency>() on ca.CurrencyId equals cu.Id
-                        select new GetHistoryCurrencyResponseDTOModel
+                        select new  
                         {
                             Id = ca.Id,
                             Currency = c.Name,
