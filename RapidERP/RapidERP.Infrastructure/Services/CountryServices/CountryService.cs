@@ -779,7 +779,7 @@ public class CountryService(IRepository repository) : ICountryService
 
             //if (isExists == false)
             //{
-            CountryCaptured masterData = new();
+            CountryCapture masterData = new();
             masterData.CountryId = captured.CountryId;
             masterData.ActivityTypeId = captured.ActivityTypeId;
             masterData.StorageURL = captured.StorageURL;

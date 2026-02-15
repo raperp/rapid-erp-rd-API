@@ -2,7 +2,7 @@
 
 namespace RapidERP.Domain.Entities.CountryModels;
 
-public class CountryCaptured : Captured
+public class CountryCapture : Captured
 {
     public Country Country { get; set; }
     public int CountryId { get; set; }    

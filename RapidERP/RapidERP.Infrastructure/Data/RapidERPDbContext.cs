@@ -65,6 +65,7 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
     public DbSet<CountryCurrency> CountryCurrencies { get; set; }
     public DbSet<CountryLookup> CountryLookups { get; set; }
     public DbSet<CountryLookupLocalization> CountryLookupLocalizations { get; set; }
+    public DbSet<CountryCapture> CountryCaptures { get; set; }
 
     public DbSet<State> States { get; set; }
     public DbSet<StateHistory> StateHistory { get; set; }
