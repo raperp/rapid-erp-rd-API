@@ -49,6 +49,6 @@ public class TenantHistoryConfiguration : IEntityTypeConfiguration<TenantHistory
         //builder.Property(x => x.ActionAt).IsRequired().HasColumnOrder(37);
         
         builder.Ignore(x => x.IsDefault);
-        builder.Ignore(x => x.IsDraft);
+        //builder.Ignore(x => x.IsDraft);
     }
 }

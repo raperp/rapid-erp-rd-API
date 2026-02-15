@@ -42,7 +42,7 @@ public class CreateSingleCurrencyCommandHandler(IRepository repository)
                 history.Code = request.masterPOST.Code;
                 history.Name = request.masterPOST.Name;
                 history.IsDefault = request.masterPOST.IsDefault;
-                history.IsDraft = request.masterPOST.IsDraft;
+                //history.IsDraft = request.masterPOST.IsDraft;
                 history.Icon = request.masterPOST.Icon;
                 //history.Browser = request.masterPOST.Browser;
                 //history.Location = request.masterPOST.Location;

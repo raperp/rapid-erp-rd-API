@@ -47,7 +47,7 @@ public record CreateSingleAreaCommandHandler(IRepository repository)
                 //history.ExportTo = request.masterPOST.ExportTo;
                 //history.SourceURL = request.masterPOST.SourceURL;
                 history.IsDefault = request.masterPOST.IsDefault;
-                history.IsDraft = request.masterPOST.IsDraft;
+                //history.IsDraft = request.masterPOST.IsDraft;
                 //history.Browser = request.masterPOST.Browser;
                 //history.Location = request.masterPOST.Location;
                 //history.DeviceIP = request.masterPOST.DeviceIP;

@@ -91,7 +91,7 @@ public class SalesmanService(RapidERPDbContext context, ISharedService shared) :
                 //history.ExportTo = masterPOST.ExportTo;
                 //history.SourceURL = masterPOST.SourceURL;
                 history.IsDefault = masterPOST.IsDefault;
-                history.IsDraft = masterPOST.IsDraft;
+                //history.IsDraft = masterPOST.IsDraft;
                 //history.Browser = masterPOST.Browser;
                 //history.Location = masterPOST.Location;
                 //history.DeviceIP = masterPOST.DeviceIP;
@@ -315,7 +315,7 @@ public class SalesmanService(RapidERPDbContext context, ISharedService shared) :
                             //sh.ExportTo,
                             //sh.SourceURL,
                             sh.IsDefault,
-                            sh.IsDraft,
+                            //sh.IsDraft,
                             //sh.Browser,
                             //sh.Location,
                             //sh.DeviceIP,
@@ -429,7 +429,7 @@ public class SalesmanService(RapidERPDbContext context, ISharedService shared) :
                 //history.ExportTo = masterPUT.ExportTo;
                 //history.SourceURL = masterPUT.SourceURL;
                 history.IsDefault = masterPUT.IsDefault;
-                history.IsDraft = masterPUT.IsDraft;
+                //history.IsDraft = masterPUT.IsDraft;
                 //history.Browser = masterPUT.Browser;
                 //history.Location = masterPUT.Location;
                 //history.DeviceIP = masterPUT.DeviceIP;

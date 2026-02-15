@@ -55,7 +55,7 @@ public class UpdateDesignationCommandHandler(IRepository repository)
                 //history.ExportTo = request.masterPUT.ExportTo;
                 //history.SourceURL = request.masterPUT.SourceURL;
                 history.IsDefault = request.masterPUT.IsDefault;
-                history.IsDraft = request.masterPUT.IsDraft;
+                //history.IsDraft = request.masterPUT.IsDraft;
                 //history.Browser = request.masterPUT.Browser;
                 //history.Location = request.masterPUT.Location;
                 //history.DeviceIP = request.masterPUT.DeviceIP;

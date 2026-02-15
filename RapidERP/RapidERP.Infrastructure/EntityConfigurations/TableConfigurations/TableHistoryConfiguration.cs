@@ -24,7 +24,7 @@ public class TableHistoryConfiguration : IEntityTypeConfiguration<TableHistory>
         //builder.Property(x => x.ActionBy).HasColumnOrder(15);
         //builder.Property(x => x.ActionAt).HasColumnOrder(16);
         builder.Ignore(x => x.IsDefault);
-        builder.Ignore(x => x.IsDraft);
+        //builder.Ignore(x => x.IsDraft);
         //builder.Ignore(x => x.LanguageId);
         
     }

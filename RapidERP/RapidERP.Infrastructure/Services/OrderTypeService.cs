@@ -79,7 +79,7 @@ public class OrderTypeService(RapidERPDbContext context, ISharedService shared) 
                 //history.ExportTo = masterPOST.ExportTo;
                 //history.SourceURL = masterPOST.SourceURL;
                 history.IsDefault = masterPOST.IsDefault;
-                history.IsDraft = masterPOST.IsDraft;
+                //history.IsDraft = masterPOST.IsDraft;
                 //history.Browser = masterPOST.Browser;
                 //history.Location = masterPOST.Location;
                 //history.DeviceIP = masterPOST.DeviceIP;
@@ -288,7 +288,7 @@ public class OrderTypeService(RapidERPDbContext context, ISharedService shared) 
                             //oth.ExportTo,
                             //oth.SourceURL,
                             oth.IsDefault,
-                            oth.IsDraft,
+                            //oth.IsDraft,
                             //oth.Browser,
                             //oth.Location,
                             //oth.DeviceIP,
@@ -390,7 +390,7 @@ public class OrderTypeService(RapidERPDbContext context, ISharedService shared) 
                 //history.ExportTo = masterPUT.ExportTo;
                 //history.SourceURL = masterPUT.SourceURL;
                 history.IsDefault = masterPUT.IsDefault;
-                history.IsDraft = masterPUT.IsDraft;
+                //history.IsDraft = masterPUT.IsDraft;
                 //history.Browser = masterPUT.Browser;
                 //history.Location = masterPUT.Location;
                 //history.DeviceIP = masterPUT.DeviceIP;

@@ -26,7 +26,7 @@ public class LanguageHistoryConfiguration : IEntityTypeConfiguration<LanguageHis
         //builder.Property(x => x.ActionAt).HasColumnOrder(15);
 
         builder.Ignore(x => x.IsDefault);
-        builder.Ignore(x => x.IsDraft);
+        //builder.Ignore(x => x.IsDraft);
         //builder.Ignore(x => x.TenantId);
         //builder.Ignore(x => x.MenuModuleId);
         builder.Ignore(x => x.ActionTypeId);

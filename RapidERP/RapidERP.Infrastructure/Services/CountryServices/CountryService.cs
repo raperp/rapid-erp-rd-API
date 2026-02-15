@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure;
+using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.CountryDTOs;
 using RapidERP.Application.DTOs.CurrencyDTOs;
 using RapidERP.Application.DTOs.Shared;
@@ -36,13 +37,11 @@ public class CountryService(IRepository repository) : ICountryService
                 Country masterData = new();
                 masterData.TenantId = masterPOST.TenantId;
                 masterData.DefaultLanguageId = masterPOST.DefaultLanguageId;
+                masterData.DefaultCurrencyId = masterPOST.DefaultCurrencyId;
                 masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.Name = masterPOST.Name;
                 masterData.Code = masterPOST.Code;
                 masterData.IsDefault = masterPOST.IsDefault;
-                masterData.IsDraft = masterPOST.IsDraft;
-                //masterData.IsActive = true;
-                //masterData.IsDeleted = false;
                 masterData.ISONumeric = masterPOST.ISONumeric;
                 masterData.ISO2Code = masterPOST.ISO2Code;
                 masterData.ISO3Code = masterPOST.ISO3Code;
@@ -53,41 +52,6 @@ public class CountryService(IRepository repository) : ICountryService
                 masterData.DeletedAt = actionDTO.DeletedAt;
 
                 await repository.Add(masterData);
-
-                CountryAudit audit = new();
-                audit.CountryId = masterData.Id;
-                audit.CurrencyId = masterPOST.CurrencyId;
-                audit.StatusTypeId = masterPOST.StatusTypeId; 
-                audit.ActionTypeId = masterPOST.ActionTypeId;
-                audit.LanguageId = masterPOST.LanguageId; 
-                audit.Code = masterPOST.Code;
-                audit.Name = masterPOST.Name;
-                audit.IsDefault = masterPOST.IsDefault;
-                audit.IsDraft = masterPOST.IsDraft;
-                audit.ISONumeric = masterPOST.ISONumeric;
-                audit.ISO2Code = masterPOST.ISO2Code;
-                audit.ISO3Code = masterPOST.ISO3Code;
-                audit.FlagURL = masterPOST.FlagURL;
-                audit.ActionBy = masterPOST.ActionBy;
-                audit.ActionAt = DateTime.UtcNow;
-
-                await repository.Add(audit);
-
-                CountryActivity activity = new();
-                activity.CountryId = masterData.Id;
-                activity.ActivityTypeId = masterPOST.ActivityTypeId;
-                activity.PageViewStartedAt = masterPOST.PageViewStartedAt;
-                activity.PageViewEndedAt = masterPOST.PageViewEndedAt;
-                activity.Browser = masterPOST.Browser;
-                activity.Location = masterPOST.Location;
-                activity.LocationURL = masterPOST.LocationURL;
-                activity.DeviceIP = masterPOST.DeviceIP;
-                activity.DeviceName = masterPOST.DeviceName;
-                activity.OS = masterPOST.OS;
-                activity.Latitude = masterPOST.Latitude;
-                activity.Longitude = masterPOST.Longitude;
-                
-                await repository.Add(activity);
 
                 transaction.Commit();
 
@@ -369,29 +333,29 @@ public class CountryService(IRepository repository) : ICountryService
     {
         try
         {
-            using var transaction = repository.BeginTransaction();
+            //using var transaction = repository.BeginTransaction();
             var isExists = await repository.IsExistsById<Country>(masterPUT.Id, masterPUT.Name);
             var masterRecord = await repository.FindById<Country>(masterPUT.Id);
 
-            var localizations = await repository.Set<CountryLocalization>().Where(c => c.CountryId == masterPUT.Id).ToListAsync();
-            var currencies = await repository.Set<CountryCurrency>().Where(c => c.CountryId == masterPUT.Id).ToListAsync();
+            //var localizations = await repository.Set<CountryLocalization>().Where(c => c.CountryId == masterPUT.Id).ToListAsync();
+            //var currencies = await repository.Set<CountryCurrency>().Where(c => c.CountryId == masterPUT.Id).ToListAsync();
              
-            foreach (var localization in localizations)
-            {
-                localization.Name = masterPUT.Name;
-                localization.CountryId = masterPUT.Id;
-                localization.LanguageId = masterPUT.LanguageId;
+            //foreach (var localization in localizations)
+            //{
+            //    localization.Name = masterPUT.Name;
+            //    localization.CountryId = masterPUT.Id;
+            //    localization.LanguageId = masterPUT.LanguageId;
 
-                await repository.Update(localization);
-            }
+            //    await repository.Update(localization);
+            //}
 
-            foreach (var currency in currencies)
-            {
-                currency.CountryId = masterPUT.Id;
-                currency.CurrencyId = masterPUT.CurrencyId;
+            //foreach (var currency in currencies)
+            //{
+            //    currency.CountryId = masterPUT.Id;
+            //    currency.CurrencyId = masterPUT.CurrencyId;
 
-                await repository.Update(currency);
-            }
+            //    await repository.Update(currency);
+            //}
 
             ActionDTO actionDTO = new();
             actionDTO.DraftedAt = (masterPUT.IsDraft == true) ? DateTime.UtcNow : null;
@@ -415,13 +379,13 @@ public class CountryService(IRepository repository) : ICountryService
 
             if (isExists == false)
             {
-                masterRecord.TenantId = masterPUT.TenantId; 
-                masterRecord.StatusTypeId = masterPUT.StatusTypeId; 
-                masterRecord.DefaultLanguageId = masterPUT.DefaultLanguageId; 
-                masterRecord.Name = masterPUT.Name;
+                masterRecord.TenantId = masterPUT.TenantId;
+                masterRecord.DefaultLanguageId = masterPUT.DefaultLanguageId;
+                masterRecord.DefaultCurrencyId = masterPUT.DefaultCurrencyId;
+                masterRecord.StatusTypeId = masterPUT.StatusTypeId;
                 masterRecord.Code = masterPUT.Code;
-                masterRecord.IsDefault = masterPUT.IsDefault;
-                masterRecord.IsDraft = masterPUT.IsDraft;  
+                masterRecord.Name = masterPUT.Name;
+                masterRecord.IsDefault = masterPUT.IsDefault;   
                 masterRecord.ISONumeric = masterPUT.ISONumeric;
                 masterRecord.ISO2Code = masterPUT.ISO2Code;
                 masterRecord.ISO3Code = masterPUT.ISO3Code;
@@ -431,40 +395,40 @@ public class CountryService(IRepository repository) : ICountryService
 
                 await repository.Update(masterRecord);
 
-                CountryAudit audit = new();
-                audit.CountryId = masterPUT.Id;
-                audit.CurrencyId = masterPUT.CurrencyId;
-                audit.StatusTypeId = masterPUT.StatusTypeId;
-                audit.ActionTypeId = masterPUT.ActionTypeId;
-                audit.LanguageId = masterPUT.LanguageId;
-                audit.Code = masterPUT.Code;
-                audit.Name = masterPUT.Name;
-                audit.IsDefault = masterPUT.IsDefault;
-                audit.IsDraft = masterPUT.IsDraft;
-                audit.ISONumeric = masterPUT.ISONumeric;
-                audit.ISO2Code = masterPUT.ISO2Code;
-                audit.ISO3Code = masterPUT.ISO3Code;
-                audit.FlagURL = masterPUT.FlagURL;
-                audit.ActionBy = masterPUT.ActionBy;
-                audit.ActionAt = DateTime.UtcNow;
+                //CountryAudit audit = new();
+                //audit.CountryId = masterPUT.Id;
+                //audit.CurrencyId = masterPUT.CurrencyId;
+                //audit.StatusTypeId = masterPUT.StatusTypeId;
+                //audit.ActionTypeId = masterPUT.ActionTypeId;
+                //audit.LanguageId = masterPUT.LanguageId;
+                //audit.Code = masterPUT.Code;
+                //audit.Name = masterPUT.Name;
+                //audit.IsDefault = masterPUT.IsDefault;
+                ////audit.IsDraft = masterPUT.IsDraft;
+                //audit.ISONumeric = masterPUT.ISONumeric;
+                //audit.ISO2Code = masterPUT.ISO2Code;
+                //audit.ISO3Code = masterPUT.ISO3Code;
+                //audit.FlagURL = masterPUT.FlagURL;
+                //audit.ActionBy = masterPUT.ActionBy;
+                //audit.ActionAt = DateTime.UtcNow;
 
-                CountryActivity activity = new();
-                activity.CountryId = masterPUT.Id;
-                activity.ActivityTypeId = masterPUT.ActivityTypeId;
-                activity.PageViewStartedAt = masterPUT.PageViewStartedAt;
-                activity.PageViewEndedAt = masterPUT.PageViewEndedAt;
-                activity.Browser = masterPUT.Browser;
-                activity.Location = masterPUT.Location;
-                activity.LocationURL = masterPUT.LocationURL;
-                activity.DeviceIP = masterPUT.DeviceIP;
-                activity.DeviceName = masterPUT.DeviceName; 
-                activity.OS = masterPUT.OS;
-                activity.Latitude = masterPUT.Latitude;
-                activity.Longitude = masterPUT.Longitude;
+                //CountryActivity activity = new();
+                //activity.CountryId = masterPUT.Id;
+                //activity.ActivityTypeId = masterPUT.ActivityTypeId;
+                //activity.PageViewStartedAt = masterPUT.PageViewStartedAt;
+                //activity.PageViewEndedAt = masterPUT.PageViewEndedAt;
+                //activity.Browser = masterPUT.Browser;
+                //activity.Location = masterPUT.Location;
+                //activity.LocationURL = masterPUT.LocationURL;
+                //activity.DeviceIP = masterPUT.DeviceIP;
+                //activity.DeviceName = masterPUT.DeviceName; 
+                //activity.OS = masterPUT.OS;
+                //activity.Latitude = masterPUT.Latitude;
+                //activity.Longitude = masterPUT.Longitude;
 
-                await repository.Add(activity);
+                //await repository.Add(activity);
 
-                transaction.Commit();
+                //transaction.Commit();
 
                 requestResponse = new()
                 {
@@ -814,6 +778,287 @@ public class CountryService(IRepository repository) : ICountryService
             requestResponse = new()
             {
                 StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
+                IsSuccess = false,
+                Message = ResponseMessage.WrongDataInput
+            };
+
+            return requestResponse;
+        }
+    }
+
+    public async Task<RequestResponse> CreateAudit(CountryAudit masterPOST)
+    {
+        try
+        {
+            CountryAudit audit = new();
+            audit.CountryId = masterPOST.CountryId;
+            audit.CurrencyId = masterPOST.CurrencyId;
+            audit.LanguageId = masterPOST.LanguageId;
+            audit.DefaultCurrencyId = masterPOST.DefaultCurrencyId;
+            audit.DefaultLanguageId = masterPOST.DefaultLanguageId;
+            audit.StatusTypeId = masterPOST.StatusTypeId;
+            audit.ActionTypeId = masterPOST.ActionTypeId;
+            audit.Code = masterPOST.Code;
+            audit.Name = masterPOST.Name;
+            audit.IsDefault = masterPOST.IsDefault;
+            audit.ISONumeric = masterPOST.ISONumeric;
+            audit.ISO2Code = masterPOST.ISO2Code;
+            audit.ISO3Code = masterPOST.ISO3Code;
+            audit.FlagURL = masterPOST.FlagURL;
+            audit.ActionBy = masterPOST.ActionBy;
+            audit.ActionAt = DateTime.UtcNow;
+
+            await repository.Add(audit);
+
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
+                IsSuccess = true,
+                Message = ResponseMessage.CreateSuccess,
+                Data = masterPOST
+            };
+
+            return requestResponse;
+        }
+
+        catch
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
+                IsSuccess = false,
+                Message = ResponseMessage.WrongDataInput
+            };
+
+            return requestResponse;
+        }
+    }
+
+    public async Task<RequestResponse> CreateActivity(CountryActivity masterPOST)
+    {
+        try
+        {
+            CountryActivity activity = new();
+            activity.CountryId = masterPOST.CountryId;
+            activity.ActivityTypeId = masterPOST.ActivityTypeId;
+            activity.PageViewStartedAt = masterPOST.PageViewStartedAt;
+            activity.PageViewEndedAt = masterPOST.PageViewEndedAt;
+            activity.Browser = masterPOST.Browser;
+            activity.Location = masterPOST.Location;
+            activity.LocationURL = masterPOST.LocationURL;
+            activity.DeviceIP = masterPOST.DeviceIP;
+            activity.DeviceName = masterPOST.DeviceName;
+            activity.OS = masterPOST.OS;
+            activity.Latitude = masterPOST.Latitude;
+            activity.Longitude = masterPOST.Longitude;
+
+            await repository.Add(activity);
+
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
+                IsSuccess = true,
+                Message = ResponseMessage.CreateSuccess,
+                Data = masterPOST
+            };
+
+            return requestResponse;
+        }
+
+        catch
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
+                IsSuccess = false,
+                Message = ResponseMessage.WrongDataInput
+            };
+
+            return requestResponse;
+        }
+    }
+
+    public async Task<RequestResponse> Import(List<CountryImport> imports)
+    {
+        RequestResponse response = new();
+        try
+        {
+            foreach (var import in imports)
+            {
+                //var task = Create(masterPOST);
+                //var result = await Task.WhenAll(task);
+                //requestResponse.Message = result.FirstOrDefault().Message;
+                //requestResponse.IsSuccess = result.FirstOrDefault().IsSuccess;
+                //requestResponse.StatusCode = result.FirstOrDefault().StatusCode;
+                //requestResponse.Data = result.FirstOrDefault().Data;
+                if (import.Id == 0)
+                {
+                    CountryPOST masterData = new();
+                    masterData.TenantId = import.TenantId;
+                    masterData.DefaultLanguageId = import.DefaultLanguageId;
+                    masterData.DefaultCurrencyId = import.DefaultCurrencyId;
+                    masterData.StatusTypeId = import.StatusTypeId;
+                    masterData.Name = import.Name;
+                    masterData.Code = import.Code;
+                    masterData.IsDefault = import.IsDefault;
+                    masterData.ISONumeric = import.ISONumeric;
+                    masterData.ISO2Code = import.ISO2Code;
+                    masterData.ISO3Code = import.ISO3Code;
+                    masterData.FlagURL = import.FlagURL;
+
+                    var result = await Create(masterData);
+                }
+
+                else
+                {
+                    CountryPUT masterData = new();
+                    masterData.TenantId = import.TenantId;
+                    masterData.DefaultLanguageId = import.DefaultLanguageId;
+                    masterData.DefaultCurrencyId = import.DefaultCurrencyId;
+                    masterData.StatusTypeId = import.StatusTypeId;
+                    masterData.Name = import.Name;
+                    masterData.Code = import.Code;
+                    masterData.IsDefault = import.IsDefault;
+                    masterData.ISONumeric = import.ISONumeric;
+                    masterData.ISO2Code = import.ISO2Code;
+                    masterData.ISO3Code = import.ISO3Code;
+                    masterData.FlagURL = import.FlagURL;
+
+                    await Update(masterData);
+                }
+                
+            }
+
+            return response;
+        }
+
+        catch
+        {
+            response = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ResponseMessage.WrongDataInput
+            };
+
+            return response;
+        }
+    }
+
+    public async Task<RequestResponse> DeleteCountryCapture(int id)
+    {
+        try
+        {
+            if (id is not 0)
+            {
+                await repository.Delete<CountryCapture>(id);
+
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                    IsSuccess = true,
+                    Message = ResponseMessage.DeleteSuccess
+                };
+            }
+
+            else
+            {
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
+                    IsSuccess = false,
+                    Message = ResponseMessage.NoRecordFound
+                };
+            }
+
+            return requestResponse;
+        }
+
+        catch (Exception ex)
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ex.Message
+            };
+
+            return requestResponse;
+        }
+    }
+
+    public async Task<RequestResponse> ImportLocalization(List<CountryLocalizationPOST> localizations)
+    {
+        try
+        {
+            requestResponse = new();
+
+            foreach (var masterPOST in localizations)
+            {
+                CountryLocalization masterData = new();
+                masterData.Name = masterPOST.Name;
+                masterData.CountryId = masterPOST.CountryId;
+                masterData.LanguageId = masterPOST.LanguageId;
+
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
+                    IsSuccess = true,
+                    Message = ResponseMessage.CreateSuccess,
+                    Data = masterPOST
+                };
+
+                await repository.Add(masterData);
+                
+            }
+
+            return requestResponse;
+        }
+
+        catch
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ResponseMessage.WrongDataInput
+            };
+
+            return requestResponse;
+        }
+    }
+
+    public async Task<RequestResponse> ImportCurrency(List<CountryCurrencyPOST> currencyPOSTs)
+    {
+        try
+        {
+            requestResponse = new();
+
+            foreach (var masterPOST in currencyPOSTs)
+            {
+                CountryCurrency masterData = new();
+                masterData.CountryId = masterPOST.CountryId;
+                masterData.CurrencyId = masterPOST.CurrencyId;
+
+                await repository.Add(masterData);
+
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
+                    IsSuccess = true,
+                    Message = ResponseMessage.CreateSuccess,
+                    Data = currencyPOSTs
+                };
+            }
+
+            return requestResponse;
+        }
+
+        catch
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
                 IsSuccess = false,
                 Message = ResponseMessage.WrongDataInput
             };

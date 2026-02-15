@@ -44,7 +44,7 @@ public class CreateBulkCurrencyCommandHandler(IRepository repository)
                     history.Code = item.Code;
                     history.Name = item.Name;
                     history.IsDefault = item.IsDefault;
-                    history.IsDraft = item.IsDraft;
+                    //history.IsDraft = item.IsDraft;
                     history.Icon = item.Icon;
                     //history.Browser = item.Browser;
                     //history.Location = item.Location;

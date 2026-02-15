@@ -32,6 +32,6 @@ public class SolutionHistoryConfiguration : IEntityTypeConfiguration<SolutionHis
         //builder.Property(x => x.ActionBy).IsRequired().HasColumnOrder(20);
         //builder.Property(x => x.ActionAt).IsRequired().HasColumnOrder(21);
         builder.Ignore(x => x.IsDefault);
-        builder.Ignore(x => x.IsDraft);
+        //builder.Ignore(x => x.IsDraft);
     }
 }

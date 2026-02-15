@@ -43,7 +43,7 @@ public class CreateBulkDepartmentCommandHandler(IRepository repository)
                     //history.ExportTo = item.ExportTo;
                     //history.SourceURL = item.SourceURL;
                     history.IsDefault = item.IsDefault;
-                    history.IsDraft = item.IsDraft;
+                    //history.IsDraft = item.IsDraft;
                     //history.Browser = item.Browser;
                     //history.Location = item.Location;
                     //history.DeviceIP = item.DeviceIP;

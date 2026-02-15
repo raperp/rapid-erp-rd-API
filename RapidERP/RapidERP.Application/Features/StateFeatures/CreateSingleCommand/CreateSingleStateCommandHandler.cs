@@ -41,7 +41,7 @@ public class CreateSingleStateCommandHandler(IRepository repository)
                 history.Code = request.masterPOST.Code;
                 history.Name = request.masterPOST.Name;
                 history.IsDefault = request.masterPOST.IsDefault;
-                history.IsDraft = request.masterPOST.IsDraft;
+                //history.IsDraft = request.masterPOST.IsDraft;
                 //history.Browser = request.masterPOST.Browser;
                 //history.Location = request.masterPOST.Location;
                 //history.DeviceIP = request.masterPOST.DeviceIP;

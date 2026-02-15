@@ -46,7 +46,7 @@ public class GetHistoryCountryHandler(IRepository repository)
                             //DialCode = ca.DialingCode,
                             Name = ca.Name,
                             IsDefault = ca.IsDefault,
-                            IsDraft = ca.IsDraft,
+                            //IsDraft = ca.IsDraft,
                             ISONumeric = ca.ISONumeric,
                             ISO2Code = ca.ISO2Code,
                             ISO3Code = ca.ISO3Code,

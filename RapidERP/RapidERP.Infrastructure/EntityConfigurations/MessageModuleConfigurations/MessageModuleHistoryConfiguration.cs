@@ -16,6 +16,6 @@ public class MessageModuleHistoryConfiguration : IEntityTypeConfiguration<Messag
         //builder.Ignore(x => x.TenantId);
         //builder.Ignore(x => x.MenuModuleId);
         builder.Ignore(x => x.IsDefault);
-        builder.Ignore(x => x.IsDraft);
+        //builder.Ignore(x => x.IsDraft);
     }
 }

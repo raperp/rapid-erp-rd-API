@@ -52,7 +52,7 @@ public class UpdateStateCommandHandler(IRepository repository)
                 history.Code = request.masterPUT.Code;
                 history.Name = request.masterPUT.Name;
                 history.IsDefault = request.masterPUT.IsDefault;
-                history.IsDraft = request.masterPUT.IsDraft;
+                //history.IsDraft = request.masterPUT.IsDraft;
                 //history.Browser = request.masterPUT.Browser;
                 //history.Location = request.masterPUT.Location;
                 //history.DeviceIP = request.masterPUT.DeviceIP;

@@ -39,7 +39,7 @@ public class GetHistoryStateHandler(IRepository repository)
                             Code = sa.Code,
                             Name = sa.Name,
                             IsDefault = sa.IsDefault,
-                            IsDraft = sa.IsDraft,
+                            //IsDraft = sa.IsDraft,
                             //Browser = sa.Browser,
                             //Location = sa.Location,
                             //DeviceIP = sa.DeviceIP,

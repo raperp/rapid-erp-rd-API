@@ -69,6 +69,7 @@ public class RapidERPDbContext(DbContextOptions<RapidERPDbContext> options) : Db
 
     public DbSet<State> States { get; set; }
     public DbSet<StateHistory> StateHistory { get; set; }
+
     public DbSet<StateTemplate> StateTemplate { get; set; }
 
     public DbSet<Currency> Currencies { get; set; }

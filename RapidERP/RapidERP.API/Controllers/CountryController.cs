@@ -64,14 +64,14 @@ public class CountryController(ICountryService service, ICountryLocalization loc
         return Ok(result);
     }
 
-    [HttpPut("Restore")]
-    public async Task<IActionResult> Restore(int id)
-    {
-        logger.LogInformation("Restore performed");
-        //var result = await bus.InvokeAsync<RequestResponse>(new SoftDeleteCountryCommand(id));
-        var result = await service.Restore(id);
-        return Ok(result);
-    }
+    //[HttpPut("Restore")]
+    //public async Task<IActionResult> Restore(int id)
+    //{
+    //    logger.LogInformation("Restore performed");
+    //    //var result = await bus.InvokeAsync<RequestResponse>(new SoftDeleteCountryCommand(id));
+    //    var result = await service.Restore(id);
+    //    return Ok(result);
+    //}
 
     [HttpPut("Delete")]
     public async Task<IActionResult> Delete(int id)
@@ -109,14 +109,14 @@ public class CountryController(ICountryService service, ICountryLocalization loc
         return Ok(result);
     }
 
-    //[HttpPut("DeleteCountryLocalization")]
-    //public async Task<IActionResult> DeleteCountryLocalization(int id)
-    //{
-    //    logger.LogInformation("Delete Country Localization performed with id: {id}", id);
-    //    //var result = await bus.InvokeAsync<RequestResponse>(new DeleteCountryLocalizationCommand(id));
-    //    var result = await localizationService.Delete(id);
-    //    return Ok(result);
-    //}
+    [HttpPut("DeleteCountryLocalization")]
+    public async Task<IActionResult> DeleteCountryLocalization(int id)
+    {
+        logger.LogInformation("Delete Country Localization performed with id: {id}", id);
+        //var result = await bus.InvokeAsync<RequestResponse>(new DeleteCountryLocalizationCommand(id));
+        var result = await localizationService.Delete(id);
+        return Ok(result);
+    }
 
     //[HttpGet("GetAllCurrencies")]
     //public async Task<IActionResult> GetAllCurrencies()
@@ -145,14 +145,14 @@ public class CountryController(ICountryService service, ICountryLocalization loc
     //    return Ok(result);
     //}
 
-    //[HttpPut("DeleteCurrency")]
-    //public async Task<IActionResult> DeleteCurrency(int id)
-    //{
-    //    logger.LogInformation("Update Currency called");
-    //    //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
-    //    var result = await service.DeleteCurrency(id);
-    //    return Ok(result);
-    //}
+    [HttpPut("DeleteCurrency")]
+    public async Task<IActionResult> DeleteCurrency(int id)
+    {
+        logger.LogInformation("Update Currency called");
+        //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
+        var result = await service.DeleteCurrency(id);
+        return Ok(result);
+    }
 
     [HttpPost("CreateExport")]
     public async Task<IActionResult> CreateExport(CountryExportDTO export)
@@ -169,6 +169,33 @@ public class CountryController(ICountryService service, ICountryLocalization loc
         logger.LogInformation("Create captured called");
         //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
         var result = await service.CreateCountryCapture(captured);
+        return Ok(result);
+    }
+
+    [HttpPost("Import")]
+    public async Task<IActionResult> Import(List<CountryImport> imports)
+    {
+        logger.LogInformation("Create captured called");
+        //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
+        var result = await service.Import(imports);
+        return Ok(result);
+    }
+
+    [HttpPost("ImportLocalization")]
+    public async Task<IActionResult> ImportLocalization(List<CountryLocalizationPOST> localizations)
+    {
+        logger.LogInformation("Create captured called");
+        //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
+        var result = await service.ImportLocalization(localizations);
+        return Ok(result);
+    }
+
+    [HttpPost("ImportCurrency")]
+    public async Task<IActionResult> ImportCurrency(List<CountryCurrencyPOST> currencyPOSTs)
+    {
+        logger.LogInformation("Create captured called");
+        //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
+        var result = await service.ImportCurrency(currencyPOSTs);
         return Ok(result);
     }
 }

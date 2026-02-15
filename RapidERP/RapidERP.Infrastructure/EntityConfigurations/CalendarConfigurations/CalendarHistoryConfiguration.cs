@@ -33,6 +33,6 @@ public class CalendarHistoryConfiguration : IEntityTypeConfiguration<CalendarHis
         //builder.Property(x => x.ActionBy).IsRequired().HasColumnOrder(21);
         //builder.Property(x => x.ActionAt).IsRequired().HasColumnOrder(22);
         builder.Ignore(x => x.IsDefault);
-        builder.Ignore(x => x.IsDraft);
+        //builder.Ignore(x => x.IsDraft);
     }
 }

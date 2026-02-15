@@ -21,7 +21,7 @@ public class CurrencyHistoryConfiguration : IEntityTypeConfiguration<CurrencyHis
         builder.Property(x => x.Code).HasMaxLength(4).IsRequired().HasColumnOrder(9);
         builder.Property(x => x.Name).HasMaxLength(40).IsRequired().HasColumnOrder(10);
         builder.Property(x => x.IsDefault).IsRequired().HasColumnOrder(11);
-        builder.Property(x => x.IsDraft).IsRequired().HasColumnOrder(12);
+        //builder.Property(x => x.IsDraft).IsRequired().HasColumnOrder(12);
         builder.Property(x => x.Icon).IsRequired(false).HasColumnOrder(13);
         //builder.Property(x => x.Browser).HasMaxLength(15).IsRequired().HasColumnOrder(14);
         //builder.Property(x => x.Location).HasMaxLength(40).IsRequired().HasColumnOrder(15);

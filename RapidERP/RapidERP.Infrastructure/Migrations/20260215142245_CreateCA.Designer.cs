@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RapidERP.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using RapidERP.Infrastructure.Data;
 namespace RapidERP.Infrastructure.Migrations
 {
     [DbContext(typeof(RapidERPDbContext))]
-    partial class RapidERPDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260215142245_CreateCA")]
+    partial class CreateCA
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -572,9 +575,6 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("DefaultCurrencyId")
-                        .HasColumnType("int");
 
                     b.Property<int?>("DefaultLanguageId")
                         .HasColumnType("int");

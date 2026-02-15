@@ -45,7 +45,7 @@ public class GetHistoryDesignationHandler(IRepository repository)
                             //ExportTo = dh.ExportTo,
                             //SourceURL = dh.SourceURL,
                             IsDefault = dh.IsDefault,
-                            IsDraft = dh.IsDraft,
+                            //IsDraft = dh.IsDraft,
                             //Browser = dh.Browser,
                             //Location = dh.Location,
                             //DeviceIP = dh.DeviceIP,

@@ -42,7 +42,7 @@ public class GetHistoryCityHandler(IRepository repository)
                             //ExportTo = ch.ExportTo,
                             //SourceURL = ch.SourceURL,
                             IsDefault = ch.IsDefault,
-                            IsDraft = ch.IsDraft,
+                            //IsDraft = ch.IsDraft,
                             //Browser = ch.Browser,
                             //Location = ch.Location,
                             //DeviceIP = ch.DeviceIP,

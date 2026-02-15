@@ -29,6 +29,6 @@ public class ExportTypeHistoryConfiguration : IEntityTypeConfiguration<ExportTyp
         //builder.Ignore(x => x.ExportTo);
         //builder.Ignore(x => x.SourceURL);
         builder.Ignore(x => x.IsDefault);
-        builder.Ignore(x => x.IsDraft);
+        //builder.Ignore(x => x.IsDraft);
     }
 }

@@ -21,7 +21,7 @@ namespace RapidERP.Infrastructure.EntityConfiguration.StateConfigurations
             builder.Property(x => x.Code).HasMaxLength(4).IsRequired().HasColumnOrder(9);
             builder.Property(x => x.Name).HasMaxLength(40).IsRequired().HasColumnOrder(10);
             builder.Property(x => x.IsDefault).HasColumnOrder(11);
-            builder.Property(x => x.IsDraft).HasColumnOrder(12);
+            //builder.Property(x => x.IsDraft).HasColumnOrder(12);
             //builder.Property(x => x.Browser).HasMaxLength(15).IsRequired().HasColumnOrder(13);
             //builder.Property(x => x.Location).HasMaxLength(40).IsRequired().HasColumnOrder(14);
             //builder.Property(x => x.DeviceIP).HasMaxLength(15).IsRequired().HasColumnOrder(15);

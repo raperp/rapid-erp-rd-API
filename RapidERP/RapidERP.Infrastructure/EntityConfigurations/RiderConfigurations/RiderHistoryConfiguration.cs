@@ -30,7 +30,7 @@ public class RiderHistoryConfiguration : IEntityTypeConfiguration<RiderHistory>
         //builder.Property(x => x.ActionBy);
         //builder.Property(x => x.ActionAt);
         builder.Ignore(x => x.IsDefault);
-        builder.Ignore(x => x.IsDraft);
+        //builder.Ignore(x => x.IsDraft);
         //builder.Ignore(x => x.LanguageId);
         
     }

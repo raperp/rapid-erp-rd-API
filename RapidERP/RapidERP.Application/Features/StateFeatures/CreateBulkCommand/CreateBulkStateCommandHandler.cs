@@ -43,7 +43,7 @@ public class CreateBulkStateCommandHandler(IRepository repository)
                     history.Code = item.Code;
                     history.Name = item.Name;
                     history.IsDefault = item.IsDefault;
-                    history.IsDraft = item.IsDraft;
+                    //history.IsDraft = item.IsDraft;
                     //history.Browser = item.Browser;
                     //history.Location = item.Location;
                     //history.DeviceIP = item.DeviceIP;

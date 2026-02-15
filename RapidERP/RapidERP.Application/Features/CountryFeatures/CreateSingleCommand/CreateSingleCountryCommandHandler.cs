@@ -49,7 +49,7 @@ public class CreateSingleCountryCommandHandler(IRepository repository)
                 //history.DialingCode = request.masterPOST.DialCode;
                 history.Name = request.masterPOST.Name;
                 history.IsDefault = request.masterPOST.IsDefault;
-                history.IsDraft = request.masterPOST.IsDraft;
+                //history.IsDraft = request.masterPOST.IsDraft;
                 history.ISONumeric = request.masterPOST.ISONumeric;
                 history.ISO2Code = request.masterPOST.ISO2Code;
                 history.ISO3Code = request.masterPOST.ISO3Code;

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RapidERP.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using RapidERP.Infrastructure.Data;
 namespace RapidERP.Infrastructure.Migrations
 {
     [DbContext(typeof(RapidERPDbContext))]
-    partial class RapidERPDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260215165600_ModCCap")]
+    partial class ModCCap
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -775,7 +778,7 @@ namespace RapidERP.Infrastructure.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("CountryCaptures");
+                    b.ToTable("CountryCapture");
                 });
 
             modelBuilder.Entity("RapidERP.Domain.Entities.CountryModels.CountryCurrency", b =>

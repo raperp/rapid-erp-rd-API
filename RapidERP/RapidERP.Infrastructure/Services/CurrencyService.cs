@@ -78,7 +78,7 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                 history.Code = masterPOST.Code;
                 history.Name = masterPOST.Name;
                 history.IsDefault = masterPOST.IsDefault;
-                history.IsDraft = masterPOST.IsDraft;
+                //history.IsDraft = masterPOST.IsDraft;
                 history.Icon = masterPOST.Icon;
                 //history.Browser = masterPOST.Browser;
                 //history.Location = masterPOST.Location;
@@ -292,7 +292,7 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                             ca.Code,
                             ca.Name,
                             ca.IsDefault,
-                            ca.IsDraft,
+                            //ca.IsDraft,
                             ca.Icon,
                             //ca.Browser,
                             //ca.Location,
@@ -396,7 +396,7 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                 history.Code = masterPUT.Code;
                 history.Name = masterPUT.Name;
                 history.IsDefault = masterPUT.IsDefault;
-                history.IsDraft = masterPUT.IsDraft;
+                //history.IsDraft = masterPUT.IsDraft;
                 history.Icon = masterPUT.Icon;
                 //history.Browser = masterPUT.Browser;
                 //history.Location = masterPUT.Location;
