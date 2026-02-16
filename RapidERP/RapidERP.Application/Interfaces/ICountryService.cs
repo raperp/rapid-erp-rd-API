@@ -14,8 +14,7 @@ public interface ICountryService : IBase<CountryPOST, CountryPUT>
     Task<RequestResponse> DeleteCurrency(int id);
     Task<RequestResponse> CreateCountryCapture(CountryCapturedPOST captured);
     Task<RequestResponse> DeleteCountryCapture(int id);
-    Task<RequestResponse> CreateAudit(CountryAudit post);
-    Task<RequestResponse> CreateActivity(CountryActivity post);
-    Task<RequestResponse> ImportLocalization(List<CountryLocalizationPOST> localizations);
-    Task<RequestResponse> ImportCurrency(List<CountryCurrencyPOST> currencyPOSTs);
+    Task<RequestResponse> CreateAudit(CountryAudit auditPOST);
+    Task<RequestResponse> CreateActivity(CountryActivity activityPOST);
+    Task<RequestResponse> ImportCurrency(List<CountryCurrencyPOST> imports);
 }

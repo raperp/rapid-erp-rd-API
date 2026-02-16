@@ -1,7 +1,5 @@
-﻿using Azure;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.CountryDTOs;
-using RapidERP.Application.DTOs.CurrencyDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
 using RapidERP.Application.Repository;
@@ -786,26 +784,26 @@ public class CountryService(IRepository repository) : ICountryService
         }
     }
 
-    public async Task<RequestResponse> CreateAudit(CountryAudit masterPOST)
+    public async Task<RequestResponse> CreateAudit(CountryAudit auditPOST)
     {
         try
         {
             CountryAudit audit = new();
-            audit.CountryId = masterPOST.CountryId;
-            audit.CurrencyId = masterPOST.CurrencyId;
-            audit.LanguageId = masterPOST.LanguageId;
-            audit.DefaultCurrencyId = masterPOST.DefaultCurrencyId;
-            audit.DefaultLanguageId = masterPOST.DefaultLanguageId;
-            audit.StatusTypeId = masterPOST.StatusTypeId;
-            audit.ActionTypeId = masterPOST.ActionTypeId;
-            audit.Code = masterPOST.Code;
-            audit.Name = masterPOST.Name;
-            audit.IsDefault = masterPOST.IsDefault;
-            audit.ISONumeric = masterPOST.ISONumeric;
-            audit.ISO2Code = masterPOST.ISO2Code;
-            audit.ISO3Code = masterPOST.ISO3Code;
-            audit.FlagURL = masterPOST.FlagURL;
-            audit.ActionBy = masterPOST.ActionBy;
+            audit.CountryId = auditPOST.CountryId;
+            audit.CurrencyId = auditPOST.CurrencyId;
+            audit.LanguageId = auditPOST.LanguageId;
+            audit.DefaultCurrencyId = auditPOST.DefaultCurrencyId;
+            audit.DefaultLanguageId = auditPOST.DefaultLanguageId;
+            audit.StatusTypeId = auditPOST.StatusTypeId;
+            audit.ActionTypeId = auditPOST.ActionTypeId;
+            audit.Code = auditPOST.Code;
+            audit.Name = auditPOST.Name;
+            audit.IsDefault = auditPOST.IsDefault;
+            audit.ISONumeric = auditPOST.ISONumeric;
+            audit.ISO2Code = auditPOST.ISO2Code;
+            audit.ISO3Code = auditPOST.ISO3Code;
+            audit.FlagURL = auditPOST.FlagURL;
+            audit.ActionBy = auditPOST.ActionBy;
             audit.ActionAt = DateTime.UtcNow;
 
             await repository.Add(audit);
@@ -815,7 +813,7 @@ public class CountryService(IRepository repository) : ICountryService
                 StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
                 IsSuccess = true,
                 Message = ResponseMessage.CreateSuccess,
-                Data = masterPOST
+                Data = auditPOST
             };
 
             return requestResponse;
@@ -834,23 +832,23 @@ public class CountryService(IRepository repository) : ICountryService
         }
     }
 
-    public async Task<RequestResponse> CreateActivity(CountryActivity masterPOST)
+    public async Task<RequestResponse> CreateActivity(CountryActivity activityPOST)
     {
         try
         {
             CountryActivity activity = new();
-            activity.CountryId = masterPOST.CountryId;
-            activity.ActivityTypeId = masterPOST.ActivityTypeId;
-            activity.PageViewStartedAt = masterPOST.PageViewStartedAt;
-            activity.PageViewEndedAt = masterPOST.PageViewEndedAt;
-            activity.Browser = masterPOST.Browser;
-            activity.Location = masterPOST.Location;
-            activity.LocationURL = masterPOST.LocationURL;
-            activity.DeviceIP = masterPOST.DeviceIP;
-            activity.DeviceName = masterPOST.DeviceName;
-            activity.OS = masterPOST.OS;
-            activity.Latitude = masterPOST.Latitude;
-            activity.Longitude = masterPOST.Longitude;
+            activity.CountryId = activityPOST.CountryId;
+            activity.ActivityTypeId = activityPOST.ActivityTypeId;
+            activity.PageViewStartedAt = activityPOST.PageViewStartedAt;
+            activity.PageViewEndedAt = activityPOST.PageViewEndedAt;
+            activity.Browser = activityPOST.Browser;
+            activity.Location = activityPOST.Location;
+            activity.LocationURL = activityPOST.LocationURL;
+            activity.DeviceIP = activityPOST.DeviceIP;
+            activity.DeviceName = activityPOST.DeviceName;
+            activity.OS = activityPOST.OS;
+            activity.Latitude = activityPOST.Latitude;
+            activity.Longitude = activityPOST.Longitude;
 
             await repository.Add(activity);
 
@@ -859,7 +857,7 @@ public class CountryService(IRepository repository) : ICountryService
                 StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
                 IsSuccess = true,
                 Message = ResponseMessage.CreateSuccess,
-                Data = masterPOST
+                Data = activityPOST
             };
 
             return requestResponse;
@@ -885,12 +883,7 @@ public class CountryService(IRepository repository) : ICountryService
         {
             foreach (var import in imports)
             {
-                //var task = Create(masterPOST);
-                //var result = await Task.WhenAll(task);
-                //requestResponse.Message = result.FirstOrDefault().Message;
-                //requestResponse.IsSuccess = result.FirstOrDefault().IsSuccess;
-                //requestResponse.StatusCode = result.FirstOrDefault().StatusCode;
-                //requestResponse.Data = result.FirstOrDefault().Data;
+                
                 if (import.Id == 0)
                 {
                     CountryPOST masterData = new();
@@ -906,7 +899,14 @@ public class CountryService(IRepository repository) : ICountryService
                     masterData.ISO3Code = import.ISO3Code;
                     masterData.FlagURL = import.FlagURL;
 
-                    var result = await Create(masterData);
+                    //var result = await Create(masterData);
+
+                    var task = Create(masterData);
+                    var result = await Task.WhenAll(task);
+                    response.Message = result.FirstOrDefault().Message;
+                    response.IsSuccess = result.FirstOrDefault().IsSuccess;
+                    response.StatusCode = result.FirstOrDefault().StatusCode;
+                    response.Data = result.FirstOrDefault().Data;
                 }
 
                 else
@@ -924,9 +924,14 @@ public class CountryService(IRepository repository) : ICountryService
                     masterData.ISO3Code = import.ISO3Code;
                     masterData.FlagURL = import.FlagURL;
 
-                    await Update(masterData);
+                    var task = Update(masterData);
+                    var result = await Task.WhenAll(task);
+
+                    response.Message = result.FirstOrDefault().Message;
+                    response.IsSuccess = result.FirstOrDefault().IsSuccess;
+                    response.StatusCode = result.FirstOrDefault().StatusCode;
+                    response.Data = result.FirstOrDefault().Data;
                 }
-                
             }
 
             return response;
@@ -987,68 +992,21 @@ public class CountryService(IRepository repository) : ICountryService
         }
     }
 
-    public async Task<RequestResponse> ImportLocalization(List<CountryLocalizationPOST> localizations)
+    public async Task<RequestResponse> ImportCurrency(List<CountryCurrencyPOST> imports)
     {
         try
         {
             requestResponse = new();
 
-            foreach (var masterPOST in localizations)
+            foreach (var import in imports)
             {
-                CountryLocalization masterData = new();
-                masterData.Name = masterPOST.Name;
-                masterData.CountryId = masterPOST.CountryId;
-                masterData.LanguageId = masterPOST.LanguageId;
+                var task = CreateCurrency(import);
+                var result = await Task.WhenAll(task);
 
-                requestResponse = new()
-                {
-                    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
-                    IsSuccess = true,
-                    Message = ResponseMessage.CreateSuccess,
-                    Data = masterPOST
-                };
-
-                await repository.Add(masterData);
-                
-            }
-
-            return requestResponse;
-        }
-
-        catch
-        {
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
-                IsSuccess = false,
-                Message = ResponseMessage.WrongDataInput
-            };
-
-            return requestResponse;
-        }
-    }
-
-    public async Task<RequestResponse> ImportCurrency(List<CountryCurrencyPOST> currencyPOSTs)
-    {
-        try
-        {
-            requestResponse = new();
-
-            foreach (var masterPOST in currencyPOSTs)
-            {
-                CountryCurrency masterData = new();
-                masterData.CountryId = masterPOST.CountryId;
-                masterData.CurrencyId = masterPOST.CurrencyId;
-
-                await repository.Add(masterData);
-
-                requestResponse = new()
-                {
-                    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
-                    IsSuccess = true,
-                    Message = ResponseMessage.CreateSuccess,
-                    Data = currencyPOSTs
-                };
+                requestResponse.Message = result.FirstOrDefault().Message;
+                requestResponse.IsSuccess = result.FirstOrDefault().IsSuccess;
+                requestResponse.StatusCode = result.FirstOrDefault().StatusCode;
+                requestResponse.Data = result.FirstOrDefault().Data;
             }
 
             return requestResponse;

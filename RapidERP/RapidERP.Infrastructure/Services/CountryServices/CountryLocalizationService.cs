@@ -145,6 +145,39 @@ public class CountryLocalizationService(IRepository repository) : ICountryLocali
         }
     }
 
+    public async Task<RequestResponse> ImportLocalization(List<CountryLocalizationPOST> imports)
+    {
+        try
+        {
+            requestResponse = new();
+
+            foreach (var import in imports)
+            {
+                var task = Create(import);
+                var result = await Task.WhenAll(task);
+
+                requestResponse.Message = result.FirstOrDefault().Message;
+                requestResponse.IsSuccess = result.FirstOrDefault().IsSuccess;
+                requestResponse.StatusCode = result.FirstOrDefault().StatusCode;
+                requestResponse.Data = result.FirstOrDefault().Data;
+            }
+
+            return requestResponse;
+        }
+
+        catch
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ResponseMessage.WrongDataInput
+            };
+
+            return requestResponse;
+        }
+    }
+
     public async Task<RequestResponse> Update(CountryLocalizationPUT masterPUT)
     {
         try

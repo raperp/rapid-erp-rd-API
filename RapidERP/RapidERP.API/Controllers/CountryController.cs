@@ -73,7 +73,7 @@ public class CountryController(ICountryService service, ICountryLocalization loc
     //    return Ok(result);
     //}
 
-    [HttpPut("Delete")]
+    [HttpDelete("Delete")]
     public async Task<IActionResult> Delete(int id)
     {
         logger.LogInformation("Delete action performed with id: {id}", id);
@@ -109,7 +109,7 @@ public class CountryController(ICountryService service, ICountryLocalization loc
         return Ok(result);
     }
 
-    [HttpPut("DeleteCountryLocalization")]
+    [HttpDelete("DeleteCountryLocalization")]
     public async Task<IActionResult> DeleteCountryLocalization(int id)
     {
         logger.LogInformation("Delete Country Localization performed with id: {id}", id);
@@ -145,7 +145,7 @@ public class CountryController(ICountryService service, ICountryLocalization loc
     //    return Ok(result);
     //}
 
-    [HttpPut("DeleteCurrency")]
+    [HttpDelete("DeleteCurrency")]
     public async Task<IActionResult> DeleteCurrency(int id)
     {
         logger.LogInformation("Update Currency called");
@@ -172,6 +172,15 @@ public class CountryController(ICountryService service, ICountryLocalization loc
         return Ok(result);
     }
 
+    [HttpDelete("DeleteCountryCapture")]
+    public async Task<IActionResult> DeleteCountryCapture(int id)
+    {
+        logger.LogInformation("Delete Country Capture called");
+        //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
+        var result = await service.DeleteCountryCapture(id);
+        return Ok(result);
+    }
+
     [HttpPost("Import")]
     public async Task<IActionResult> Import(List<CountryImport> imports)
     {
@@ -186,7 +195,7 @@ public class CountryController(ICountryService service, ICountryLocalization loc
     {
         logger.LogInformation("Create captured called");
         //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
-        var result = await service.ImportLocalization(localizations);
+        var result = await localizationService.ImportLocalization(localizations);
         return Ok(result);
     }
 
