@@ -2,6 +2,7 @@
 using RapidERP.Application.Interfaces;
 using RapidERP.Application.Interfaces.Tenant;
 using RapidERP.Application.Repository;
+using RapidERP.Infrastructure.Data;
 using RapidERP.Infrastructure.Services;
 using RapidERP.Infrastructure.Services.CountryServices;
 using RapidERP.Infrastructure.Services.TenantServices;
@@ -49,6 +50,7 @@ public static class RegisterLifetimeServices
         services.AddScoped<ICountryService, CountryService>();
         services.AddScoped<ICountryLocalization, CountryLocalizationService>();
         services.AddScoped<ICountryExport, CountryExportService>();
+        services.AddScoped<DapperDbContext>();
 
         return services;
     }

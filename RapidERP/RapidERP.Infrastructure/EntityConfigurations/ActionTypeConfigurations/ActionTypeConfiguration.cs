@@ -19,6 +19,6 @@ public class ActionTypeConfiguration : IEntityTypeConfiguration<ActionType>
         //builder.Ignore(x => x.StatusType);
         //builder.Ignore(x => x.StatusTypeId);
         builder.Ignore(x => x.IsDefault);
-        builder.Ignore(x => x.IsDraft);
+        //builder.Ignore(x => x.IsDraft);
     }
 }

@@ -100,7 +100,7 @@ public class Repository : IRepository
         float totalCount = await context.Set<T>().CountAsync();
         int activeCount = await context.Set<T>().Where(x => x.StatusTypeId == activeStatusId).CountAsync();
         int inActiveCount = await context.Set<T>().Where(x => x.StatusTypeId == inActiveStatusId).CountAsync();
-        int draftCount = await context.Set<T>().Where(x => x.IsDraft == true).CountAsync();
+        int draftCount = await context.Set<T>().Where(x => x.StatusTypeId == draftedStatusId).CountAsync();
         int updatedCount = await context.Set<T>().Where(x => x.UpdatedAt != null).CountAsync();
         int softDeletedCount = await context.Set<T>().Where(x => x.StatusTypeId == softDeletedStatusId).CountAsync();
 

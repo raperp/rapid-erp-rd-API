@@ -62,7 +62,7 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                 //masterData.LanguageId = masterPOST.LanguageId;
                 //masterData.StatusTypeId = masterPOST.StatusTypeId;
                 masterData.IsDefault = masterPOST.IsDefault;
-                masterData.IsDraft = masterPOST.IsDraft;
+                //masterData.IsDraft = masterPOST.IsDraft;
                 
 
                 await context.Cities.AddAsync(masterData);
@@ -378,8 +378,7 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
                 //.SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                 //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                 //.SetProperty(x => x.StatusTypeId, masterPUT.StatusTypeId)
-                .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
-                .SetProperty(x => x.IsDraft, masterPUT.IsDraft));
+                .SetProperty(x => x.IsDefault, masterPUT.IsDefault));
 
                 CityHistory history = new();
                 history.CityId = masterPUT.Id;

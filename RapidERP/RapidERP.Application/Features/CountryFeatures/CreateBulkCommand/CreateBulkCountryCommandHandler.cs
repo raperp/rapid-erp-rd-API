@@ -30,7 +30,7 @@ public class CreateBulkCountryCommandHandler(IRepository repository)
                     //masterData.DialingCode = item.masterPOST.DialCode;
                     masterData.Name = item.masterPOST.Name;
                     masterData.IsDefault = item.masterPOST.IsDefault;
-                    masterData.IsDraft = item.masterPOST.IsDraft;
+                    //masterData.IsDraft = item.masterPOST.IsDraft;
                     masterData.ISONumeric = item.masterPOST.ISONumeric;
                     masterData.ISO2Code = item.masterPOST.ISO2Code;
                     masterData.ISO3Code = item.masterPOST.ISO3Code;

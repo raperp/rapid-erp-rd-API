@@ -39,7 +39,7 @@ public class GetAllCountryHandler(IRepository repository)
                             //DialCode = c.DialingCode,
                             Country = c.Name,
                             IsDefault = c.IsDefault,
-                            IsDraft = c.IsDraft,
+                            //IsDraft = c.IsDraft,
                             ISONumeric = c.ISONumeric,
                             ISO2Code = c.ISO2Code,
                             ISO3Code = c.ISO3Code,

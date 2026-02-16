@@ -60,7 +60,7 @@ public class DepartmentService(RapidERPDbContext context, ISharedService shared)
                 //masterData.MenuModuleId = masterPOST.MenuModuleId;
                 //masterData.LanguageId = masterPOST.LanguageId;
                 masterData.IsDefault = masterPOST.IsDefault;
-                masterData.IsDraft = masterPOST.IsDraft;
+                //masterData.IsDraft = masterPOST.IsDraft;
 
                 await context.Departments.AddAsync(masterData);
                 //await context.SaveChangesAsync();
@@ -373,8 +373,7 @@ public class DepartmentService(RapidERPDbContext context, ISharedService shared)
                 .SetProperty(x => x.TenantId, masterPUT.TenantId)
                 //.SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                 //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
-                .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
-                .SetProperty(x => x.IsDraft, masterPUT.IsDraft));
+                .SetProperty(x => x.IsDefault, masterPUT.IsDefault));
 
                 DepartmentHistory history = new();
                 history.DepartmentId = masterPUT.Id;

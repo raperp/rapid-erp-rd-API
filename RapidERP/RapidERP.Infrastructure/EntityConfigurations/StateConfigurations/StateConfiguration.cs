@@ -17,7 +17,7 @@ public class StateConfiguration : IEntityTypeConfiguration<State>
         builder.Property(x => x.Code).HasMaxLength(4).IsRequired().HasColumnOrder(5);
         builder.Property(x => x.Name).HasMaxLength(40).IsRequired().HasColumnOrder(6);
         builder.Property(x => x.IsDefault).HasColumnOrder(7);
-        builder.Property(x => x.IsDraft).HasColumnOrder(8);
+        //builder.Property(x => x.IsDraft).HasColumnOrder(8);
         builder.Ignore(x => x.TenantId);
         builder.Ignore(x => x.Tenant);
 

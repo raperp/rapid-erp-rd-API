@@ -28,7 +28,7 @@ public class CreateBulkCurrencyCommandHandler(IRepository repository)
                     masterData.Name = item.Name;
                     masterData.Icon = item.Icon;
                     masterData.IsDefault = item.IsDefault;
-                    masterData.IsDraft = item.IsDraft;
+                    //masterData.IsDraft = item.IsDraft;
 
                     await repository.Add(masterData);
 

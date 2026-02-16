@@ -61,7 +61,7 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                 masterData.Name = masterPOST.Name;
                 masterData.Icon = masterPOST.Icon;
                 masterData.IsDefault = masterPOST.IsDefault;
-                masterData.IsDraft = masterPOST.IsDraft;
+                //masterData.IsDraft = masterPOST.IsDraft;
 
                 await context.Currencies.AddAsync(masterData);
                 await context.SaveChangesAsync();
@@ -214,8 +214,7 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                             c.Code,
                             c.Name,
                             c.Icon,
-                            c.IsDefault,
-                            c.IsDraft
+                            c.IsDefault
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
@@ -381,8 +380,7 @@ public class CurrencyService(RapidERPDbContext context, ISharedService shared) :
                 .SetProperty(x => x.Code, masterPUT.Code)
                 .SetProperty(x => x.Name, masterPUT.Name)
                 .SetProperty(x => x.Icon, masterPUT.Icon)
-                .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
-                .SetProperty(x => x.IsDraft, masterPUT.IsDraft));
+                .SetProperty(x => x.IsDefault, masterPUT.IsDefault));
 
                 CurrencyHistory history = new();
                 history.CurrencyId = masterPUT.Id;

@@ -36,7 +36,7 @@ public class GetAllCurrencyHandler(IRepository repository)
                             Name = c.Name,
                             Icon = c.Icon,
                             IsDefault = c.IsDefault,
-                            IsDraft = c.IsDraft
+                            //IsDraft = c.IsDraft
                         }).AsNoTracking().AsQueryable();
 
             if (query.skip == 0 || query.take == 0)

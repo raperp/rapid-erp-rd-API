@@ -38,7 +38,7 @@ public class UpdateDesignationCommandHandler(IRepository repository)
                 masterRecord.TenantId = request.masterPUT.TenantId;
                 //masterRecord.LanguageId = request.masterPUT.LanguageId;
                 masterRecord.IsDefault = request.masterPUT.IsDefault;
-                masterRecord.IsDraft = request.masterPUT.IsDraft;
+                //masterRecord.IsDraft = request.masterPUT.IsDraft;
 
                 await repository.Update(masterRecord);
 

@@ -27,7 +27,7 @@ public class CreateSingleCityCommandHandler(IRepository repository)
                 //masterData.LanguageId = request.masterPOST.LanguageId;
                 //masterData.StatusTypeId = request.masterPOST.StatusTypeId;
                 masterData.IsDefault = request.masterPOST.IsDefault;
-                masterData.IsDraft = request.masterPOST.IsDraft;
+                //masterData.IsDraft = request.masterPOST.IsDraft;
 
                 await repository.Add(masterData);
 

@@ -35,7 +35,7 @@ public class GetAllStateHandler(IRepository repository)
                             Name = s.Name,
                             Code = s.Code,
                             IsDefault = s.IsDefault,
-                            IsDraft = s.IsDraft
+                            //IsDraft = s.IsDraft
                         }).AsNoTracking().AsQueryable();
 
             if (query.skip == 0 || query.take == 0)

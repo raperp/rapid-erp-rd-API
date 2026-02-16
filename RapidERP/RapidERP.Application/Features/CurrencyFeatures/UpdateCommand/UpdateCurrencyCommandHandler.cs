@@ -38,7 +38,7 @@ public class UpdateCurrencyCommandHandler(IRepository repository)
                 masterRecord.Code = request.masterPUT.Code;
                 masterRecord.Icon = request.masterPUT.Icon;
                 masterRecord.IsDefault = request.masterPUT.IsDefault;
-                masterRecord.IsDraft = request.masterPUT.IsDraft;
+                //masterRecord.IsDraft = request.masterPUT.IsDraft;
 
                 await repository.Update(masterRecord);
 

@@ -29,7 +29,7 @@ public class CreateBulkCityCommandHandler(IRepository repository)
                     //masterData.LanguageId = item.LanguageId;
                     //masterData.StatusTypeId = item.StatusTypeId;
                     masterData.IsDefault = item.IsDefault;
-                    masterData.IsDraft = item.IsDraft;
+                    //masterData.IsDraft = item.IsDraft;
 
                     await repository.Add(masterData);
 

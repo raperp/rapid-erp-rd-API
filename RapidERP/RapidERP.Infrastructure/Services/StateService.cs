@@ -69,7 +69,7 @@ namespace RapidERP.Infrastructure.Services
                     masterData.Code = masterPOST.Code;
                     masterData.Name = masterPOST.Name;
                     masterData.IsDefault = masterPOST.IsDefault;
-                    masterData.IsDraft = masterPOST.IsDraft;
+                    //masterData.IsDraft = masterPOST.IsDraft;
 
                     await context.States.AddAsync(masterData);
                     //await context.SaveChangesAsync();
@@ -220,8 +220,7 @@ namespace RapidERP.Infrastructure.Services
                                 //Language = l.Name,
                                 s.Name,
                                 s.Code,
-                                s.IsDefault,  
-                                s.IsDraft  
+                                s.IsDefault
                             }).AsNoTracking().AsQueryable();
 
                 if (skip == 0 || take == 0)
@@ -385,8 +384,7 @@ namespace RapidERP.Infrastructure.Services
                     //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
                     .SetProperty(x => x.Code, masterPUT.Code)
                     .SetProperty(x => x.Name, masterPUT.Name)
-                    .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
-                    .SetProperty(x => x.IsDraft, masterPUT.IsDraft));
+                    .SetProperty(x => x.IsDefault, masterPUT.IsDefault));
 
                     StateHistory history = new();
                     history.StateId = masterPUT.Id;

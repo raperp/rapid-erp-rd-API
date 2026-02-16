@@ -13,7 +13,7 @@ public class MenuModuleConfiguration : IEntityTypeConfiguration<MenuModule>
         builder.Property(x => x.IconURL).IsRequired();
         builder.Property(x => x.SubmoduleId).IsRequired(false);
         builder.Ignore(x => x.IsDefault);
-        builder.Ignore(x => x.IsDraft);
+        //builder.Ignore(x => x.IsDraft);
         //builder.Ignore(x => x.MenuModule);
         //builder.Ignore(x => x.MenuModuleId);
         builder.Ignore(x => x.Tenant);

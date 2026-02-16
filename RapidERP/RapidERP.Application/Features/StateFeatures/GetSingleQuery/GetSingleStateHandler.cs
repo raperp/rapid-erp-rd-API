@@ -33,8 +33,8 @@ public class GetSingleStateHandler(IRepository repository)
                             //Language = l.Name,
                             Name = s.Name,
                             Code = s.Code,
-                            IsDefault = s.IsDefault,
-                            IsDraft = s.IsDraft
+                            IsDefault = s.IsDefault
+                            //IsDraft = s.IsDraft
                         }).AsNoTracking().AsQueryable();
 
             var result = await data.Where(x => x.Id == query.id).ToListAsync();

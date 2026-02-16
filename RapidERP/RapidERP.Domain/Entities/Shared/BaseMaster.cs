@@ -15,7 +15,7 @@ public class BaseMaster : Master
     public int? StatusTypeId { get; set; }
     public string Code { get; set; }
     public bool? IsDefault { get; set; }
-    public bool? IsDraft { get; set; }
+    //public bool? IsDraft { get; set; }
     //public bool? IsActive { get; set; }
     //public bool? IsDeleted { get; set; }
     public DateTime? CreatedAt { get; set; }

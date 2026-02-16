@@ -19,7 +19,7 @@ public class StatusTypeConfiguration : IEntityTypeConfiguration<StatusType>
         builder.Ignore(x => x.Tenant);
         builder.Ignore(x => x.TenantId);
         builder.Ignore(x => x.IsDefault);
-        builder.Ignore(x => x.IsDraft);
+        //builder.Ignore(x => x.IsDraft);
 
         //builder.HasMany(x => x.Tenants)
         //        .WithOne(x => x.StatusType)

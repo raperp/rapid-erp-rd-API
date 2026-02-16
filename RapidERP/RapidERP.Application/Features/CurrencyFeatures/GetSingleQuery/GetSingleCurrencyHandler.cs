@@ -35,7 +35,7 @@ public class GetSingleCurrencyHandler(IRepository repository)
                             Name = c.Name,
                             Icon = c.Icon,
                             IsDefault = c.IsDefault,
-                            IsDraft = c.IsDraft
+                            //IsDraft = c.IsDraft
                         }).AsNoTracking().AsQueryable();
             
             var result = await data.Where(x => x.Id == request.id).ToListAsync();

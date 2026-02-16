@@ -24,7 +24,7 @@ public class LanguageConfiguration : IEntityTypeConfiguration<Language>
         //builder.Ignore(x => x.Language);
         //builder.Ignore(x => x.LanguageId);
         builder.Ignore(x => x.IsDefault);
-        builder.Ignore(x => x.IsDraft);
+        //builder.Ignore(x => x.IsDraft);
 
         //builder.HasMany(x => x.Tenants)
         //    .WithOne(x => x.Language)

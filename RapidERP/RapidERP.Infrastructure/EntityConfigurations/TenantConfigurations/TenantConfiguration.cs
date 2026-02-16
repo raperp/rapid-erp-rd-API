@@ -23,7 +23,7 @@ public class TenantConfiguration : IEntityTypeConfiguration<Tenant>
         builder.Property(x => x.Email).HasMaxLength(20).IsRequired().HasColumnOrder(11);
         builder.Property(x => x.Website).HasMaxLength(20).IsRequired().HasColumnOrder(12);
         builder.Ignore(x => x.IsDefault);
-        builder.Ignore(x => x.IsDraft);
+        //builder.Ignore(x => x.IsDraft);
         builder.Ignore(x => x.Tenant);
         builder.Ignore(x => x.TenantId);
         //builder.Ignore(x => x.Country);

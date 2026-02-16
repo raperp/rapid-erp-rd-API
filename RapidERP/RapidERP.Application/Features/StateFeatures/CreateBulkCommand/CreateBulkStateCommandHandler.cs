@@ -27,7 +27,7 @@ public class CreateBulkStateCommandHandler(IRepository repository)
                     masterData.Code = item.Code;
                     masterData.Name = item.Name;
                     masterData.IsDefault = item.IsDefault;
-                    masterData.IsDraft = item.IsDraft;
+                    //masterData.IsDraft = item.IsDraft;
 
                     await repository.Add(masterData);
 

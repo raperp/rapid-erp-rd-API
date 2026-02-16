@@ -36,7 +36,7 @@ public class UpdateStateCommandHandler(IRepository repository)
                 masterRecord.Name = request.masterPUT.Name;
                 masterRecord.Code = request.masterPUT.Code;
                 masterRecord.IsDefault = request.masterPUT.IsDefault;
-                masterRecord.IsDraft = request.masterPUT.IsDraft;
+                //masterRecord.IsDraft = request.masterPUT.IsDraft;
                  
                 await repository.Update(masterRecord);
 

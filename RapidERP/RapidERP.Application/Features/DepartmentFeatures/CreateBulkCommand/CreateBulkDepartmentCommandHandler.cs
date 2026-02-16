@@ -27,7 +27,7 @@ public class CreateBulkDepartmentCommandHandler(IRepository repository)
                     //masterData.MenuModuleId = item.MenuModuleId;
                     //masterData.LanguageId = item.LanguageId;
                     masterData.IsDefault = item.IsDefault;
-                    masterData.IsDraft = item.IsDraft;
+                    //masterData.IsDraft = item.IsDraft;
 
                     await repository.Add(masterData);
 

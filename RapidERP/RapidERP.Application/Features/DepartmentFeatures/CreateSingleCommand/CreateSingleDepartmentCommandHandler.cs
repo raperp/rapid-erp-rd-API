@@ -25,7 +25,7 @@ public class CreateSingleDepartmentCommandHandler(IRepository repository)
                 //masterData.MenuModuleId = request.masterPOST.MenuModuleId;
                 //masterData.LanguageId = request.masterPOST.LanguageId;
                 masterData.IsDefault = request.masterPOST.IsDefault;
-                masterData.IsDraft = request.masterPOST.IsDraft;
+                //masterData.IsDraft = request.masterPOST.IsDraft;
 
                 await repository.Add(masterData);
 

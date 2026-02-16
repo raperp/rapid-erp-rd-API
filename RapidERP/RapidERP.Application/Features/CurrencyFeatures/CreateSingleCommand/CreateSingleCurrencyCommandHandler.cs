@@ -26,7 +26,7 @@ public class CreateSingleCurrencyCommandHandler(IRepository repository)
                 masterData.Name = request.masterPOST.Name;
                 masterData.Icon = request.masterPOST.Icon;
                 masterData.IsDefault = request.masterPOST.IsDefault;
-                masterData.IsDraft = request.masterPOST.IsDraft;
+                //masterData.IsDraft = request.masterPOST.IsDraft;
 
                 await repository.Add(masterData);
 

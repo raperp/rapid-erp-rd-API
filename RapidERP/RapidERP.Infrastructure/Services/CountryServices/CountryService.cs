@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Dapper;
+using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.CountryDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
@@ -7,13 +8,15 @@ using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Entities.CurrencyModels;
 using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Entities.TenantModels;
+using RapidERP.Domain.Entities.UserModels;
 using RapidERP.Domain.Utilities;
+using RapidERP.Infrastructure.Data;
 using System.Data;
 using UpdateStatus = RapidERP.Application.DTOs.Shared.UpdateStatus;
 
 namespace RapidERP.Infrastructure.Services.CountryServices;
 
-public class CountryService(IRepository repository) : ICountryService
+public class CountryService(IRepository repository, DapperDbContext dapper) : ICountryService
 {
     RequestResponse requestResponse;
 
@@ -158,7 +161,7 @@ public class CountryService(IRepository repository) : ICountryService
                             c.Name,
                             c.Code,
                             c.IsDefault,
-                            c.IsDraft,
+                            //c.IsDraft,
                             //c.IsActive,
                             //c.IsDeleted,
                             c.ISONumeric,
@@ -228,7 +231,7 @@ public class CountryService(IRepository repository) : ICountryService
                             c.Name,
                             c.Code,
                             c.IsDefault,
-                            c.IsDraft,
+                            //c.IsDraft,
                             //c.IsActive,
                             //c.IsDeleted,
                             c.ISONumeric,
@@ -370,7 +373,7 @@ public class CountryService(IRepository repository) : ICountryService
                 masterPUT.FlagURL = (masterPUT.FlagURL is not null) ? masterPUT.FlagURL : masterRecord.FlagURL;
                 masterPUT.TenantId = (masterPUT.TenantId is not null) ? masterPUT.TenantId : masterRecord.TenantId;
                 masterPUT.IsDefault = (masterPUT.IsDefault is not null) ? masterPUT.IsDefault : masterRecord.IsDefault;
-                masterPUT.IsDraft = (masterPUT.IsDraft is not null) ? masterPUT.IsDraft : masterRecord.IsDraft;
+                //masterPUT.IsDraft = (masterPUT.IsDraft is not null) ? masterPUT.IsDraft : masterRecord.IsDraft;
                 //masterPUT.IsActive = (masterPUT.IsActive is not null) ? masterPUT.IsActive : masterRecord.IsActive;
                 //masterPUT.IsDeleted = (masterPUT.IsDeleted is not null) ? masterPUT.IsDeleted : masterRecord.IsDeleted;
             }
@@ -784,7 +787,7 @@ public class CountryService(IRepository repository) : ICountryService
         }
     }
 
-    public async Task<RequestResponse> CreateAudit(CountryAudit auditPOST)
+    public async Task<RequestResponse> CreateAudit(CountryAuditDTO auditPOST)
     {
         try
         {
@@ -883,7 +886,6 @@ public class CountryService(IRepository repository) : ICountryService
         {
             foreach (var import in imports)
             {
-                
                 if (import.Id == 0)
                 {
                     CountryPOST masterData = new();
@@ -894,24 +896,26 @@ public class CountryService(IRepository repository) : ICountryService
                     masterData.Name = import.Name;
                     masterData.Code = import.Code;
                     masterData.IsDefault = import.IsDefault;
+                    masterData.IsDraft = import.IsDraft; 
                     masterData.ISONumeric = import.ISONumeric;
                     masterData.ISO2Code = import.ISO2Code;
                     masterData.ISO3Code = import.ISO3Code;
                     masterData.FlagURL = import.FlagURL;
 
-                    //var result = await Create(masterData);
+                    var result = await Create(masterData);
+                    //var task = Create(masterData);
+                    //var result = await Task.WhenAll(task);
 
-                    var task = Create(masterData);
-                    var result = await Task.WhenAll(task);
-                    response.Message = result.FirstOrDefault().Message;
-                    response.IsSuccess = result.FirstOrDefault().IsSuccess;
-                    response.StatusCode = result.FirstOrDefault().StatusCode;
-                    response.Data = result.FirstOrDefault().Data;
+                    response.Message = result.Message;
+                    response.IsSuccess = result.IsSuccess;
+                    response.StatusCode = result.StatusCode;
+                    response.Data = result.Data;
                 }
 
                 else
                 {
                     CountryPUT masterData = new();
+                    masterData.Id = import.Id;
                     masterData.TenantId = import.TenantId;
                     masterData.DefaultLanguageId = import.DefaultLanguageId;
                     masterData.DefaultCurrencyId = import.DefaultCurrencyId;
@@ -919,18 +923,20 @@ public class CountryService(IRepository repository) : ICountryService
                     masterData.Name = import.Name;
                     masterData.Code = import.Code;
                     masterData.IsDefault = import.IsDefault;
+                    masterData.IsDraft = import.IsDraft;
                     masterData.ISONumeric = import.ISONumeric;
                     masterData.ISO2Code = import.ISO2Code;
                     masterData.ISO3Code = import.ISO3Code;
                     masterData.FlagURL = import.FlagURL;
 
-                    var task = Update(masterData);
-                    var result = await Task.WhenAll(task);
+                    var result = await Update(masterData);
+                    //var task = Update(masterData);
+                    //var result = await Task.WhenAll(task);
 
-                    response.Message = result.FirstOrDefault().Message;
-                    response.IsSuccess = result.FirstOrDefault().IsSuccess;
-                    response.StatusCode = result.FirstOrDefault().StatusCode;
-                    response.Data = result.FirstOrDefault().Data;
+                    response.Message = result.Message;
+                    response.IsSuccess = result.IsSuccess;
+                    response.StatusCode = result.StatusCode;
+                    response.Data = result.Data;
                 }
             }
 
@@ -1019,6 +1025,39 @@ public class CountryService(IRepository repository) : ICountryService
                 StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
                 IsSuccess = false,
                 Message = ResponseMessage.WrongDataInput
+            };
+
+            return requestResponse;
+        }
+    }
+
+    public async Task<RequestResponse> GetAllAudits()
+    {
+        try
+        {
+            DynamicParameters parameters = new(); 
+            var query = "SELECT c.Name AS Country, ca.Name, ca.ISO2Code, ca.ISO3Code, ca.ISONumeric, ca.FlagURL, ca.Code, ca.IsDefault, ca.ActionBy, ca.ActionAt, st.Name, act.Name, l.Name, dl.Name AS DefaultLanguage, dcu.Name AS DefaultCurrency FROM CountryAudits ca LEFT JOIN Countries c ON ca.CountryId = c.Id LEFT JOIN Currencies cu ON ca.CurrencyId = cu.Id LEFT JOIN StatusTypes st ON ca.StatusTypeId = st.Id LEFT JOIN ActionTypes act ON ca.ActionTypeId = act.Id LEFT JOIN Languages l ON ca.LanguageId = l.Id LEFT JOIN Languages dl ON ca.DefaultLanguageId = dl.Id LEFT JOIN Currencies dcu ON ca.DefaultCurrencyId = dcu.Id";
+            
+            var result = await dapper.ConnectDatabase().QueryAsync<dynamic>(query, parameters);
+            
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                IsSuccess = true,
+                Message = ResponseMessage.FetchSuccess,
+                Data = result
+            };
+
+            return requestResponse;
+        }
+
+        catch (Exception ex) 
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ex.Message
             };
 
             return requestResponse;

@@ -20,7 +20,7 @@ public class UserIPWhitelistConfiguration : IEntityTypeConfiguration<UserIPWhite
         //builder.Ignore(x => x.Language);
         //builder.Ignore(x => x.LanguageId);
         builder.Ignore(x => x.IsDefault);
-        builder.Ignore(x => x.IsDraft);
+        //builder.Ignore(x => x.IsDraft);
         builder.Ignore(x => x.Name);
     }
 }

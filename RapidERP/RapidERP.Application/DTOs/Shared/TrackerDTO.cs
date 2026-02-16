@@ -3,8 +3,8 @@
 public record class TrackerDTO  
 {
     public int? ActivityTypeId { get; set; }
-    public DateTime? PageViewStartedAt { get; set; }
-    public DateTime? PageViewEndedAt { get; set; }
+    //public DateTime? PageViewStartedAt { get; set; }
+    //public DateTime? PageViewEndedAt { get; set; }
     public string Browser { get; set; }
     public string Location { get; set; }
     public string LocationURL { get; set; }

@@ -18,7 +18,7 @@ public class CurrencyConfiguration : IEntityTypeConfiguration<Currency>
         builder.Property(x => x.Name).HasMaxLength(40).IsRequired().HasColumnOrder(6);
         builder.Property(x => x.Icon).IsRequired(false).HasColumnOrder(7);
         builder.Property(x => x.IsDefault).IsRequired().HasColumnOrder(8);
-        builder.Property(x => x.IsDraft).IsRequired().HasColumnOrder(9);
+        //builder.Property(x => x.IsDraft).IsRequired().HasColumnOrder(9);
         
         //builder.HasMany(x => x.Countries)
         //        .WithOne(x => x.Currency)

@@ -2,6 +2,7 @@
 using RapidERP.Application.DTOs.CountryDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
+using RapidERP.Domain.Entities.CountryModels;
 
 namespace RapidERP.API.Controllers;
 
@@ -17,6 +18,16 @@ public class CountryController(ICountryService service, ICountryLocalization loc
         //var query = new GetAllCountryCommand(skip, take);
         //var result = await bus.InvokeAsync<RequestResponse>(query);
         var result = await service.GetAll(skip, take);
+        return Ok(result);
+    }
+
+    [HttpGet("GetAllAudits")]
+    public async Task<IActionResult> GetAllAudits()
+    {
+        //logger.LogInformation("GetAll called with skip: {skip}, take: {take}", skip, take);
+        //var query = new GetAllCountryCommand(skip, take);
+        //var result = await bus.InvokeAsync<RequestResponse>(query);
+        var result = await service.GetAllAudits();
         return Ok(result);
     }
 
@@ -61,6 +72,15 @@ public class CountryController(ICountryService service, ICountryLocalization loc
         logger.LogInformation("Update Status action performed");
         //var result = await bus.InvokeAsync<RequestResponse>(new SoftDeleteCountryCommand(id));
         var result = await service.UpdateStatus(updateStatus);
+        return Ok(result);
+    }
+
+    [HttpPost("CreateAudit")]
+    public async Task<IActionResult> CreateAudit(CountryAuditDTO auditPOST)
+    {
+        logger.LogInformation("Create Audit called");
+        //var result = await bus.InvokeAsync<RequestResponse>(new CreateSingleCountryCommand(masterPOST));
+        var result = await service.CreateAudit(auditPOST);
         return Ok(result);
     }
 
@@ -184,7 +204,7 @@ public class CountryController(ICountryService service, ICountryLocalization loc
     [HttpPost("Import")]
     public async Task<IActionResult> Import(List<CountryImport> imports)
     {
-        logger.LogInformation("Create captured called");
+        logger.LogInformation("Create import called");
         //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
         var result = await service.Import(imports);
         return Ok(result);

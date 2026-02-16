@@ -27,7 +27,7 @@ public class CreateSingleCountryCommandHandler(IRepository repository)
                 //masterData.DialingCode = request.masterPOST.DialCode;
                 masterData.Name = request.masterPOST.Name;
                 masterData.IsDefault = request.masterPOST.IsDefault;
-                masterData.IsDraft = request.masterPOST.IsDraft;
+                //masterData.IsDraft = request.masterPOST.IsDraft;
                 masterData.ISONumeric = request.masterPOST.ISONumeric;
                 masterData.ISO2Code = request.masterPOST.ISO2Code;
                 masterData.ISO3Code = request.masterPOST.ISO3Code;

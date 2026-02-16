@@ -26,6 +26,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         //builder.Ignore(x => x.Language);
         //builder.Ignore(x => x.LanguageId);
         builder.Ignore(x => x.IsDefault);
-        builder.Ignore(x => x.IsDraft);
+        //builder.Ignore(x => x.IsDraft);
     }
 }

@@ -19,7 +19,7 @@ public class SolutionConfiguration : IEntityTypeConfiguration<Solution>
         builder.Property(x => x.Icon).IsRequired(false).HasColumnOrder(7);
         builder.Property(x => x.Description).IsRequired(false).HasColumnOrder(8);
         builder.Ignore(x => x.IsDefault);
-        builder.Ignore(x => x.IsDraft);
+        //builder.Ignore(x => x.IsDraft);
         builder.Ignore(x => x.Tenant);
     }
 }

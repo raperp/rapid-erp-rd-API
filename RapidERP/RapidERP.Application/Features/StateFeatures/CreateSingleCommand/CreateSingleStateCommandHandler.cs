@@ -25,7 +25,7 @@ public class CreateSingleStateCommandHandler(IRepository repository)
                 masterData.Code = request.masterPOST.Code;
                 masterData.Name = request.masterPOST.Name;
                 masterData.IsDefault = request.masterPOST.IsDefault;
-                masterData.IsDraft = request.masterPOST.IsDraft;
+                //masterData.IsDraft = request.masterPOST.IsDraft;
 
                 await repository.Add(masterData);
 

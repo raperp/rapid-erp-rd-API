@@ -13,8 +13,7 @@ namespace RapidERP.Infrastructure.EntityConfiguration.KitchenConfigurations
             builder.Property(x => x.Description).HasMaxLength(100).IsRequired(false);
             builder.Property(x => x.PrinterId).IsRequired(false);
             builder.Ignore(x => x.IsDefault);
-            builder.Ignore(x => x.IsDraft);
-            builder.Ignore(x => x.IsDraft);
+            //builder.Ignore(x => x.IsDraft);
             //builder.Ignore(x => x.Language);
             //builder.Ignore(x => x.LanguageId);
         }

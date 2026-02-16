@@ -63,7 +63,7 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                 //masterData.MenuModuleId = masterPOST.MenuModuleId;
                 //masterData.LanguageId = masterPOST.LanguageId;
                 masterData.IsDefault = masterPOST.IsDefault;
-                masterData.IsDraft = masterPOST.IsDraft;
+                //masterData.IsDraft = masterPOST.IsDraft;
                 
 
                 await context.Areas.AddAsync(masterData);
@@ -401,8 +401,7 @@ public class AreaService(RapidERPDbContext context, ISharedService shared) : IAr
                 .SetProperty(x => x.TenantId, masterPUT.TenantId)
                 //.SetProperty(x => x.MenuModuleId, masterPUT.MenuModuleId)
                 //.SetProperty(x => x.LanguageId, masterPUT.LanguageId)
-                .SetProperty(x => x.IsDefault, masterPUT.IsDefault)
-                .SetProperty(x => x.IsDraft, masterPUT.IsDraft));
+                .SetProperty(x => x.IsDefault, masterPUT.IsDefault));
 
                 AreaHistory history = new();
                 history.AreaId = masterPUT.Id;

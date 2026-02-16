@@ -6,6 +6,7 @@ namespace RapidERP.Application.Interfaces;
 
 public interface ICountryService : IBase<CountryPOST, CountryPUT> 
 {
+    Task<RequestResponse> GetAllAudits();
     Task<RequestResponse> GetAllLookupsLocalization();
     Task<RequestResponse> GetAllCurrencies();
     Task<RequestResponse> CreateCurrency(CountryCurrencyPOST currencyPOST);
@@ -14,7 +15,7 @@ public interface ICountryService : IBase<CountryPOST, CountryPUT>
     Task<RequestResponse> DeleteCurrency(int id);
     Task<RequestResponse> CreateCountryCapture(CountryCapturedPOST captured);
     Task<RequestResponse> DeleteCountryCapture(int id);
-    Task<RequestResponse> CreateAudit(CountryAudit auditPOST);
+    Task<RequestResponse> CreateAudit(CountryAuditDTO auditPOST);
     Task<RequestResponse> CreateActivity(CountryActivity activityPOST);
     Task<RequestResponse> ImportCurrency(List<CountryCurrencyPOST> imports);
 }

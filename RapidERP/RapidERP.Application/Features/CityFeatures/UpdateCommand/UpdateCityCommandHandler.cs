@@ -40,7 +40,7 @@ public class UpdateCityCommandHandler(IRepository repository)
                 //masterRecord.LanguageId = request.masterPUT.LanguageId;
                 //masterRecord.StatusTypeId = request.masterPUT.StatusTypeId;
                 masterRecord.IsDefault = request.masterPUT.IsDefault;
-                masterRecord.IsDraft = request.masterPUT.IsDraft;
+                //masterRecord.IsDraft = request.masterPUT.IsDraft;
 
                 await repository.Update(masterRecord);
 

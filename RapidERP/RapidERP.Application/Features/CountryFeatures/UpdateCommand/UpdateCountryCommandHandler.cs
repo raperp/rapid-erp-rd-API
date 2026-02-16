@@ -58,7 +58,7 @@ public class UpdateCountryCommandHandler(IRepository repository)
                 //masterRecord.DialingCode = request.masterPUT.DialCode;
                 masterRecord.Name = request.masterPUT.Name;
                 masterRecord.IsDefault = request.masterPUT.IsDefault;
-                masterRecord.IsDraft = request.masterPUT.IsDraft;
+                //masterRecord.IsDraft = request.masterPUT.IsDraft;
                 masterRecord.ISONumeric = request.masterPUT.ISONumeric;
                 masterRecord.ISO2Code = request.masterPUT.ISO2Code;
                 masterRecord.ISO3Code = request.masterPUT.ISO3Code;
