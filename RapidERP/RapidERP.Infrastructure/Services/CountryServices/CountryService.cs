@@ -8,7 +8,6 @@ using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Entities.CurrencyModels;
 using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Entities.TenantModels;
-using RapidERP.Domain.Entities.UserModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 using System.Data;
@@ -24,7 +23,7 @@ public class CountryService(IRepository repository, DapperDbContext dapper) : IC
     {
         try
         {
-            using var transaction = repository.BeginTransaction();
+            //using var transaction = repository.BeginTransaction();
             var isExists = await repository.IsExists<Country>(masterPOST.Name);
 
             ActionDTO actionDTO = new();
@@ -54,7 +53,7 @@ public class CountryService(IRepository repository, DapperDbContext dapper) : IC
 
                 await repository.Add(masterData);
 
-                transaction.Commit();
+                //transaction.Commit();
 
                 requestResponse = new()
                 {
