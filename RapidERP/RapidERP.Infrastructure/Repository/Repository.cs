@@ -1,11 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Configuration;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.Shared;
 using RapidERP.Infrastructure.Data;
-using UpdateStatus = RapidERP.Application.DTOs.Shared.UpdateStatus;
+using System.Configuration;
 using System.Data;
+using UpdateStatus = RapidERP.Application.DTOs.Shared.UpdateStatus;
 
 namespace RapidERP.Infrastructure.Repository;
 
@@ -13,10 +16,12 @@ namespace RapidERP.Infrastructure.Repository;
 public class Repository : IRepository
 {
     private readonly RapidERPDbContext context;
+    private readonly IConfiguration configuration;
 
-    public Repository(RapidERPDbContext context)
+    public Repository(RapidERPDbContext context, IConfiguration configuration)
     {
         this.context = context;
+        this.configuration = configuration;
     }
 
     public IQueryable<T> Set<T>() where T : class
@@ -167,4 +172,6 @@ public class Repository : IRepository
         return message;
 
     }
+
+    public IDbConnection ConnectDatabase() => new SqlConnection(configuration.GetConnectionString("RapidERPConnection"));
 }

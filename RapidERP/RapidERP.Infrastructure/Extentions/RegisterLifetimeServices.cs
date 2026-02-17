@@ -50,7 +50,6 @@ public static class RegisterLifetimeServices
         services.AddScoped<ICountryService, CountryService>();
         services.AddScoped<ICountryLocalization, CountryLocalizationService>();
         services.AddScoped<ICountryExport, CountryExportService>();
-        services.AddScoped<DapperDbContext>();
 
         return services;
     }

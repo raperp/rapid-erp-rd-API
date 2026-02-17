@@ -1,10 +1,8 @@
 
 using FluentValidation;
-using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using RapidERP.Application.Assembly;
 using RapidERP.Infrastructure.Extentions;
-using RapidERP.Infrastructure.GlobalExceptions;
 using RapidERP.Infrastructure.Health;
 using Serilog;
 
@@ -27,7 +25,7 @@ try
     builder.Services.AddDbContext(builder.Configuration);
     builder.Services.AddValidatorsFromAssemblyContaining<RapidERPApplication>();
     builder.Services.AddScopedServices();
-    //builder.Services.AddHealthChecks().AddCheck<SqlHealth>("sql-health-check", HealthStatus.Unhealthy);
+    builder.Services.AddHealthChecks().AddCheck<SqlHealth>("sql-health-check", HealthStatus.Unhealthy);
     var app = builder.Build();
 
     // Configure the HTTP request pipeline.
@@ -41,7 +39,7 @@ try
 
     app.UseSwaggerUI();
 
-    //app.MapHealthChecks("health");
+    app.MapHealthChecks("health");
 
     //app.UseForwardedHeaders(new ForwardedHeadersOptions
     //{

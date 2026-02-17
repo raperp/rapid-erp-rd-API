@@ -33,4 +33,5 @@ public interface IRepository
     Task<dynamic> GetCounts<T>() where T : BaseMaster;
     Task<bool> IsExists<T>(string name) where T : Master;
     Task<bool> IsExistsById<T>(int id, string name) where T : Master;
+    IDbConnection ConnectDatabase();
 }

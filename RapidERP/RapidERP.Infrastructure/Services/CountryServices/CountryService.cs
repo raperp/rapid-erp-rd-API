@@ -15,7 +15,7 @@ using UpdateStatus = RapidERP.Application.DTOs.Shared.UpdateStatus;
 
 namespace RapidERP.Infrastructure.Services.CountryServices;
 
-public class CountryService(IRepository repository, DapperDbContext dapper) : ICountryService
+public class CountryService(IRepository repository) : ICountryService
 {
     RequestResponse requestResponse;
 
@@ -1037,7 +1037,7 @@ public class CountryService(IRepository repository, DapperDbContext dapper) : IC
             DynamicParameters parameters = new(); 
             var query = "SELECT c.Name AS Country, ca.Name, ca.ISO2Code, ca.ISO3Code, ca.ISONumeric, ca.FlagURL, ca.Code, ca.IsDefault, ca.ActionBy, ca.ActionAt, st.Name, act.Name, l.Name, dl.Name AS DefaultLanguage, dcu.Name AS DefaultCurrency FROM CountryAudits ca LEFT JOIN Countries c ON ca.CountryId = c.Id LEFT JOIN Currencies cu ON ca.CurrencyId = cu.Id LEFT JOIN StatusTypes st ON ca.StatusTypeId = st.Id LEFT JOIN ActionTypes act ON ca.ActionTypeId = act.Id LEFT JOIN Languages l ON ca.LanguageId = l.Id LEFT JOIN Languages dl ON ca.DefaultLanguageId = dl.Id LEFT JOIN Currencies dcu ON ca.DefaultCurrencyId = dcu.Id";
             
-            var result = await dapper.ConnectDatabase().QueryAsync<dynamic>(query, parameters);
+            var result = await repository.ConnectDatabase().QueryAsync<dynamic>(query, parameters);
             
             requestResponse = new()
             {
