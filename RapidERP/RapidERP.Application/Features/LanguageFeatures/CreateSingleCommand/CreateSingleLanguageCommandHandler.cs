@@ -14,7 +14,7 @@ public class CreateSingleLanguageCommandHandler(IRepository repository)
         try
         {
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExists<Language>(request.masterPOST.Name);
+            var isExists = await repository.IsExistsByName<Language>(request.masterPOST.Name);
 
             if (isExists == false)
             {

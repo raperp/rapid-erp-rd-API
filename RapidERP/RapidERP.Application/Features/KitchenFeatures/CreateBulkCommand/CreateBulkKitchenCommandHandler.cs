@@ -15,7 +15,7 @@ public class CreateBulkKitchenCommandHandler(IRepository repository)
             foreach (var item in request.masterPOSTs)
             {
                 using var transaction = repository.BeginTransaction();
-                var isExists = await repository.IsExists<Kitchen>(item.Name);
+                var isExists = await repository.IsExistsByName<Kitchen>(item.Name);
 
                 if (isExists == false)
                 {

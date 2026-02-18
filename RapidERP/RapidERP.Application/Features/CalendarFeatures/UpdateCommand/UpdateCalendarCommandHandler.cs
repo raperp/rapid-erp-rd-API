@@ -13,7 +13,7 @@ public class UpdateCalendarCommandHandler(IRepository repository)
         try
         { 
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExistsById<Calendar>(request.masterPUT.Id, request.masterPUT.Name);
+            var isExists = await repository.IsExistsByIdName<Calendar>(request.masterPUT.Id, request.masterPUT.Name);
             var masterRecord = await repository.FindById<Calendar>(request.masterPUT.Id);
 
             //Loading current data to parameters

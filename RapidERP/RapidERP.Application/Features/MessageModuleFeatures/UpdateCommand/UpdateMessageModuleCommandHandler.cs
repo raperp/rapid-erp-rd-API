@@ -14,7 +14,7 @@ public class UpdateMessageModuleCommandHandler(IRepository repository)
         {
             MessageModule masterData = new();
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExistsById<MessageModule>(request.masterPUT.Id, request.masterPUT.Name);
+            var isExists = await repository.IsExistsByIdName<MessageModule>(request.masterPUT.Id, request.masterPUT.Name);
             var masterRecord = await repository.FindById<MessageModule>(request.masterPUT.Id);
 
             //Loading current data to parameters

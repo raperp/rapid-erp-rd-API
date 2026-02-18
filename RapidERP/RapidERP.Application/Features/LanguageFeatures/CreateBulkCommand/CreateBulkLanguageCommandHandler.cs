@@ -15,7 +15,7 @@ public class CreateBulkLanguageCommandHandler(IRepository repository)
             foreach (var item in request.masterPOSTs)
             {
                 using var transaction = repository.BeginTransaction();
-                var isExists = await repository.IsExists<Language>(item.Name);
+                var isExists = await repository.IsExistsByName<Language>(item.Name);
 
                 if (isExists == false)
                 {

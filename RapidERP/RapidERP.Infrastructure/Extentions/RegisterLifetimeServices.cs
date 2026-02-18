@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RapidERP.Application.Interfaces;
+using RapidERP.Application.Interfaces.Country;
 using RapidERP.Application.Interfaces.Tenant;
 using RapidERP.Application.Repository;
 using RapidERP.Infrastructure.Data;
@@ -24,7 +25,7 @@ public static class RegisterLifetimeServices
         services.AddScoped<ITenantLanguageService, TenantLanguageService>();
         services.AddScoped<ITenantCalendarService, TenantCalendarService>();
         services.AddScoped<ICurrencyService, CurrencyService>();
-        services.AddScoped<ICountryService, CountryService>();
+        services.AddScoped<ICountry, CountryService>();
         services.AddScoped<ILanguageService, LanguageService>();
         services.AddScoped<IStateService, StateService>();
         services.AddScoped<ISharedService, SharedServices>();
@@ -47,9 +48,13 @@ public static class RegisterLifetimeServices
         services.AddScoped<ICommunicationService, CommunicationService>();
         services.AddScoped<IUserIPWhitelistService, UserIPWhitelistService>();
         services.AddScoped<IRepository, Repository.Repository>();
-        services.AddScoped<ICountryService, CountryService>();
+        services.AddScoped<ICountry, CountryService>();
         services.AddScoped<ICountryLocalization, CountryLocalizationService>();
         services.AddScoped<ICountryExport, CountryExportService>();
+        services.AddScoped<ICountryCurrency, CountryCurrencyService>();
+        services.AddScoped<ICountryCapture, CountryCaptureService>();
+        services.AddScoped<ICountryActivity, CountryActivityService>();
+        services.AddScoped<ICountryAudit, CountryAuditService>();
 
         return services;
     }

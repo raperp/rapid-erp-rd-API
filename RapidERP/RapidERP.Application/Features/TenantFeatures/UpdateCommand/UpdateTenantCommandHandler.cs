@@ -13,7 +13,7 @@ public class UpdateTenantCommandHandler(IRepository repository)
         try
         { 
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExistsById<Tenant>(request.masterPUT.Id, request.masterPUT.Name);
+            var isExists = await repository.IsExistsByIdName<Tenant>(request.masterPUT.Id, request.masterPUT.Name);
             var masterRecord = await repository.FindById<Tenant>(request.masterPUT.Id);
 
             //Loading current data to parameters

@@ -13,7 +13,7 @@ public class CreateSingleMenuModuleCommandHandler(IRepository repository)
         try
         {
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExists<MenuModule>(request.masterPOST.Name);
+            var isExists = await repository.IsExistsByName<MenuModule>(request.masterPOST.Name);
 
             if (isExists == false)
             {

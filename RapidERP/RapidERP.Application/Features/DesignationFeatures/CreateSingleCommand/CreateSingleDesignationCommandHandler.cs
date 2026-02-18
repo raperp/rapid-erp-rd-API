@@ -13,7 +13,7 @@ public class CreateSingleDesignationCommandHandler(IRepository repository)
         try
         {
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExists<Designation>(request.masterPOST.Name);
+            var isExists = await repository.IsExistsByName<Designation>(request.masterPOST.Name);
 
             if (isExists == false)
             {

@@ -2,17 +2,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
-using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.Shared;
 using RapidERP.Infrastructure.Data;
-using System.Configuration;
 using System.Data;
 using UpdateStatus = RapidERP.Application.DTOs.Shared.UpdateStatus;
 
 namespace RapidERP.Infrastructure.Repository;
 
-//public class Repository<T> : IRepository<T> where T : class
 public class Repository : IRepository
 {
     private readonly RapidERPDbContext context;
@@ -56,24 +53,26 @@ public class Repository : IRepository
     {
         string message = "Status Updated";
 
-        var activeStatusId = await context.StatusTypes.Where(x => x.Name == "Active").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
-        var inActiveStatusId = await context.StatusTypes.Where(x => x.Name == "InActive").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
-        var softDeletedStatusId = await context.StatusTypes.Where(x => x.Name == "SoftDeleted").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        //var activeStatusId = await context.StatusTypes.Where(x => x.Name == "Active").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        //var inActiveStatusId = await context.StatusTypes.Where(x => x.Name == "InActive").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+        //var softDeletedStatusId = await context.StatusTypes.Where(x => x.Name == "SoftDeleted").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
 
-        if (updateStatus.IsActive == true)
-        {
-            await context.Set<TEntity>().Where(x => x.Id == updateStatus.Id).ExecuteUpdateAsync(x => x.SetProperty(x => x.StatusTypeId, activeStatusId));
-        }
+        //if (updateStatus.IsActive == true)
+        //{
+        //    await context.Set<TEntity>().Where(x => x.Id == updateStatus.Id).ExecuteUpdateAsync(x => x.SetProperty(x => x.StatusTypeId, activeStatusId));
+        //}
 
-        if (updateStatus.IsActive == false)
-        {
-            await context.Set<TEntity>().Where(x => x.Id == updateStatus.Id).ExecuteUpdateAsync(x => x.SetProperty(x => x.StatusTypeId, inActiveStatusId));
-        }
+        //if (updateStatus.IsActive == false)
+        //{
+        //    await context.Set<TEntity>().Where(x => x.Id == updateStatus.Id).ExecuteUpdateAsync(x => x.SetProperty(x => x.StatusTypeId, inActiveStatusId));
+        //}
 
-        if (updateStatus.IsDelete == true)
-        {
-            await context.Set<TEntity>().Where(x => x.Id == updateStatus.Id).ExecuteUpdateAsync(x => x.SetProperty(x => x.StatusTypeId, softDeletedStatusId));
-        }
+        //if (updateStatus.IsDelete == true)
+        //{
+        //    await context.Set<TEntity>().Where(x => x.Id == updateStatus.Id).ExecuteUpdateAsync(x => x.SetProperty(x => x.StatusTypeId, softDeletedStatusId));
+        //}
+
+        await context.Set<TEntity>().Where(x => x.Id == updateStatus.Id).ExecuteUpdateAsync(x => x.SetProperty(x => x.StatusTypeId, updateStatus.StatusTypeId));
 
         return message;
     }
@@ -139,13 +138,19 @@ public class Repository : IRepository
         return result;
     }
 
-    public async Task<bool> IsExists<T>(string name) where T : Master
+    public async Task<bool> IsExistsById<T>(int id) where T : Master
+    {
+        var result = await context.Set<T>().AsNoTracking().AnyAsync(x => x.Id == id);
+        return result;
+    }
+
+    public async Task<bool> IsExistsByName<T>(string name) where T : Master
     {
         var result = await context.Set<T>().AsNoTracking().AnyAsync(x => x.Name == name);
         return result;
     }
 
-    public async Task<bool> IsExistsById<T>(int id, string name) where T : Master
+    public async Task<bool> IsExistsByIdName<T>(int id, string name) where T : Master
     {
         var result = await context.Set<T>().AsNoTracking().AnyAsync(x => x.Name == name && x.Id != id);
         return result;
@@ -162,16 +167,16 @@ public class Repository : IRepository
         return await context.Set<TEntity>().AsNoTracking().ToListAsync();
     }
 
-    public async Task<string> Restore<TEntity>(int id) where TEntity : BaseMaster
-    {
-        string message = "Restoring completed.";
-        var activeStatusId = await context.StatusTypes.Where(x => x.Name == "Active").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
+    //public async Task<string> Restore<TEntity>(int id) where TEntity : BaseMaster
+    //{
+    //    string message = "Restoring completed.";
+    //    var activeStatusId = await context.StatusTypes.Where(x => x.Name == "Active").AsNoTracking().Select(x => x.Id).FirstOrDefaultAsync();
         
-        await context.Set<TEntity>().Where(x => x.Id == id).ExecuteUpdateAsync(x => x.SetProperty(x => x.StatusTypeId, activeStatusId));
+    //    await context.Set<TEntity>().Where(x => x.Id == id).ExecuteUpdateAsync(x => x.SetProperty(x => x.StatusTypeId, activeStatusId));
 
-        return message;
+    //    return message;
 
-    }
+    //}
 
     public IDbConnection ConnectDatabase() => new SqlConnection(configuration.GetConnectionString("RapidERPConnection"));
 }

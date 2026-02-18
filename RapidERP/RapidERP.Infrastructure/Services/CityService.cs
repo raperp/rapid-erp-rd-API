@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.CityDTOs;
+using RapidERP.Application.DTOs.CountryDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
 using RapidERP.Domain.Entities.CityModels;
@@ -488,6 +489,11 @@ public class CityService(RapidERPDbContext context, ISharedService shared) : ICi
     }
 
     public Task<RequestResponse> Restore(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> Import(List<CountryImport> imports)
     {
         throw new NotImplementedException();
     }

@@ -14,7 +14,7 @@ public class CreateSingleMainModuleCommandHandler(IRepository repository)
         try
         {
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExists<MainModule>(request.masterPOST.Name);
+            var isExists = await repository.IsExistsByName<MainModule>(request.masterPOST.Name);
 
             if (isExists == false)
             {

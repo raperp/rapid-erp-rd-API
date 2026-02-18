@@ -15,7 +15,7 @@ public class CreateBulkCalendarCommandHandler(IRepository repository)
             foreach (var item in request.masterPOSTs)
             {
                 using var transaction = repository.BeginTransaction();
-                var isExists = await repository.IsExists<Calendar>(item.Name);
+                var isExists = await repository.IsExistsByName<Calendar>(item.Name);
 
                 if (isExists == false)
                 {

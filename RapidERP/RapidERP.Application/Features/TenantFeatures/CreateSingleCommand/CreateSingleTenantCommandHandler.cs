@@ -13,7 +13,7 @@ public class CreateSingleTenantCommandHandler(IRepository repository)
         try
         {
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExists<Tenant>(request.masterPOST.Name);
+            var isExists = await repository.IsExistsByName<Tenant>(request.masterPOST.Name);
 
             if (isExists == false)
             {

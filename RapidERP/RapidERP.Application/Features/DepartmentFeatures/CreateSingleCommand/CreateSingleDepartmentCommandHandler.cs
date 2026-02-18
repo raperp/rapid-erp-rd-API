@@ -13,7 +13,7 @@ public class CreateSingleDepartmentCommandHandler(IRepository repository)
         try
         {
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExists<Department>(request.masterPOST.Name);
+            var isExists = await repository.IsExistsByName<Department>(request.masterPOST.Name);
 
             if (isExists == false)
             {

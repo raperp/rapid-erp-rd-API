@@ -14,7 +14,7 @@ public class UpdateLanguageCommandHandler(IRepository repository)
         {
             //Language masterData = new();
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExistsById<Language>(request.masterPUT.Id, request.masterPUT.Name);
+            var isExists = await repository.IsExistsByIdName<Language>(request.masterPUT.Id, request.masterPUT.Name);
             var masterRecord = await repository.FindById<Language>(request.masterPUT.Id);
 
             //Loading current data to parameters

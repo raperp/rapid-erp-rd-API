@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RapidERP.Application.DTOs.CountryDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.DTOs.TenantDTOs.TenantLicenseDTOs;
 using RapidERP.Application.Interfaces;
@@ -407,6 +408,11 @@ public class TenantLicenseService(RapidERPDbContext context, ISharedService shar
     }
 
     public Task<RequestResponse> Restore(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> Import(List<CountryImport> imports)
     {
         throw new NotImplementedException();
     }

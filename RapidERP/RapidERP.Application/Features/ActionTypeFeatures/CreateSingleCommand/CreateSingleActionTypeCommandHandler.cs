@@ -13,7 +13,7 @@ public class CreateSingleActionTypeCommandHandler(IRepository repository)
         try
         {
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExists<ActionType>(request.masterPOST.Name);
+            var isExists = await repository.IsExistsByName<ActionType>(request.masterPOST.Name);
 
             if (isExists == false)
             {

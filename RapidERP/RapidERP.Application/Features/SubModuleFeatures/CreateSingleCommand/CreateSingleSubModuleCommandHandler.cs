@@ -13,7 +13,7 @@ public class CreateSingleSubModuleCommandHandler(IRepository repository)
         try
         {
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExists<Submodule>(request.masterPOST.Name);
+            var isExists = await repository.IsExistsByName<Submodule>(request.masterPOST.Name);
 
             if (isExists == false)
             {

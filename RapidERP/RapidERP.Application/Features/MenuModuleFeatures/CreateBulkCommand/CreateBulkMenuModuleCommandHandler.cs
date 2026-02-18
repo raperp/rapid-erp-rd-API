@@ -15,7 +15,7 @@ public class CreateBulkMenuModuleCommandHandler(IRepository repository)
             foreach (var item in request.masterPOSTs)
             {
                 using var transaction = repository.BeginTransaction();
-                var isExists = await repository.IsExists<MenuModule>(item.Name);
+                var isExists = await repository.IsExistsByName<MenuModule>(item.Name);
 
                 if (isExists == false)
                 {

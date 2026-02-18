@@ -16,7 +16,7 @@ public class CreateBulkSubModuleCommandHandler(IRepository repository)
             foreach (var item in request.masterPOSTs)
             {
                 using var transaction = repository.BeginTransaction();
-                var isExists = await repository.IsExists<Submodule>(item.Name);
+                var isExists = await repository.IsExistsByName<Submodule>(item.Name);
 
                 if (isExists == false)
                 {

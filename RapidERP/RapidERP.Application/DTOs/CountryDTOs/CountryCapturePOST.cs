@@ -2,7 +2,7 @@
 
 namespace RapidERP.Application.DTOs.CountryDTOs;
 
-public class CountryCapturedPOST : CapturedDTO
+public class CountryCapturePOST : CapturedDTO
 {
     public int CountryId { get; set; }
 }

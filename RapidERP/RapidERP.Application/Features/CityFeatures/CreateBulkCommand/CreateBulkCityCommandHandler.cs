@@ -15,7 +15,7 @@ public class CreateBulkCityCommandHandler(IRepository repository)
             foreach (var item in request.masterPOSTs)
             {
                 using var transaction = repository.BeginTransaction();
-                var isExists = await repository.IsExists<City>(item.Name);
+                var isExists = await repository.IsExistsByName<City>(item.Name);
 
                 if (isExists == false)
                 {

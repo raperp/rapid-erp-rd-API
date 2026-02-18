@@ -13,7 +13,7 @@ public class UpdateCurrencyCommandHandler(IRepository repository)
         try
         {
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExistsById<Currency>(request.masterPUT.Id, request.masterPUT.Name);
+            var isExists = await repository.IsExistsByIdName<Currency>(request.masterPUT.Id, request.masterPUT.Name);
             var masterRecord = await repository.FindById<Currency>(request.masterPUT.Id);
 
             //Loading current data to parameters

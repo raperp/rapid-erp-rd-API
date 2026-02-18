@@ -1,10 +1,10 @@
-﻿using RapidERP.Application.Interfaces;
+﻿using RapidERP.Application.Interfaces.Country;
 using RapidERP.Domain.Utilities;
 
 namespace RapidERP.Application.CQRS.CountryModule.Command.CountryMasterCommands.CreateBulkCommand;
 
 //public class CreateBulkCountryCommandHandler(IRepository repository)
-public class CreateBulkCountryCommandHandler(ICountryService service)
+public class CreateBulkCountryCommandHandler(ICountry service)
 {
     public async Task<RequestResponse> Handle(CreateBulkCountryCommand command)
     {

@@ -16,7 +16,7 @@ public class CreateBulkTenantCommandHandler(IRepository repository)
             foreach (var item in request.masterPOSTs)
             {
                 using var transaction = repository.BeginTransaction();
-                var isExists = await repository.IsExists<Tenant>(item.Name);
+                var isExists = await repository.IsExistsByName<Tenant>(item.Name);
 
                 if (isExists == false)
                 {

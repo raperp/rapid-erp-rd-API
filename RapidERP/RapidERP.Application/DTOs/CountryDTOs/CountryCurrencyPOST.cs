@@ -4,5 +4,5 @@ namespace RapidERP.Application.DTOs.CountryDTOs;
 
 public record CountryCurrencyPOST : CurrencyDTO
 {
-    public int? CountryId { get; set; }
+    public int CountryId { get; set; }
 }

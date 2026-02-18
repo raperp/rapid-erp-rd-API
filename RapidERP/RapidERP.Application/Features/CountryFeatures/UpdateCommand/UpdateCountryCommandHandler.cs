@@ -14,7 +14,7 @@ public class UpdateCountryCommandHandler(IRepository repository)
         {
             //Country masterData = new();
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExistsById<Country>(request.masterPUT.Id, request.masterPUT.Name);
+            var isExists = await repository.IsExistsByIdName<Country>(request.masterPUT.Id, request.masterPUT.Name);
             var masterRecord = await repository.FindById<Country>(request.masterPUT.Id);
 
             //Loading current data to parameters

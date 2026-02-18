@@ -15,7 +15,7 @@ public class CreateBulkExportTypeCommandHandler(IRepository repository)
             foreach (var item in request.masterPOSTs)
             {
                 using var transaction = repository.BeginTransaction();
-                var isExists = await repository.IsExists<ExportType>(item.Name);
+                var isExists = await repository.IsExistsByName<ExportType>(item.Name);
 
                 if (isExists == false)
                 {

@@ -15,7 +15,7 @@ public class CreateBulkDepartmentCommandHandler(IRepository repository)
             foreach (var item in request.masterPOSTs)
             {
                 using var transaction = repository.BeginTransaction();
-                var isExists = await repository.IsExists<Department>(item.Name);
+                var isExists = await repository.IsExistsByName<Department>(item.Name);
 
                 if (isExists == false)
                 {

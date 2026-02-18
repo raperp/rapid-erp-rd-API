@@ -13,7 +13,7 @@ public class CreateSingleTextModuleCommandHandler(IRepository repository)
         try
         {
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExists<TextModule>(request.masterPOST.Name);
+            var isExists = await repository.IsExistsByName<TextModule>(request.masterPOST.Name);
 
             if (isExists == false)
             {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RapidERP.Application.Interfaces;
+using RapidERP.Application.Interfaces.Country;
 using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Entities.CurrencyModels;
@@ -12,7 +12,7 @@ using RapidERP.Domain.Utilities;
 namespace RapidERP.Application.CQRS.CountryModule.Query.CountryMasterQueries.GetSingleQuery;
 
 //public class GetSingleCountryHandler(IRepository repository)
-public class GetSingleCountryHandler(ICountryService service)
+public class GetSingleCountryHandler(ICountry service)
 {
     //RequestResponse requestResponse;
 

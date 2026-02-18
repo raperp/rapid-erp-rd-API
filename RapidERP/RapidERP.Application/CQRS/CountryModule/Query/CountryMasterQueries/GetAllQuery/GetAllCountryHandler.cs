@@ -1,10 +1,10 @@
-﻿using RapidERP.Application.Interfaces;
+﻿using RapidERP.Application.Interfaces.Country;
 using RapidERP.Domain.Utilities;
 
 namespace RapidERP.Application.CQRS.CountryModule.Query.CountryMasterQueries.GetAllQuery;
 
 //public class GetAllCountryHandler(IRepository repository)
-public class GetAllCountryHandler(ICountryService service)
+public class GetAllCountryHandler(ICountry service)
 {
     //RequestResponse requestResponse;
 

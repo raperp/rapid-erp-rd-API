@@ -13,7 +13,7 @@ public class CreateSingleCalendarCommandHandler(IRepository repository)
         try
         {
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExists<Calendar>(request.masterPOST.Name);
+            var isExists = await repository.IsExistsByName<Calendar>(request.masterPOST.Name);
 
             if (isExists == false)
             {

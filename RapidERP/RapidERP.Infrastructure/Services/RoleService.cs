@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RapidERP.Application.DTOs.CountryDTOs;
 using RapidERP.Application.DTOs.RoleDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces;
@@ -418,6 +419,11 @@ public class RoleService(RapidERPDbContext context, ISharedService shared) : IRo
     }
 
     public Task<RequestResponse> Restore(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> Import(List<CountryImport> imports)
     {
         throw new NotImplementedException();
     }

@@ -12,7 +12,7 @@ public class UpdateCountryLocalizationHandler(IRepository repository)
 
         try
         { 
-            var isExists = await repository.IsExistsById<CountryLocalization>(request.localization.Id, request.localization.Name);
+            var isExists = await repository.IsExistsByIdName<CountryLocalization>(request.localization.Id, request.localization.Name);
             var masterRecord = await repository.FindById<CountryLocalization>(request.localization.Id);
 
             if (masterRecord is not null)

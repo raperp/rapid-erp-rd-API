@@ -14,7 +14,7 @@ public class UpdateMainModuleCommandHandler(IRepository repository)
         {
             MainModule masterData = new();
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExistsById<MainModule>(request.masterPUT.Id, request.masterPUT.Name);
+            var isExists = await repository.IsExistsByIdName<MainModule>(request.masterPUT.Id, request.masterPUT.Name);
             var masterRecord = await repository.FindById<MainModule>(request.masterPUT.Id);
 
             //Loading current data to parameters

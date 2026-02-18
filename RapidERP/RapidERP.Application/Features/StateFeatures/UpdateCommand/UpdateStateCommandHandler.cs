@@ -13,7 +13,7 @@ public class UpdateStateCommandHandler(IRepository repository)
         try
         { 
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExistsById<State>(request.masterPUT.Id, request.masterPUT.Name);
+            var isExists = await repository.IsExistsByIdName<State>(request.masterPUT.Id, request.masterPUT.Name);
             var masterRecord = await repository.FindById<State>(request.masterPUT.Id);
 
             //Loading current data to parameters

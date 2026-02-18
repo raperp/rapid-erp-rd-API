@@ -14,7 +14,7 @@ public class UpdateActionTypeCommandHandler(IRepository repository)
         {
             //ActionType masterData = new();
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExistsById<ActionType>(request.masterPUT.Id, request.masterPUT.Name);
+            var isExists = await repository.IsExistsByIdName<ActionType>(request.masterPUT.Id, request.masterPUT.Name);
             var masterRecord = await repository.FindById<ActionType>(request.masterPUT.Id);
 
             //Loading current data to parameters

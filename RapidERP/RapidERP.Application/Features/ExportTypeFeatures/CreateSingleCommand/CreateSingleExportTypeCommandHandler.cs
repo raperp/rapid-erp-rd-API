@@ -14,7 +14,7 @@ public class CreateSingleExportTypeCommandHandler(IRepository repository)
         try
         {
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExists<ExportType>(request.masterPOST.Name);
+            var isExists = await repository.IsExistsByName<ExportType>(request.masterPOST.Name);
 
             if (isExists == false)
             {

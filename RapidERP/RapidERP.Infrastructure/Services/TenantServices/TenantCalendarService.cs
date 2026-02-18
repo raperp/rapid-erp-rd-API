@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RapidERP.Application.DTOs.CountryDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.DTOs.TenantDTOs.TenantCalendarDTOs;
 using RapidERP.Application.Interfaces;
@@ -375,6 +376,11 @@ public class TenantCalendarService(RapidERPDbContext context, ISharedService sha
     }
 
     public Task<RequestResponse> Restore(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RequestResponse> Import(List<CountryImport> imports)
     {
         throw new NotImplementedException();
     }

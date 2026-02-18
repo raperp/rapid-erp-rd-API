@@ -13,7 +13,7 @@ public class CreateSingleCurrencyCommandHandler(IRepository repository)
         try
         {
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExists<Currency>(request.masterPOST.Name);
+            var isExists = await repository.IsExistsByName<Currency>(request.masterPOST.Name);
 
             if (isExists == false)
             {

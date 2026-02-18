@@ -1,4 +1,4 @@
-﻿using RapidERP.Application.Interfaces;
+﻿using RapidERP.Application.Interfaces.Country;
 using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Utilities;
@@ -6,7 +6,7 @@ using RapidERP.Domain.Utilities;
 namespace RapidERP.Application.CQRS.CountryModule.Command.CountryMasterCommands.SoftDeleteCommand;
 
 //public class SoftDeleteCountryCommandHandler(IRepository repository)
-public class SoftDeleteCountryCommandHandler(ICountryService service)
+public class SoftDeleteCountryCommandHandler(ICountry service)
 {
     RequestResponse requestResponse;
 

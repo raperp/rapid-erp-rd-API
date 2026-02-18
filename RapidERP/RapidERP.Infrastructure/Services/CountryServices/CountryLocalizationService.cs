@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.CountryDTOs;
-using RapidERP.Application.Interfaces;
+using RapidERP.Application.Interfaces.Country;
 using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Entities.LanguageModels;
@@ -16,7 +16,7 @@ public class CountryLocalizationService(IRepository repository) : ICountryLocali
     {
         try
         {
-            var isExists = await repository.IsExists<CountryLocalization>(masterPOST.Name);
+            var isExists = await repository.IsExistsByName<CountryLocalization>(masterPOST.Name);
 
             if (isExists == false)
             {
@@ -145,44 +145,11 @@ public class CountryLocalizationService(IRepository repository) : ICountryLocali
         }
     }
 
-    public async Task<RequestResponse> ImportLocalization(List<CountryLocalizationPOST> imports)
-    {
-        try
-        {
-            requestResponse = new();
-
-            foreach (var import in imports)
-            {
-                var task = Create(import);
-                var result = await Task.WhenAll(task);
-
-                requestResponse.Message = result.FirstOrDefault().Message;
-                requestResponse.IsSuccess = result.FirstOrDefault().IsSuccess;
-                requestResponse.StatusCode = result.FirstOrDefault().StatusCode;
-                requestResponse.Data = result.FirstOrDefault().Data;
-            }
-
-            return requestResponse;
-        }
-
-        catch
-        {
-            requestResponse = new()
-            {
-                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
-                IsSuccess = false,
-                Message = ResponseMessage.WrongDataInput
-            };
-
-            return requestResponse;
-        }
-    }
-
     public async Task<RequestResponse> Update(CountryLocalizationPUT masterPUT)
     {
         try
         {
-            var isExists = await repository.IsExistsById<CountryLocalization>(masterPUT.Id, masterPUT.Name);
+            var isExists = await repository.IsExistsByIdName<CountryLocalization>(masterPUT.Id, masterPUT.Name);
             var masterRecord = await repository.FindById<CountryLocalization>(masterPUT.Id);
 
             if (masterRecord is not null)

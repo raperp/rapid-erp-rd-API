@@ -13,7 +13,7 @@ public class CreateSingleKitchenCommandHandler(IRepository repository)
         try
         {
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExists<Kitchen>(request.masterPOST.Name);
+            var isExists = await repository.IsExistsByName<Kitchen>(request.masterPOST.Name);
 
             if (isExists == false)
             {

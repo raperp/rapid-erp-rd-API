@@ -14,7 +14,7 @@ public class CreateSingleCountryCommandHandler(IRepository repository)
         try
         {
             using var transaction = repository.BeginTransaction(); 
-            var isExists = await repository.IsExists<Country>(request.masterPOST.Name);
+            var isExists = await repository.IsExistsByName<Country>(request.masterPOST.Name);
            
             if (isExists == false)
             {

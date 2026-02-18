@@ -13,7 +13,7 @@ public class CreateSingleCityCommandHandler(IRepository repository)
         try
         {
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExists<City>(request.masterPOST.Name);
+            var isExists = await repository.IsExistsByName<City>(request.masterPOST.Name);
 
             if (isExists == false)
             {

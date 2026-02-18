@@ -13,7 +13,7 @@ public class UpdateCityCommandHandler(IRepository repository)
         try
         {
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExistsById<City>(request.masterPUT.Id, request.masterPUT.Name);
+            var isExists = await repository.IsExistsByIdName<City>(request.masterPUT.Id, request.masterPUT.Name);
             var masterRecord = await repository.FindById<City>(request.masterPUT.Id);
 
             //Loading current data to parameters

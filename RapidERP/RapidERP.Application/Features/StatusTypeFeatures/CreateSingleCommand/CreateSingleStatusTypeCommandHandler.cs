@@ -13,7 +13,7 @@ public class CreateSingleStatusTypeCommandHandler(IRepository repository)
         try
         {
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExists<StatusType>(request.masterPOST.Name);
+            var isExists = await repository.IsExistsByName<StatusType>(request.masterPOST.Name);
 
             if (isExists == false)
             {

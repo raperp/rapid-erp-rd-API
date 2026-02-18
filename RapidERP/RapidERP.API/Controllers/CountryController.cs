@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RapidERP.Application.DTOs.CountryDTOs;
 using RapidERP.Application.DTOs.Shared;
-using RapidERP.Application.Interfaces;
+using RapidERP.Application.Interfaces.Country;
 using RapidERP.Domain.Entities.CountryModels;
 
 namespace RapidERP.API.Controllers;
@@ -9,7 +9,8 @@ namespace RapidERP.API.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 //public class CountryController(IMessageBus bus, ILogger<CountryController> logger) : ControllerBase
-public class CountryController(ICountryService service, ICountryLocalization localizationService, ICountryExport exportService, ILogger<CountryController> logger) : ControllerBase
+//public class CountryController(ICountry service, ICountryLocalization localizationService, ICountryExport exportService, ICountryActivity activityService, ICountryAudit auditService, ICountryCapture captureService, ICountryCurrency currencyService, ILogger<CountryController> logger) : ControllerBase
+public class CountryController(CountryServiceDTO serviceDTO, ILogger<CountryController> logger) : ControllerBase
 {  
     [HttpGet("GetAll")]
     public async Task<IActionResult> GetAll(int skip, int take)
@@ -17,7 +18,7 @@ public class CountryController(ICountryService service, ICountryLocalization loc
         logger.LogInformation("GetAll called with skip: {skip}, take: {take}", skip, take);
         //var query = new GetAllCountryCommand(skip, take);
         //var result = await bus.InvokeAsync<RequestResponse>(query);
-        var result = await service.GetAll(skip, take);
+        var result = await serviceDTO.countryService.GetAll(skip, take);
         return Ok(result);
     }
 
@@ -27,7 +28,7 @@ public class CountryController(ICountryService service, ICountryLocalization loc
         //logger.LogInformation("GetAll called with skip: {skip}, take: {take}", skip, take);
         //var query = new GetAllCountryCommand(skip, take);
         //var result = await bus.InvokeAsync<RequestResponse>(query);
-        var result = await service.GetAllAudits();
+        var result = await serviceDTO.auditService.GetAll();
         return Ok(result);
     }
 
@@ -36,7 +37,7 @@ public class CountryController(ICountryService service, ICountryLocalization loc
     {
         logger.LogInformation("GetSingle called with id: {id}", id);
         //var result = await bus.InvokeAsync<RequestResponse>(new GetSingleCountryCommand(id));
-        var result = await service.GetById(id);
+        var result = await serviceDTO.countryService.GetById(id);
         return Ok(result);
     }
 
@@ -44,7 +45,7 @@ public class CountryController(ICountryService service, ICountryLocalization loc
     public async Task<IActionResult> Lookup()
     {
         logger.LogInformation("Lookup called");
-        var result = await service.Lookup();
+        var result = await serviceDTO.countryService.Lookup();
         return Ok(result);
     }
 
@@ -53,7 +54,7 @@ public class CountryController(ICountryService service, ICountryLocalization loc
     {
         logger.LogInformation("CreateSingle called");
         //var result = await bus.InvokeAsync<RequestResponse>(new CreateSingleCountryCommand(masterPOST));
-        var result = await service.Create(masterPOST);
+        var result = await serviceDTO.countryService.Create(masterPOST);
         return Ok(result);
     }
 
@@ -62,7 +63,7 @@ public class CountryController(ICountryService service, ICountryLocalization loc
     {
         logger.LogInformation("Update called");
         //var result = await bus.InvokeAsync<RequestResponse>(new UpdateCountryCommand(masterPUT));
-        var result = await service.Update(masterPUT);
+        var result = await serviceDTO.countryService.Update(masterPUT);
         return Ok(result);
     }
 
@@ -71,34 +72,25 @@ public class CountryController(ICountryService service, ICountryLocalization loc
     {
         logger.LogInformation("Update Status action performed");
         //var result = await bus.InvokeAsync<RequestResponse>(new SoftDeleteCountryCommand(id));
-        var result = await service.UpdateStatus(updateStatus);
+        var result = await serviceDTO.countryService.UpdateStatus(updateStatus);
         return Ok(result);
     }
 
     [HttpPost("CreateAudit")]
-    public async Task<IActionResult> CreateAudit(CountryAuditDTO auditPOST)
+    public async Task<IActionResult> CreateAudit(CountryAuditDTO masterPOST)
     {
         logger.LogInformation("Create Audit called");
         //var result = await bus.InvokeAsync<RequestResponse>(new CreateSingleCountryCommand(masterPOST));
-        var result = await service.CreateAudit(auditPOST);
+        var result = await serviceDTO.auditService.Create(masterPOST);
         return Ok(result);
     }
-
-    //[HttpPut("Restore")]
-    //public async Task<IActionResult> Restore(int id)
-    //{
-    //    logger.LogInformation("Restore performed");
-    //    //var result = await bus.InvokeAsync<RequestResponse>(new SoftDeleteCountryCommand(id));
-    //    var result = await service.Restore(id);
-    //    return Ok(result);
-    //}
 
     [HttpDelete("Delete")]
     public async Task<IActionResult> Delete(int id)
     {
         logger.LogInformation("Delete action performed with id: {id}", id);
         //var result = await bus.InvokeAsync<RequestResponse>(new DeleteCountryCommand(id));
-        var result = await service.Delete(id);
+        var result = await serviceDTO.countryService.Delete(id);
         return Ok(result);
     }
 
@@ -107,16 +99,7 @@ public class CountryController(ICountryService service, ICountryLocalization loc
     {
         logger.LogInformation("Get All Country Localizations called");
         //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
-        var result = await localizationService.GetAll();
-        return Ok(result);
-    }
-
-    [HttpGet("GetAllLookupsLocalization")]
-    public async Task<IActionResult> GetAllLookupsLocalization()
-    {
-        logger.LogInformation("Get All Country Localizations called");
-        //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
-        var result = await service.GetAllLookupsLocalization();
+        var result = await serviceDTO.localizationService.GetAll();
         return Ok(result);
     }
 
@@ -125,7 +108,7 @@ public class CountryController(ICountryService service, ICountryLocalization loc
     {
         logger.LogInformation("Create Localization called");
         //var result = await bus.InvokeAsync<RequestResponse>(new CreateSingleCountryCommand(masterPOST));
-        var result = await localizationService.Create(localizationPOST);
+        var result = await serviceDTO.localizationService.Create(localizationPOST);
         return Ok(result);
     }
 
@@ -134,43 +117,25 @@ public class CountryController(ICountryService service, ICountryLocalization loc
     {
         logger.LogInformation("Delete Country Localization performed with id: {id}", id);
         //var result = await bus.InvokeAsync<RequestResponse>(new DeleteCountryLocalizationCommand(id));
-        var result = await localizationService.Delete(id);
+        var result = await serviceDTO.localizationService.Delete(id);
         return Ok(result);
     }
-
-    //[HttpGet("GetAllCurrencies")]
-    //public async Task<IActionResult> GetAllCurrencies()
-    //{
-    //    logger.LogInformation("Get All Country Localizations called");
-    //    //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
-    //    var result = await service.GetAllCurrencies();
-    //    return Ok(result);
-    //}
 
     [HttpPost("CreateCurrency")]
     public async Task<IActionResult> CreateCurrency(CountryCurrencyPOST currencyPOST)
     {
         logger.LogInformation("Create Currency called");
         //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
-        var result = await service.CreateCurrency(currencyPOST);
+        var result = await serviceDTO.currencyService.Create(currencyPOST);
         return Ok(result);
     }
-
-    //[HttpPut("UpdateCurrency")]
-    //public async Task<IActionResult> UpdateCurrency(CountryCurrencyPUT currencyPUT)
-    //{
-    //    logger.LogInformation("Update Currency called");
-    //    //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
-    //    var result = await service.UpdateCurrency(currencyPUT);
-    //    return Ok(result);
-    //}
 
     [HttpDelete("DeleteCurrency")]
     public async Task<IActionResult> DeleteCurrency(int id)
     {
         logger.LogInformation("Update Currency called");
         //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
-        var result = await service.DeleteCurrency(id);
+        var result = await serviceDTO.currencyService.Delete(id);
         return Ok(result);
     }
 
@@ -179,16 +144,16 @@ public class CountryController(ICountryService service, ICountryLocalization loc
     {
         logger.LogInformation("CreateSingle called");
         //var result = await bus.InvokeAsync<RequestResponse>(new CreateSingleCountryCommand(masterPOST));
-        var result = await exportService.Create(export);
+        var result = await serviceDTO.exportService.Create(export);
         return Ok(result);
     }
 
     [HttpPost("CreateCountryCapture")]
-    public async Task<IActionResult> CreateCountryCapture(CountryCapturedPOST captured)
+    public async Task<IActionResult> CreateCountryCapture(CountryCapturePOST captured)
     {
         logger.LogInformation("Create captured called");
         //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
-        var result = await service.CreateCountryCapture(captured);
+        var result = await serviceDTO.captureService.Create(captured);
         return Ok(result);
     }
 
@@ -197,7 +162,7 @@ public class CountryController(ICountryService service, ICountryLocalization loc
     {
         logger.LogInformation("Delete Country Capture called");
         //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
-        var result = await service.DeleteCountryCapture(id);
+        var result = await serviceDTO.captureService.Delete(id);
         return Ok(result);
     }
 
@@ -206,25 +171,7 @@ public class CountryController(ICountryService service, ICountryLocalization loc
     {
         logger.LogInformation("Create import called");
         //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
-        var result = await service.Import(imports);
+        var result = await serviceDTO.countryService.Import(imports);
         return Ok(result);
-    }
-
-    [HttpPost("ImportLocalization")]
-    public async Task<IActionResult> ImportLocalization(List<CountryLocalizationPOST> localizations)
-    {
-        logger.LogInformation("Create captured called");
-        //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
-        var result = await localizationService.ImportLocalization(localizations);
-        return Ok(result);
-    }
-
-    [HttpPost("ImportCurrency")]
-    public async Task<IActionResult> ImportCurrency(List<CountryCurrencyPOST> currencyPOSTs)
-    {
-        logger.LogInformation("Create captured called");
-        //var result = await bus.InvokeAsync<RequestResponse>(new GetAllCountryLocalizationsCommand());
-        var result = await service.ImportCurrency(currencyPOSTs);
-        return Ok(result);
-    }
+    }   
 }

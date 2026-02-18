@@ -13,7 +13,7 @@ public class UpdateAreaCommandHandler(IRepository repository)
         try
         { 
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExistsById<Area>(request.masterPUT.Id, request.masterPUT.Name);
+            var isExists = await repository.IsExistsByIdName<Area>(request.masterPUT.Id, request.masterPUT.Name);
             var masterRecord = await repository.FindById<Area>(request.masterPUT.Id);
 
             //Loading current data to parameters

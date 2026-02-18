@@ -1,10 +1,10 @@
-﻿using RapidERP.Application.Interfaces;
+﻿using RapidERP.Application.Interfaces.Country;
 using RapidERP.Domain.Utilities;
 
 namespace RapidERP.Application.CQRS.CountryModule.Command.CountryMasterCommands.UpdateCommand;
 
 //public class UpdateCountryrequestHandler(IRepository repository)
-public class UpdateCountryrequestHandler(ICountryService service)
+public class UpdateCountryrequestHandler(ICountry service)
 {
     RequestResponse requestResponse;
 

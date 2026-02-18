@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RapidERP.Application.DTOs.CountryDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.DTOs.StateDTOs;
 using RapidERP.Application.Interfaces;
@@ -464,6 +465,11 @@ namespace RapidERP.Infrastructure.Services
         }
 
         public Task<RequestResponse> Restore(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<RequestResponse> Import(List<CountryImport> imports)
         {
             throw new NotImplementedException();
         }

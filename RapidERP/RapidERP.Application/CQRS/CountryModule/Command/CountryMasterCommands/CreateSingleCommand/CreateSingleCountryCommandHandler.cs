@@ -1,12 +1,12 @@
 ﻿using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Application.Repository;
 using RapidERP.Domain.Utilities;
-using RapidERP.Application.Interfaces;
+using RapidERP.Application.Interfaces.Country;
 
 namespace RapidERP.Application.CQRS.CountryModule.Command.CountryMasterCommands.CreateSingleCommand;
 
 //public class CreateSingleCountryCommandHandler(IRepository repository)
-public class CreateSingleCountryCommandHandler(ICountryService service)
+public class CreateSingleCountryCommandHandler(ICountry service)
 {
     public async Task<RequestResponse> Handle(CreateSingleCountryCommand command)
     {

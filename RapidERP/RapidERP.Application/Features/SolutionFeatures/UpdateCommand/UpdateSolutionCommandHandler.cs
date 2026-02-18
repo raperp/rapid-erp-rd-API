@@ -13,7 +13,7 @@ public class UpdateSolutionCommandHandler(IRepository repository)
         try
         { 
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExistsById<Solution>(request.masterPUT.Id, request.masterPUT.Name);
+            var isExists = await repository.IsExistsByIdName<Solution>(request.masterPUT.Id, request.masterPUT.Name);
             var masterRecord = await repository.FindById<Solution>(request.masterPUT.Id);
 
             //Loading current data to parameters

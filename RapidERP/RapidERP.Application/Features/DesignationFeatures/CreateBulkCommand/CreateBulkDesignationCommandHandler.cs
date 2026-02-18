@@ -16,7 +16,7 @@ public class CreateBulkDesignationCommandHandler(IRepository repository)
             foreach (var item in request.masterPOSTs)
             {
                 using var transaction = repository.BeginTransaction();
-                var isExists = await repository.IsExists<Designation>(item.Name);
+                var isExists = await repository.IsExistsByName<Designation>(item.Name);
 
                 if (isExists == false)
                 {

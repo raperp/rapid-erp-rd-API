@@ -13,7 +13,7 @@ public class CreateCountryLocalizationHandler(IRepository repository)
 
         try
         {
-            var isExists = await repository.IsExists<CountryLocalization>(request.localization.Name);
+            var isExists = await repository.IsExistsByName<CountryLocalization>(request.localization.Name);
 
             if (isExists == false)
             {

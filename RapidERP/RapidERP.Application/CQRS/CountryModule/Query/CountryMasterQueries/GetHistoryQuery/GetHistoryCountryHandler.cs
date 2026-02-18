@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.Shared;
-using RapidERP.Application.Interfaces;
+using RapidERP.Application.Interfaces.Country;
 using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.ActionTypeModels;
 using RapidERP.Domain.Entities.CountryModels;
@@ -13,7 +13,7 @@ using RapidERP.Domain.Utilities;
 namespace RapidERP.Application.CQRS.CountryModule.Query.CountryMasterQueries.GetHistoryQuery;
 
 //public class GetHistoryCountryHandler(IRepository repository)
-public class GetHistoryCountryHandler(ICountryService service)
+public class GetHistoryCountryHandler(ICountry service)
 {
     RequestResponse requestResponse;
 

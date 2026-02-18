@@ -13,7 +13,7 @@ public class UpdateTextModuleCommandHandler(IRepository repository)
         try
         { 
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExistsById<TextModule>(request.masterPUT.Id, request.masterPUT.Name);
+            var isExists = await repository.IsExistsByIdName<TextModule>(request.masterPUT.Id, request.masterPUT.Name);
             var masterRecord = await repository.FindById<TextModule>(request.masterPUT.Id);
 
             //Loading current data to parameters

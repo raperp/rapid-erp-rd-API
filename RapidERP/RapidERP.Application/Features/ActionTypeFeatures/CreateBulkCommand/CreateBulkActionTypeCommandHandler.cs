@@ -15,7 +15,7 @@ public class CreateBulkActionTypeCommandHandler(IRepository repository)
             foreach (var item in request.masterPOSTs)
             {
                 using var transaction = repository.BeginTransaction();
-                var isExists = await repository.IsExists<ActionType>(item.Name);
+                var isExists = await repository.IsExistsByName<ActionType>(item.Name);
 
                 if (isExists == false)
                 {

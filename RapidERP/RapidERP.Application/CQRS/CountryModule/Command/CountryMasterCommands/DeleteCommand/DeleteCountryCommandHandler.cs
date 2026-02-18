@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RapidERP.Application.Interfaces;
+using RapidERP.Application.Interfaces.Country;
 using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.CountryModels;
 using RapidERP.Domain.Utilities;
@@ -7,7 +7,7 @@ using RapidERP.Domain.Utilities;
 namespace RapidERP.Application.CQRS.CountryModule.Command.CountryMasterCommands.DeleteCommand;
 
 //public class DeleteCountryCommandHandler(IRepository repository)
-public class DeleteCountryCommandHandler(ICountryService service)
+public class DeleteCountryCommandHandler(ICountry service)
 {
     //RequestResponse requestResponse;
 

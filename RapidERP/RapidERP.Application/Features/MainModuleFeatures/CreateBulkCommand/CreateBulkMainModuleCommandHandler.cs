@@ -15,7 +15,7 @@ public class CreateBulkMainModuleCommandHandler(IRepository repository)
             foreach (var item in request.masterPOSTs)
             {
                 using var transaction = repository.BeginTransaction();
-                var isExists = await repository.IsExists<MainModule>(item.Name);
+                var isExists = await repository.IsExistsByName<MainModule>(item.Name);
 
                 if (isExists == false)
                 {

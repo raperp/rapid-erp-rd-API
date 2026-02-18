@@ -14,7 +14,7 @@ public class UpdateMenuModuleCommandHandler(IRepository repository)
         {
             MenuModule masterData = new();
             using var transaction = repository.BeginTransaction();
-            var isExists = await repository.IsExistsById<MenuModule>(request.masterPUT.Id, request.masterPUT.Name);
+            var isExists = await repository.IsExistsByIdName<MenuModule>(request.masterPUT.Id, request.masterPUT.Name);
             var masterRecord = await repository.FindById<MenuModule>(request.masterPUT.Id);
 
             //Loading current data to parameters

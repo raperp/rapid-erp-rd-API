@@ -17,7 +17,7 @@ public class CreateBulkCountryCommandHandler(IRepository repository)
             foreach (var item in request.masterPOSTs)
             {
                 using var transaction = repository.BeginTransaction();
-                var isExists = await repository.IsExists<Country>(item.masterPOST.Name);
+                var isExists = await repository.IsExistsByName<Country>(item.masterPOST.Name);
 
                 if (isExists == false)
                 {
