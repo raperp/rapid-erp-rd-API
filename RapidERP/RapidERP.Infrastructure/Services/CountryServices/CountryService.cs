@@ -183,8 +183,8 @@ public class CountryService(IRepository repository) : ICountry
                     StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
                     IsSuccess = true,
                     Message = ResponseMessage.FetchSuccess,
-                    Data = result.Data
-                };
+                    Data = result 
+                }; 
             }
 
             else
