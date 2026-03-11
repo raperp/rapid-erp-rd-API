@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface IExportTypeService : IBase<ExportTypePOST, ExportTypePUT> { }
+public interface IExportTypeService : IBase<ExportTypePOST, ExportTypePUT, ExportTypePUT> { }

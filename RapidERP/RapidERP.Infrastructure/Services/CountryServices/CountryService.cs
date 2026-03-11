@@ -1,15 +1,11 @@
-﻿using Dapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RapidERP.Application.DTOs.CountryDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.Interfaces.Country;
 using RapidERP.Application.Repository;
 using RapidERP.Domain.Entities.CountryModels;
-using RapidERP.Domain.Entities.CurrencyModels;
-using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Entities.TenantModels;
 using RapidERP.Domain.Utilities;
-using RapidERP.Infrastructure.Data;
 using System.Data;
 using UpdateStatus = RapidERP.Application.DTOs.Shared.UpdateStatus;
 

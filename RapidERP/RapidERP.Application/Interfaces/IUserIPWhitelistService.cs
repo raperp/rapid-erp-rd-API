@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface IUserIPWhitelistService : IBase<UserIPWhitelistPOST, UserIPWhitelistPUT> { }
+public interface IUserIPWhitelistService : IBase<UserIPWhitelistPOST, UserIPWhitelistPUT, UserIPWhitelistPUT> { }

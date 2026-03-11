@@ -4,10 +4,10 @@ using UpdateStatus = RapidERP.Application.DTOs.Shared.UpdateStatus;
 
 namespace RapidERP.Application.Repository;
 
-public interface IRepository
+public interface  IRepository
 {
     Task<List<TEntity>> GetAll<TEntity>() where TEntity : class;
-    Task<TEntity> GetSingle<TEntity>(int id) where TEntity : Master;
+    Task<TEntity> GetById<TEntity>(int id) where TEntity : Master;
     Task<dynamic> GetCounts<T>() where T : BaseMaster;
     Task<bool> IsExistsByName<T>(string name) where T : Master;
     Task<bool> IsExistsByIdName<T>(int id, string name) where T : Master;

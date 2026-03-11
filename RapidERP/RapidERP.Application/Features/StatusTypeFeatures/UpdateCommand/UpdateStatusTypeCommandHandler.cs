@@ -35,7 +35,7 @@ public class UpdateStatusTypeCommandHandler(IRepository repository)
                 StatusTypeHistory history = new();
                 history.StatusTypeId = request.masterPUT.Id;
                 //history.LanguageId = request.masterPUT.LanguageId;
-                history.ActionTypeId = request.masterPUT.ActionTypeId;
+                //history.ActionTypeId = request.masterPUT.ActionTypeId;
                 //history.ExportTypeId = request.masterPUT.ExportTypeId;
                 //history.ExportTo = request.masterPUT.ExportTo;
                 //history.SourceURL = request.masterPUT.SourceURL;

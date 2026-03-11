@@ -48,8 +48,8 @@ public class UpdateCountryValidator : AbstractValidator<CountryPUT>
             .NotEmpty()
             .WithMessage("IsDraft can't be empty");
 
-        RuleFor(x => x.ActionBy)
-            .NotEmpty()
-            .WithMessage("ActionBy can't be empty");
+        //RuleFor(x => x.ActionBy)
+        //    .NotEmpty()
+        //    .WithMessage("ActionBy can't be empty");
     }
 }

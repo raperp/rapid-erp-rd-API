@@ -48,9 +48,9 @@ public class CreateSingleCountryValidator : AbstractValidator<CountryPOST>
             .NotEmpty()
             .WithMessage("IsDraft can't be empty");
 
-        RuleFor(x => x.ActionBy)
-            .NotEmpty()
-            .WithMessage("ActionBy can't be empty");
+        //RuleFor(x => x.ActionBy)
+        //    .NotEmpty()
+        //    .WithMessage("ActionBy can't be empty");
 
     }
 }

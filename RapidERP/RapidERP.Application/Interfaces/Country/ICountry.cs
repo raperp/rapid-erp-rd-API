@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces.Country;
 
-public interface ICountry : IBase<CountryPOST, CountryPUT> { }
+public interface ICountry : IBase<CountryPOST, CountryPUT, CountryImport> { }

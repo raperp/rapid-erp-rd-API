@@ -10,20 +10,24 @@ public class LanguageConfiguration : IEntityTypeConfiguration<Language>
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).HasColumnOrder(0);
-        builder.Property(x => x.ISONumeric).HasMaxLength(4).IsRequired().HasColumnOrder(1);
+        builder.Property(x => x.ISONumeric).HasMaxLength(4).IsRequired(false).HasColumnOrder(1);
         builder.Property(x => x.Name).HasMaxLength(40).IsRequired().HasColumnOrder(2);
-        builder.Property(x => x.ISO2Code).HasMaxLength(2).IsRequired().HasColumnOrder(3);
-        builder.Property(x => x.ISO3Code).HasMaxLength(3).IsRequired().HasColumnOrder(4);
-        builder.Property(x => x.IconURL).HasMaxLength(15).IsRequired().HasColumnOrder(5);
+        builder.Property(x => x.ISO2Code).HasMaxLength(2).IsRequired(false).HasColumnOrder(3);
+        builder.Property(x => x.ISO3Code).HasMaxLength(3).IsRequired(false).HasColumnOrder(4);
+        builder.Property(x => x.IconURL).IsRequired(false).HasColumnOrder(5);
+        builder.Property(x => x.IsDefault).IsRequired(false).HasColumnOrder(6);
+        builder.Property(x => x.IsDraft).IsRequired(false).HasColumnOrder(7);
+        builder.Ignore(x => x.DefaultLanguageId);
+
         //builder.Ignore(x => x.MenuModule);
         //builder.Ignore(x => x.MenuModuleId);
-        builder.Ignore(x => x.Tenant);
-        builder.Ignore(x => x.TenantId);
+        //builder.Ignore(x => x.Tenant);
+        //builder.Ignore(x => x.TenantId);
         //builder.Ignore(x => x.StatusType);
         //builder.Ignore(x => x.StatusTypeId);
-        //builder.Ignore(x => x.Language);
-        //builder.Ignore(x => x.LanguageId);
-        builder.Ignore(x => x.IsDefault);
+        builder.Ignore(x => x.Language);
+        builder.Ignore(x => x.LanguageId);
+        //builder.Ignore(x => x.IsDefault);
         //builder.Ignore(x => x.IsDraft);
 
         //builder.HasMany(x => x.Tenants)

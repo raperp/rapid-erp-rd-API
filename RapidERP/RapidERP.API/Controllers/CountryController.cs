@@ -5,7 +5,7 @@ using RapidERP.Application.Interfaces.Country;
 
 namespace RapidERP.API.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/master/[controller]")]
 [ApiController]
 //public class CountryController(IMessageBus bus, ILogger<CountryController> logger) : ControllerBase
 public class CountryController(ICountry countryService, ICountryLocalization localizationService, ICountryExport exportService, ICountryActivity activityService, ICountryAudit auditService, ICountryCapture captureService, ICountryCurrency currencyService, ILogger<CountryController> logger) : ControllerBase
@@ -13,14 +13,14 @@ public class CountryController(ICountry countryService, ICountryLocalization loc
     [HttpGet("GetAll")]
     public async Task<IActionResult> GetAll(int skip, int take)
     {
-        logger.LogInformation("GetAll called with skip: {skip}, take: {take}", skip, take);
+        logger.LogInformation("Get All called");
         //var query = new GetAllCountryCommand(skip, take);
         //var result = await bus.InvokeAsync<RequestResponse>(query);
         var result = await countryService.GetAll(skip, take);
         return Ok(result);
     }
 
-    [HttpGet("GetById")]
+    [HttpGet("GetById")] 
     public async Task<IActionResult> GetById(int id)
     {
         logger.LogInformation("GetSingle called with id: {id}", id);

@@ -8,7 +8,7 @@ public class Country : BaseMaster
     //public Currency Currency { get; set; }
     //public int? CurrencyId { get; set; }
     //public Language Language { get; set; }
-    public int? DefaultLanguageId { get; set; }
+    
     public int? DefaultCurrencyId { get; set; }
     public string ISONumeric { get; set; }
     //public string DialingCode { get; set; }

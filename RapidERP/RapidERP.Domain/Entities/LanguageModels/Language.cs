@@ -3,7 +3,7 @@ using RapidERP.Domain.Entities.TenantModels;
 
 namespace RapidERP.Domain.Entities.LanguageModels;
 
-public class Language : BaseMaster
+public class Language : BaseConfig
 {
     public string ISONumeric { get; set; }
     public string ISO2Code { get; set; }

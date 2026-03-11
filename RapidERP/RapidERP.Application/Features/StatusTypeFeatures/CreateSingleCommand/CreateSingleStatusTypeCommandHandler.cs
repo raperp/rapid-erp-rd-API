@@ -27,7 +27,7 @@ public class CreateSingleStatusTypeCommandHandler(IRepository repository)
                 StatusTypeHistory history = new();
                 history.StatusTypeId = masterData.Id;
                 //history.LanguageId = request.masterPOST.LanguageId;
-                history.ActionTypeId = request.masterPOST.ActionTypeId;
+                //history.ActionTypeId = request.masterPOST.ActionTypeId;
                 //history.ExportTypeId = request.masterPOST.ExportTypeId;
                 //history.ExportTo = request.masterPOST.ExportTo;
                 //history.SourceURL = request.masterPOST.SourceURL;

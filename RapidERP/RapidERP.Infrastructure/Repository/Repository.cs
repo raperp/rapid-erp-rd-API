@@ -77,7 +77,7 @@ public class Repository : IRepository
         return message;
     }
 
-    public async Task<TEntity> GetSingle<TEntity>(int id) where TEntity : Master
+    public async Task<TEntity> GetById<TEntity>(int id) where TEntity : Master
     {
         var record = await context.Set<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
         return record;

@@ -12,7 +12,7 @@ public class GetSingleExportTypeHandler(IRepository repository)
     {
         try
         {
-            var result = await repository.GetSingle<ExportType>(request.id);
+            var result = await repository.GetById<ExportType>(request.id);
 
             _response = new()
             {

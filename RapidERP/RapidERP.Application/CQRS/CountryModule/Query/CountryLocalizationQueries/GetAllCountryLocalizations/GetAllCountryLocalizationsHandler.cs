@@ -16,12 +16,12 @@ public class GetAllCountryLocalizationsHandler(IRepository repository)
         {
             var data = (from cl in repository.Set<CountryLocalization>()
                         join c in repository.Set<Country>() on cl.CountryId equals c.Id
-                        join l in repository.Set<Language>() on cl.LanguageId equals l.Id
+                        //join l in repository.Set<Language>() on cl.LanguageId equals l.Id
                         select new
                         {
                             cl.Id,
                             cl.Name,
-                            Language = l.Name,
+                            //Language = l.Name,
                             Country = c.Name
                         }).AsNoTracking().AsQueryable();
 

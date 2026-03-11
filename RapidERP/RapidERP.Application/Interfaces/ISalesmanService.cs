@@ -2,4 +2,4 @@
 
 namespace RapidERP.Application.Interfaces;
 
-public interface ISalesmanService : IBase<SalesmanPOST, SalesmanPUT> { }
+public interface ISalesmanService : IBase<SalesmanPOST, SalesmanPUT, SalesmanPUT> { }

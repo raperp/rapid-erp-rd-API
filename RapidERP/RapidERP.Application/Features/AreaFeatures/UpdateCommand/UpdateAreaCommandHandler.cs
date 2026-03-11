@@ -25,9 +25,9 @@ public class UpdateAreaCommandHandler(IRepository repository)
                 request.masterPUT.TenantId = (request.masterPUT.TenantId is not null) ? request.masterPUT.TenantId : masterRecord.TenantId;
                 //request.masterPUT.StatusTypeId = (request.masterPUT.StatusTypeId is not null) ? request.masterPUT.StatusTypeId : masterRecord.StatusTypeId;
                 //request.masterPUT.LanguageId = (request.masterPUT.LanguageId is not null) ? request.masterPUT.LanguageId : masterRecord.LanguageId;
-                request.masterPUT.CountryId = (request.masterPUT.CountryId != 0) ? request.masterPUT.CountryId : masterRecord.CountryId;
-                request.masterPUT.CityId = (request.masterPUT.CityId != 0) ? request.masterPUT.CityId : masterRecord.CityId;
-                request.masterPUT.StateId = (request.masterPUT.StateId != 0) ? request.masterPUT.StateId : masterRecord.StateId;
+                //request.masterPUT.CountryId = (request.masterPUT.CountryId != 0) ? request.masterPUT.CountryId : masterRecord.CountryId;
+                //request.masterPUT.CityId = (request.masterPUT.CityId != 0) ? request.masterPUT.CityId : masterRecord.CityId;
+                //request.masterPUT.StateId = (request.masterPUT.StateId != 0) ? request.masterPUT.StateId : masterRecord.StateId;
             }
 
             if (isExists == false)

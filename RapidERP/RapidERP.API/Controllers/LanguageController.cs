@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RapidERP.Application.DTOs.LanguageDTOs;
+using RapidERP.Application.DTOs.LanguageDTOs.LanguageMaster;
 using RapidERP.Application.Features.LanguageFeatures.CreateBulkCommand;
 using RapidERP.Application.Features.LanguageFeatures.CreateSingleCommand;
 using RapidERP.Application.Features.LanguageFeatures.DeleteCommand;

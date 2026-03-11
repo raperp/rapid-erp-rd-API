@@ -2,7 +2,7 @@
 
 namespace RapidERP.Domain.Entities.ActionTypeModels;
 
-public class ActionType : BaseMaster
+public class ActionType : BaseConfig
 {
     public string Description { get; set; }
 }

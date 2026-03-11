@@ -2,12 +2,8 @@
 
 namespace RapidERP.Application.DTOs.StateDTOs;
 
-public record class StatePOST : BasePOST
+public record StatePOST : BasePOST
 {
-    public int CountryId { get; set; }
-    public int? MenuId { get; set; }
-    public int LanguageId { get; set; }
-    public string Code { get; set; }
-    public bool IsDefault { get; set; }
-    public bool IsDraft { get; set; }
+    public int? CountryId { get; set; } 
+    public int? LanguageId { get; set; } 
 }

@@ -1,4 +1,4 @@
-﻿using RapidERP.Application.DTOs.LanguageDTOs;
+﻿using RapidERP.Application.DTOs.LanguageDTOs.LanguageMaster;
 
 namespace RapidERP.Application.Features.LanguageFeatures.CreateSingleCommand;
 
