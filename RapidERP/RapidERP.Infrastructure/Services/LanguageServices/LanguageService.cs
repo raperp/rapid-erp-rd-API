@@ -28,11 +28,11 @@ public class LanguageService(IRepository repository) : ILanguageService
             if (isExists == false)
             {
                 Language masterData = new();
-                masterData.ISONumeric = masterPOST.ISONumeric;
-                masterData.Name = masterPOST.Name;
+                masterData.ISONumeric = masterPOST.ISONumeric; 
                 masterData.ISO2Code = masterPOST.ISO2Code;
                 masterData.ISO3Code = masterPOST.ISO3Code;
                 masterData.IconURL = masterPOST.IconURL;
+                masterData.Name = masterPOST.Name;
                 masterData.Code = masterPOST.Code;
                 masterData.CreatedAt = actionDTO.CreatedAt;
                 masterData.DraftedAt = actionDTO.DraftedAt;
@@ -147,8 +147,7 @@ public class LanguageService(IRepository repository) : ILanguageService
                         }).AsNoTracking().AsQueryable();
 
             if (skip == 0 || take == 0)
-            {
-                //result.Count = await repository.GetCounts<Language>();
+            { 
                 result.Data = await data.ToListAsync();
 
                 requestResponse = new()
@@ -162,7 +161,6 @@ public class LanguageService(IRepository repository) : ILanguageService
 
             else
             {
-                //result.Count = await repository.GetCounts<Language>();
                 result.Data = await data.Skip(skip).Take(take).ToListAsync();
 
                 requestResponse = new()
@@ -240,12 +238,14 @@ public class LanguageService(IRepository repository) : ILanguageService
                 if (import.Id == 0)
                 {
                     LanguagePOST masterData = new();
-                    masterData.ISONumeric = import.ISONumeric;
-                    masterData.Name = import.Name;
+                    masterData.ISONumeric = import.ISONumeric; 
                     masterData.ISO2Code = import.ISO2Code;
                     masterData.ISO3Code = import.ISO3Code;
-                    masterData.IconURL = import.IconURL;
+                    masterData.IconURL = import.IconURL; 
+                    masterData.Name = import.Name;
                     masterData.Code = import.Code;
+                    masterData.IsDefault = import.IsDefault;
+                    masterData.IsDraft = import.IsDraft;
 
                     var result = await Create(masterData);
                     
@@ -259,12 +259,14 @@ public class LanguageService(IRepository repository) : ILanguageService
                 {
                     LanguagePUT masterData = new();
                     masterData.Id = import.Id;
-                    masterData.ISONumeric = import.ISONumeric;
-                    masterData.Name = import.Name;
+                    masterData.ISONumeric = import.ISONumeric;  
                     masterData.ISO2Code = import.ISO2Code;
                     masterData.ISO3Code = import.ISO3Code;
-                    masterData.IconURL = import.IconURL;
+                    masterData.IconURL = import.IconURL;    
+                    masterData.Name = import.Name;
                     masterData.Code = import.Code;
+                    masterData.IsDefault = import.IsDefault;
+                    masterData.IsDraft = import.IsDraft;
 
                     var result = await Update(masterData); 
 
@@ -358,11 +360,11 @@ public class LanguageService(IRepository repository) : ILanguageService
 
             if (isExists == false)
             {
-                masterRecord.ISONumeric = masterPUT.ISONumeric;
-                masterRecord.Name = masterPUT.Name;
+                masterRecord.ISONumeric = masterPUT.ISONumeric; 
                 masterRecord.ISO2Code = masterPUT.ISO2Code;
                 masterRecord.ISO3Code = masterPUT.ISO3Code;
                 masterRecord.IconURL = masterPUT.IconURL;
+                masterRecord.Name = masterPUT.Name;
                 masterRecord.Code = masterPUT.Code;
                 masterRecord.DraftedAt = actionDTO.DraftedAt;
                 masterRecord.UpdatedAt = actionDTO.UpdatedAt;

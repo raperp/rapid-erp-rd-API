@@ -1,41 +1,299 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RapidERP.Application.DTOs.ActionTypeDTOs;
 using RapidERP.Application.DTOs.CountryDTOs;
 using RapidERP.Application.DTOs.Shared;
 using RapidERP.Application.DTOs.StatusTypeDTOs;
 using RapidERP.Application.Interfaces;
+using RapidERP.Application.Repository;
+using RapidERP.Domain.Entities.LanguageModels;
 using RapidERP.Domain.Entities.StatusTypeModels;
 using RapidERP.Domain.Utilities;
 using RapidERP.Infrastructure.Data;
 
-namespace RapidERP.Infrastructure.Services;
+namespace RapidERP.Infrastructure.Services.StatusTypeServices;
 
-public class StatusTypeService(RapidERPDbContext context, ISharedService shared) : IStatusTypeService
+public class StatusTypeService(IRepository repository) : IStatusTypeService
 {
     RequestResponse requestResponse { get; set; }
 
-    public Task<RequestResponse> Create(StatusTypePOST masterPOST)
+    public async Task<RequestResponse> Create(StatusTypePOST masterPOST)
     {
-        throw new NotImplementedException();
+        try
+        {
+            //using var transaction = repository.BeginTransaction();
+            var isExists = await repository.IsExistsByName<StatusType>(masterPOST.Name);
+
+            ActionDTO actionDTO = new();
+            actionDTO.CreatedAt = (masterPOST.IsDraft == false) ? DateTime.UtcNow : null;
+            actionDTO.DraftedAt = (masterPOST.IsDraft == true) ? DateTime.UtcNow : null;
+            actionDTO.UpdatedAt = null;
+            actionDTO.DeletedAt = null;
+
+            if (isExists == false)
+            {
+                StatusType masterData = new();
+                masterData.Description = masterPOST.Description;
+                masterData.LanguageId = masterPOST.LanguageId;
+                masterData.DefaultLanguageId = masterPOST.DefaultLanguageId;
+                masterData.Name = masterPOST.Name;
+                masterData.Code = masterPOST.Code;
+                masterData.CreatedAt = actionDTO.CreatedAt;
+                masterData.DraftedAt = actionDTO.DraftedAt;
+                masterData.UpdatedAt = actionDTO.UpdatedAt;
+                masterData.DeletedAt = actionDTO.DeletedAt;
+                masterData.IsDefault = masterPOST.IsDefault;
+                masterData.IsDraft = masterPOST.IsDraft;
+
+                await repository.Add(masterData);
+
+                //transaction.Commit();
+
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.Created} {HTTPStatusCode.StatusCode201}",
+                    IsSuccess = true,
+                    Message = ResponseMessage.CreateSuccess,
+                    Data = masterPOST
+                };
+            }
+
+            else
+            {
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.Conflict} {HTTPStatusCode.StatusCode409}",
+                    IsSuccess = false,
+                    Message = $"{ResponseMessage.RecordExists} {masterPOST.Name}"
+                };
+            }
+
+            return requestResponse;
+        }
+
+        catch
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
+                IsSuccess = false,
+                Message = ResponseMessage.WrongDataInput
+            };
+
+            return requestResponse;
+        }
     }
 
-    public Task<RequestResponse> Delete(int id)
+    public async Task<RequestResponse> Delete(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            if (id is not 0)
+            {
+                //var localizations = await repository.Set<LanguageLocalization>().Where(c => c.CountryId == id).Select(x => x.Id).ToListAsync(); 
+
+                //foreach (var item in localizations)
+                //{
+                //    await repository.Delete<CountryLocalization>(item);
+                //}
+
+                await repository.Delete<StatusType>(id);
+
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                    IsSuccess = true,
+                    Message = ResponseMessage.DeleteSuccess
+                };
+            }
+
+            else
+            {
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.NotFound} {HTTPStatusCode.StatusCode404}",
+                    IsSuccess = false,
+                    Message = ResponseMessage.NoRecordFound
+                };
+            }
+
+            return requestResponse;
+        }
+
+        catch (Exception ex)
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ex.Message
+            };
+
+            return requestResponse;
+        }
     }
 
-    public Task<RequestResponse> GetAll(int skip, int take)
+    public async Task<RequestResponse> GetAll(int skip, int take)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var data = (from st in repository.Set<StatusType>()
+                        join l in repository.Set<Language>() on st.LanguageId equals l.Id
+                        join dl in repository.Set<Language>() on st.DefaultLanguageId equals dl.Id
+                        select new
+                        {
+                            st.Id,
+                            st.Name,
+                            st.Description,
+                            st.Code,
+                            st.IsDefault,
+                            st.IsDraft
+                        }).AsNoTracking().AsQueryable();
+
+            if (skip == 0 || take == 0)
+            {
+                var result = await data.ToListAsync();
+
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                    IsSuccess = true,
+                    Message = ResponseMessage.FetchSuccess,
+                    Data = result
+                };
+            }
+
+            else
+            {
+                var result = await data.Skip(skip).Take(take).ToListAsync();
+
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                    IsSuccess = true,
+                    Message = ResponseMessage.FetchSuccessWithPagination,
+                    Data = result
+                };
+            }
+
+            return requestResponse;
+        }
+
+        catch (Exception ex)
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ex.Message
+            };
+
+            return requestResponse;
+        }
     }
 
-    public Task<RequestResponse> GetById(int id)
+    public async Task<RequestResponse> GetById(int id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var data = (from et in repository.Set<StatusType>()
+                        join l in repository.Set<Language>() on et.LanguageId equals l.Id
+                        join dl in repository.Set<Language>() on et.DefaultLanguageId equals dl.Id
+                        select new
+                        {
+                            et.Id,
+                            et.Name,
+                            et.Description,
+                            et.Code,
+                            et.IsDefault,
+                            et.IsDraft
+                        }).AsNoTracking().AsQueryable();
+
+            var result = await data.Where(x => x.Id == id).ToListAsync();
+
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                IsSuccess = true,
+                Message = ResponseMessage.FetchSuccess,
+                Data = result.FirstOrDefault()
+            };
+
+            return requestResponse;
+        }
+
+        catch (Exception ex)
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ex.Message
+            };
+
+            return requestResponse;
+        }
     }
 
-    public Task<RequestResponse> Import(List<StatusTypePUT> imports)
+    public async Task<RequestResponse> Import(List<StatusTypePUT> imports)
     {
-        throw new NotImplementedException();
+        try
+        {
+            foreach (var import in imports)
+            {
+                if (import.Id == 0)
+                {
+                    StatusTypePOST masterData = new();
+                    masterData.Description = import.Description;
+                    masterData.LanguageId = import.LanguageId;
+                    masterData.DefaultLanguageId = import.DefaultLanguageId;
+                    masterData.Name = import.Name;
+                    masterData.Code = import.Code;
+                    masterData.IsDefault = import.IsDefault;
+                    masterData.IsDraft = import.IsDraft;
+
+                    var result = await Create(masterData);
+
+                    requestResponse.Message = result.Message;
+                    requestResponse.IsSuccess = result.IsSuccess;
+                    requestResponse.StatusCode = result.StatusCode;
+                    requestResponse.Data = result.Data;
+                }
+
+                else
+                {
+                    StatusTypePUT masterData = new();
+                    masterData.Id = import.Id;
+                    masterData.Description = import.Description;
+                    masterData.LanguageId = import.LanguageId;
+                    masterData.DefaultLanguageId = import.DefaultLanguageId;
+                    masterData.Name = import.Name;
+                    masterData.Code = import.Code;
+                    masterData.IsDefault = import.IsDefault;
+                    masterData.IsDraft = import.IsDraft;
+
+                    var result = await Update(masterData);
+
+                    requestResponse.Message = result.Message;
+                    requestResponse.IsSuccess = result.IsSuccess;
+                    requestResponse.StatusCode = result.StatusCode;
+                    requestResponse.Data = result.Data;
+                }
+            }
+
+            return requestResponse;
+        }
+
+        catch
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.InternalServerError} {HTTPStatusCode.StatusCode500}",
+                IsSuccess = false,
+                Message = ResponseMessage.WrongDataInput
+            };
+
+            return requestResponse;
+        }
     }
 
     public Task<RequestResponse> Lookup()

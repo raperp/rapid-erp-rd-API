@@ -9,6 +9,7 @@ using RapidERP.Infrastructure.Services.ActionTypeServices;
 using RapidERP.Infrastructure.Services.CountryServices;
 using RapidERP.Infrastructure.Services.ExportTypeServices;
 using RapidERP.Infrastructure.Services.LanguageServices;
+using RapidERP.Infrastructure.Services.StatusTypeServices;
 using RapidERP.Infrastructure.Services.TenantServices;
 
 namespace RapidERP.Infrastructure.Extentions;
