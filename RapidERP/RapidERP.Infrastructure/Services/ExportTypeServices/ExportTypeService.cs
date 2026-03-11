@@ -348,9 +348,11 @@ public class ExportTypeService(IRepository repository) : IExportTypeService
             //Loading current data to parameters
             if (masterRecord is not null)
             {
-                masterPUT.Name = (masterPUT.Name is not null) ? masterPUT.Name : masterRecord.Name;
                 masterPUT.Description = (masterPUT.Description is not null) ? masterPUT.Description : masterRecord.Description;
+                masterPUT.Name = (masterPUT.Name is not null) ? masterPUT.Name : masterRecord.Name;
                 masterPUT.Code = (masterPUT.Code is not null) ? masterPUT.Code : masterRecord.Code;
+                masterPUT.LanguageId = (masterPUT.LanguageId is not null) ? masterPUT.LanguageId : masterRecord.LanguageId;
+                masterPUT.DefaultLanguageId = (masterPUT.DefaultLanguageId is not null) ? masterPUT.DefaultLanguageId : masterRecord.DefaultLanguageId;
                 masterPUT.IsDefault = (masterPUT.IsDefault is not null) ? masterPUT.IsDefault : masterRecord.IsDefault;
                 masterPUT.IsDraft = (masterPUT.IsDraft is not null) ? masterPUT.IsDraft : masterRecord.IsDraft;
             }

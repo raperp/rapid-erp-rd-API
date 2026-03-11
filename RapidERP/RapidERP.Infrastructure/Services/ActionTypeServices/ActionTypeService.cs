@@ -792,12 +792,82 @@ public class ActionTypeService(IRepository repository) : IActionTypeService
         }
     }
 
-    public Task<RequestResponse> Update(ActionTypePUT masterPUT)
+    public async Task<RequestResponse> Update(ActionTypePUT masterPUT)
     {
-        throw new NotImplementedException();
+        try
+        {
+            //using var transaction = repository.BeginTransaction();
+            var isExists = await repository.IsExistsByIdName<ActionType>(masterPUT.Id, masterPUT.Name);
+            var masterRecord = await repository.FindById<ActionType>(masterPUT.Id);
+
+            ActionDTO actionDTO = new();
+            actionDTO.DraftedAt = (masterPUT.IsDraft == true) ? DateTime.UtcNow : null;
+            actionDTO.UpdatedAt = (masterPUT.IsDraft == false) ? DateTime.UtcNow : null;
+
+            //Loading current data to parameters
+            if (masterRecord is not null)
+            {
+                masterPUT.Description = (masterPUT.Description is not null) ? masterPUT.Description : masterRecord.Description;
+                masterPUT.Name = (masterPUT.Name is not null) ? masterPUT.Name : masterRecord.Name;
+                masterPUT.Code = (masterPUT.Code is not null) ? masterPUT.Code : masterRecord.Code;
+                masterPUT.LanguageId = (masterPUT.LanguageId is not null) ? masterPUT.LanguageId : masterRecord.LanguageId;
+                masterPUT.DefaultLanguageId = (masterPUT.DefaultLanguageId is not null) ? masterPUT.DefaultLanguageId : masterRecord.DefaultLanguageId;
+                masterPUT.IsDefault = (masterPUT.IsDefault is not null) ? masterPUT.IsDefault : masterRecord.IsDefault;
+                masterPUT.IsDraft = (masterPUT.IsDraft is not null) ? masterPUT.IsDraft : masterRecord.IsDraft;
+            }
+
+            if (isExists == false)
+            {
+                masterRecord.Name = masterPUT.Name;
+                masterRecord.Description = masterPUT.Description;
+                masterRecord.LanguageId = masterPUT.LanguageId;
+                masterRecord.DefaultLanguageId = masterPUT.DefaultLanguageId;
+                masterRecord.Code = masterPUT.Code;
+                masterRecord.DraftedAt = actionDTO.DraftedAt;
+                masterRecord.UpdatedAt = actionDTO.UpdatedAt;
+                masterRecord.IsDefault = masterPUT.IsDefault;
+                masterRecord.IsDraft = masterPUT.IsDraft;
+                
+                await repository.Update(masterRecord);
+
+                //transaction.Commit();
+
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.OK} {HTTPStatusCode.StatusCode200}",
+                    IsSuccess = true,
+                    Message = ResponseMessage.UpdateSuccess,
+                    Data = masterPUT
+                };
+            }
+
+            else
+            {
+                requestResponse = new()
+                {
+                    StatusCode = $"{HTTPStatusCode.Conflict} {HTTPStatusCode.StatusCode409}",
+                    IsSuccess = false,
+                    Message = ResponseMessage.RecordExists
+                };
+            }
+
+            return requestResponse;
+        }
+
+        catch
+        {
+            requestResponse = new()
+            {
+                StatusCode = $"{HTTPStatusCode.BadRequest} {HTTPStatusCode.StatusCode400}",
+                IsSuccess = false,
+                Message = ResponseMessage.WrongDataInput
+            };
+
+            return requestResponse;
+        }
     }
 
-    public Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
+    public async Task<RequestResponse> UpdateStatus(UpdateStatus updateStatus)
     {
         throw new NotImplementedException();
     }
